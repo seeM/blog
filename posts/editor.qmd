@@ -3,6 +3,7 @@ title: Build a text editor with Python and curses
 description: "Work through a series of fifteen incremental coding problems ending with a minimal command line text editor."
 date: 2020-12-30
 categories: [tutorial]
+aliases: [/editor, /editor.html]
 ---
 
 ![](images/editor.svg){.preview-image}
