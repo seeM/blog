@@ -1,0 +1,104 @@
+---
+title: Projects
+page-layout: full
+title-block-banner: true
+toc: true
+---
+
+My projects span machine learning, programming languages, personal analytics, browser extensions, code editors, and personal tools to support my workflows.
+I work on projects for fun, to learn, or to solve a specific problem I have.
+More recent projects are listed first.
+
+### [nbdev](https://nbdev.fast.ai)
+
+I'm a core contributor to nbdev, a notebook-driven software development platform.
+
+### [Plum dispatch for fastcore (experimental)](https://github.com/fastai/fastcore/pull/415)
+
+An experimental PR to [fastcore](https://github.com/fastai/fastcore) (the core library powering the [fastai](https://github.com/fastai/fastai) deep learning framework), that replaces its custom type dispatch system with [plum-dispatch](https://github.com/wesselb/plum).
+Both bring [Julia's multiple dispatch](https://docs.julialang.org/en/v1/manual/methods/) into Python using type annotations and decorators.
+
+### [EasyEquities browser extension](https://twitter.com/search?q=from%3Awasimlorgat%20ee%20OR%20extension&src=typed_query&f=top)
+
+A browser extension for the EasyEquities investment platform built with TypeScript, React, React Router, and Mock Service Worker (to develop against a mocked version of their API).
+
+This started with frustration that EasyEquities didn't provide a single view of my holdings across all of my investment accounts, nor of my time-weighted returns.
+I made good progress but stopped building this since there's no public EasyEquities API, and sending handcrafted requests to the internal API of my investment platform seems like a bad idea!
+
+### [Repo links](https://github.com/seeM/repo-links)
+
+A tiny command-line tool to quickly open URLs related to your repos. I made this for a smoother experience while working on a manyrepo codebase.
+
+### [MyFitnessPal to SQLite](https://github.com/seeM/myfitnesspal-to-sqlite)
+
+Save your personal data from MyFitnessPal to a SQLite database.
+I occasionally use MyFitnessPal to track my weight and calories.
+Inspired by the [dogsheep movement](https://dogsheep.github.io/), I built this to afford personal analytics on my own data.
+
+### [CircleCI to SQLite](https://github.com/seeM/circleci-to-sqlite)
+
+Save your personal data from CircleCI to a SQLite database.
+I threw this together for a quick analysis on build times at a former workplace, which we could then follow up with easy build pipeline optimisations.
+
+### [Reverse engineering ncode](https://twitter.com/wasimlorgat/status/1383275466727903234?s=20&t=5GZI4il1J7_pv57QApmIQA)
+
+An attempt at reverse engineering ncode paper technology.
+I got all the way down from what looked like dots on paper to a matrix which I needed to decode.
+Perhaps I'll get back to it some day!
+
+### [Romulus](https://github.com/seeM/romulus)
+
+An experimental framework for creating structure-aware editors.
+The idea was that actions (e.g. move left, insert character) would be aware of the context surrounding the cursor location within the (tree-)structured document, thus would have slightly more intelligent behaviour.
+
+For example, given a document `((foo)|`, where `|` represents the cursor, and where `((foo))` is a known symbol represented some `BlockRef` object, inserting `)` would know to create a `BlockRef` object in the internal tree structure.
+Like a hackier version of tree sitter.
+The vision was to use this framework to create a [Roam](https://roamresearch.com/) clone using an enhanced markdown-like syntax for personal use.
+
+### [Zip](https://github.com/seeM/zip)
+
+Functional hierarchical zipper (tree cursor), with navigation, editing, and enumeration.
+A port of `clojure.zip` to JavaScript that I intended to use in Romulus.
+
+### [Roam tools](https://github.com/seeM/roam-tools)
+
+Tiny command-line tools for working with Roam graphs.
+
+### [Roam parser](https://github.com/seeM/roam-parser)
+
+A tiny Roam parser built with Clojure and instaparse. I also [live tweeted](https://twitter.com/wasimlorgat/status/1345746187832483840?s=20&t=vyOxosgsHcSCg6aAdVQyTg) the entire development process.
+
+### [Image alignment](https://github.com/seeM/image-align)
+
+Keypoint-based alignment of two grayscale images using [ORB](https://en.wikipedia.org/wiki/Oriented_FAST_and_rotated_BRIEF) and [RANSAC](https://en.wikipedia.org/wiki/Random_sample_consensus) via [skimage](https://scikit-image.org/).
+This was completed as a take-home assignment for a job application, so I limited the implementation to a max of 8 hours.
+
+### [Editor](https://github.com/seeM/editor)
+
+Minimal terminal text editor written in Python and curses.
+I wrote a corresponding [step-by-step tutorial](https://wasimlorgat.com/posts/editor/) as well.
+
+### [Advent of Code](https://github.com/seeM/advent-of-code-2020)
+
+I enjoyed taking part in AoC for years [2017](https://github.com/seeM/advent-of-code-2017), [2018](https://github.com/seeM/advent-of-code-2018), [2019](https://github.com/seeM/advent-of-code-2019), and [2020](https://github.com/seeM/advent-of-code-2020).
+
+### [Alfred Github local](https://github.com/seeM/alfred-github-local)
+
+An Alfred workflow to open GitHub repo URLs via a local workspace directory. No GitHub API access needed!
+
+### [pdlog](https://github.com/DataProphet/pdlog)
+
+Seamless logging for [pandas](https://pandas.pydata.org/) dataframe operations, inspired by [tidylog](https://github.com/elbersb/tidylog).
+We used pandas in production extensively at a former workplace, and our code often ended up overwhelmed with logging logic.
+With pdlog it's simple: instead of calling, say, `df.dropna()`, call `df.log.dropna()` and it'll log `<pdlog> dropna: dropped 1 row (17%), 5 rows remaining`.
+
+### [Neural networks from scratch](https://github.com/seeM/nnet)
+
+A basic implementation of neural networks from scratch.
+Shortly after my encounter with reinforcement learning (see below), I realised that deep learning was an important precursor and shifted my studies there.
+
+### [Reinforcement learning from scratch](https://github.com/seeM/reinforcement-learning)
+
+Re-implementing sections of Sutton and Barto's [*Reinforcement Learning: An Introduction*](https://web.stanford.edu/class/psych209/Readings/SuttonBartoIPRLBook2ndEd.pdf).
+My first inspiration in AI was the possibility that a computer could play games better than the best humans!
+I was determined to build one of these AIs myself.

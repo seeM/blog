@@ -1,0 +1,41 @@
+---
+title: Introducing pdlog
+description: "Seamless logging for pandas operations."
+date: 2020-05-29
+image: images/pdlog.png
+categories: [news]
+---
+
+Most data problems [don't need the horsepower of Spark or Hadoop](https://vickiboykis.com/2017/03/20/should-you-replace-hadoop-with-your-laptop/).
+If all of your data fits comfortably in memory, pandas may be a great fit.
+pandas is my goto for quickly building out production pipelines that are both efficient and easy to maintain.
+
+One issue I've run into is that pandas doesn't natively log. Fortunately, it allows extending the dataframe API with [accessors](https://pandas.pydata.org/pandas-docs/stable/development/extending.html#registering-custom-accessors).
+We have since implemented an accessor for logging in the publicly avilable [`pdlog`](https://github.com/dataprophet/pdlog) package.
+
+To get started:
+
+1. Install `pdlog`:
+
+    ```sh
+    pip install pdlog
+    ```
+2. Import `pdlog` in your application:
+
+    ```python
+    import pdlog
+    ```
+3. Add `.log` before your method calls:
+
+    ```python
+    df = df.log.dropna()
+    ```
+
+    They'll now log useful information about the operation, for example:
+
+    ```output
+    2020-05-26 20:55:30,049 INFO <pdlog> dropna: dropped 1 row (17%), 5 rows remaining
+    ```
+
+It works by registering a custom `LogAccessor` under the `.log` namespace on import.
+The accessor containes a collection of wrapper methods that log what they're doing.

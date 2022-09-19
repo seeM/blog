@@ -1,0 +1,15 @@
+---
+title: Hats and productivity
+description: "The most productive individuals, teams, and organisations, create slack to invite serendipity."
+date: 2020-07-26 18:37
+categories: [reflection]
+image: images/hats.png
+---
+
+![AI-generated image of hats ([source and prompt](https://lexica.art/prompt/93148ca1-3480-4e82-8d2c-c384adbcb6fe)).](images/hats.png){.rounded fig-align="center"}
+
+Sometimes I feel like pursuing depth. Scribbling through a difficult problem. Other times it's about breadth. Searching for existing solutions to my problem. Sometimes it's about people. Connecting with others, seeing what they're working on, what they're thinking about, and how we might help each other. Sometimes it's about planning, or otherwise separating coulds from shoulds.
+
+All of these require a different hat, a different set of skills and tools, and there's a cost to switching. But more subtle than that, there's a cost to wearing the wrong hat at the wrong time. I understand that it's unrealistic to expect absolute freedom here. In fact, I'm not sure that's ideal. Too much freedom is itself a source of pressure. A vacuum. But somewhere in the middle, where there's just enough pressure to push you forward, together with just enough room to wear the right hat, there's a sweet spot.
+
+You might be wondering how anything would get done if we decided what work to do on a whim. I think this is one of the defining factors of a great team. A team with diversity in strengths, weaknesses, backgrounds, and more generally, modes of thought, is like a [polyphase system](https://en.wikipedia.org/wiki/Polyphase_system). It provides constant power transfer, despite its individual conductors peaking at different points in time, ultimately delivering more power than single-phase systems for the same voltage.

@@ -1,0 +1,50 @@
+---
+title: Doing important work
+description: "Don't try too hard to do important work."
+date: 2020-08-02 17:48:09
+categories: [reflection]
+image: images/doing-important-work.png
+---
+
+I’ve been thinking a lot about what it means to Do Important Work, and there
+two quotes in particular that have stuck with me.
+
+![AI-generated image of a labyrinth ([source and prompt](https://lexica.art/prompt/76ff2aca-8833-4cc2-a5a0-ae182988d52d)).](images/doing-important-work.png){fig-align="center" .rounded}
+
+The first is from Visa's [_The Prestige Trap_](http://www.visakanv.com/blog/prestige/). With his classic wit and charm, Visa breaks the problem down in the opening sentence:
+
+> I’ve had several conversations with friends who’ve been incapacitated by the burdensome bullshit obligation to Have A Meaningful Life / Be Remembered / Do Important Work.
+
+And though the details differ, the second is [a tweet from Michael
+Nielsen](https://twitter.com/michael_nielsen/status/1232789239584059392?s=20)
+that I think is closely related:
+
+> I try particularly to push back on the efficiency mindset with work (where it’s strongest). Asking “What’s a much more enjoyable way” to achieve some outcome (even if inefficient) has been very good for me. Amusingly, though not the point, it often makes the work much better too
+
+I think they’re very much speaking about the same thing. Many of us want to Do
+Important Work, including, in my opinion, Michael and Visa. That’s fine.
+A natural follow-up is to try to make it concrete with a question: What
+important work can I do?
+
+But here’s the problem. Measuring the importance or meaning of an action is
+_really hard_. I’m not sure it’s even possible. From a pragmatic perspective,
+we might say that important work is recognised through reward, perhaps
+monetary. But, as Visa reminds us, ‘nobody really knows what the world needs!
+The world itself doesn’t quite know either, often until on hindsight!’.
+
+So what do we do instead? Well, what seems to have worked empirically is to
+‘enjoy the piddling’. To be playful and curious. To prefer the more enjoyable
+way. Feynman, Jobs, Wozniak, and Newton are all examples cited by Visa.  It’s
+okay to want to Do Important Work. I think both Michael and Visakan really do
+want that. And I know I do. The trick is to rejig the way that you think about
+it away from the destructive default to a more constructive, and amusingly
+efficient alternative. I’m delighted by the similarity between Visa’s and
+Michael’s descriptions:
+
+> Visa: Wonderfully, it seems to me that lots of people who end up Doing
+> Important Work often got there by being playful and curious.
+
+> Michael: Amusingly, though not the point, it often makes the work much better too.
+
+It really is both wonderful and amusing. It feels like the gist of a koan: to
+Do Important Work, you must forget about Doing Important Work.

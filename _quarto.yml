@@ -1,16 +1,23 @@
 project:
   type: website
+  preview:
+    port: 3000
+    browser: false
 
 website:
-  title: "blog-quarto"
+  title: "Wasim Lorgat"
   navbar:
+    background: dark
+    left:
+      - posts/index.qmd
+      - tils/index.qmd
+      - projects.qmd
     right:
-      - about.qmd
-      - icon: github
-        href: https://github.com/
       - icon: twitter
-        href: https://twitter.com/
+        href: https://twitter.com/wasimlorgat
+      - icon: github
+        href: https://github.com/seem
 format:
   html:
-    theme: cosmo
+    theme: journal
     css: styles.css

@@ -1,3 +1,5 @@
 _extensions/
 _site/
-.quarto/
+/.quarto/
+.DS_Store
+.ipynb_checkpoints/

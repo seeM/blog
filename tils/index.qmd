@@ -1,0 +1,15 @@
+---
+title: "TILs"
+listing:
+  contents: .
+  sort: "date desc"
+  type: table
+  categories: true
+page-layout: full
+title-block-banner: true
+author: ''
+---
+
+I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks.
+TILs (today I learneds) are my attempt at documenting and sharing my day-to-day learnings in case they might help others.
+The focus on learning also feels less daunting than writing blog posts.

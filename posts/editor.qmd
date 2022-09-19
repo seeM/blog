@@ -1,10 +1,11 @@
-Title: Build a text editor with Python and curses
-Slug: editor
-Date: 2020-12-30
-Updated: 2020-12-30
-Status: published
+---
+title: Build a text editor with Python and curses
+description: "Work through a series of fifteen incremental coding problems ending with a minimal command line text editor."
+date: 2020-12-30
+categories: [tutorial]
+---
 
-<!-- <small>_(Last updated: [2021-01-19](#changelog))_</small> -->
+![](images/editor.svg){.preview-image}
 
 We're going to build a command line text editor from scratch in Python. If
 you'd like to learn the most out of this, I'd recommend to code along. When we
@@ -19,8 +20,6 @@ One more thing, if you struggle to even get started, reach out to me on
 [email](mailto:mwlorgat@gmail.com) and I'll try my best to help.
 
 Let's dive right in!
-
-[TOC]
 
 ## Create a curses application
 

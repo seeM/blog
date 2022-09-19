@@ -1,0 +1,39 @@
+---
+title: Include derivations
+date: 2020-07-19 19:40
+description: "Please include code comments for other developers, provided they add more information than the code itself."
+categories: [reflection]
+image: images/derivations.png
+---
+
+> Include derivations! It’s perfectly fine to use clever techniques and definitions, such as `rleDecode = (uncurry replicate =<<)` for decoding run-length encoded lists of tuples, but in the comments, include the original giant definition which you progressively refined into a short diamond! Even better, add a test (like a QuickCheck property) where you demonstrate that the output from the two are the same. If you are optimizing, somewhere hold onto the slow ones which you know are correct. Derivations are brilliant documentation of your intent, they provide numerous alternate implementations which might work if the current one breaks, and they give the future Haskellers a view of how you were thinking.
+>
+> --- Gwern, <cite>[Resilient Haskell Software](https://www.gwern.net/Resilient-Haskell-Software)</cite>
+
+Include derivations! An idea I hadn't seen before. In fact, an idea _counter to_ what I've seen. It got me thinking about comments and documentation.
+
+## Prefer self-documenting code over comments
+
+I'm sure you've heard this advice before. I've heard it and even given it many times.
+
+The argument goes something like this: comments tend to become out of sync with the code they're commenting. While your code is tested by its users and by your test suite, there's nothing to ensure that comments remain correct.[^doctest] It seems natural then that without any sticking force your comments become outdated.
+
+Yet I still find myself smiling when I come across well-commented code. Why the discrepency?
+
+## Developer- vs user-oriented comments
+
+Any given program has at least two groups of people interacting with it: developers, who directly change and extend the underlying functionality; and users, who use that functionality.
+
+Developers and users benefit from different forms of documentation. Users typically don't need to know the full extent of implementation details and the context in which decisions were made, instead they need to know the interface of the various components, how those components interact, and how to compose them to achieve a desired goal. Developers, on the other hand, need to know the implementation details in all their glory.
+
+For example, while users probably don't need to know _why_ a specific method was chosen to decode run-length encoded lists of tuples, this is absolutely the type of information a developer needs to make good decisions about how to further extend that functionality. In the same way users probably don't need to know why the specific method was chosen, developers probably don't need the function's arguments redescribed to them each time. Self-documenting functions and argument names do just fine. I increasingly see inline comments and docstrings for the purpose of auto-generating user docs as redundant noise _while working with the code_. Perhaps a topic for a future post. Naturally, comments describing those arguments gradually fade away from our attention, and are left outdated.
+
+I view developer-oriented comments as distinctly different from user-oriented comments. Someone from the past is talking directly to me: warning me of a trap, describing a hard-to-find workaround, or lamenting why this "temporary hack" should be temporary. These feel like an extension of the code, thus I consider them less susceptible to becoming outdated.
+
+## Takeaway: everything's hard and there are no easy answers
+
+There are (almost) no absolutes. There are _guidelines_, and they serve you well as you're learning the ropes. But as your expertise grows, you learn to see them as the fuzzy boundaries that they are.
+
+It makes sense though. As beginners, we aren't primed for the nuance required to understand the reality in all of its complexity. But always remember that guidelines are only approximations and that reality is more complex.
+
+[^doctest]: While there are options like Python's `doctest`, it still doesn't apply to prose.

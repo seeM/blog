@@ -1,14 +1,20 @@
 ---
-title: "blog-quarto"
-listing:
-  contents: posts
-  sort: "date desc"
-  type: default
-  categories: true
-  sort-ui: false
-  filter-ui: false
-page-layout: full
-title-block-banner: true
+about:
+  template: jolla
+  links:
+    - icon: twitter
+      text: Twitter
+      href: https://twitter.com/wasimlorgat
+    - icon: github
+      text: Github
+      href: https://github.com/seem
+
 ---
 
+I'm currently building notebook-driven development at [nbdev.fast.ai](https://nbdev.fast.ai/).
 
+I take special interest in the interaction between people and technology, which includes artifical intelligence, software design, and tools for [thinking the unthinkable](http://worrydream.com/MediaForThinkingTheUnthinkable/).
+
+Before that, I built machine learning systems for agriculture at [Aerobotics](https://www.aerobotics.com/),<br>and for manufacturing at [DataProphet](https://dataprophet.com/).
+
+These days I'm more active on Twitter ([@wasimlorgat](https://twitter.com/wasimlorgat)) than here. You can also reach me via [email](mailto:mwlorgat@gmail.com).
