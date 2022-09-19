@@ -6,6 +6,7 @@ project:
 
 website:
   title: "Wasim Lorgat"
+  favicon: favicon.ico
   navbar:
     background: dark
     left:
