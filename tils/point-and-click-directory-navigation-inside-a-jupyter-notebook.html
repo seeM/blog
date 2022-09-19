@@ -94,6 +94,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script src="../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -217,7 +218,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Here’s a tiny demo of a point-and-click navigation interface with rich output powered by Jupyter notebooks and ipywidgets! I originally mentioned the idea in <a href="{filename}/create-and-execute-cells-inside-a-jupyter-notebook.ipynb">a previous TIL</a>. I also <a href="https://twitter.com/wasimlorgat/status/1539605620130603008">tweeted about it</a> which is the best place to leave any comments or questions if you’d like.</p>
+<p>Here’s a tiny demo of a point-and-click navigation interface with rich output powered by Jupyter notebooks and ipywidgets! I originally mentioned the idea in <a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">a previous TIL</a>. I also <a href="https://twitter.com/wasimlorgat/status/1539605620130603008">tweeted about it</a> which is the best place to leave any comments or questions if you’d like.</p>
 <section id="tldr" class="level2">
 <h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
 <p>If all you need is a copy-pastable code snippet, here you go. Read on for a more in-depth description.</p>
@@ -256,7 +257,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </section>
 <section id="minimal-implementation" class="level2">
 <h2 class="anchored" data-anchor-id="minimal-implementation">Minimal implementation</h2>
-<p>We start by defining a function to create and execute a code cell below the focused cell (see <a href="{filename}/create-and-execute-cells-inside-a-jupyter-notebook.ipynb">my previous TIL</a> if you’d like more detail on this part):</p>
+<p>We start by defining a function to create and execute a code cell below the focused cell (see <a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">my previous TIL</a> if you’d like more detail on this part):</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_code_cell(code):</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    encoded_code <span class="op">=</span> b64encode(code.encode()).decode()</span>
