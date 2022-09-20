@@ -6,10 +6,9 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="dcterms.date" content="2020-08-10">
-<meta name="description" content="Base requirements I want from my tools.">
+<meta name="dcterms.date" content="2022-09-19">
 
-<title>Wasim Lorgat - Tools wishlist</title>
+<title>Wasim Lorgat - Notebook best practices</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,18 +63,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <link rel="stylesheet" href="../styles.css">
-<meta property="og:title" content="Wasim Lorgat - Tools wishlist">
-<meta property="og:description" content="Base requirements I want from my tools.">
-<meta property="og:image" content="https://wasimlorgat.com/posts/images/tools.png">
+<meta property="og:title" content="Wasim Lorgat - Notebook best practices">
+<meta property="og:description" content="I just published a page in the nbdev documentation that I’m particularly proud of: Notebook best practices. It contains all of the practices we use to write great notebooks.">
+<meta property="og:image" content="https://nbdev.fast.ai/tutorials/images/marie-curie-notebook.jpg">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta property="og:image:height" content="375">
-<meta property="og:image:width" content="512">
-<meta name="twitter:title" content="Wasim Lorgat - Tools wishlist">
-<meta name="twitter:description" content="Base requirements I want from my tools.">
-<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/tools.png">
+<meta name="twitter:title" content="Wasim Lorgat - Notebook best practices">
+<meta name="twitter:description" content="I just published a page in the nbdev documentation that I’m particularly proud of: Notebook best practices. It contains all of the practices we use to write great notebooks.">
+<meta name="twitter:image" content="https://nbdev.fast.ai/tutorials/images/marie-curie-notebook.jpg">
 <meta name="twitter:creator" content="@wasimlorgat">
-<meta name="twitter:image-height" content="375">
-<meta name="twitter:image-width" content="512">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -126,14 +121,10 @@ ul.task-list li input[type="checkbox"] {
 <header id="title-block-header" class="quarto-title-block default page-columns page-full">
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
-      <h1 class="title">Tools wishlist</h1>
-                  <div>
-        <div class="description">
-          Base requirements I want from my tools.
-        </div>
-      </div>
-                          <div class="quarto-categories">
-                <div class="quarto-category">reflection</div>
+      <h1 class="title">Notebook best practices</h1>
+                                <div class="quarto-categories">
+                <div class="quarto-category">news</div>
+                <div class="quarto-category">nbdev</div>
               </div>
                   </div>
   </div>
@@ -145,7 +136,7 @@ ul.task-list li input[type="checkbox"] {
       <div>
       <div class="quarto-title-meta-heading">Published</div>
       <div class="quarto-title-meta-contents">
-        <p class="date">August 10, 2020</p>
+        <p class="date">September 19, 2022</p>
       </div>
     </div>
       
@@ -164,37 +155,20 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<p>I care a lot about the tools I use. You can see this by looking at how much time I’ve spent on <a href="https://github.com/seem/dotfiles">my dotfiles</a>.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> It’s not about being more “productive”. It’s about how it <em>feels</em> to use them. I just can’t help myself but tinker until it feels right.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/tools.png" class="rounded img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">AI-generated image of a toolbox (<a href="https://lexica.art/prompt/2aae0ff9-aeff-498d-81e5-11ed89604053">source and prompt</a>).</figcaption><p></p>
-</figure>
-</div>
-<p>I also try my best to understand more generally what it is I’m getting from each tool in my toolbox. That gives me good grounds to cut through the hype when new tools come along. To that end, here is a list of requirements I currently hold for the tools I use (kind of) in decreasing order of importance:</p>
-<ol type="1">
-<li><p><strong>Data ownership and privacy.</strong> I must own my data. No one else must be able to touch my data without my express permission. Promises, unfortunately, aren’t good enough. I find it incredibly sad that this item rules out many otherwise amazing tools out there.</p></li>
-<li><p><strong>Speed.</strong> There should be minimal lag between action and outcome. The application should never hang unless for a very obviously long-running process. Even then, input and output shouldn’t freeze.</p></li>
-<li><p><strong>Fuzzy finding.</strong> Choosing from a set of commands should always be through an interface that allows me to incrementally narrow the set via fuzzy search. Fuzzy, at the very least, meaning that letters can be left out.</p>
-<p>Ideally, there’d be fuzzy finding all the way down to auto-completing single keywords. Though, weirdly enough, I’ve still not found an auto-completion system that satisfies my speed requirement. They all seem to introduce a sub-second input lag that grinds my gears. PyCharm does a great job, but doesn’t satisfy my other requirements.</p>
-<p>This is sort of a special case of a more general principle that if there’s a repeated action that the computer could guess with very high accuracy, it should do the work for me. For actions that I perform exceedingly often, I’d bind them to a simple keyboard shortcut. I like VIM’s modal editing because it gives me far more keys to bind.</p></li>
-<li><p><strong>No visual clutter.</strong> There must be an option to disable menu bars, tool bars, icons. Because I prefer keyboard-driven and I have fuzzy finding, I often don’t really need menus/toolbars. In cases where information lends itself well to a visual representation, I prefer it to appear as needed, or if persistent, for it to be compact. For example, a bar displaying open tabs could be a single line of text.</p></li>
-<li><p><strong>Keyboard-driven.</strong> I’m not against the mouse at all. I very happily use it all the time. But between emails, Slack messages, documentation, issue descriptions, code reviews, and good ol’ programming, my work involves tons of writing. And when I’m writing, if there’s even a single action that requires changing my hand position every few minutes, it becomes frustrating really quickly.</p>
-<p>Some of the applications I use aren’t fully keyboard-driven. I don’t really mind that when the primary mode of use isn’t typing. For example, creating presentations, managing tasks (I use <a href="https://culturedcode.com/things/">Things</a>), calendars, Slack and Twitter where I’m reading at least as much as I’m writing, and browsing the web.</p>
-<p>Ideally, I should also be able to reconfigure keyboard shortcuts arbitrarily, and for any action. Unfortunately many modern applications fall short here, but there are typically workarounds.</p>
-<p>This is a special case of keeping similar actions that occur in similar contexts “close”. If the context is that I’m already typing a bunch, actions should be a keyboard shortcut or fuzzy find away. If the context requires pointing and clicking, then mouse shortcuts, toolbars, and maybe even <a href="https://en.wikipedia.org/wiki/Pie_menu">pie menus</a> are better. For this reason, I’m also not really a fan of keyboard-driven tiling window managers.</p></li>
-<li><p><strong>Themes.</strong> I’m red-green colour-blind, and not all default colour schemes account for this. I’m also a picky about my colour schemes, fonts, and overall theme. I also like switching them up every now and then. Most tools allow this these days.</p></li>
-</ol>
+<p>I just published a page in the <a href="https://nbdev.fast.ai">nbdev</a> documentation that I’m particularly proud of: <a href="https://nbdev.fast.ai/tutorials/best_practices.html">Notebook best practices</a>. It contains all of the practices we use to write great notebooks. Many thanks to <a href="https://twitter.com/HamelHusain">Hamel</a> and <a href="https://twitter.com/jeremyphoward">Jeremy</a> for their thoughtful contributions and feedback.</p>
+<p>You can follow the conversation on Twitter:</p>
+<blockquote class="twitter-tweet blockquote">
+<p lang="en" dir="ltr">
+Notebooks are an incredibly powerful and flexible medium… which can be overwhelming<br><br>Here's everything we know about writing great notebooks after years of working with <a href="https://twitter.com/hashtag/nbdev?src=hash&amp;ref_src=twsrc%5Etfw">#nbdev</a><a href="https://t.co/yihcwasDvd">https://t.co/yihcwasDvd</a>
+</p>
+— Wasim Lorgat (<span class="citation" data-cites="wasimlorgat">@wasimlorgat</span>) <a href="https://twitter.com/wasimlorgat/status/1571658455605481473?ref_src=twsrc%5Etfw">September 19, 2022</a>
+</blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>I really love the preview image! It’s an excerpt from <a href="https://wellcomecollection.org/works/cywqefw4/items?canvas=82">Marie Curie’s research notebook</a> dated 19-21 January 1900. I could pick out a few words here and there: a l’air (looks), rien (nothing), alumin (aluminium), frod (cold), chauffé (heated), and parafin. Unfortunately, I don’t know much more than that! Please <a href="https://twitter.com/wasimlorgat/status/1571298832885100545?s=20&amp;t=rSYu2_X3IOFteQ39py3ygg">let me know</a> if you do!</p>
 
 
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>Caution: They’re not always up-to-date, or easy to understand, and I’ve made no effort to ensure they work for anyone else.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
