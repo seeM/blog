@@ -5,6 +5,10 @@ project:
     browser: false
 
 website:
+  open-graph: true
+  twitter-card:
+    creator: "@wasimlorgat"
+    site: "@wasimlorgat"
   title: "Wasim Lorgat"
   favicon: favicon.ico
   navbar:
@@ -18,6 +22,7 @@ website:
         href: https://twitter.com/wasimlorgat
       - icon: github
         href: https://github.com/seem
+  site-url: https://wasimlorgat.com
 format:
   html:
     theme: journal
