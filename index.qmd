@@ -1,20 +1,18 @@
 ---
-about:
-  template: jolla
-  links:
-    - icon: twitter
-      text: Twitter
-      href: https://twitter.com/wasimlorgat
-    - icon: github
-      text: Github
-      href: https://github.com/seem
-
+listing:
+  contents: posts
+  sort: "date desc"
+  type: default
+  categories: true
+  fields: [date, title, categories, description, image]
+page-layout: full
+author: ''
 ---
 
-I'm currently building notebook-driven development at [nbdev.fast.ai](https://nbdev.fast.ai/).
+# Hi 👋 my name is Wasim
 
-I take special interest in the interaction between people and technology, which includes artifical intelligence, software design, and tools for [thinking the unthinkable](http://worrydream.com/MediaForThinkingTheUnthinkable/).
+This is where I write about what I'm working on, which includes [notebook-driven development](/posts/notebook_best_practices.qmd), [software design](/posts/editor.qmd), artificial intelligence, [programming languages](/posts/fastai-array-programming-day-1.ipynb), and [other](/posts/doing-important-work.qmd) [musings](/posts/hats.qmd).
 
-Before that, I built machine learning systems for agriculture at [Aerobotics](https://www.aerobotics.com/),<br>and for manufacturing at [DataProphet](https://dataprophet.com/).
+You might also want to check out my [TILs](/tils/index.qmd) (today I learneds) and [projects](/projects.qmd).
 
-These days I'm more active on Twitter ([@wasimlorgat](https://twitter.com/wasimlorgat)) than here. You can also reach me via [email](mailto:mwlorgat@gmail.com).
+## Posts

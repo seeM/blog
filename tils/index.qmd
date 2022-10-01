@@ -1,15 +1,15 @@
 ---
-title: "TILs"
+title: TILs
 listing:
   contents: .
   sort: "date desc"
   type: table
   categories: true
   fields: [date, title]
-  sort-ui: [date, title]
-  filter-ui: [date, title]
+  sort-ui: false
+  filter-ui: false
 page-layout: full
-title-block-banner: true
+author: ''
 ---
 
 I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks.

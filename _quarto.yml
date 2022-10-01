@@ -14,7 +14,8 @@ website:
   navbar:
     background: dark
     left:
-      - posts/index.qmd
+      - text: Posts
+        file: index.qmd
       - tils/index.qmd
       - projects.qmd
     right:
@@ -22,8 +23,9 @@ website:
         href: https://twitter.com/wasimlorgat
       - icon: github
         href: https://github.com/seem
+      - icon: linkedin
+        href: https://linkedin.com/in/wasimlorgat
   site-url: https://wasimlorgat.com
 format:
   html:
-    theme: journal
-    css: styles.css
+    theme: seem.scss

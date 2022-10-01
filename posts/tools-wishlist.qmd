@@ -3,7 +3,6 @@ title: Tools wishlist
 description: "Base requirements I want from my tools."
 date: 2020-08-10 15:10
 categories: [reflection]
-image: images/tools.png
 ---
 
 I care a lot about the tools I use. You can see this by looking at how much
@@ -13,8 +12,6 @@ them. I just can't help myself but tinker until it feels right.
 
 [^dotfiles]: Caution: They're not always up-to-date, or easy to understand, and
   I've made no effort to ensure they work for anyone else.
-
-![AI-generated image of a toolbox ([source and prompt](https://lexica.art/prompt/2aae0ff9-aeff-498d-81e5-11ed89604053)).](images/tools.png){fig-align="center" .rounded}
 
 I also try my best to understand more generally what it is I'm getting from
 each tool in my toolbox. That gives me good grounds to cut through the hype
