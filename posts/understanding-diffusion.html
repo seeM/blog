@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
-<meta name="dcterms.date" content="2020-07-19">
-<meta name="description" content="Please include code comments for other developers, provided they add more information than the code itself.">
+<meta name="dcterms.date" content="2022-10-01">
+<meta name="description" content="Diffusion with high school math.">
 
-<title>Wasim Lorgat - Include derivations</title>
+<title>Wasim Lorgat - Understanding diffusion</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,20 +64,14 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Wasim Lorgat - Include derivations">
-<meta property="og:description" content="Please include code comments for other developers, provided they add more information than the code itself.">
-<meta property="og:image" content="https://wasimlorgat.com/posts/images/derivations.png">
+<meta property="og:title" content="Wasim Lorgat - Understanding diffusion">
+<meta property="og:description" content="Diffusion with high school math.">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta property="og:image:height" content="544">
-<meta property="og:image:width" content="1854">
-<meta name="twitter:title" content="Wasim Lorgat - Include derivations">
-<meta name="twitter:description" content="Please include code comments for other developers, provided they add more information than the code itself.">
-<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/derivations.png">
+<meta name="twitter:title" content="Wasim Lorgat - Understanding diffusion">
+<meta name="twitter:description" content="Diffusion with high school math.">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:image-height" content="544">
-<meta name="twitter:image-width" content="1854">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
@@ -136,30 +130,23 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#prefer-self-documenting-code-over-comments" id="toc-prefer-self-documenting-code-over-comments" class="nav-link active" data-scroll-target="#prefer-self-documenting-code-over-comments">Prefer self-documenting code over comments</a></li>
-  <li><a href="#developer--vs-user-oriented-comments" id="toc-developer--vs-user-oriented-comments" class="nav-link" data-scroll-target="#developer--vs-user-oriented-comments">Developer- vs user-oriented comments</a></li>
-  <li><a href="#takeaway-everythings-hard-and-there-are-no-easy-answers" id="toc-takeaway-everythings-hard-and-there-are-no-easy-answers" class="nav-link" data-scroll-target="#takeaway-everythings-hard-and-there-are-no-easy-answers">Takeaway: everything’s hard and there are no easy answers</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Include derivations</h1>
+<h1 class="title">Understanding diffusion</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">reflection</div>
+    <div class="quarto-category">diffusion</div>
+    <div class="quarto-category">ai</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Please include code comments for other developers, provided they add more information than the code itself.
+    Diffusion with high school math.
   </div>
 </div>
 
@@ -176,7 +163,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 19, 2020</p>
+      <p class="date">October 1, 2022</p>
     </div>
   </div>
   
@@ -186,39 +173,10 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<blockquote class="blockquote">
-<p>Include derivations! It’s perfectly fine to use clever techniques and definitions, such as <code>rleDecode = (uncurry replicate =&lt;&lt;)</code> for decoding run-length encoded lists of tuples, but in the comments, include the original giant definition which you progressively refined into a short diamond! Even better, add a test (like a QuickCheck property) where you demonstrate that the output from the two are the same. If you are optimizing, somewhere hold onto the slow ones which you know are correct. Derivations are brilliant documentation of your intent, they provide numerous alternate implementations which might work if the current one breaks, and they give the future Haskellers a view of how you were thinking.</p>
-<p>— Gwern, <cite><a href="https://www.gwern.net/Resilient-Haskell-Software">Resilient Haskell Software</a></cite></p>
-</blockquote>
-<p>Include derivations! An idea I hadn’t seen before. In fact, an idea <em>counter to</em> what I’ve seen. It got me thinking about comments and documentation.</p>
-<section id="prefer-self-documenting-code-over-comments" class="level2">
-<h2 class="anchored" data-anchor-id="prefer-self-documenting-code-over-comments">Prefer self-documenting code over comments</h2>
-<p>I’m sure you’ve heard this advice before. I’ve heard it and even given it many times.</p>
-<p>The argument goes something like this: comments tend to become out of sync with the code they’re commenting. While your code is tested by its users and by your test suite, there’s nothing to ensure that comments remain correct.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> It seems natural then that without any sticking force your comments become outdated.</p>
-<p>Yet I still find myself smiling when I come across well-commented code. Why the discrepency?</p>
-</section>
-<section id="developer--vs-user-oriented-comments" class="level2">
-<h2 class="anchored" data-anchor-id="developer--vs-user-oriented-comments">Developer- vs user-oriented comments</h2>
-<p>Any given program has at least two groups of people interacting with it: developers, who directly change and extend the underlying functionality; and users, who use that functionality.</p>
-<p>Developers and users benefit from different forms of documentation. Users typically don’t need to know the full extent of implementation details and the context in which decisions were made, instead they need to know the interface of the various components, how those components interact, and how to compose them to achieve a desired goal. Developers, on the other hand, need to know the implementation details in all their glory.</p>
-<p>For example, while users probably don’t need to know <em>why</em> a specific method was chosen to decode run-length encoded lists of tuples, this is absolutely the type of information a developer needs to make good decisions about how to further extend that functionality. In the same way users probably don’t need to know why the specific method was chosen, developers probably don’t need the function’s arguments redescribed to them each time. Self-documenting functions and argument names do just fine. I increasingly see inline comments and docstrings for the purpose of auto-generating user docs as redundant noise <em>while working with the code</em>. Perhaps a topic for a future post. Naturally, comments describing those arguments gradually fade away from our attention, and are left outdated.</p>
-<p>I view developer-oriented comments as distinctly different from user-oriented comments. Someone from the past is talking directly to me: warning me of a trap, describing a hard-to-find workaround, or lamenting why this “temporary hack” should be temporary. These feel like an extension of the code, thus I consider them less susceptible to becoming outdated.</p>
-</section>
-<section id="takeaway-everythings-hard-and-there-are-no-easy-answers" class="level2">
-<h2 class="anchored" data-anchor-id="takeaway-everythings-hard-and-there-are-no-easy-answers">Takeaway: everything’s hard and there are no easy answers</h2>
-<p>There are (almost) no absolutes. There are <em>guidelines</em>, and they serve you well as you’re learning the ropes. But as your expertise grows, you learn to see them as the fuzzy boundaries that they are.</p>
-<p>It makes sense though. As beginners, we aren’t primed for the nuance required to understand the reality in all of its complexity. But always remember that guidelines are only approximations and that reality is more complex.</p>
 
 
-</section>
 
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>While there are options like Python’s <code>doctest</code>, it still doesn’t apply to prose.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

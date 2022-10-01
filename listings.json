@@ -1,7 +1,8 @@
 [
   {
-    "listing": "/posts/index.html",
+    "listing": "/index.html",
     "items": [
+      "/posts/understanding-diffusion.html",
       "/posts/notebook_best_practices.html",
       "/posts/fastai-array-programming-day-1.html",
       "/posts/editor.html",

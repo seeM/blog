@@ -1,3 +1,23 @@
 .quarto-figure-center > figure > figcaption {
   text-align: center;
 }
+
+.twitter-tweet {
+  margin: auto;
+}
+
+.quarto-title-meta {
+  font-size: .8em;
+}
+
+.description {
+  font-size: .8em;
+}
+
+.quarto-title .quarto-categories .quarto-category {
+  font-size: .6em;
+}
+
+#title-block-header {
+  margin-block-end: 1.5rem;
+}

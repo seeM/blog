@@ -2,10 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.131">
+<meta name="generator" content="quarto-1.2.167">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="">
 
 <title>Wasim Lorgat</title>
 <style>
@@ -31,9 +32,12 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="./">
 <link href="./favicon.ico" rel="icon">
+<script src="site_libs/quarto-listing/list.min.js"></script>
+<script src="site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -58,19 +62,49 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
+<script>
 
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    const listingTargetEl = window.document.querySelector('#listing-listing .list');
+    if (!listingTargetEl) {
+      // No listing discovered, do not attach.
+      return; 
+    }
 
-<link rel="stylesheet" href="styles.css">
+    const options = {
+      valueNames: ['listing-date','listing-title','listing-categories','listing-description','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+    };
+
+    window['quarto-listings'] = window['quarto-listings'] || {};
+    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
+
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  });
+
+  window.addEventListener('hashchange',() => {
+    if (window['quarto-listing-loaded']) {
+      window['quarto-listing-loaded']();
+    }
+  })
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
 <meta property="og:title" content="">
-<meta property="og:description" content="I’m currently building notebook-driven development at nbdev.fast.ai.">
+<meta property="og:description" content="This is where I write about what I’m working on, which includes notebook-driven development, software design, artificial intelligence, programming languages, and other musings.">
 <meta property="og:site-name" content="Wasim Lorgat">
 <meta name="twitter:title" content="">
-<meta name="twitter:description" content="I’m currently building notebook-driven development at nbdev.fast.ai.">
+<meta name="twitter:description" content="This is where I write about what I’m working on, which includes notebook-driven development, software design, artificial intelligence, programming languages, and other musings.">
 <meta name="twitter:creator" content="@wasimlorgat">
+<meta name="twitter:site" content="@wasimlorgat">
 <meta name="twitter:card" content="summary">
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -87,25 +121,33 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="./posts/index.html">Posts</a>
+    <a class="nav-link active" href="./index.html" aria-current="page">
+ <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./tils/index.html">TILs</a>
+    <a class="nav-link" href="./tils/index.html">
+ <span class="menu-text">TILs</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html">Projects</a>
+    <a class="nav-link" href="./projects.html">
+ <span class="menu-text">Projects</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/wasimlorgat"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/seem"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/wasimlorgat"><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -114,33 +156,338 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="ai">ai <span class="quarto-category-count">(1)</span></div><div class="category" data-category="diffusion">diffusion <span class="quarto-category-count">(1)</span></div><div class="category" data-category="fastai">fastai <span class="quarto-category-count">(1)</span></div><div class="category" data-category="nbdev">nbdev <span class="quarto-category-count">(1)</span></div><div class="category" data-category="news">news <span class="quarto-category-count">(2)</span></div><div class="category" data-category="reflection">reflection <span class="quarto-category-count">(4)</span></div><div class="category" data-category="tutorial">tutorial <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
-<div class="quarto-about-jolla">
- <main class="content" id="quarto-document-content">
-<p>I’m currently building notebook-driven development at <a href="https://nbdev.fast.ai/">nbdev.fast.ai</a>.</p>
-<p>I take special interest in the interaction between people and technology, which includes artifical intelligence, software design, and tools for <a href="http://worrydream.com/MediaForThinkingTheUnthinkable/">thinking the unthinkable</a>.</p>
-<p>Before that, I built machine learning systems for agriculture at <a href="https://www.aerobotics.com/">Aerobotics</a>,<br>and for manufacturing at <a href="https://dataprophet.com/">DataProphet</a>.</p>
-<p>These days I’m more active on Twitter (<a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span></a>) than here. You can also reach me via <a href="mailto:mwlorgat@gmail.com">email</a>.</p>
+<main class="content column-page-left" id="quarto-document-content">
 
 
-</main> 
-  <hr class="about-sep">
-   <div class="about-links">
-  <a href="https://twitter.com/wasimlorgat" class="about-link">
-    <i class="bi bi-twitter"></i>
-     <span class="about-link-text">Twitter</span>
-  </a>
-  <a href="https://github.com/seem" class="about-link">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
+
+<section id="hi-my-name-is-wasim" class="level1">
+<h1>Hi 👋 my name is Wasim</h1>
+<p>This is where I write about what I’m working on, which includes <a href="./posts/notebook_best_practices.html">notebook-driven development</a>, <a href="./posts/editor.html">software design</a>, artificial intelligence, <a href="./posts/fastai-array-programming-day-1.html">programming languages</a>, and <a href="./posts/doing-important-work.html">other</a> <a href="./posts/hats.html">musings</a>.</p>
+<p>You might also want to check out my <a href="./tils/index.html">TILs</a> (today I learneds) and <a href="./projects.html">projects</a>.</p>
+<section id="posts" class="level2">
+<h2 class="anchored" data-anchor-id="posts">Posts</h2>
+
+
+
+</section>
+</section>
+
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-categories="diffusion,ai" data-listing-date-sort="1664546400000" data-listing-file-modified-sort="1664583216285" data-listing-reading-time-sort="0.005">
+<div class="thumbnail">
+<a href="./posts/understanding-diffusion.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/understanding-diffusion.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/understanding-diffusion.html">
+<h3 class="no-anchor listing-title">
+Understanding diffusion
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('diffusion'); return false;">
+diffusion
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('ai'); return false;">
+ai
 </div>
 </div>
- <!-- /main -->
+<a href="./posts/understanding-diffusion.html">
+<div class="listing-description">
+<p>Diffusion with high school math.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/understanding-diffusion.html">
+<div class="listing-date">
+Oct 1, 2022
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="news,nbdev" data-listing-date-sort="1663509600000" data-listing-file-modified-sort="1664585920789" data-listing-reading-time-sort="0.695">
+<div class="thumbnail">
+<p><a href="./posts/notebook_best_practices.html"> <img src="https://nbdev.fast.ai/tutorials/images/marie-curie-notebook.jpg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/notebook_best_practices.html">
+<h3 class="no-anchor listing-title">
+Notebook best practices
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
+news
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('nbdev'); return false;">
+nbdev
+</div>
+</div>
+<a href="./posts/notebook_best_practices.html">
+<div class="listing-description">
+I just published a page in the nbdev documentation that I’m particularly proud of: Notebook best practices. It…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/notebook_best_practices.html">
+<div class="listing-date">
+Sep 19, 2022
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="fastai" data-listing-date-sort="1656943200000" data-listing-file-modified-sort="1664583130335" data-listing-reading-time-sort="4.86">
+<div class="thumbnail">
+<p><a href="./posts/fastai-array-programming-day-1.html"> <img src="./posts/images/juggling.svg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/fastai-array-programming-day-1.html">
+<h3 class="no-anchor listing-title">
+fast.ai APL study group: Day 1
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
+fastai
+</div>
+</div>
+<a href="./posts/fastai-array-programming-day-1.html">
+<div class="listing-description">
+<p>APL is a way to learn and teach math. It’s a beautiful and powerful notation that challenges you to think about programming in new ways.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/fastai-array-programming-day-1.html">
+<div class="listing-date">
+Jul 5, 2022
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="tutorial" data-listing-date-sort="1609246800000" data-listing-file-modified-sort="1663571884510" data-listing-reading-time-sort="24.86">
+<div class="thumbnail">
+<p><a href="./posts/editor.html"> <img src="./posts/images/editor.svg" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/editor.html">
+<h3 class="no-anchor listing-title">
+Build a text editor with Python and curses
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
+tutorial
+</div>
+</div>
+<a href="./posts/editor.html">
+<div class="listing-description">
+<p>Work through a series of fifteen incremental coding problems ending with a minimal command line text editor.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/editor.html">
+<div class="listing-date">
+Dec 30, 2020
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="reflection" data-listing-date-sort="1597036200000" data-listing-file-modified-sort="1664590299470" data-listing-reading-time-sort="3.965">
+<div class="thumbnail">
+<a href="./posts/tools-wishlist.html">
+<div class="thumbnail-image">
+
+</div>
+</a><p><a href="./posts/tools-wishlist.html"></a></p>
+</div>
+<div class="body">
+<a href="./posts/tools-wishlist.html">
+<h3 class="no-anchor listing-title">
+Tools wishlist
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('reflection'); return false;">
+reflection
+</div>
+</div>
+<a href="./posts/tools-wishlist.html">
+<div class="listing-description">
+<p>Base requirements I want from my tools.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/tools-wishlist.html">
+<div class="listing-date">
+Aug 10, 2020
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="reflection" data-listing-date-sort="1596354489000" data-listing-file-modified-sort="1663570392824" data-listing-reading-time-sort="1.965">
+<div class="thumbnail">
+<p><a href="./posts/doing-important-work.html"> <img src="./posts/images/doing-important-work.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/doing-important-work.html">
+<h3 class="no-anchor listing-title">
+Doing important work
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('reflection'); return false;">
+reflection
+</div>
+</div>
+<a href="./posts/doing-important-work.html">
+<div class="listing-description">
+<p>Don’t try too hard to do important work.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/doing-important-work.html">
+<div class="listing-date">
+Aug 2, 2020
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="reflection" data-listing-date-sort="1595752620000" data-listing-file-modified-sort="1663570392827" data-listing-reading-time-sort="1.155">
+<div class="thumbnail">
+<p><a href="./posts/hats.html"> <img src="./posts/images/hats.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/hats.html">
+<h3 class="no-anchor listing-title">
+Hats and productivity
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('reflection'); return false;">
+reflection
+</div>
+</div>
+<a href="./posts/hats.html">
+<div class="listing-description">
+<p>The most productive individuals, teams, and organisations, create slack to invite serendipity.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/hats.html">
+<div class="listing-date">
+Jul 26, 2020
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="reflection" data-listing-date-sort="1595151600000" data-listing-file-modified-sort="1663570392823" data-listing-reading-time-sort="2.93">
+<div class="thumbnail">
+<p><a href="./posts/derivations.html"> <img src="./posts/images/derivations.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/derivations.html">
+<h3 class="no-anchor listing-title">
+Include derivations
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('reflection'); return false;">
+reflection
+</div>
+</div>
+<a href="./posts/derivations.html">
+<div class="listing-description">
+<p>Please include code comments for other developers, provided they add more information than the code itself.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/derivations.html">
+<div class="listing-date">
+Jul 19, 2020
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="news" data-listing-date-sort="1590674400000" data-listing-file-modified-sort="1664586118296" data-listing-reading-time-sort="0.95">
+<div class="thumbnail">
+<p><a href="./posts/pdlog.html"> <img src="./posts/images/pdlog.png" class="thumnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./posts/pdlog.html">
+<h3 class="no-anchor listing-title">
+Introducing pdlog
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('news'); return false;">
+news
+</div>
+</div>
+<a href="./posts/pdlog.html">
+<div class="listing-description">
+<p>Seamless logging for pandas operations.</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./posts/pdlog.html">
+<div class="listing-date">
+May 29, 2020
+</div>
+</a>
+</div>
+</div>
+</div>
+<div class="listing-no-matching d-none">
+No matching items
+</div>
+</div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -161,6 +508,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const clipboard = new window.ClipboardJS('.code-copy-button', {
     target: function(trigger) {
       return trigger.previousElementSibling;
@@ -175,7 +529,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -211,24 +582,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
