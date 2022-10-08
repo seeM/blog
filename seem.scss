@@ -157,3 +157,36 @@ body {
 .quarto-listing-default {
   margin-top: 2em;
 }
+
+// Text
+
+$colors: (
+  "blue": $blue,
+  "indigo": $indigo,
+  "purple": $purple,
+  "pink": $pink,
+  "red": $red,
+  "orange": $orange,
+  "yellow": $yellow,
+  "green": $green,
+  "teal": $teal,
+  "cyan": $cyan,
+);
+@each $k, $v in $colors {
+  .hl-#{$k} {
+    background-color: #{$v}7F; // 7F = 50% opacity, via https://stackoverflow.com/a/8254129
+    border-radius: 0.25rem;
+    padding: 2px 0;
+  }
+}
+// Useful to visualise in Quarto:
+// [blue]{.hl-blue}<br>
+// [indigo]{.hl-indigo}<br>
+// [purple]{.hl-purple}<br>
+// [pink]{.hl-pink}<br>
+// [red]{.hl-red}<br>
+// [orange]{.hl-orange}<br>
+// [yellow]{.hl-yellow}<br>
+// [green]{.hl-green}<br>
+// [teal]{.hl-teal}<br>
+// [cyan]{.hl-cyan}<br>
