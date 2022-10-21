@@ -9,7 +9,7 @@ listing:
   sort-ui: false
   filter-ui: false
 page-layout: full
-author: ''
+author: none
 ---
 
 I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks.
