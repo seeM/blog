@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.1.251">
+<meta name="generator" content="quarto-1.2.233">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -68,13 +68,14 @@ ul.task-list li input[type="checkbox"] {
 
 
 <meta property="og:title" content="Wasim Lorgat - fast.ai APL study group: Day 1">
-<meta property="og:description" content="APL is a way to learn and teach math. It’s a beautiful and powerful notation that challenges you to think about programming in new ways.">
+<meta property="og:description" content="APL is a way to learn and teach math. It's a beautiful and powerful notation that challenges you to think about programming in new ways.">
 <meta property="og:image" content="https://wasimlorgat.com/posts/images/juggling.svg">
 <meta property="og:site-name" content="Wasim Lorgat">
 <meta name="twitter:title" content="Wasim Lorgat - fast.ai APL study group: Day 1">
-<meta name="twitter:description" content="APL is a way to learn and teach math. It’s a beautiful and powerful notation that challenges you to think about programming in new ways.">
+<meta name="twitter:description" content="APL is a way to learn and teach math. It's a beautiful and powerful notation that challenges you to think about programming in new ways.">
 <meta name="twitter:image" content="https://wasimlorgat.com/posts/images/juggling.svg">
 <meta name="twitter:creator" content="@wasimlorgat">
+<meta name="twitter:site" content="@wasimlorgat">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -95,30 +96,33 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html">Posts</a>
+    <a class="nav-link" href="../index.html">
+ <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../tils/index.html">TILs</a>
+    <a class="nav-link" href="../tils/index.html">
+ <span class="menu-text">TILs</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../projects.html">Projects</a>
+    <a class="nav-link" href="../projects.html">
+ <span class="menu-text">Projects</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
     <a class="nav-link" href="https://twitter.com/wasimlorgat"><i class="bi bi-twitter" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://github.com/seem"><i class="bi bi-github" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
   <li class="nav-item compact">
     <a class="nav-link" href="https://linkedin.com/in/wasim-lorgat"><i class="bi bi-linkedin" role="img">
 </i> 
- </a>
+ <span class="menu-text"></span></a>
   </li>  
 </ul>
               <div id="quarto-search" class="" title="Search"></div>
@@ -189,6 +193,7 @@ ul.task-list li input[type="checkbox"] {
       <p class="date">July 5, 2022</p>
     </div>
   </div>
+  
     
   </div>
   
@@ -235,7 +240,7 @@ ul.task-list li input[type="checkbox"] {
 <p>Click <em>New</em>, then <em>Dyalog APL</em>.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="fastai-array-programming-day-1_files/figure-html/image.png" class="img-fluid figure-img"></p>
+<p><img src="fastai-array-programming-day-1_files/figure-html/42b866ad-1-image.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Create a Dyalog notebook in Jupyter by clicking <i>New</i> then <i>Dyalog APL</i>.|Create a Dyalog notebook in Jupyter by clicking New then Dyalog APL.</figcaption><p></p>
 </figure>
 </div>
@@ -253,14 +258,14 @@ ul.task-list li input[type="checkbox"] {
 <p>APL uses a variety of glyphs like the <code>¯</code> glyph in the previous output. To make these easier to type in your notebook, you might want to use the <a href="https://abrudz.github.io/lb/apl">APL language bar</a>. It lets you use backtick (`) as a prefix to enter glyphs. For example, <code>&lt;backtick&gt;2</code> is a shortcut for the <code>¯</code> glyph. You can type <code>&lt;backtick&gt;&lt;space&gt;</code> to enter a normal backtick again. It also adds a bar to the top of the page with all of the possible glyphs:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="fastai-array-programming-day-1_files/figure-html/image.png" class="img-fluid figure-img"></p>
+<p><img src="fastai-array-programming-day-1_files/figure-html/c44c1ebf-2-image.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">The APL langauge bar: a horizontal list of APL gylphs.</figcaption><p></p>
 </figure>
 </div>
 <p>Hovering on a glyph shows a its name and keyboard shortucts:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="fastai-array-programming-day-1_files/figure-html/image-2.png" class="img-fluid figure-img"></p>
+<p><img src="fastai-array-programming-day-1_files/figure-html/c44c1ebf-1-image-2.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Hovering on the minus sign glyph shows ‘negate minus’.</figcaption><p></p>
 </figure>
 </div>
@@ -272,7 +277,7 @@ ul.task-list li input[type="checkbox"] {
 <p>You can find a table of all of the gylphs <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">here</a>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="fastai-array-programming-day-1_files/figure-html/image.png" class="img-fluid figure-img"></p>
+<p><img src="fastai-array-programming-day-1_files/figure-html/ec994b95-1-image.png" class="img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Tables of APL glyphs: primitive functions, and primitive operators, via <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">Dyalog docs</a>.</figcaption><p></p>
 </figure>
 </div>
@@ -377,7 +382,24 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     button.classList.add('code-copy-button-checked');
     var currentTitle = button.getAttribute("title");
     button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
     setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
       button.setAttribute("title", currentTitle);
       button.classList.remove('code-copy-button-checked');
     }, 1000);
@@ -413,24 +435,42 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       return note.innerHTML;
     });
   }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
   var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
   for (var i=0; i<bibliorefs.length; i++) {
     const ref = bibliorefs[i];
-    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
-    tippyHover(ref, function() {
-      var popup = window.document.createElement('div');
-      cites.forEach(function(cite) {
-        var citeDiv = window.document.createElement('div');
-        citeDiv.classList.add('hanging-indent');
-        citeDiv.classList.add('csl-entry');
-        var biblioDiv = window.document.getElementById('ref-' + cite);
-        if (biblioDiv) {
-          citeDiv.innerHTML = biblioDiv.innerHTML;
-        }
-        popup.appendChild(citeDiv);
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
       });
-      return popup.innerHTML;
-    });
+    }
   }
 });
 </script>
