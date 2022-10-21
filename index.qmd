@@ -6,7 +6,6 @@ listing:
   categories: true
   fields: [date, title, categories, description, image]
 page-layout: full
-author: ''
 ---
 
 # Hi 👋 my name is Wasim
