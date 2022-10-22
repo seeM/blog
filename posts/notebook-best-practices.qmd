@@ -1,0 +1,65 @@
+---
+title: Notebook best practices
+description: How to write great notebooks -- everything we know about writing great notebooks after years of working with nbdev.
+date: 2022-09-19
+categories: [nbdev, tutorial]
+aliases: [notebook_best_practices.html]
+---
+
+Notebooks are an incredibly powerful and flexible medium... which can be overwhelming. We just published an article in the nbdev docs sharing everything we know about writing great notebooks after years of working with nbdev.
+
+Here are 3 tips to get you started. Check out the [full article](https://nbdev.fast.ai/tutorials/best_practices.html) for more!
+
+[![Marie Curie’s research notebook dated 19-21 January 1900 (<a href="https://commons.wikimedia.org/wiki/File:Marie_Curie;_Holograph_Notebook._Wellcome_L0021265.jpg">source</a>).](https://nbdev.fast.ai/tutorials/images/marie-curie-notebook.jpg){.preview-image .rounded width="500" fig-align="center"}](https://nbdev.fast.ai/tutorials/best_practices.html)
+
+### 1. Use Jupyter's [rich display features](https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display) to supercharge your users
+
+Jupyter lets your objects render themselves with rich formatting. Many libraries have taken advantage of this to include rich displays of their objects, which helps with prototyping, debugging, presenting your work, and makes the entire experience more delightful.
+
+We highly recommend using these in your own notebooks, and creating rich displays of objects in your own libraries. Here are a few examples to get you started:
+
+::: {.panel-tabset}
+#### RDKit molecule
+![](images/nb-rdkit.png)
+
+#### fastai's learning rate finder
+![](images/nb-lr-finder.png)
+
+#### Mermaid + Graphviz diagram via Quarto
+![](images/nb-mermaid.png)
+
+#### `Color` -- a minimal hackable example
+
+![](images/nb-color.png)
+:::
+
+You can add rich representations to your own objects by defining a `_repr_markdown_` method that returns markdown text (which may also include HTML/CSS). See the [full `Color` example](https://nbdev.fast.ai/tutorials/best_practices.html#add-rich-representations-to-your-classes) in the article to get started.
+
+### 2. Use lots of code examples
+
+...and convert some of them to tests using assertions. nbdev blurs the lines between code, docs, and tests. Every code cell is run as a test (unless it’s explicitly marked otherwise), and any error in the cell fails the test.
+
+[fast.ai](https://fast.ai)'s [vision augmentation notebook](https://docs.fast.ai/vision.augment.html) is a great example that also uses rich display features:
+
+[![](images/nb-aug.png){fig-align="center" width="600" .rounded .border .shadow-sm}](https://docs.fast.ai/vision.augment.html)
+
+### 3. Know which form of notebook you're writing
+
+Decide which form of notebook you’re writing. We’re fans of the [Diátaxis system](https://diataxis.fr/) which classifies documentation into four forms: tutorials, how-to guides, explanations, and references. They’ve laid this out beautifully in the following diagram:
+
+[![](https://diataxis.fr/_images/diataxis.png){fig-align="center"}](https://diataxis.fr/)
+
+### Further reading
+
+These are only 3 of many more best practices detailed in [the full article](https://nbdev.fast.ai/tutorials/best_practices.html). We also include a full example that converts a numpy docstring to a notebook-friendly format following these practices.
+
+You can follow the conversation on Twitter:
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Notebooks are an incredibly powerful and flexible medium... which can be overwhelming<br><br>Here&#39;s everything we know about writing great notebooks after years of working with <a href="https://twitter.com/hashtag/nbdev?src=hash&amp;ref_src=twsrc%5Etfw">#nbdev</a><a href="https://t.co/yihcwasDvd">https://t.co/yihcwasDvd</a></p>&mdash; Wasim Lorgat (@wasimlorgat) <a href="https://twitter.com/wasimlorgat/status/1571658455605481473?ref_src=twsrc%5Etfw">September 19, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+### Appendix: Marie Curie's research notebook
+
+I really love the preview image! It's an excerpt from [Marie Curie's research notebook](https://wellcomecollection.org/works/cywqefw4/items?canvas=82) dated 19-21 January 1900.
+I could pick out a few words here and there: a l'air (looks), rien (nothing), alumin (aluminium), frod (cold), chauffé (heated), and parafin.
+Unfortunately, I don't know much more than that.
+Please [let me know](https://twitter.com/wasimlorgat/status/1571298832885100545?s=20&t=rSYu2_X3IOFteQ39py3ygg) if you do!

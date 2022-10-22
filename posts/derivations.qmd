@@ -2,7 +2,7 @@
 title: Include derivations
 date: 2020-07-19 19:40
 description: "Please include code comments for other developers, provided they add more information than the code itself."
-categories: [reflection]
+categories: [musing]
 image: images/derivations.png
 ---
 

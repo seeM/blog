@@ -2,7 +2,7 @@
 title: Hats and productivity
 description: "The most productive individuals, teams, and organisations, create slack to invite serendipity."
 date: 2020-07-26 18:37
-categories: [reflection]
+categories: [musing]
 image: images/hats.png
 ---
 

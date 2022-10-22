@@ -1,0 +1,43 @@
+---
+title: Math of diffusion
+description: "Walk through the math of diffusion models from the ground up with no prerequisites beyond high school math required. This is Lesson 9B of fast.ai's Practical Deep Learning for Coders Part 2, 2022."
+date: 2022-09-23
+categories: [generative, fastai, talk, tutorial]
+image: images/math-of-diffusion.png
+bibliography: ../fastdiffusion.bib
+---
+
+Check out Lesson 9B: Math of Diffusion of fast.ai's [Practical Deep Learning for Coders Part 2, 2022](https://www.fast.ai/posts/part2-2022.html) from the wonderful [Tanishq](https://twitter.com/iScienceLuvr) and myself if you want to understand the math of diffusion but feel intimidated by the jargon. You'll learn about the key equations underpinning diffusion models, with no prerequisites beyond high school math.
+
+{{< video https://www.youtube.com/embed/mYpjmM7O-30 >}}
+
+## What you'll learn
+
+We walk through the math of diffusion models from the ground up, explaining the insights underlying the key equations in the work of @sohl-dickstein_deep_2015 that originally discovered diffusion models.
+
+By the end of the lesson you'll have some understanding of the following key concepts and you'll know how to recognize and interpret their symbols in research papers: probability density function (pdf), data distribution, forward process, reverse process, Markov process, Gaussian distribution, log likelihood, and evidence lower bound (ELBO).
+
+We also touch on the more recent breakthroughs of @ho_denoising_2020 which enabled even simpler and more powerful diffusion models.
+
+You can discuss this lesson, and access links to all notebooks and resources from it, at [this forum topic](https://forums.fast.ai/t/lesson-9b-math-of-diffusion/101077).
+
+## You don't need a PhD
+
+Here's what [Alex](https://twitter.com/strickvl), a student of the course, had to say about the lesson:
+
+![](images/strickvl-on-math-of-diffusion.png){alt="@strickvl (Alex Strick van Linschoten) posts: Just here to say thank you to @ilovescience and @seem for the 9B lecture that dropped this morning. My first reaction on seeing something with the title \"the math of diffusion\" was to assume that 'oh, that's just something for all the smart people who have PhDs in mathematics on the course, and it'll probably be completely incomprehensible', but of course it's not that at all! I'm not all the way through, but so far I'm just really grateful how you both take things slowly and don't make any assumptions as to the background of your viewers. So thank you!" width="500px" fig-align="center" .rounded .border .shadow-sm}
+
+You definitely don't need a PhD! In fact, the lesson came about because I felt the same way as Alex. I was frustrated at how difficult I found it to understand the math in diffusion papers.
+
+## Recorded at fast.ai HQ
+
+Thanks to nudges from [Jeremy](https://twitter.com/jeremyphoward), we went from an informal conversation, to a talk at the [fast.ai](https://fast.ai) unconference, to a recorded lesson – in a span of 4 days! Jeremy was kind enough to let us use his equipment and record at the [fast.ai](https://fast.ai) HQ.
+
+![](images/recording-math-of-diffusion.png){alt="Jeremy and Wasim behind a desk recording lesson 9b \"math of diffusion\". Blurred background." width="500px" fig-align="center" .rounded}
+
+## Check out the other lesson resources
+
+I'm grateful to be part of this amazing group of people developing [fast.ai](https://fast.ai)'s [From Deep Learning Foundations to Stable Diffusion](https://www.fast.ai/posts/part2-2022.html). Follow the tweet below to find more lesson resources from the team: [Johno Whitaker](https://twitter.com/johnowhitaker), [Pedro Cuenca](https://twitter.com/pcuenq), [Tanishq Abraham](https://twitter.com/iScienceLuvr), and of course [Jeremy Howard](https://twitter.com/jeremyphoward).
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I got a special surprise for you all...<br><br>We just released the first 5.5 hours of our new course &quot;From Deep Learning Foundations to Stable Diffusion&quot;, for free!<a href="https://t.co/LiUu9HSflG">https://t.co/LiUu9HSflG</a></p>&mdash; Jeremy Howard (@jeremyphoward) <a href="https://twitter.com/jeremyphoward/status/1582921318348992513?ref_src=twsrc%5Etfw">October 20, 2022</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+

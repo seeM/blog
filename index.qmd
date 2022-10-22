@@ -11,8 +11,6 @@ author: ''
 
 # Hi 👋 my name is Wasim
 
-This is where I write about what I'm working on, which includes [notebook-driven development](/posts/notebook-best-practices.qmd), [software design](/posts/editor.qmd), artificial intelligence, [programming languages](/posts/fastai-array-programming-day-1.ipynb), and [other](/posts/doing-important-work.qmd) [musings](/posts/hats.qmd).
+This is where I write about what I'm working on, which includes [notebook-driven development](/posts/notebook-best-practices.qmd), [artificial intelligence](/posts/math-of-diffusion.qmd), [software design](/posts/editor.qmd), [programming languages](/posts/fastai-array-programming-day-1.ipynb), and [other](/posts/doing-important-work.qmd) [musings](/posts/hats.qmd).
 
 You might also want to check out my [TILs](/tils/index.qmd) (today I learneds) and [projects](/projects.qmd).
-
-## Posts

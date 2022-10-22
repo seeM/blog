@@ -8,6 +8,8 @@ My projects span machine learning, programming languages, personal analytics, br
 I work on projects for fun, to learn, or to solve a specific problem I have.
 More recent projects are listed first.
 
+## 2022
+
 ### [nbdev](https://nbdev.fast.ai)
 
 I'm a core contributor to nbdev, a notebook-driven software development platform.
@@ -16,6 +18,8 @@ I'm a core contributor to nbdev, a notebook-driven software development platform
 
 An experimental PR to [fastcore](https://github.com/fastai/fastcore) (the core library powering the [fastai](https://github.com/fastai/fastai) deep learning framework), that replaces its custom type dispatch system with [plum-dispatch](https://github.com/wesselb/plum).
 Both bring [Julia's multiple dispatch](https://docs.julialang.org/en/v1/manual/methods/) into Python using type annotations and decorators.
+
+## 2021
 
 ### [EasyEquities browser extension](https://twitter.com/search?q=from%3Awasimlorgat%20ee%20OR%20extension&src=typed_query&f=top)
 
@@ -72,6 +76,8 @@ A tiny Roam parser built with Clojure and instaparse. I also [live tweeted](http
 Keypoint-based alignment of two grayscale images using [ORB](https://en.wikipedia.org/wiki/Oriented_FAST_and_rotated_BRIEF) and [RANSAC](https://en.wikipedia.org/wiki/Random_sample_consensus) via [skimage](https://scikit-image.org/).
 This was completed as a take-home assignment for a job application, so I limited the implementation to a max of 8 hours.
 
+## 2020
+
 ### [Editor](https://github.com/seeM/editor)
 
 Minimal terminal text editor written in Python and curses.
@@ -90,6 +96,8 @@ An Alfred workflow to open GitHub repo URLs via a local workspace directory. No 
 Seamless logging for [pandas](https://pandas.pydata.org/) dataframe operations, inspired by [tidylog](https://github.com/elbersb/tidylog).
 We used pandas in production extensively at a former workplace, and our code often ended up overwhelmed with logging logic.
 With pdlog it's simple: instead of calling, say, `df.dropna()`, call `df.log.dropna()` and it'll log `<pdlog> dropna: dropped 1 row (17%), 5 rows remaining`.
+
+## 2018
 
 ### [Neural networks from scratch](https://github.com/seeM/nnet)
 
