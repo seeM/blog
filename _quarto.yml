@@ -5,6 +5,7 @@ project:
     browser: false
 
 website:
+  google-analytics: G-HFC893KRQ7
   open-graph: true
   twitter-card:
     creator: "@wasimlorgat"
