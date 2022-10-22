@@ -2,7 +2,8 @@
   {
     "listing": "/index.html",
     "items": [
-      "/posts/notebook_best_practices.html",
+      "/posts/math-of-diffusion.html",
+      "/posts/notebook-best-practices.html",
       "/posts/fastai-array-programming-day-1.html",
       "/posts/editor.html",
       "/posts/tools-wishlist.html",

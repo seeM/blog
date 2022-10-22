@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
-<meta name="dcterms.date" content="2020-08-02">
-<meta name="description" content="Don’t try too hard to do important work.">
+<meta name="dcterms.date" content="2022-09-23">
+<meta name="description" content="Walk through the math of diffusion models from the ground up with no prerequisites beyond high school math required. This is Lesson 9B of fast.ai’s Practical Deep Learning for Coders Part 2, 2022.">
 
-<title>Wasim Lorgat - Doing important work</title>
+<title>Wasim Lorgat - Math of diffusion</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -22,6 +22,25 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
+}
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
 }
 </style>
 
@@ -64,19 +83,19 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Wasim Lorgat - Doing important work">
-<meta property="og:description" content="Don't try too hard to do important work.">
-<meta property="og:image" content="https://wasimlorgat.com/posts/images/doing-important-work.png">
+<meta property="og:title" content="Wasim Lorgat - Math of diffusion">
+<meta property="og:description" content="Walk through the math of diffusion models from the ground up with no prerequisites beyond high school math required. This is Lesson 9B of fast.ai's Practical Deep Learning for Coders Part 2, 2022.">
+<meta property="og:image" content="https://wasimlorgat.com/posts/images/math-of-diffusion.png">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta property="og:image:height" content="576">
-<meta property="og:image:width" content="896">
-<meta name="twitter:title" content="Wasim Lorgat - Doing important work">
-<meta name="twitter:description" content="Don't try too hard to do important work.">
-<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/doing-important-work.png">
+<meta property="og:image:height" content="720">
+<meta property="og:image:width" content="1280">
+<meta name="twitter:title" content="Wasim Lorgat - Math of diffusion">
+<meta name="twitter:description" content="Walk through the math of diffusion models from the ground up with no prerequisites beyond high school math required. This is Lesson 9B of fast.ai's Practical Deep Learning for Coders Part 2, 2022.">
+<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/math-of-diffusion.png">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:image-height" content="576">
-<meta name="twitter:image-width" content="896">
+<meta name="twitter:image-height" content="720">
+<meta name="twitter:image-width" content="1280">
 <meta name="twitter:card" content="summary_large_image">
 </head>
 
@@ -136,22 +155,34 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#what-youll-learn" id="toc-what-youll-learn" class="nav-link active" data-scroll-target="#what-youll-learn">What you’ll learn</a></li>
+  <li><a href="#you-dont-need-a-phd" id="toc-you-dont-need-a-phd" class="nav-link" data-scroll-target="#you-dont-need-a-phd">You don’t need a PhD</a></li>
+  <li><a href="#recorded-at-fast.ai-hq" id="toc-recorded-at-fast.ai-hq" class="nav-link" data-scroll-target="#recorded-at-fast.ai-hq">Recorded at fast.ai HQ</a></li>
+  <li><a href="#check-out-the-other-lesson-resources" id="toc-check-out-the-other-lesson-resources" class="nav-link" data-scroll-target="#check-out-the-other-lesson-resources">Check out the other lesson resources</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Doing important work</h1>
+<h1 class="title">Math of diffusion</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">musing</div>
+    <div class="quarto-category">generative</div>
+    <div class="quarto-category">fastai</div>
+    <div class="quarto-category">talk</div>
+    <div class="quarto-category">tutorial</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Don’t try too hard to do important work.
+    Walk through the math of diffusion models from the ground up with no prerequisites beyond high school math required. This is Lesson 9B of fast.ai’s Practical Deep Learning for Coders Part 2, 2022.
   </div>
 </div>
 
@@ -168,7 +199,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 2, 2020</p>
+      <p class="date">September 23, 2022</p>
     </div>
   </div>
   
@@ -178,35 +209,57 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>I’ve been thinking a lot about what it means to Do Important Work, and there two quotes in particular that have stuck with me.</p>
+<p>Check out Lesson 9B: Math of Diffusion of fast.ai’s <a href="https://www.fast.ai/posts/part2-2022.html">Practical Deep Learning for Coders Part 2, 2022</a> from the wonderful <a href="https://twitter.com/iScienceLuvr">Tanishq</a> and myself if you want to understand the math of diffusion but feel intimidated by the jargon. You’ll learn about the key equations underpinning diffusion models, with no prerequisites beyond high school math.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe src="https://www.youtube.com/embed/mYpjmM7O-30" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<section id="what-youll-learn" class="level2">
+<h2 class="anchored" data-anchor-id="what-youll-learn">What you’ll learn</h2>
+<p>We walk through the math of diffusion models from the ground up, explaining the insights underlying the key equations in the work of <span class="citation" data-cites="sohl-dickstein_deep_2015">Sohl-Dickstein et al. (<a href="#ref-sohl-dickstein_deep_2015" role="doc-biblioref">2015</a>)</span> that originally discovered diffusion models.</p>
+<p>By the end of the lesson you’ll have some understanding of the following key concepts and you’ll know how to recognize and interpret their symbols in research papers: probability density function (pdf), data distribution, forward process, reverse process, Markov process, Gaussian distribution, log likelihood, and evidence lower bound (ELBO).</p>
+<p>We also touch on the more recent breakthroughs of <span class="citation" data-cites="ho_denoising_2020">Ho, Jain, and Abbeel (<a href="#ref-ho_denoising_2020" role="doc-biblioref">2020</a>)</span> which enabled even simpler and more powerful diffusion models.</p>
+<p>You can discuss this lesson, and access links to all notebooks and resources from it, at <a href="https://forums.fast.ai/t/lesson-9b-math-of-diffusion/101077">this forum topic</a>.</p>
+</section>
+<section id="you-dont-need-a-phd" class="level2">
+<h2 class="anchored" data-anchor-id="you-dont-need-a-phd">You don’t need a PhD</h2>
+<p>Here’s what <a href="https://twitter.com/strickvl">Alex</a>, a student of the course, had to say about the lesson:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/doing-important-work.png" class="rounded img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">AI-generated image of a labyrinth (<a href="https://lexica.art/prompt/76ff2aca-8833-4cc2-a5a0-ae182988d52d">source and prompt</a>).</figcaption><p></p>
+<p><img src="images/strickvl-on-math-of-diffusion.png" class="rounded border shadow-sm img-fluid figure-img" alt="@strickvl (Alex Strick van Linschoten) posts: Just here to say thank you to @ilovescience and @seem for the 9B lecture that dropped this morning. My first reaction on seeing something with the title &quot;the math of diffusion&quot; was to assume that 'oh, that's just something for all the smart people who have PhDs in mathematics on the course, and it'll probably be completely incomprehensible', but of course it's not that at all! I'm not all the way through, but so far I'm just really grateful how you both take things slowly and don't make any assumptions as to the background of your viewers. So thank you!" width="500"></p>
 </figure>
 </div>
-<p>The first is from Visa’s <a href="http://www.visakanv.com/blog/prestige/"><em>The Prestige Trap</em></a>. With his classic wit and charm, Visa breaks the problem down in the opening sentence:</p>
-<blockquote class="blockquote">
-<p>I’ve had several conversations with friends who’ve been incapacitated by the burdensome bullshit obligation to Have A Meaningful Life / Be Remembered / Do Important Work.</p>
+<p>You definitely don’t need a PhD! In fact, the lesson came about because I felt the same way as Alex. I was frustrated at how difficult I found it to understand the math in diffusion papers.</p>
+</section>
+<section id="recorded-at-fast.ai-hq" class="level2">
+<h2 class="anchored" data-anchor-id="recorded-at-fast.ai-hq">Recorded at fast.ai HQ</h2>
+<p>Thanks to nudges from <a href="https://twitter.com/jeremyphoward">Jeremy</a>, we went from an informal conversation, to a talk at the <a href="https://fast.ai">fast.ai</a> unconference, to a recorded lesson – in a span of 4 days! Jeremy was kind enough to let us use his equipment and record at the <a href="https://fast.ai">fast.ai</a> HQ.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/recording-math-of-diffusion.png" class="rounded img-fluid figure-img" alt="Jeremy and Wasim behind a desk recording lesson 9b &quot;math of diffusion&quot;. Blurred background." width="500"></p>
+</figure>
+</div>
+</section>
+<section id="check-out-the-other-lesson-resources" class="level2">
+<h2 class="anchored" data-anchor-id="check-out-the-other-lesson-resources">Check out the other lesson resources</h2>
+<p>I’m grateful to be part of this amazing group of people developing <a href="https://fast.ai">fast.ai</a>’s <a href="https://www.fast.ai/posts/part2-2022.html">From Deep Learning Foundations to Stable Diffusion</a>. Follow the tweet below to find more lesson resources from the team: <a href="https://twitter.com/johnowhitaker">Johno Whitaker</a>, <a href="https://twitter.com/pcuenq">Pedro Cuenca</a>, <a href="https://twitter.com/iScienceLuvr">Tanishq Abraham</a>, and of course <a href="https://twitter.com/jeremyphoward">Jeremy Howard</a>.</p>
+<blockquote class="twitter-tweet blockquote">
+<p lang="en" dir="ltr">
+I got a special surprise for you all…<br><br>We just released the first 5.5 hours of our new course "From Deep Learning Foundations to Stable Diffusion", for free!<a href="https://t.co/LiUu9HSflG">https://t.co/LiUu9HSflG</a>
+</p>
+— Jeremy Howard (<span class="citation" data-cites="jeremyphoward">(<a href="#ref-jeremyphoward" role="doc-biblioref"><strong>jeremyphoward?</strong></a>)</span>) <a href="https://twitter.com/jeremyphoward/status/1582921318348992513?ref_src=twsrc%5Etfw">October 20, 2022</a>
 </blockquote>
-<p>And though the details differ, the second is <a href="https://twitter.com/michael_nielsen/status/1232789239584059392?s=20">a tweet from Michael Nielsen</a> that I think is closely related:</p>
-<blockquote class="blockquote">
-<p>I try particularly to push back on the efficiency mindset with work (where it’s strongest). Asking “What’s a much more enjoyable way” to achieve some outcome (even if inefficient) has been very good for me. Amusingly, though not the point, it often makes the work much better too</p>
-</blockquote>
-<p>I think they’re very much speaking about the same thing. Many of us want to Do Important Work, including, in my opinion, Michael and Visa. That’s fine. A natural follow-up is to try to make it concrete with a question: What important work can I do?</p>
-<p>But here’s the problem. Measuring the importance or meaning of an action is <em>really hard</em>. I’m not sure it’s even possible. From a pragmatic perspective, we might say that important work is recognised through reward, perhaps monetary. But, as Visa reminds us, ‘nobody really knows what the world needs! The world itself doesn’t quite know either, often until on hindsight!’.</p>
-<p>So what do we do instead? Well, what seems to have worked empirically is to ‘enjoy the piddling’. To be playful and curious. To prefer the more enjoyable way. Feynman, Jobs, Wozniak, and Newton are all examples cited by Visa. It’s okay to want to Do Important Work. I think both Michael and Visakan really do want that. And I know I do. The trick is to rejig the way that you think about it away from the destructive default to a more constructive, and amusingly efficient alternative. I’m delighted by the similarity between Visa’s and Michael’s descriptions:</p>
-<blockquote class="blockquote">
-<p>Visa: Wonderfully, it seems to me that lots of people who end up Doing Important Work often got there by being playful and curious.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Michael: Amusingly, though not the point, it often makes the work much better too.</p>
-</blockquote>
-<p>It really is both wonderful and amusing. It feels like the gist of a koan: to Do Important Work, you must forget about Doing Important Work.</p>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 
-</main> <!-- /main -->
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="doc-bibliography">
+<div id="ref-ho_denoising_2020" class="csl-entry" role="doc-biblioentry">
+Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. <span>“Denoising Diffusion Probabilistic Models.”</span> <span>arXiv</span>. <a href="http://arxiv.org/abs/2006.11239">http://arxiv.org/abs/2006.11239</a>.
+</div>
+<div id="ref-sohl-dickstein_deep_2015" class="csl-entry" role="doc-biblioentry">
+Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 2015. <span>“Deep Unsupervised Learning Using Nonequilibrium Thermodynamics.”</span> <span>arXiv</span>. <a href="https://doi.org/10.48550/arXiv.1503.03585">https://doi.org/10.48550/arXiv.1503.03585</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

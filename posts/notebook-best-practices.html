@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
-<meta name="dcterms.date" content="2020-08-02">
-<meta name="description" content="Don’t try too hard to do important work.">
+<meta name="dcterms.date" content="2022-09-19">
+<meta name="description" content="How to write great notebooks – everything we know about writing great notebooks after years of working with nbdev.">
 
-<title>Wasim Lorgat - Doing important work</title>
+<title>Wasim Lorgat - Notebook best practices</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -64,20 +64,14 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 
 
-<meta property="og:title" content="Wasim Lorgat - Doing important work">
-<meta property="og:description" content="Don't try too hard to do important work.">
-<meta property="og:image" content="https://wasimlorgat.com/posts/images/doing-important-work.png">
+<meta property="og:title" content="Wasim Lorgat - Notebook best practices">
+<meta property="og:description" content="How to write great notebooks -- everything we know about writing great notebooks after years of working with nbdev.">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta property="og:image:height" content="576">
-<meta property="og:image:width" content="896">
-<meta name="twitter:title" content="Wasim Lorgat - Doing important work">
-<meta name="twitter:description" content="Don't try too hard to do important work.">
-<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/doing-important-work.png">
+<meta name="twitter:title" content="Wasim Lorgat - Notebook best practices">
+<meta name="twitter:description" content="How to write great notebooks -- everything we know about writing great notebooks after years of working with nbdev.">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:image-height" content="576">
-<meta name="twitter:image-width" content="896">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
@@ -136,22 +130,33 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#use-jupyters-rich-display-features-to-supercharge-your-users" id="toc-use-jupyters-rich-display-features-to-supercharge-your-users" class="nav-link active" data-scroll-target="#use-jupyters-rich-display-features-to-supercharge-your-users">1. Use Jupyter’s rich display features to supercharge your users</a></li>
+  <li><a href="#use-lots-of-code-examples" id="toc-use-lots-of-code-examples" class="nav-link" data-scroll-target="#use-lots-of-code-examples">2. Use lots of code examples</a></li>
+  <li><a href="#know-which-form-of-notebook-youre-writing" id="toc-know-which-form-of-notebook-youre-writing" class="nav-link" data-scroll-target="#know-which-form-of-notebook-youre-writing">3. Know which form of notebook you’re writing</a></li>
+  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
+  <li><a href="#appendix-marie-curies-research-notebook" id="toc-appendix-marie-curies-research-notebook" class="nav-link" data-scroll-target="#appendix-marie-curies-research-notebook">Appendix: Marie Curie’s research notebook</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Doing important work</h1>
+<h1 class="title">Notebook best practices</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">musing</div>
+    <div class="quarto-category">nbdev</div>
+    <div class="quarto-category">tutorial</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    Don’t try too hard to do important work.
+    How to write great notebooks – everything we know about writing great notebooks after years of working with nbdev.
   </div>
 </div>
 
@@ -168,7 +173,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 2, 2020</p>
+      <p class="date">September 19, 2022</p>
     </div>
   </div>
   
@@ -178,33 +183,74 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>I’ve been thinking a lot about what it means to Do Important Work, and there two quotes in particular that have stuck with me.</p>
+<p>Notebooks are an incredibly powerful and flexible medium… which can be overwhelming. We just published an article in the nbdev docs sharing everything we know about writing great notebooks after years of working with nbdev.</p>
+<p>Here are 3 tips to get you started. Check out the <a href="https://nbdev.fast.ai/tutorials/best_practices.html">full article</a> for more!</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/doing-important-work.png" class="rounded img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">AI-generated image of a labyrinth (<a href="https://lexica.art/prompt/76ff2aca-8833-4cc2-a5a0-ae182988d52d">source and prompt</a>).</figcaption><p></p>
+<p><a href="https://nbdev.fast.ai/tutorials/best_practices.html"><img src="https://nbdev.fast.ai/tutorials/images/marie-curie-notebook.jpg" class="img-fluid figure-img" width="500"></a></p>
+<p></p><figcaption class="figure-caption">Marie Curie’s research notebook dated 19-21 January 1900 (<a href="https://commons.wikimedia.org/wiki/File:Marie_Curie;_Holograph_Notebook._Wellcome_L0021265.jpg">source</a>).</figcaption><p></p>
 </figure>
 </div>
-<p>The first is from Visa’s <a href="http://www.visakanv.com/blog/prestige/"><em>The Prestige Trap</em></a>. With his classic wit and charm, Visa breaks the problem down in the opening sentence:</p>
-<blockquote class="blockquote">
-<p>I’ve had several conversations with friends who’ve been incapacitated by the burdensome bullshit obligation to Have A Meaningful Life / Be Remembered / Do Important Work.</p>
+<section id="use-jupyters-rich-display-features-to-supercharge-your-users" class="level3">
+<h3 class="anchored" data-anchor-id="use-jupyters-rich-display-features-to-supercharge-your-users">1. Use Jupyter’s <a href="https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display">rich display features</a> to supercharge your users</h3>
+<p>Jupyter lets your objects render themselves with rich formatting. Many libraries have taken advantage of this to include rich displays of their objects, which helps with prototyping, debugging, presenting your work, and makes the entire experience more delightful.</p>
+<p>We highly recommend using these in your own notebooks, and creating rich displays of objects in your own libraries. Here are a few examples to get you started:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">RDKit molecule</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">fastai’s learning rate finder</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Mermaid + Graphviz diagram via Quarto</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false"><code>Color</code> – a minimal hackable example</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><img src="images/nb-rdkit.png" class="img-fluid"></p>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><img src="images/nb-lr-finder.png" class="img-fluid"></p>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><img src="images/nb-mermaid.png" class="img-fluid"></p>
+</div>
+<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
+<p><img src="images/nb-color.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>You can add rich representations to your own objects by defining a <code>_repr_markdown_</code> method that returns markdown text (which may also include HTML/CSS). See the <a href="https://nbdev.fast.ai/tutorials/best_practices.html#add-rich-representations-to-your-classes">full <code>Color</code> example</a> in the article to get started.</p>
+</section>
+<section id="use-lots-of-code-examples" class="level3">
+<h3 class="anchored" data-anchor-id="use-lots-of-code-examples">2. Use lots of code examples</h3>
+<p>…and convert some of them to tests using assertions. nbdev blurs the lines between code, docs, and tests. Every code cell is run as a test (unless it’s explicitly marked otherwise), and any error in the cell fails the test.</p>
+<p><a href="https://fast.ai">fast.ai</a>’s <a href="https://docs.fast.ai/vision.augment.html">vision augmentation notebook</a> is a great example that also uses rich display features:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://docs.fast.ai/vision.augment.html"><img src="images/nb-aug.png" class="img-fluid figure-img" width="600"></a></p>
+</figure>
+</div>
+</section>
+<section id="know-which-form-of-notebook-youre-writing" class="level3">
+<h3 class="anchored" data-anchor-id="know-which-form-of-notebook-youre-writing">3. Know which form of notebook you’re writing</h3>
+<p>Decide which form of notebook you’re writing. We’re fans of the <a href="https://diataxis.fr/">Diátaxis system</a> which classifies documentation into four forms: tutorials, how-to guides, explanations, and references. They’ve laid this out beautifully in the following diagram:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://diataxis.fr/"><img src="https://diataxis.fr/_images/diataxis.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</section>
+<section id="further-reading" class="level3">
+<h3 class="anchored" data-anchor-id="further-reading">Further reading</h3>
+<p>These are only 3 of many more best practices detailed in <a href="https://nbdev.fast.ai/tutorials/best_practices.html">the full article</a>. We also include a full example that converts a numpy docstring to a notebook-friendly format following these practices.</p>
+<p>You can follow the conversation on Twitter:</p>
+<blockquote class="twitter-tweet blockquote">
+<p lang="en" dir="ltr">
+Notebooks are an incredibly powerful and flexible medium… which can be overwhelming<br><br>Here's everything we know about writing great notebooks after years of working with <a href="https://twitter.com/hashtag/nbdev?src=hash&amp;ref_src=twsrc%5Etfw">#nbdev</a><a href="https://t.co/yihcwasDvd">https://t.co/yihcwasDvd</a>
+</p>
+— Wasim Lorgat (<span class="citation" data-cites="wasimlorgat">@wasimlorgat</span>) <a href="https://twitter.com/wasimlorgat/status/1571658455605481473?ref_src=twsrc%5Etfw">September 19, 2022</a>
 </blockquote>
-<p>And though the details differ, the second is <a href="https://twitter.com/michael_nielsen/status/1232789239584059392?s=20">a tweet from Michael Nielsen</a> that I think is closely related:</p>
-<blockquote class="blockquote">
-<p>I try particularly to push back on the efficiency mindset with work (where it’s strongest). Asking “What’s a much more enjoyable way” to achieve some outcome (even if inefficient) has been very good for me. Amusingly, though not the point, it often makes the work much better too</p>
-</blockquote>
-<p>I think they’re very much speaking about the same thing. Many of us want to Do Important Work, including, in my opinion, Michael and Visa. That’s fine. A natural follow-up is to try to make it concrete with a question: What important work can I do?</p>
-<p>But here’s the problem. Measuring the importance or meaning of an action is <em>really hard</em>. I’m not sure it’s even possible. From a pragmatic perspective, we might say that important work is recognised through reward, perhaps monetary. But, as Visa reminds us, ‘nobody really knows what the world needs! The world itself doesn’t quite know either, often until on hindsight!’.</p>
-<p>So what do we do instead? Well, what seems to have worked empirically is to ‘enjoy the piddling’. To be playful and curious. To prefer the more enjoyable way. Feynman, Jobs, Wozniak, and Newton are all examples cited by Visa. It’s okay to want to Do Important Work. I think both Michael and Visakan really do want that. And I know I do. The trick is to rejig the way that you think about it away from the destructive default to a more constructive, and amusingly efficient alternative. I’m delighted by the similarity between Visa’s and Michael’s descriptions:</p>
-<blockquote class="blockquote">
-<p>Visa: Wonderfully, it seems to me that lots of people who end up Doing Important Work often got there by being playful and curious.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Michael: Amusingly, though not the point, it often makes the work much better too.</p>
-</blockquote>
-<p>It really is both wonderful and amusing. It feels like the gist of a koan: to Do Important Work, you must forget about Doing Important Work.</p>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+<section id="appendix-marie-curies-research-notebook" class="level3">
+<h3 class="anchored" data-anchor-id="appendix-marie-curies-research-notebook">Appendix: Marie Curie’s research notebook</h3>
+<p>I really love the preview image! It’s an excerpt from <a href="https://wellcomecollection.org/works/cywqefw4/items?canvas=82">Marie Curie’s research notebook</a> dated 19-21 January 1900. I could pick out a few words here and there: a l’air (looks), rien (nothing), alumin (aluminium), frod (cold), chauffé (heated), and parafin. Unfortunately, I don’t know much more than that. Please <a href="https://twitter.com/wasimlorgat/status/1571298832885100545?s=20&amp;t=rSYu2_X3IOFteQ39py3ygg">let me know</a> if you do!</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

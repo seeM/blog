@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.2.233">
+<meta name="generator" content="quarto-1.2.237">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -84,10 +84,10 @@ div.csl-indent {
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
 <meta property="og:title" content="Wasim Lorgat - Deep Unsupervised Learning using Nonequilibrium Thermodynamics">
-<meta property="og:description" content="In this post, we’ll walk through the math inside the original paper that discovered diffusion models: Deep Unsupervised Learning using Nonequilibrium Thermodynamics (Sohl-Dickstein et al. 2015).">
+<meta property="og:description" content="python hl_lines 9 print('hello')">
 <meta property="og:site-name" content="Wasim Lorgat">
 <meta name="twitter:title" content="Wasim Lorgat - Deep Unsupervised Learning using Nonequilibrium Thermodynamics">
-<meta name="twitter:description" content="In this post, we’ll walk through the math inside the original paper that discovered diffusion models: Deep Unsupervised Learning using Nonequilibrium Thermodynamics (Sohl-Dickstein et al. 2015).">
+<meta name="twitter:description" content="python hl_lines 9 print('hello')">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
 <meta name="twitter:card" content="summary">
@@ -199,6 +199,7 @@ div.csl-indent {
 
 </header>
 
+<p><code>python hl_lines 9 print('hello')</code></p>
 <p>In this post, we’ll walk through the math inside the original paper that discovered diffusion models: <em>Deep Unsupervised Learning using Nonequilibrium Thermodynamics</em> <span class="citation" data-cites="sohl-dickstein_deep_2015">(<a href="#ref-sohl-dickstein_deep_2015" role="doc-biblioref">Sohl-Dickstein et al. 2015</a>)</span>.</p>
 <p>Diffusion models<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> (DMs) are a new class of <em>deep generative models</em>. At a high level, the goal of generative modeling is to learn how to create new data points that are similar to a given dataset. For example, given the MNIST dataset—a collection of small black-and-white pictures of digits—a generative model would be able to create entirely pictures of digits that look similar to those in the original dataset. <em>Deep</em> generative models are those that use deep learning methods. Other classes of deep generative models include variational auto-encoders (VAEs) and generative adversarial networks (GANs).</p>
 <p>Before we begin it’s important to note that you don’t need to understand the math that inspired diffusion models to use them effectively, or even to improve them with novel research. In fact, many improvements following their introduction did so by deviating from the original mathematical formulation! I wrote this because I think that the math is beautiful. I wanted to understand that beauty myself (as a non-mathematician) and to make it accessible to others.</p>
