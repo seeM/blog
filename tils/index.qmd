@@ -10,6 +10,7 @@ listing:
   filter-ui: false
 page-layout: full
 author: ''
+comments: false
 ---
 
 I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks.

@@ -27,6 +27,17 @@ website:
       - icon: linkedin
         href: https://linkedin.com/in/wasim-lorgat
   site-url: https://wasimlorgat.com
+
 format:
   html:
     theme: seem.scss
+
+comments:
+  giscus: 
+    repo: seem/blog
+    repo-id: R_kgDOIBWk3A
+    category: Announcements
+    category-id: DIC_kwDOIBWk3M4CSSa6
+    mapping: pathname
+    loading: lazy
+    input-position: top

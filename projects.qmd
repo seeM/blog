@@ -2,6 +2,7 @@
 title: Projects
 page-layout: full
 toc: true
+comments: false
 ---
 
 My projects span machine learning, programming languages, personal analytics, browser extensions, code editors, and personal tools to support my workflows.
