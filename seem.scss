@@ -2,9 +2,7 @@
 
 $theme: "seem" !default;
 
-//
-// Color system
-//
+// Colors
 
 $white:    #fff !default;
 $gray-100: #f8f9fa !default;
@@ -44,32 +42,29 @@ $min-contrast-ratio:   1.28 !default;
 
 $font-family-sans-serif: -apple-system,BlinkMacSystemFont,segoe ui,Roboto,Oxygen,Ubuntu,Cantarell,open sans,helvetica neue,sans-serif !default;
 $font-size-root: 16px !default;
-$headings-font-weight:    700 !default;
-$headings-line-height:    1.1 !default;
+$headings-font-weight: 700 !default;
+$headings-line-height: 1.1 !default;
 
 // Buttons
 
-$input-btn-padding-x:         1rem !default;
+$input-btn-padding-x: 1rem !default;
 
 // Navbar
 
-$navbar-light-color:                rgba($black, .7) !default;
-$navbar-light-hover-color:          $black !default;
-$navbar-light-active-color:         $black !default;
+$navbar-light-color: rgba($black, .7) !default;
+$navbar-light-hover-color: $black !default;
+$navbar-light-active-color: $black !default;
 
 $navbar-bg: $white !default;
 $navbar-fg: $black !default;
 
 // Pagination
 
-$pagination-hover-color:            $white !default;
-$pagination-hover-bg:               $primary !default;
-$pagination-hover-border-color:     $primary !default;
-
-
+$pagination-hover-color: $white !default;
+$pagination-hover-bg: $primary !default;
+$pagination-hover-border-color: $primary !default;
 
 /*-- scss:rules --*/
-
 
 // Variables
 
@@ -80,33 +75,21 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;70
 
 // Typography
 
-body {
-  -webkit-font-smoothing: antialiased;
-}
+body { -webkit-font-smoothing: antialiased; }
 
 // Navbar
 
-.bg-dark {
-  background-color: $black !important;
-}
+.bg-dark { background-color: $black !important; }
 
 .bg-light {
   background-color: $white !important;
   color: $black;
   border: 1px solid $gray-200;
-
-  &.navbar-fixed-top {
-    border-width: 0 0 1px;
-  }
-
-  &.navbar-fixed-bottom {
-    border-width: 1px 0 0;
-  }
+  &.navbar-fixed-top { border-width: 0 0 1px; }
+  &.navbar-fixed-bottom { border-width: 1px 0 0; }
 }
 
-.navbar {
-  font-family: $headings-font-family;
-}
+.navbar { font-family: $headings-font-family; }
 
 .navbar-brand {
   padding-top: .5rem;
@@ -121,57 +104,33 @@ body {
   font-weight: $headings-font-weight;
 
   &-secondary,
-  &-warning {
-    color: $white;
-  }
+  &-warning { color: $white; }
 }
 
 // Navs
 
-.pagination {
-  a:hover {
-    text-decoration: none;
-  }
-}
-
-.quarto-figure-center > figure > figcaption {
-  text-align: center;
-}
-
-.twitter-tweet {
-  margin: auto;
-}
-
-.description, .quarto-title-meta {
-  font-size: 14px;
-}
-
-.quarto-title .quarto-categories .quarto-category {
-  font-size: 10px;
-}
-
-#title-block-header {
-  margin-block-end: 1.5rem;
-}
-
-.quarto-listing-default {
-  margin-top: 2em;
-}
+.pagination { a:hover { text-decoration: none; } }
+.quarto-figure-center > figure > figcaption { text-align: center; }
+.twitter-tweet { margin: auto; }
+.description, .quarto-title-meta { font-size: 14px; }
+.quarto-title .quarto-categories .quarto-category { font-size: 10px; }
+#title-block-header { margin-block-end: 1.5rem; }
+.quarto-listing-default { margin-top: 2em; }
 
 // Text
 
-$colors: (
-  "blue": $blue,
-  "indigo": $indigo,
-  "purple": $purple,
-  "pink": $pink,
-  "red": $red,
-  "orange": $orange,
-  "yellow": $yellow,
-  "green": $green,
-  "teal": $teal,
-  "cyan": $cyan,
-);
+kbd { padding: 0.1rem; }
+
+$colors: ("blue": $blue,
+          "indigo": $indigo,
+          "purple": $purple,
+          "pink": $pink,
+          "red": $red,
+          "orange": $orange,
+          "yellow": $yellow,
+          "green": $green,
+          "teal": $teal,
+          "cyan": $cyan);
 @each $k, $v in $colors {
   .hl-#{$k} {
     background-color: #{$v}7F; // 7F = 50% opacity, via https://stackoverflow.com/a/8254129
