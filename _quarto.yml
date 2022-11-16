@@ -1,8 +1,5 @@
 project:
   type: website
-  preview:
-    port: 3000
-    browser: false
 
 website:
   google-analytics: G-HFC893KRQ7
