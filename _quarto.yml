@@ -25,10 +25,10 @@ website:
         href: https://linkedin.com/in/wasim-lorgat
       - icon: rss
         text: Posts
-        href: https://wasimlorgat.com/index.xml
+        href: index.xml
       - icon: rss
         text: TILs
-        href: https://wasimlorgat.com/tils/index.xml
+        href: tils/index.xml
 
   site-url: https://wasimlorgat.com
 

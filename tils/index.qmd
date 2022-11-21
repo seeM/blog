@@ -8,10 +8,11 @@ listing:
   fields: [date, title]
   sort-ui: false
   filter-ui: false
+  feed: true
 page-layout: full
 author: ''
 comments: false
-feed: true
+description: Recent TILs on wasimlorgat.com
 ---
 
 I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks.

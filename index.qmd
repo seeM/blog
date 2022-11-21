@@ -5,10 +5,11 @@ listing:
   type: default
   categories: true
   fields: [date, title, categories, description, image]
+  feed: true
 page-layout: full
 author: ''
 comments: false
-feed: true
+description: Recent posts on wasimlorgat.com
 ---
 
 # Hi 👋 my name is Wasim
