@@ -8,6 +8,7 @@ listing:
 page-layout: full
 author: ''
 comments: false
+feed: true
 ---
 
 # Hi 👋 my name is Wasim

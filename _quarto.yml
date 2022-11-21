@@ -23,6 +23,13 @@ website:
         href: https://github.com/seem
       - icon: linkedin
         href: https://linkedin.com/in/wasim-lorgat
+      - icon: rss
+        text: Posts
+        href: https://wasimlorgat.com/index.xml
+      - icon: rss
+        text: TILs
+        href: https://wasimlorgat.com/tils/index.xml
+
   site-url: https://wasimlorgat.com
 
 format:
