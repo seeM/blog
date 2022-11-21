@@ -1,0 +1,1090 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss  xmlns:atom="http://www.w3.org/2005/Atom" 
+      xmlns:media="http://search.yahoo.com/mrss/" 
+      xmlns:content="http://purl.org/rss/1.0/modules/content/" 
+      xmlns:dc="http://purl.org/dc/elements/1.1/" 
+      version="2.0">
+<channel>
+<title>Wasim Lorgat</title>
+<link>https://wasimlorgat.com/index.html</link>
+<atom:link href="https://wasimlorgat.com/index.xml" rel="self" type="application/rss+xml"/>
+<description>Recent posts on wasimlorgat.com</description>
+<generator>quarto-1.3.19</generator>
+<lastBuildDate>Sun, 23 Oct 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Math of diffusion</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/posts/math-of-diffusion.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>Check out Lesson 9B: Math of Diffusion of fast.ai’s <a href="https://www.fast.ai/posts/part2-2022.html">Practical Deep Learning for Coders Part 2, 2022</a> from the wonderful <a href="https://twitter.com/iScienceLuvr">Tanishq</a> and myself if you want to understand the math of diffusion but feel intimidated by the jargon. You’ll learn about the key equations underpinning diffusion models, with no prerequisites beyond high school math.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mYpjmM7O-30" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<section id="what-youll-learn" class="level2">
+<h2 class="anchored" data-anchor-id="what-youll-learn">What you’ll learn</h2>
+<p>We walk through the math of diffusion models from the ground up, explaining the insights underlying the key equations in the work of <span class="citation" data-cites="sohl-dickstein_deep_2015">Sohl-Dickstein et al. (2015)</span> that originally discovered diffusion models.</p>
+<p>By the end of the lesson you’ll have some understanding of the following key concepts and you’ll know how to recognize and interpret their symbols in research papers: probability density function (pdf), data distribution, forward process, reverse process, Markov process, Gaussian distribution, log likelihood, and evidence lower bound (ELBO).</p>
+<p>We also touch on the more recent breakthroughs of <span class="citation" data-cites="ho_denoising_2020">Ho, Jain, and Abbeel (2020)</span> which enabled even simpler and more powerful diffusion models.</p>
+<p>You can discuss this lesson, and access links to all notebooks and resources from it, at <a href="https://forums.fast.ai/t/lesson-9b-math-of-diffusion/101077">this forum topic</a>.</p>
+</section>
+<section id="you-dont-need-a-phd" class="level2">
+<h2 class="anchored" data-anchor-id="you-dont-need-a-phd">You don’t need a PhD</h2>
+<p>Here’s what <a href="https://twitter.com/strickvl">Alex</a>, a student of the course, had to say about the lesson:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/images/strickvl-on-math-of-diffusion.png" class="rounded border shadow-sm img-fluid figure-img" alt="@strickvl (Alex Strick van Linschoten) posts: Just here to say thank you to @ilovescience and @seem for the 9B lecture that dropped this morning. My first reaction on seeing something with the title &quot;the math of diffusion&quot; was to assume that 'oh, that's just something for all the smart people who have PhDs in mathematics on the course, and it'll probably be completely incomprehensible', but of course it's not that at all! I'm not all the way through, but so far I'm just really grateful how you both take things slowly and don't make any assumptions as to the background of your viewers. So thank you!" width="500"></p>
+</figure>
+</div>
+<p>You definitely don’t need a PhD! In fact, the lesson came about because I felt the same way as Alex. I was frustrated at how difficult I found it to understand the math in diffusion papers.</p>
+</section>
+<section id="recorded-at-fast.ai-hq" class="level2">
+<h2 class="anchored" data-anchor-id="recorded-at-fast.ai-hq">Recorded at fast.ai HQ</h2>
+<p>Thanks to nudges from <a href="https://twitter.com/jeremyphoward">Jeremy</a>, we went from an informal conversation, to a talk at the <a href="https://fast.ai">fast.ai</a> unconference, to a recorded lesson – in a span of 4 days! Jeremy was kind enough to let us use his equipment and record at the <a href="https://fast.ai">fast.ai</a> HQ.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/images/recording-math-of-diffusion.png" class="rounded img-fluid figure-img" alt="Jeremy and Wasim behind a desk recording lesson 9b &quot;math of diffusion&quot;. Blurred background." width="500"></p>
+</figure>
+</div>
+</section>
+<section id="check-out-the-other-lesson-resources" class="level2">
+<h2 class="anchored" data-anchor-id="check-out-the-other-lesson-resources">Check out the other lesson resources</h2>
+<p>I’m grateful to be part of this amazing group of people developing <a href="https://fast.ai">fast.ai</a>’s <a href="https://www.fast.ai/posts/part2-2022.html">From Deep Learning Foundations to Stable Diffusion</a>. Follow the tweet below to find more lesson resources from the team: <a href="https://twitter.com/johnowhitaker">Johno Whitaker</a>, <a href="https://twitter.com/pcuenq">Pedro Cuenca</a>, <a href="https://twitter.com/iScienceLuvr">Tanishq Abraham</a>, and of course <a href="https://twitter.com/jeremyphoward">Jeremy Howard</a>.</p>
+<blockquote class="twitter-tweet blockquote">
+<p lang="en" dir="ltr">
+I got a special surprise for you all…<br><br>We just released the first 5.5 hours of our new course "From Deep Learning Foundations to Stable Diffusion", for free!<a href="https://t.co/LiUu9HSflG">https://t.co/LiUu9HSflG</a>
+</p>
+— Jeremy Howard (<span class="citation" data-cites="jeremyphoward">(<strong>jeremyphoward?</strong>)</span>) <a href="https://twitter.com/jeremyphoward/status/1582921318348992513?ref_src=twsrc%5Etfw">October 20, 2022</a>
+</blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-ho_denoising_2020" class="csl-entry">
+Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. <span>“Denoising Diffusion Probabilistic Models.”</span> <span>arXiv</span>. <a href="http://arxiv.org/abs/2006.11239">http://arxiv.org/abs/2006.11239</a>.
+</div>
+<div id="ref-sohl-dickstein_deep_2015" class="csl-entry">
+Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 2015. <span>“Deep Unsupervised Learning Using Nonequilibrium Thermodynamics.”</span> <span>arXiv</span>. <a href="https://doi.org/10.48550/arXiv.1503.03585">https://doi.org/10.48550/arXiv.1503.03585</a>.
+</div>
+</div></section></div> ]]></description>
+  <category>generative</category>
+  <category>fastai</category>
+  <category>talk</category>
+  <category>tutorial</category>
+  <guid>https://wasimlorgat.com/posts/math-of-diffusion.html</guid>
+  <pubDate>Sun, 23 Oct 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://wasimlorgat.com/posts/images/math-of-diffusion.png" medium="image" type="image/png" height="81" width="144"/>
+</item>
+<item>
+  <title>Notebook best practices</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/posts/notebook-best-practices.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>Notebooks are an incredibly powerful and flexible medium… which can be overwhelming. We just published an article in the nbdev docs sharing everything we know about writing great notebooks after years of working with nbdev.</p>
+<p>Here are 3 tips to get you started. Check out the <a href="https://nbdev.fast.ai/tutorials/best_practices.html">full article</a> for more!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://nbdev.fast.ai/tutorials/best_practices.html"><img src="https://wasimlorgat.com/posts/https:/nbdev.fast.ai/tutorials/images/marie-curie-notebook.jpg" class="img-fluid figure-img" width="500"></a></p>
+<p></p><figcaption class="figure-caption">Marie Curie’s research notebook dated 19-21 January 1900 (<a href="https://commons.wikimedia.org/wiki/File:Marie_Curie;_Holograph_Notebook._Wellcome_L0021265.jpg">source</a>).</figcaption><p></p>
+</figure>
+</div>
+<section id="use-jupyters-rich-display-features-to-supercharge-your-users" class="level3">
+<h3 class="anchored" data-anchor-id="use-jupyters-rich-display-features-to-supercharge-your-users">1. Use Jupyter’s <a href="https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display">rich display features</a> to supercharge your users</h3>
+<p>Jupyter lets your objects render themselves with rich formatting. Many libraries have taken advantage of this to include rich displays of their objects, which helps with prototyping, debugging, presenting your work, and makes the entire experience more delightful.</p>
+<p>We highly recommend using these in your own notebooks, and creating rich displays of objects in your own libraries. Here are a few examples to get you started:</p>
+<div class="panel-tabset">
+<ul class="nav nav-tabs"><li class="nav-item"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" aria-controls="tabset-1-1" aria-selected="true">RDKit molecule</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" aria-controls="tabset-1-2" aria-selected="false">fastai’s learning rate finder</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" aria-controls="tabset-1-3" aria-selected="false">Mermaid + Graphviz diagram via Quarto</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" aria-controls="tabset-1-4" aria-selected="false"><code>Color</code> – a minimal hackable example</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" aria-labelledby="tabset-1-1-tab">
+<p><img src="https://wasimlorgat.com/posts/images/nb-rdkit.png" class="img-fluid"></p>
+</div>
+<div id="tabset-1-2" class="tab-pane" aria-labelledby="tabset-1-2-tab">
+<p><img src="https://wasimlorgat.com/posts/images/nb-lr-finder.png" class="img-fluid"></p>
+</div>
+<div id="tabset-1-3" class="tab-pane" aria-labelledby="tabset-1-3-tab">
+<p><img src="https://wasimlorgat.com/posts/images/nb-mermaid.png" class="img-fluid"></p>
+</div>
+<div id="tabset-1-4" class="tab-pane" aria-labelledby="tabset-1-4-tab">
+<p><img src="https://wasimlorgat.com/posts/images/nb-color.png" class="img-fluid"></p>
+</div>
+</div>
+</div>
+<p>You can add rich representations to your own objects by defining a <code>_repr_markdown_</code> method that returns markdown text (which may also include HTML/CSS). See the <a href="https://nbdev.fast.ai/tutorials/best_practices.html#add-rich-representations-to-your-classes">full <code>Color</code> example</a> in the article to get started.</p>
+</section>
+<section id="use-lots-of-code-examples" class="level3">
+<h3 class="anchored" data-anchor-id="use-lots-of-code-examples">2. Use lots of code examples</h3>
+<p>…and convert some of them to tests using assertions. nbdev blurs the lines between code, docs, and tests. Every code cell is run as a test (unless it’s explicitly marked otherwise), and any error in the cell fails the test.</p>
+<p><a href="https://fast.ai">fast.ai</a>’s <a href="https://docs.fast.ai/vision.augment.html">vision augmentation notebook</a> is a great example that also uses rich display features:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://docs.fast.ai/vision.augment.html"><img src="https://wasimlorgat.com/posts/images/nb-aug.png" class="img-fluid figure-img" width="600"></a></p>
+</figure>
+</div>
+</section>
+<section id="know-which-form-of-notebook-youre-writing" class="level3">
+<h3 class="anchored" data-anchor-id="know-which-form-of-notebook-youre-writing">3. Know which form of notebook you’re writing</h3>
+<p>Decide which form of notebook you’re writing. We’re fans of the <a href="https://diataxis.fr/">Diátaxis system</a> which classifies documentation into four forms: tutorials, how-to guides, explanations, and references. They’ve laid this out beautifully in the following diagram:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><a href="https://diataxis.fr/"><img src="https://wasimlorgat.com/posts/https:/diataxis.fr/_images/diataxis.png" class="img-fluid figure-img"></a></p>
+</figure>
+</div>
+</section>
+<section id="further-reading" class="level3">
+<h3 class="anchored" data-anchor-id="further-reading">Further reading</h3>
+<p>These are only 3 of many more best practices detailed in <a href="https://nbdev.fast.ai/tutorials/best_practices.html">the full article</a>. We also include a full example that converts a numpy docstring to a notebook-friendly format following these practices.</p>
+<p>You can follow the conversation on Twitter:</p>
+<blockquote class="twitter-tweet blockquote">
+<p lang="en" dir="ltr">
+Notebooks are an incredibly powerful and flexible medium… which can be overwhelming<br><br>Here's everything we know about writing great notebooks after years of working with <a href="https://twitter.com/hashtag/nbdev?src=hash&amp;ref_src=twsrc%5Etfw">#nbdev</a><a href="https://t.co/yihcwasDvd">https://t.co/yihcwasDvd</a>
+</p>
+— Wasim Lorgat (<span class="citation" data-cites="wasimlorgat">@wasimlorgat</span>) <a href="https://twitter.com/wasimlorgat/status/1571658455605481473?ref_src=twsrc%5Etfw">September 19, 2022</a>
+</blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+</section>
+<section id="appendix-marie-curies-research-notebook" class="level3">
+<h3 class="anchored" data-anchor-id="appendix-marie-curies-research-notebook">Appendix: Marie Curie’s research notebook</h3>
+<p>I really love the preview image! It’s an excerpt from <a href="https://wellcomecollection.org/works/cywqefw4/items?canvas=82">Marie Curie’s research notebook</a> dated 19-21 January 1900. I could pick out a few words here and there: a l’air (looks), rien (nothing), alumin (aluminium), frod (cold), chauffé (heated), and parafin. Unfortunately, I don’t know much more than that. Please <a href="https://twitter.com/wasimlorgat/status/1571298832885100545?s=20&amp;t=rSYu2_X3IOFteQ39py3ygg">let me know</a> if you do!</p>
+
+
+</section>
+
+ ]]></description>
+  <category>nbdev</category>
+  <category>tutorial</category>
+  <guid>https://wasimlorgat.com/posts/notebook-best-practices.html</guid>
+  <pubDate>Mon, 19 Sep 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://nbdev.fast.ai/tutorials/images/marie-curie-notebook.jpg" medium="image" type="image/jpeg"/>
+</item>
+<item>
+  <title>fast.ai APL study group: Day 1</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/posts/fastai-array-programming-day-1.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>Here are my notes for day 1 of the FastAI array programming study group run by Jeremy Howard. Check out <a href="https://forums.fast.ai/t/apl-array-programming/97188">the official thread on the FastAI forum</a> for up-to-date info. Any mistakes are mine - please <a href="https://twitter.com/wasimlorgat">let me know</a> if you spot one.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/images/juggling.svg" class="img-fluid figure-img" alt="Diagram in a juggling notation, via Wikipedia" width="200"></p>
+<p></p><figcaption class="figure-caption">Diagram in a juggling notation (<a href="https://en.wikipedia.org/wiki/Juggling_notation">via Wikipedia</a>).</figcaption><p></p>
+</figure>
+</div>
+<section id="why-learn-apl" class="level2">
+<h2 class="anchored" data-anchor-id="why-learn-apl">Why learn APL?</h2>
+<p><em>[Jeremy gave a personal answer here. I’ve paraphrased here and there, and reframed it in the third person, hopefully without changing his intended meaning.]</em></p>
+<section id="apl-is-a-way-into-learning-and-teaching-math" class="level3">
+<h3 class="anchored" data-anchor-id="apl-is-a-way-into-learning-and-teaching-math">APL is a way into learning and teaching math</h3>
+<p>Math is beautiful… but also very frustrating. It’s inconsistent, the notation is hard to lookup, and it’s hard to understand what things mean in a very abstract way when we can’t experiment with them. APL helps us understand math, thus it helps us teach math.</p>
+<p>Jeremy teaches his daughter and her friend math. He found that there were concepts that he found very difficult to teach in traditional abstract ways. In particular, he spent an hour trying to teach them sequences and series with very little progress. He then tried it again with numpy and APL and it clicked much more easily.</p>
+</section>
+<section id="theres-emmense-beauty-and-power-in-notations" class="level3">
+<h3 class="anchored" data-anchor-id="theres-emmense-beauty-and-power-in-notations">There’s emmense beauty and power in <em>notations</em></h3>
+<p>In a previous live coding session, Jeremy talked about regex being a powerful notation. Powerful notations are key to furthering human intellectual development. You see this repeatedly in many domains, particularly math and physics. New ideas take hundreds of years to figure out become far simpler once someone finds the right notation. Notations grant us the ability to manipulate symbols to develop new ideas. Examples include algebra, zero, and even juggling!</p>
+<p>APL is a very powerful notation, not just for math but for a range of topics that use similar concepts as math. For example, Aaron Hsu’s PhD <a href="https://scholarworks.iu.edu/dspace/handle/2022/24749">used APL to build a compiler on the GPU</a>.</p>
+</section>
+<section id="apl-will-challenge-you-to-think-about-programming-in-new-ways" class="level3">
+<h3 class="anchored" data-anchor-id="apl-will-challenge-you-to-think-about-programming-in-new-ways">APL will challenge you to think about programming in new ways</h3>
+<p>APL is an independently developed branch of programming with a rich history. APL as a notation has been developed since the 1960s, largely independently to other branches of programming languages. If you never learn about it, you miss out on an entire branch of languages with an incredibly rich history. Jeremy felt that learning array programming did more for his programming skills than any other language he’s learned.</p>
+</section>
+</section>
+<section id="setting-up-dyalog-in-jupyter" class="level2">
+<h2 class="anchored" data-anchor-id="setting-up-dyalog-in-jupyter">Setting up Dyalog in Jupyter</h2>
+<section id="install-dyalog" class="level3">
+<h3 class="anchored" data-anchor-id="install-dyalog">Install Dyalog</h3>
+<p>We’ll use Dyalog, an APL dialect. The first step is to install Dyalog from <a href="https://www.dyalog.com/download-zone.htm">their download page</a>.</p>
+</section>
+<section id="install-the-dyalog-jupyter-kernel" class="level3">
+<h3 class="anchored" data-anchor-id="install-the-dyalog-jupyter-kernel">Install the Dyalog Jupyter kernel</h3>
+<p>Although Dyalog comes with an IDE, we’ll use Jupyter notebooks. Make sure that you’ve <a href="https://jupyter.org/install#jupyter-notebook">installed Jupyter notebook</a>. Then install Dyalog Jupyter kernel following <a href="https://github.com/Dyalog/dyalog-jupyter-kernel/wiki/1.-Offline-usage#install-the-dyalog-jupyter-kernel">their installation instructions</a>. Although their instructions say that <a href="https://www.anaconda.com/download/">Anaconda</a> is required, I didn’t need it on MacOS.</p>
+</section>
+<section id="create-a-notebook-with-the-dyalog-kernel" class="level3">
+<h3 class="anchored" data-anchor-id="create-a-notebook-with-the-dyalog-kernel">Create a notebook with the Dyalog kernel</h3>
+<p>Click <em>New</em>, then <em>Dyalog APL</em>.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/42b866ad-1-image.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Create a Dyalog notebook in Jupyter by clicking <i>New</i> then <i>Dyalog APL</i>.|Create a Dyalog notebook in Jupyter by clicking New then Dyalog APL.</figcaption><p></p>
+</figure>
+</div>
+<p>You should now be able to write Dyalog directly in your notebook! Try it out:</p>
+<div class="cell">
+<pre class="apl cell-code"><code>1 2 3 - 4 5 6</code></pre>
+<div class="cell-output cell-output-display">
+<span style="white-space:pre; font-family: monospace">¯3 ¯3 ¯3
+</span>
+</div>
+</div>
+</section>
+<section id="tips-for-a-smoother-dev-environment" class="level3">
+<h3 class="anchored" data-anchor-id="tips-for-a-smoother-dev-environment">Tips for a smoother dev environment</h3>
+<p>APL uses a variety of glyphs like the <code>¯</code> glyph in the previous output. To make these easier to type in your notebook, you might want to use the <a href="https://abrudz.github.io/lb/apl">APL language bar</a>. It lets you use backtick (`) as a prefix to enter glyphs. For example, <code>&lt;backtick&gt;2</code> is a shortcut for the <code>¯</code> glyph. You can type <code>&lt;backtick&gt;&lt;space&gt;</code> to enter a normal backtick again. It also adds a bar to the top of the page with all of the possible glyphs:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/c44c1ebf-2-image.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">The APL langauge bar: a horizontal list of APL gylphs.</figcaption><p></p>
+</figure>
+</div>
+<p>Hovering on a glyph shows a its name and keyboard shortucts:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/c44c1ebf-1-image-2.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Hovering on the minus sign glyph shows ‘negate minus’.</figcaption><p></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="a-top-down-learning-plan" class="level2">
+<h2 class="anchored" data-anchor-id="a-top-down-learning-plan">A top-down learning plan</h2>
+<p>Most tutorials teach APL bottom-up; they go really deep into one topic. FastAI instead strives for top-down teaching. Therefore, we’ll try the approach of learning all of the glyphs first, as simply and quickly as we can. This has the added benefit that the documentation will become useable, since one glyph’s documentation often contains examples that use other glyphs.</p>
+<p>You can find a table of all of the gylphs <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">here</a>:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/ec994b95-1-image.png" class="img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Tables of APL glyphs: primitive functions, and primitive operators, via <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">Dyalog docs</a>.</figcaption><p></p>
+</figure>
+</div>
+<p>A good way to learn new concepts in APL (and in general) is to look at an example, try to predict what it’ll do before you run it, then run it and compare with your prediction. APL documentation is filled with examples which makes this approach even more powerful. The documentation will often include multiple examples as separate elements of an array.</p>
+<p>For example, you should read the example for <a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus%20Sign.htm">negate</a>:</p>
+<div class="cell">
+<pre class="apl cell-code"><code>- 3.2 ¯7 0</code></pre>
+<div class="cell-output cell-output-display">
+<span style="white-space:pre; font-family: monospace">¯3.2 7 0
+</span>
+</div>
+</div>
+<p>as three examples:</p>
+<div class="cell">
+<pre class="apl cell-code"><code>- 3.2</code></pre>
+<div class="cell-output cell-output-display">
+<span style="white-space:pre; font-family: monospace">¯3.2
+</span>
+</div>
+</div>
+<div class="cell">
+<pre class="apl cell-code"><code>- ¯7</code></pre>
+<div class="cell-output cell-output-display">
+<span style="white-space:pre; font-family: monospace">7
+</span>
+</div>
+</div>
+<div class="cell">
+<pre class="apl cell-code"><code>- 0</code></pre>
+<div class="cell-output cell-output-display">
+<span style="white-space:pre; font-family: monospace">0
+</span>
+</div>
+</div>
+<p>We then went on to learn about the following. My notes are sparse at this point - I highly recommend you check out the video instead!</p>
+<ul>
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus%20Sign.htm">Minus sign</a>; its monadic (negate) and dyadic (minus; subtract) forms.
+<ul>
+<li>We also use operator names when reading APL expressions. For example, <code>¯2</code> reads “negate 2”.</li>
+</ul></li>
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Variables/Arrays.htm">Arrays</a> - we needed to know about arrays to understand minus’ examples.
+<ul>
+<li>In APL you create an array (like a vector in math and a tensor in deep learning) by adding spaces between elements.</li>
+</ul></li>
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Functions.htm?TocPath=Programming%2520Reference%2520Guide%257CIntroduction%257C_____5">Functions</a>; monadic versus dyadic functions.
+<ul>
+<li>Each glyph has two forms: monadic and dyadic. This isn’t the same as “monads” in Haskell - it simply means a function that takes one argument. In APL you don’t write functions like <code>f(x,y,z)</code>. You either write them as <code>f x</code> if there’s one argument (monadic), or <code>x f y</code> if there are two (dyadic).</li>
+</ul></li>
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Plus%20Sign.htm">Plus sign</a>; its monadic (conjugate) and dyadic (plus) forms.</li>
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Complex%20Numbers.htm?TocPath=Programming%2520Reference%2520Guide%257CIntroduction%257C_____12">Complex numbers</a> - we needed to know about complex numbers to understand conjugate.</li>
+</ul>
+</section>
+<section id="qa" class="level2">
+<h2 class="anchored" data-anchor-id="qa">Q&amp;A</h2>
+<section id="are-parentheses-used-for-clarifying-expressions-in-apl" class="level3">
+<h3 class="anchored" data-anchor-id="are-parentheses-used-for-clarifying-expressions-in-apl">Are parentheses used for clarifying expressions in APL?</h3>
+<p>Not really. Since the precedence rules in APL are so simple, people don’t tend to use parentheses for clarity, but rather only if they’re absolutely needed.</p>
+
+
+</section>
+</section>
+
+ ]]></description>
+  <category>programming</category>
+  <category>fastai</category>
+  <guid>https://wasimlorgat.com/posts/fastai-array-programming-day-1.html</guid>
+  <pubDate>Tue, 05 Jul 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://wasimlorgat.com/posts/images/juggling.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>Build a text editor with Python and curses</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/posts/editor.html</link>
+  <description><![CDATA[ 
+
+
+
+<p><img src="https://wasimlorgat.com/posts/images/editor.svg" class="preview-image img-fluid"></p>
+<p>We’re going to build a command line text editor from scratch in Python. If you’d like to learn the most out of this, I’d recommend to code along. When we encounter problems, I’ll try to state them first before suggesting a solution. I encourage you to pause and give yourself about fifteen minutes to try to solve it first. If you’re still stuck, move along and compare the solution with your own approach. It’s also totally fine if you simply read through at your leisure.</p>
+<p>One more thing, if you struggle to even get started, reach out to me on <a href="https://twitter.com/wasimlorgat">twitter</a> or via <a href="mailto:mwlorgat@gmail.com">email</a> and I’ll try my best to help.</p>
+<p>Let’s dive right in!</p>
+<section id="create-a-curses-application" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-curses-application">Create a curses application</h2>
+<p>We’ll use the <a href="https://docs.python.org/3/library/curses.html"><code>curses</code></a> library to avoid having to deal with low level issues like efficiently painting to the terminal screen and receiving user input. I’m going to skim over specifics about <code>curses</code> so we can focus on the editor itself. Please refer to <a href="https://docs.python.org/3/howto/curses.html">the docs</a> if you’d like to dig a little deeper.</p>
+<p>Start with a barebones <code>curses</code> application. Create a file, <code>editor.py</code>, and begin with the following:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;">import</span> curses</span>
+<span id="cb1-2"></span>
+<span id="cb1-3"></span>
+<span id="cb1-4"><span class="kw" style="color: #003B4F;">def</span> main(stdscr):</span>
+<span id="cb1-5">    <span class="cf" style="color: #003B4F;">while</span> <span class="va" style="color: #111111;">True</span>:</span>
+<span id="cb1-6">        k <span class="op" style="color: #5E5E5E;">=</span> stdscr.getkey()</span>
+<span id="cb1-7"></span>
+<span id="cb1-8"></span>
+<span id="cb1-9"><span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">__name__</span> <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"__main__"</span>:</span>
+<span id="cb1-10">    curses.wrapper(main)</span></code></pre></div>
+<p><code>curses.wrapper</code> prepares your terminal and later restores its original state. It then passes an object that represents the terminal screen, called <code>stdscr</code> (short for <em>standard screen</em> like standard in, out, and error).</p>
+</section>
+<section id="a-way-out" class="level2">
+<h2 class="anchored" data-anchor-id="a-way-out">A way out</h2>
+<p><em>Problem 1.</em> If you run this, the only way out will be a keyboard interrupt with <code>Ctrl-c</code>. That’s not great, add a cleaner way out.</p>
+<p><em>Solution.</em> <code>stdscr.getkey</code> blocks until a key is pressed, then stores it into the <code>k</code> variable, which is mapped to a <code>sys.exit</code> call to cleanly exit the application.</p>
+<p><em>(Comments like <code># ...</code> signal that lines from the previous snippet are unchanged. In this case, <code>import curses</code> remains the first line of <code>editor.py</code>, and the <code>if __name__ == "__main__":</code> block remains at the end of the file.)</em></p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb2-2"><span class="im" style="color: #00769E;">import</span> sys</span>
+<span id="cb2-3"></span>
+<span id="cb2-4"></span>
+<span id="cb2-5"><span class="kw" style="color: #003B4F;">def</span> main(stdscr):</span>
+<span id="cb2-6">    <span class="cf" style="color: #003B4F;">while</span> <span class="va" style="color: #111111;">True</span>:</span>
+<span id="cb2-7">        k <span class="op" style="color: #5E5E5E;">=</span> stdscr.getkey()</span>
+<span id="cb2-8">        <span class="cf" style="color: #003B4F;">if</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"q"</span>:</span>
+<span id="cb2-9">            sys.exit(<span class="dv" style="color: #AD0000;">0</span>)</span>
+<span id="cb2-10"></span>
+<span id="cb2-11"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>Running the script should land you in a blank page. Then pressing <code>q</code> should get you back out.</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;">$</span> python editor.py</span></code></pre></div>
+</section>
+<section id="load-and-view-a-file" class="level2">
+<h2 class="anchored" data-anchor-id="load-and-view-a-file">Load and view a file</h2>
+<p><em>Problem 2.</em> Before we can edit text, we’ll need to be able to display it. Add a way for a user to specify a file. Load that file into memory and display it in the curses window.</p>
+<p><em>Solution.</em> Add an <code>ArgumentParser</code> that expects a single <code>filename</code>, reads the file’s contents to a variable. In the main loop, display each row of the file with <code>stdscr.addstr</code>.</p>
+<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;">import</span> argparse</span>
+<span id="cb4-2"></span>
+<span id="cb4-3"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb4-4"></span>
+<span id="cb4-5"><span class="kw" style="color: #003B4F;">def</span> main(stdscr):</span>
+<span id="cb4-6">    parser <span class="op" style="color: #5E5E5E;">=</span> argparse.ArgumentParser()</span>
+<span id="cb4-7">    parser.add_argument(<span class="st" style="color: #20794D;">"filename"</span>)</span>
+<span id="cb4-8">    args <span class="op" style="color: #5E5E5E;">=</span> parser.parse_args()</span>
+<span id="cb4-9"></span>
+<span id="cb4-10">    <span class="cf" style="color: #003B4F;">with</span> <span class="bu" style="color: null;">open</span>(args.filename) <span class="im" style="color: #00769E;">as</span> f:</span>
+<span id="cb4-11">        <span class="bu" style="color: null;">buffer</span> <span class="op" style="color: #5E5E5E;">=</span> f.readlines()</span>
+<span id="cb4-12"></span>
+<span id="cb4-13">    <span class="cf" style="color: #003B4F;">while</span> <span class="va" style="color: #111111;">True</span>:</span>
+<span id="cb4-14">        stdscr.erase()</span>
+<span id="cb4-15">        <span class="cf" style="color: #003B4F;">for</span> row, line <span class="kw" style="color: #003B4F;">in</span> <span class="bu" style="color: null;">enumerate</span>(<span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb4-16">            stdscr.addstr(row, <span class="dv" style="color: #AD0000;">0</span>, line)</span>
+<span id="cb4-17"></span>
+<span id="cb4-18">        k <span class="op" style="color: #5E5E5E;">=</span> stdscr.getkey()</span>
+<span id="cb4-19">        <span class="cf" style="color: #003B4F;">if</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"q"</span>:</span>
+<span id="cb4-20">            sys.exit(<span class="dv" style="color: #AD0000;">0</span>)</span>
+<span id="cb4-21"></span>
+<span id="cb4-22"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>The contents of the file are stored in-memory until they’re ready to be rewritten into a file, hence the name <em>buffer</em>. Text editor buffers have some <a href="https://www.cs.unm.edu/~crowley/papers/sds.pdf">interesting implementations</a>, but we won’t get into that just yet.</p>
+<p>Rerun the application, this time pointing it to a file:</p>
+<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;">$</span> python editor.py editor.py</span></code></pre></div>
+<p>The double <code>editor.py</code> isn’t a typo. We’re editing the source of the editor! Which you should now be able to view in your terminal.</p>
+</section>
+<section id="view-the-buffer-through-a-window" class="level2">
+<h2 class="anchored" data-anchor-id="view-the-buffer-through-a-window">View the buffer through a window</h2>
+<p><em>Problem 3.</em> Depending on the size of your screen, you may have seen the following error:</p>
+<pre class="pytb"><code>_curses.error: addwstr() returned ERR</code></pre>
+<p>The application is trying to draw the buffer beyond the length of the screen! In order to fix that, introduce a <em>window</em> with some <em>width</em> and <em>height</em>, and trim the rendered buffer to the width and height of the window.</p>
+<p><em>Solution.</em> Add a <code>Window</code> class with <code>n_rows</code> and <code>n_cols</code> attributes. In the main function, instantiate a <code>Window</code> with size <code>(curses.LINES - 1, curses.COLS - 1)</code>; these are constants that hold the number of lines and columns in the current curses window. Then trim the buffer before rendering it in the main loop.</p>
+<p><em>(The comment <code># ... def main(stdscr):</code> hints that the text immediately following it belongs to the <code>main</code> function.)</em></p>
+<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb7-2"></span>
+<span id="cb7-3"><span class="kw" style="color: #003B4F;">class</span> Window:</span>
+<span id="cb7-4">    <span class="kw" style="color: #003B4F;">def</span> <span class="fu" style="color: #4758AB;">__init__</span>(<span class="va" style="color: #111111;">self</span>, n_rows, n_cols):</span>
+<span id="cb7-5">        <span class="va" style="color: #111111;">self</span>.n_rows <span class="op" style="color: #5E5E5E;">=</span> n_rows</span>
+<span id="cb7-6">        <span class="va" style="color: #111111;">self</span>.n_cols <span class="op" style="color: #5E5E5E;">=</span> n_cols</span>
+<span id="cb7-7"></span>
+<span id="cb7-8"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb7-9"></span>
+<span id="cb7-10">    window <span class="op" style="color: #5E5E5E;">=</span> Window(curses.LINES <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>, curses.COLS <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>)</span>
+<span id="cb7-11"></span>
+<span id="cb7-12">    <span class="cf" style="color: #003B4F;">while</span> <span class="va" style="color: #111111;">True</span>:</span>
+<span id="cb7-13">        stdscr.erase()</span>
+<span id="cb7-14">        <span class="cf" style="color: #003B4F;">for</span> row, line <span class="kw" style="color: #003B4F;">in</span> <span class="bu" style="color: null;">enumerate</span>(<span class="bu" style="color: null;">buffer</span>[:window.n_rows]):</span>
+<span id="cb7-15">            stdscr.addstr(row, <span class="dv" style="color: #AD0000;">0</span>, line[:window.n_cols])</span>
+<span id="cb7-16"></span>
+<span id="cb7-17"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+</section>
+<section id="move-the-cursor-through-the-buffer" class="level2">
+<h2 class="anchored" data-anchor-id="move-the-cursor-through-the-buffer">Move the cursor through the buffer</h2>
+<p><em>Problem 4.</em> The next step towards editing is cursor movement. Introduce a <em>cursor</em>, positioned at a given <em>row</em> and <em>column</em>. For now, initiate the cursor at <code>(0, 0)</code>, then render the <code>stdscr</code> cursor at the current position. Don’t add any movement functionality just yet.</p>
+<p><em>Solution.</em> Create a <code>Cursor</code> class with attributes <code>row</code> and <code>col</code>, both default to 0. Instantiate a <code>Cursor</code> in <code>main</code>, and call <code>stdscr.move</code> to the current cursor position in the main loop:</p>
+<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb8-2"></span>
+<span id="cb8-3"><span class="kw" style="color: #003B4F;">class</span> Cursor:</span>
+<span id="cb8-4">    <span class="kw" style="color: #003B4F;">def</span> <span class="fu" style="color: #4758AB;">__init__</span>(<span class="va" style="color: #111111;">self</span>, row<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">0</span>, col<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">0</span>):</span>
+<span id="cb8-5">        <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">=</span> row</span>
+<span id="cb8-6">        <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">=</span> col</span>
+<span id="cb8-7"></span>
+<span id="cb8-8"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb8-9"></span>
+<span id="cb8-10">    window <span class="op" style="color: #5E5E5E;">=</span> Window(curses.LINES <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>, curses.COLS <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>)</span>
+<span id="cb8-11">    cursor <span class="op" style="color: #5E5E5E;">=</span> Cursor()</span>
+<span id="cb8-12"></span>
+<span id="cb8-13">    <span class="cf" style="color: #003B4F;">while</span> <span class="va" style="color: #111111;">True</span>:</span>
+<span id="cb8-14">        stdscr.erase()</span>
+<span id="cb8-15">        <span class="cf" style="color: #003B4F;">for</span> row, line <span class="kw" style="color: #003B4F;">in</span> <span class="bu" style="color: null;">enumerate</span>(<span class="bu" style="color: null;">buffer</span>[:window.n_rows]):</span>
+<span id="cb8-16">            stdscr.addstr(row, <span class="dv" style="color: #AD0000;">0</span>, line[:window.n_cols])</span>
+<span id="cb8-17">        stdscr.move(cursor.row, cursor.col)</span>
+<span id="cb8-18"></span>
+<span id="cb8-19"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>The cursor should now be displayed at <code>(0, 0)</code>.</p>
+<p><em>Problem 5.</em> Next, add cursor movement. Define a method for each direction: <code>up</code>, <code>down</code>, <code>left</code>, and <code>right</code>, each of which update the <code>row</code> or <code>col</code> as required. Then map the arrow keys to these cursor movement methods in the main loop.</p>
+<p><em>Solution.</em></p>
+<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;"># ... class Cursor:</span></span>
+<span id="cb9-2"></span>
+<span id="cb9-3">    <span class="kw" style="color: #003B4F;">def</span> up(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb9-4">        <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">-=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb9-5"></span>
+<span id="cb9-6">    <span class="kw" style="color: #003B4F;">def</span> down(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb9-7">        <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb9-8"></span>
+<span id="cb9-9">    <span class="kw" style="color: #003B4F;">def</span> left(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb9-10">        <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">-=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb9-11"></span>
+<span id="cb9-12">    <span class="kw" style="color: #003B4F;">def</span> right(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb9-13">        <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb9-14"></span>
+<span id="cb9-15"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb9-16"></span>
+<span id="cb9-17">        k <span class="op" style="color: #5E5E5E;">=</span> stdscr.getkey()</span>
+<span id="cb9-18">        <span class="cf" style="color: #003B4F;">if</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"q"</span>:</span>
+<span id="cb9-19">            sys.exit(<span class="dv" style="color: #AD0000;">0</span>)</span>
+<span id="cb9-20">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_UP"</span>:</span>
+<span id="cb9-21">            cursor.up()</span>
+<span id="cb9-22">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_DOWN"</span>:</span>
+<span id="cb9-23">            cursor.down()</span>
+<span id="cb9-24">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_LEFT"</span>:</span>
+<span id="cb9-25">            cursor.left()</span>
+<span id="cb9-26">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_RIGHT"</span>:</span>
+<span id="cb9-27">            cursor.right()</span>
+<span id="cb9-28"></span>
+<span id="cb9-29"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>Rerun the application and give it a spin. It works great! Until…</p>
+<p><em>Problem 6.</em> It crashes when you try to move outside of the screen. We should probably restrict the cursor within the buffer.</p>
+<p><em>(You may have already solved this in your solution to Problem 5. If so, well done, and feel free to skip ahead!)</em></p>
+<p><em>Solution.</em> Update the movement methods to only move if they’ll remain within the buffer. Since cursor movement now depends on buffer properties, we also need to pass the <code>buffer</code> through as an argument:</p>
+<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;"># ... class Cursor:</span></span>
+<span id="cb10-2"></span>
+<span id="cb10-3">    <span class="kw" style="color: #003B4F;">def</span> up(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb10-4">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">0</span>:</span>
+<span id="cb10-5">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">-=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb10-6"></span>
+<span id="cb10-7">    <span class="kw" style="color: #003B4F;">def</span> down(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb10-8">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>) <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>:</span>
+<span id="cb10-9">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb10-10"></span>
+<span id="cb10-11">    <span class="kw" style="color: #003B4F;">def</span> left(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb10-12">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">0</span>:</span>
+<span id="cb10-13">            <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">-=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb10-14"></span>
+<span id="cb10-15">    <span class="kw" style="color: #003B4F;">def</span> right(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb10-16">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>[<span class="va" style="color: #111111;">self</span>.row]):</span>
+<span id="cb10-17">            <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb10-18"></span>
+<span id="cb10-19"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb10-20"></span>
+<span id="cb10-21">        k <span class="op" style="color: #5E5E5E;">=</span> stdscr.getkey()</span>
+<span id="cb10-22">        <span class="cf" style="color: #003B4F;">if</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"q"</span>:</span>
+<span id="cb10-23">            sys.exit(<span class="dv" style="color: #AD0000;">0</span>)</span>
+<span id="cb10-24">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_UP"</span>:</span>
+<span id="cb10-25">            cursor.up()</span>
+<span id="cb10-26">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_DOWN"</span>:</span>
+<span id="cb10-27">            cursor.down(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb10-28">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_LEFT"</span>:</span>
+<span id="cb10-29">            cursor.left()</span>
+<span id="cb10-30">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_RIGHT"</span>:</span>
+<span id="cb10-31">            cursor.right(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb10-32"></span>
+<span id="cb10-33"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p><em>Problem 7.</em> Almost there. Cursor movement should now mostly work, except that when moving to a shorter line the cursor will float outside the buffer. Fix that.</p>
+<p><em>Solution.</em> Restrict the cursor’s <code>col</code> to be within the line we move to:</p>
+<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="co" style="color: #5E5E5E;"># ... class Cursor:</span></span>
+<span id="cb11-2"></span>
+<span id="cb11-3">    <span class="kw" style="color: #003B4F;">def</span> up(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb11-4">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">0</span>:</span>
+<span id="cb11-5">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">-=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb11-6">            <span class="va" style="color: #111111;">self</span>._clamp_col(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb11-7"></span>
+<span id="cb11-8">    <span class="kw" style="color: #003B4F;">def</span> down(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb11-9">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>) <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>:</span>
+<span id="cb11-10">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb11-11">            <span class="va" style="color: #111111;">self</span>._clamp_col(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb11-12"></span>
+<span id="cb11-13">    <span class="kw" style="color: #003B4F;">def</span> _clamp_col(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb11-14">        <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">=</span> <span class="bu" style="color: null;">min</span>(<span class="va" style="color: #111111;">self</span>.col, <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>[<span class="va" style="color: #111111;">self</span>.row]))</span>
+<span id="cb11-15"></span>
+<span id="cb11-16"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb11-17"></span>
+<span id="cb11-18">        k <span class="op" style="color: #5E5E5E;">=</span> stdscr.getkey()</span>
+<span id="cb11-19">        <span class="cf" style="color: #003B4F;">if</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"q"</span>:</span>
+<span id="cb11-20">            sys.exit(<span class="dv" style="color: #AD0000;">0</span>)</span>
+<span id="cb11-21">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_UP"</span>:</span>
+<span id="cb11-22">            cursor.up(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb11-23">        <span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb11-24"></span>
+<span id="cb11-25"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p><em>Problem 8.</em> This works alright, but it’s not the most convenient. Often when you move to a shorter line and back to the original line, you mean for the cursor to be as it was before you moved at all. Implement this functionality.</p>
+<p><em>Solution.</em> We can achieve this by introducing a new variable, <code>_col_hint</code>, that keeps track of the last <code>col</code> explicitly moved to, and instead use that to reset the column after line movements.</p>
+<p>Whenever <code>col</code> is set by a horizontal movement, it should also update <code>_col_hint</code> to the same value. That value should be used when clamping. We can use a property and property setter to implement that.</p>
+<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb12-2"></span>
+<span id="cb12-3"><span class="kw" style="color: #003B4F;">class</span> Cursor:</span>
+<span id="cb12-4">    <span class="kw" style="color: #003B4F;">def</span> <span class="fu" style="color: #4758AB;">__init__</span>(<span class="va" style="color: #111111;">self</span>, row<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">0</span>, col<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">0</span>, col_hint<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">None</span>):</span>
+<span id="cb12-5">        <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">=</span> row</span>
+<span id="cb12-6">        <span class="va" style="color: #111111;">self</span>._col <span class="op" style="color: #5E5E5E;">=</span> col</span>
+<span id="cb12-7">        <span class="va" style="color: #111111;">self</span>._col_hint <span class="op" style="color: #5E5E5E;">=</span> col <span class="cf" style="color: #003B4F;">if</span> col_hint <span class="kw" style="color: #003B4F;">is</span> <span class="va" style="color: #111111;">None</span> <span class="cf" style="color: #003B4F;">else</span> col_hint</span>
+<span id="cb12-8"></span>
+<span id="cb12-9">    <span class="at" style="color: #657422;">@property</span></span>
+<span id="cb12-10">    <span class="kw" style="color: #003B4F;">def</span> col(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb12-11">        <span class="cf" style="color: #003B4F;">return</span> <span class="va" style="color: #111111;">self</span>._col</span>
+<span id="cb12-12"></span>
+<span id="cb12-13">    <span class="at" style="color: #657422;">@col.setter</span></span>
+<span id="cb12-14">    <span class="kw" style="color: #003B4F;">def</span> col(<span class="va" style="color: #111111;">self</span>, col):</span>
+<span id="cb12-15">        <span class="va" style="color: #111111;">self</span>._col <span class="op" style="color: #5E5E5E;">=</span> col</span>
+<span id="cb12-16">        <span class="va" style="color: #111111;">self</span>._col_hint <span class="op" style="color: #5E5E5E;">=</span> col</span>
+<span id="cb12-17"></span>
+<span id="cb12-18">    <span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb12-19"></span>
+<span id="cb12-20">    <span class="kw" style="color: #003B4F;">def</span> _clamp_col(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb12-21">        <span class="va" style="color: #111111;">self</span>._col <span class="op" style="color: #5E5E5E;">=</span> <span class="bu" style="color: null;">min</span>(<span class="va" style="color: #111111;">self</span>._col_hint, <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>[<span class="va" style="color: #111111;">self</span>.row]))</span>
+<span id="cb12-22"></span>
+<span id="cb12-23"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>Note that <code>_clamp_col</code> sets the internal variable <code>_col</code> directly, avoiding the setter thus not resetting <code>_col_hint</code>.</p>
+<p><em>Problem 9.</em> There’s one final addition that should also improve the user experience. If the cursor is moved horizontally outside the buffer, wrap to the start (or end) of the next (or previous) line.</p>
+<p><em>Solution.</em></p>
+<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="co" style="color: #5E5E5E;"># ... class Cursor:</span></span>
+<span id="cb13-2"></span>
+<span id="cb13-3">    <span class="kw" style="color: #003B4F;">def</span> left(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb13-4">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">0</span>:</span>
+<span id="cb13-5">            <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">-=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb13-6">        <span class="cf" style="color: #003B4F;">elif</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">0</span>:</span>
+<span id="cb13-7">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">-=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb13-8">            <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">=</span> <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>[<span class="va" style="color: #111111;">self</span>.row])</span>
+<span id="cb13-9"></span>
+<span id="cb13-10">    <span class="kw" style="color: #003B4F;">def</span> right(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb13-11">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>[<span class="va" style="color: #111111;">self</span>.row]):</span>
+<span id="cb13-12">            <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb13-13">        <span class="cf" style="color: #003B4F;">elif</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>) <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>:</span>
+<span id="cb13-14">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb13-15">            <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb13-16"></span>
+<span id="cb13-17"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb13-18"></span>
+<span id="cb13-19">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_LEFT"</span>:</span>
+<span id="cb13-20">            cursor.left(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb13-21"></span>
+<span id="cb13-22"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>Give it a spin. All should work well except when the cursor moves outside of the window.</p>
+</section>
+<section id="scroll-the-window-to-the-cursor" class="level2">
+<h2 class="anchored" data-anchor-id="scroll-the-window-to-the-cursor">Scroll the window to the cursor</h2>
+<p><em>Problem 10.</em> We currently have no way of seeing any part of the buffer that’s outside the window. Worse still, we can also move the cursor outside of the window! Scroll the window vertically as the cursor moves. Don’t worry about horizontal scrolling for now.</p>
+<p><em>Solution.</em> Add <code>row</code> and <code>col</code> attributes to the <code>Window</code> that track the current position of the window as it scrolls through the buffer (specifically, the position of the top-left of the window). Then add methods to scroll the window vertically.</p>
+<p>Having learned from cursor movement, we’ll be sure to do the necessary checks the first time round: only scroll up if we’re not already at the top of the buffer and if the cursor exceeds the top of the window, and similarly for downward scrolling. In the main loop, scroll the window after moving the cursor. And finally, update where we start slicing the buffer when rendering.</p>
+<div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb14-2"></span>
+<span id="cb14-3"><span class="kw" style="color: #003B4F;">class</span> Window:</span>
+<span id="cb14-4"></span>
+<span id="cb14-5">    <span class="kw" style="color: #003B4F;">def</span> <span class="fu" style="color: #4758AB;">__init__</span>(<span class="va" style="color: #111111;">self</span>, n_rows, n_cols, row<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">0</span>, col<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">0</span>):</span>
+<span id="cb14-6">        <span class="va" style="color: #111111;">self</span>.n_rows <span class="op" style="color: #5E5E5E;">=</span> n_rows</span>
+<span id="cb14-7">        <span class="va" style="color: #111111;">self</span>.n_cols <span class="op" style="color: #5E5E5E;">=</span> n_cols</span>
+<span id="cb14-8">        <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">=</span> row</span>
+<span id="cb14-9">        <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">=</span> col</span>
+<span id="cb14-10"></span>
+<span id="cb14-11">    <span class="at" style="color: #657422;">@property</span></span>
+<span id="cb14-12">    <span class="kw" style="color: #003B4F;">def</span> bottom(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb14-13">        <span class="cf" style="color: #003B4F;">return</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">+</span> <span class="va" style="color: #111111;">self</span>.n_rows <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb14-14"></span>
+<span id="cb14-15">    <span class="kw" style="color: #003B4F;">def</span> up(<span class="va" style="color: #111111;">self</span>, cursor):</span>
+<span id="cb14-16">        <span class="cf" style="color: #003B4F;">if</span> cursor.row <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span> <span class="kw" style="color: #003B4F;">and</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">0</span>:</span>
+<span id="cb14-17">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">-=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb14-18"></span>
+<span id="cb14-19">    <span class="kw" style="color: #003B4F;">def</span> down(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>, cursor):</span>
+<span id="cb14-20">        <span class="cf" style="color: #003B4F;">if</span> cursor.row <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">self</span>.bottom <span class="op" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span> <span class="kw" style="color: #003B4F;">and</span> <span class="va" style="color: #111111;">self</span>.bottom <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>) <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>:</span>
+<span id="cb14-21">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb14-22"></span>
+<span id="cb14-23"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb14-24"></span>
+<span id="cb14-25">    <span class="cf" style="color: #003B4F;">while</span> <span class="va" style="color: #111111;">True</span>:</span>
+<span id="cb14-26">        stdscr.erase()</span>
+<span id="cb14-27">        <span class="cf" style="color: #003B4F;">for</span> row, line <span class="kw" style="color: #003B4F;">in</span> <span class="bu" style="color: null;">enumerate</span>(<span class="bu" style="color: null;">buffer</span>[window.row:window.row <span class="op" style="color: #5E5E5E;">+</span> window.n_rows]):</span>
+<span id="cb14-28">            stdscr.addstr(row, <span class="dv" style="color: #AD0000;">0</span>, line)</span>
+<span id="cb14-29">        stdscr.move(cursor.row, cursor.col)</span>
+<span id="cb14-30"></span>
+<span id="cb14-31"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb14-32">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_UP"</span>:</span>
+<span id="cb14-33">            cursor.up()</span>
+<span id="cb14-34">            window.up(cursor)</span>
+<span id="cb14-35">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_DOWN"</span>:</span>
+<span id="cb14-36">            cursor.down(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb14-37">            window.down(<span class="bu" style="color: null;">buffer</span>, cursor)</span>
+<span id="cb14-38">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_LEFT"</span>:</span>
+<span id="cb14-39">            cursor.left()</span>
+<span id="cb14-40">            window.up(cursor)</span>
+<span id="cb14-41">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_RIGHT"</span>:</span>
+<span id="cb14-42">            cursor.right(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb14-43">            window.down(<span class="bu" style="color: null;">buffer</span>, cursor)</span>
+<span id="cb14-44"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>Note that left and right movement may require vertical scrolling since the cursor may be wrapped to the previous or next line.</p>
+<p>The last crucial piece is to translate the cursor’s actual position, which is in terms of the buffer, to be in terms of what’s displayed: the window. Add a <code>translate</code> method to the window, and use it to render the cursor:</p>
+<div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="co" style="color: #5E5E5E;"># ... class Window:</span></span>
+<span id="cb15-2"></span>
+<span id="cb15-3">    <span class="kw" style="color: #003B4F;">def</span> translate(<span class="va" style="color: #111111;">self</span>, cursor):</span>
+<span id="cb15-4">        <span class="cf" style="color: #003B4F;">return</span> cursor.row <span class="op" style="color: #5E5E5E;">-</span> <span class="va" style="color: #111111;">self</span>.row, cursor.col <span class="op" style="color: #5E5E5E;">-</span> <span class="va" style="color: #111111;">self</span>.col</span>
+<span id="cb15-5"></span>
+<span id="cb15-6"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb15-7"></span>
+<span id="cb15-8">    <span class="cf" style="color: #003B4F;">while</span> <span class="va" style="color: #111111;">True</span>:</span>
+<span id="cb15-9">        stdscr.erase()</span>
+<span id="cb15-10">        <span class="cf" style="color: #003B4F;">for</span> row, line <span class="kw" style="color: #003B4F;">in</span> <span class="bu" style="color: null;">enumerate</span>(<span class="bu" style="color: null;">buffer</span>[window.row:window.row <span class="op" style="color: #5E5E5E;">+</span> window.n_rows]):</span>
+<span id="cb15-11">            stdscr.addstr(row, <span class="dv" style="color: #AD0000;">0</span>, line)</span>
+<span id="cb15-12">        stdscr.move(<span class="op" style="color: #5E5E5E;">*</span>window.translate(cursor))</span>
+<span id="cb15-13"></span>
+<span id="cb15-14"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p><em>Problem 11.</em> We’ve addressed vertical scrolling, but long lines still present an issue. There are two ways we might address long lines. We could either scroll the entire window with the cursor, as we did for vertical scrolling. This is how most editors work. Or we could scroll only the selected line to follow the cursor, which as far as I know is only implemented by <a href="https://www.nano-editor.org/">nano</a>. Let’s implement the second approach.</p>
+<p>The desired behaviour is that when the cursor exceeds some margin away from the right edge of the window, the window should be moved one page to the right, and similarly for the left side.</p>
+<p><em>Solution.</em> Add a <code>horizontal_scroll</code> method to <code>Window</code> that implements this, and call it after any cursor movements in the main loop.</p>
+<div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="co" style="color: #5E5E5E;"># ... class Window:</span></span>
+<span id="cb16-2"></span>
+<span id="cb16-3">    <span class="kw" style="color: #003B4F;">def</span> horizontal_scroll(<span class="va" style="color: #111111;">self</span>, cursor, left_margin<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">5</span>, right_margin<span class="op" style="color: #5E5E5E;">=</span><span class="dv" style="color: #AD0000;">2</span>):</span>
+<span id="cb16-4">        n_pages <span class="op" style="color: #5E5E5E;">=</span> cursor.col <span class="op" style="color: #5E5E5E;">//</span> (<span class="va" style="color: #111111;">self</span>.n_cols <span class="op" style="color: #5E5E5E;">-</span> right_margin)</span>
+<span id="cb16-5">        <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">=</span> <span class="bu" style="color: null;">max</span>(n_pages <span class="op" style="color: #5E5E5E;">*</span> <span class="va" style="color: #111111;">self</span>.n_cols <span class="op" style="color: #5E5E5E;">-</span> right_margin <span class="op" style="color: #5E5E5E;">-</span> left_margin, <span class="dv" style="color: #AD0000;">0</span>)</span>
+<span id="cb16-6"></span>
+<span id="cb16-7"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb16-8"></span>
+<span id="cb16-9">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_UP"</span>:</span>
+<span id="cb16-10">            cursor.up()</span>
+<span id="cb16-11">            window.up(cursor)</span>
+<span id="cb16-12">            window.horizontal_scroll(cursor)</span>
+<span id="cb16-13">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_DOWN"</span>:</span>
+<span id="cb16-14">            cursor.down(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb16-15">            window.down(<span class="bu" style="color: null;">buffer</span>, cursor)</span>
+<span id="cb16-16">            window.horizontal_scroll(cursor)</span>
+<span id="cb16-17">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_LEFT"</span>:</span>
+<span id="cb16-18">            cursor.left()</span>
+<span id="cb16-19">            window.up(cursor)</span>
+<span id="cb16-20">            window.horizontal_scroll(cursor)</span>
+<span id="cb16-21">        <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_RIGHT"</span>:</span>
+<span id="cb16-22">            cursor.right(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb16-23">            window.down(<span class="bu" style="color: null;">buffer</span>, cursor)</span>
+<span id="cb16-24">            window.horizontal_scroll(cursor)</span>
+<span id="cb16-25"></span>
+<span id="cb16-26"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>Next, update how the buffer renders long lines by including characters that indicate that a given line has more content on the left (<code>«</code>) or right (<code>»</code>).</p>
+<div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb17-2"></span>
+<span id="cb17-3">    <span class="cf" style="color: #003B4F;">while</span> <span class="va" style="color: #111111;">True</span>:</span>
+<span id="cb17-4">        stdscr.erase()</span>
+<span id="cb17-5">        <span class="cf" style="color: #003B4F;">for</span> row, line <span class="kw" style="color: #003B4F;">in</span> <span class="bu" style="color: null;">enumerate</span>(<span class="bu" style="color: null;">buffer</span>[window.row:window.row <span class="op" style="color: #5E5E5E;">+</span> window.n_rows]):</span>
+<span id="cb17-6">            <span class="cf" style="color: #003B4F;">if</span> row <span class="op" style="color: #5E5E5E;">==</span> cursor.row <span class="op" style="color: #5E5E5E;">-</span> window.row <span class="kw" style="color: #003B4F;">and</span> window.col <span class="op" style="color: #5E5E5E;">&gt;</span> <span class="dv" style="color: #AD0000;">0</span>:</span>
+<span id="cb17-7">                line <span class="op" style="color: #5E5E5E;">=</span> <span class="st" style="color: #20794D;">"«"</span> <span class="op" style="color: #5E5E5E;">+</span> line[window.col <span class="op" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span>:]</span>
+<span id="cb17-8">            <span class="cf" style="color: #003B4F;">if</span> <span class="bu" style="color: null;">len</span>(line) <span class="op" style="color: #5E5E5E;">&gt;</span> window.n_cols:</span>
+<span id="cb17-9">                line <span class="op" style="color: #5E5E5E;">=</span> line[:window.n_cols <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span>] <span class="op" style="color: #5E5E5E;">+</span> <span class="st" style="color: #20794D;">"»"</span></span>
+<span id="cb17-10">            stdscr.addstr(row, <span class="dv" style="color: #AD0000;">0</span>, line)</span>
+<span id="cb17-11">        stdscr.move(<span class="op" style="color: #5E5E5E;">*</span>window.translate(cursor))</span>
+<span id="cb17-12"></span>
+<span id="cb17-13">    <span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+</section>
+<section id="edit-the-buffer" class="level2">
+<h2 class="anchored" data-anchor-id="edit-the-buffer">Edit the buffer</h2>
+<p>And now to the key ingredient, actually editing text!</p>
+<p>Start by adding a <code>Buffer</code> class that wraps the list of lines. Implement <code>__len__</code> and <code>__getitem__</code> so that any dependents of <code>buffer</code> needn’t change. Set <code>buffer</code> to a <code>Buffer</code> instance instead of the current list of lines.</p>
+<div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb18-2"></span>
+<span id="cb18-3"><span class="kw" style="color: #003B4F;">class</span> Buffer:</span>
+<span id="cb18-4">    <span class="kw" style="color: #003B4F;">def</span> <span class="fu" style="color: #4758AB;">__init__</span>(<span class="va" style="color: #111111;">self</span>, lines):</span>
+<span id="cb18-5">        <span class="va" style="color: #111111;">self</span>.lines <span class="op" style="color: #5E5E5E;">=</span> lines</span>
+<span id="cb18-6"></span>
+<span id="cb18-7">    <span class="kw" style="color: #003B4F;">def</span> <span class="fu" style="color: #4758AB;">__len__</span>(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb18-8">        <span class="cf" style="color: #003B4F;">return</span> <span class="bu" style="color: null;">len</span>(<span class="va" style="color: #111111;">self</span>.lines)</span>
+<span id="cb18-9"></span>
+<span id="cb18-10">    <span class="kw" style="color: #003B4F;">def</span> <span class="fu" style="color: #4758AB;">__getitem__</span>(<span class="va" style="color: #111111;">self</span>, index):</span>
+<span id="cb18-11">        <span class="cf" style="color: #003B4F;">return</span> <span class="va" style="color: #111111;">self</span>.lines[index]</span>
+<span id="cb18-12"></span>
+<span id="cb18-13"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb18-14"></span>
+<span id="cb18-15">    parser <span class="op" style="color: #5E5E5E;">=</span> argparse.ArgumentParser()</span>
+<span id="cb18-16">    parser.add_argument(<span class="st" style="color: #20794D;">"filename"</span>)</span>
+<span id="cb18-17">    args <span class="op" style="color: #5E5E5E;">=</span> parser.parse_args()</span>
+<span id="cb18-18"></span>
+<span id="cb18-19">    <span class="cf" style="color: #003B4F;">with</span> <span class="bu" style="color: null;">open</span>(args.filename) <span class="im" style="color: #00769E;">as</span> f:</span>
+<span id="cb18-20">        <span class="bu" style="color: null;">buffer</span> <span class="op" style="color: #5E5E5E;">=</span> Buffer(f.read().splitlines())</span>
+<span id="cb18-21"></span>
+<span id="cb18-22"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>Now’s a good time for a tiny refactor: extract <code>len(buffer) - 1</code> to the <code>Buffer.bottom</code> property. You might argue that this isn’t worth being extracted. My reasoning is that the last column in a line is <code>len(buffer[row])</code> whereas the last row in a buffer is <code>len(buffer) - 1</code>, and I can never get it right the first time!</p>
+<p>I think it’s good to be aware of the kinds of bugs you tend to introduce, rather than to always follow a dogmatic approach. It also has a nice symmetry with <code>Window.bottom</code>, though that’s less important. It might be worth considering doing similar for <code>len(buffer[row])</code>, but I find that easy to remember and already concise.</p>
+<div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="co" style="color: #5E5E5E;"># ... class Buffer:</span></span>
+<span id="cb19-2"></span>
+<span id="cb19-3">    <span class="at" style="color: #657422;">@property</span></span>
+<span id="cb19-4">    <span class="kw" style="color: #003B4F;">def</span> bottom(<span class="va" style="color: #111111;">self</span>):</span>
+<span id="cb19-5">        <span class="cf" style="color: #003B4F;">return</span> <span class="bu" style="color: null;">len</span>(<span class="va" style="color: #111111;">self</span>) <span class="op" style="color: #5E5E5E;">-</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb19-6"></span>
+<span id="cb19-7"><span class="co" style="color: #5E5E5E;"># ... class Cursor:</span></span>
+<span id="cb19-8"></span>
+<span id="cb19-9">    <span class="kw" style="color: #003B4F;">def</span> down(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb19-10">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">buffer</span>.bottom:</span>
+<span id="cb19-11">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb19-12">            <span class="va" style="color: #111111;">self</span>._clamp_col(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb19-13"></span>
+<span id="cb19-14">    <span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb19-15"></span>
+<span id="cb19-16">    <span class="kw" style="color: #003B4F;">def</span> right(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>):</span>
+<span id="cb19-17">        <span class="cf" style="color: #003B4F;">if</span> <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">len</span>(<span class="bu" style="color: null;">buffer</span>[<span class="va" style="color: #111111;">self</span>.row]):</span>
+<span id="cb19-18">            <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb19-19">        <span class="cf" style="color: #003B4F;">elif</span> <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">buffer</span>.bottom:</span>
+<span id="cb19-20">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb19-21">            <span class="va" style="color: #111111;">self</span>.col <span class="op" style="color: #5E5E5E;">=</span> <span class="dv" style="color: #AD0000;">0</span></span>
+<span id="cb19-22"></span>
+<span id="cb19-23"><span class="co" style="color: #5E5E5E;"># ... class Window:</span></span>
+<span id="cb19-24"></span>
+<span id="cb19-25">    <span class="kw" style="color: #003B4F;">def</span> down(<span class="va" style="color: #111111;">self</span>, <span class="bu" style="color: null;">buffer</span>, cursor):</span>
+<span id="cb19-26">        <span class="cf" style="color: #003B4F;">if</span> cursor.row <span class="op" style="color: #5E5E5E;">==</span> <span class="va" style="color: #111111;">self</span>.bottom <span class="op" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span> <span class="kw" style="color: #003B4F;">and</span> <span class="va" style="color: #111111;">self</span>.bottom <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">buffer</span>.bottom:</span>
+<span id="cb19-27">            <span class="va" style="color: #111111;">self</span>.row <span class="op" style="color: #5E5E5E;">+=</span> <span class="dv" style="color: #AD0000;">1</span></span>
+<span id="cb19-28"></span>
+<span id="cb19-29"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>We’ll be adding three methods to the buffer: <code>insert</code>, <code>split</code>, and <code>delete</code>.</p>
+<section id="insert-a-string-into-the-buffer" class="level3">
+<h3 class="anchored" data-anchor-id="insert-a-string-into-the-buffer">Insert a string into the buffer</h3>
+<p><em>Problem 12.</em> If an unmapped key is pressed, insert it into the buffer at the current cursor position.</p>
+<p><em>Solution.</em></p>
+<p>Since the buffer stores text as a list of lines, and the cursor moves through a two-dimensional space, there’s a tiny bit of work we need to do to insert text at a given cursor.</p>
+<p>Pop the line under the cursor, split it at the cursor, and concatenate the before part, the string to be inserted, and the after part. Insert the concatenated string into the buffer at the cursor. And as usual, call the method in the main loop. This case differs slightly from previous, in that we’ll map all unmapped keys to <code>Buffer.insert</code>. That’s probably not ideal, for example, a user might enter <code>Ctrl-i</code> which will write <code>^I</code> to the buffer, but it’ll do for now.</p>
+<div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><span class="co" style="color: #5E5E5E;"># ... class Buffer:</span></span>
+<span id="cb20-2"></span>
+<span id="cb20-3">    <span class="kw" style="color: #003B4F;">def</span> insert(<span class="va" style="color: #111111;">self</span>, cursor, string):</span>
+<span id="cb20-4">        row, col <span class="op" style="color: #5E5E5E;">=</span> cursor.row, cursor.col</span>
+<span id="cb20-5">        current <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">self</span>.lines.pop(row)</span>
+<span id="cb20-6">        new <span class="op" style="color: #5E5E5E;">=</span> current[:col] <span class="op" style="color: #5E5E5E;">+</span> string <span class="op" style="color: #5E5E5E;">+</span> current[col:]</span>
+<span id="cb20-7">        <span class="va" style="color: #111111;">self</span>.lines.insert(row, new)</span>
+<span id="cb20-8"></span>
+<span id="cb20-9"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb20-10"></span>
+<span id="cb20-11">    <span class="cf" style="color: #003B4F;">if</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"q"</span>:</span>
+<span id="cb20-12">        sys.exit(<span class="dv" style="color: #AD0000;">0</span>)</span>
+<span id="cb20-13">    <span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb20-14">    <span class="cf" style="color: #003B4F;">else</span>:</span>
+<span id="cb20-15">        <span class="bu" style="color: null;">buffer</span>.insert(cursor, k)</span>
+<span id="cb20-16"></span>
+<span id="cb20-17"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>Test it out. It’ll insert text, but won’t move the cursor after the inserted text. All we need to do is move right for each inserted character. Since we already have a command to move the cursor right (and scroll the window as needed), now’s the time to extract a <code>right</code> function and re-use it:</p>
+<div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb21-2"></span>
+<span id="cb21-3"><span class="kw" style="color: #003B4F;">def</span> right(window, <span class="bu" style="color: null;">buffer</span>, cursor):</span>
+<span id="cb21-4">    cursor.right(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb21-5">    window.down(<span class="bu" style="color: null;">buffer</span>, cursor)</span>
+<span id="cb21-6">    window.horizontal_scroll(cursor)</span>
+<span id="cb21-7"></span>
+<span id="cb21-8"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb21-9"></span>
+<span id="cb21-10">    <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"KEY_RIGHT"</span>:</span>
+<span id="cb21-11">        right(window, <span class="bu" style="color: null;">buffer</span>, cursor)</span>
+<span id="cb21-12">    <span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb21-13">    <span class="cf" style="color: #003B4F;">else</span>:</span>
+<span id="cb21-14">        <span class="bu" style="color: null;">buffer</span>.insert(cursor, k)</span>
+<span id="cb21-15">        <span class="cf" style="color: #003B4F;">for</span> _ <span class="kw" style="color: #003B4F;">in</span> k:</span>
+<span id="cb21-16">            right(window, <span class="bu" style="color: null;">buffer</span>, cursor)</span>
+<span id="cb21-17"></span>
+<span id="cb21-18"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+</section>
+<section id="split-a-line-in-the-buffer" class="level3">
+<h3 class="anchored" data-anchor-id="split-a-line-in-the-buffer">Split a line in the buffer</h3>
+<p><em>Probem 12.</em> If you hit enter, you won’t get the expected result, which is to split the line at the cursor.</p>
+<p><em>Solution.</em> Implement <code>split</code> as below, similar to <code>insert</code>.</p>
+<div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><span class="co" style="color: #5E5E5E;"># ... class Buffer:</span></span>
+<span id="cb22-2"></span>
+<span id="cb22-3">    <span class="kw" style="color: #003B4F;">def</span> split(<span class="va" style="color: #111111;">self</span>, cursor):</span>
+<span id="cb22-4">        row, col <span class="op" style="color: #5E5E5E;">=</span> cursor.row, cursor.col</span>
+<span id="cb22-5">        current <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">self</span>.lines.pop(row)</span>
+<span id="cb22-6">        <span class="va" style="color: #111111;">self</span>.lines.insert(row, current[:col])</span>
+<span id="cb22-7">        <span class="va" style="color: #111111;">self</span>.lines.insert(row <span class="op" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span>, current[col:])</span>
+<span id="cb22-8"></span>
+<span id="cb22-9"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb22-10"></span>
+<span id="cb22-11">    <span class="cf" style="color: #003B4F;">elif</span> k <span class="op" style="color: #5E5E5E;">==</span> <span class="st" style="color: #20794D;">"</span><span class="ch" style="color: #20794D;">\n</span><span class="st" style="color: #20794D;">"</span>:</span>
+<span id="cb22-12">        <span class="bu" style="color: null;">buffer</span>.split(cursor)</span>
+<span id="cb22-13">        right(window, <span class="bu" style="color: null;">buffer</span>, cursor)</span>
+<span id="cb22-14"></span>
+<span id="cb22-15"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+</section>
+<section id="delete-a-character-from-the-buffer" class="level3">
+<h3 class="anchored" data-anchor-id="delete-a-character-from-the-buffer">Delete a character from the buffer</h3>
+<p><em>Problem 13.</em> As in the previous section, hitting delete or backspace won’t give the expected result. Start by implementing a delete command, bound to the delete key, that deletes the character under the cursor.</p>
+<p><em>Solution.</em> Add a <code>delete</code> method. If the cursor is at the last position in the buffer, don’t do anything. Otherwise, there are two options. Either the cursor is inside a line, then follow similar logic to <code>insert</code> but instead of adding a string remove a character. Or the cursor is at the end of the line, then join the current line to the next.</p>
+<div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><span class="co" style="color: #5E5E5E;"># ... class Buffer:</span></span>
+<span id="cb23-2"></span>
+<span id="cb23-3">    <span class="kw" style="color: #003B4F;">def</span> delete(<span class="va" style="color: #111111;">self</span>, cursor):</span>
+<span id="cb23-4">        row, col <span class="op" style="color: #5E5E5E;">=</span> cursor.row, cursor.col</span>
+<span id="cb23-5">        <span class="cf" style="color: #003B4F;">if</span> (row, col) <span class="op" style="color: #5E5E5E;">&lt;</span> (<span class="va" style="color: #111111;">self</span>.bottom, <span class="bu" style="color: null;">len</span>(<span class="va" style="color: #111111;">self</span>[row])):</span>
+<span id="cb23-6">            current <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">self</span>.lines.pop(row)</span>
+<span id="cb23-7">            <span class="cf" style="color: #003B4F;">if</span> col <span class="op" style="color: #5E5E5E;">&lt;</span> <span class="bu" style="color: null;">len</span>(<span class="va" style="color: #111111;">self</span>[row]):</span>
+<span id="cb23-8">                new <span class="op" style="color: #5E5E5E;">=</span> current[:col] <span class="op" style="color: #5E5E5E;">+</span> current[col <span class="op" style="color: #5E5E5E;">+</span> <span class="dv" style="color: #AD0000;">1</span>:]</span>
+<span id="cb23-9">                <span class="va" style="color: #111111;">self</span>.lines.insert(row, new)</span>
+<span id="cb23-10">            <span class="cf" style="color: #003B4F;">else</span>:</span>
+<span id="cb23-11">                <span class="bu" style="color: null;">next</span> <span class="op" style="color: #5E5E5E;">=</span> <span class="va" style="color: #111111;">self</span>.lines.pop(row)</span>
+<span id="cb23-12">                new <span class="op" style="color: #5E5E5E;">=</span> current <span class="op" style="color: #5E5E5E;">+</span> <span class="bu" style="color: null;">next</span></span>
+<span id="cb23-13">                <span class="va" style="color: #111111;">self</span>.lines.insert(row, new)</span>
+<span id="cb23-14"></span>
+<span id="cb23-15"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb23-16"></span>
+<span id="cb23-17">    <span class="cf" style="color: #003B4F;">elif</span> k <span class="kw" style="color: #003B4F;">in</span> (<span class="st" style="color: #20794D;">"KEY_DELETE"</span>, <span class="st" style="color: #20794D;">"</span><span class="ch" style="color: #20794D;">\x04</span><span class="st" style="color: #20794D;">"</span>):</span>
+<span id="cb23-18">        <span class="bu" style="color: null;">buffer</span>.delete(cursor)</span>
+<span id="cb23-19"></span>
+<span id="cb23-20"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>On MacOS, curses doesn’t correctly decode the backspace and delete keys, they’re instead returned as <code>\x7f</code> and <code>\x04</code> respectively. I haven’t found a satisfactory answer for why this is the case. If you know, I’d love to hear!</p>
+<p><em>Problem 14.</em> Implement backspace.</p>
+<p><em>Solution.</em> Backspace can be implemented by moving left and then deleting. Just as we extracted a <code>right</code> function for insertion, we’ll extract a <code>left</code> function here:</p>
+<div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><span class="co" style="color: #5E5E5E;"># ...</span></span>
+<span id="cb24-2"></span>
+<span id="cb24-3"><span class="kw" style="color: #003B4F;">def</span> left(window, <span class="bu" style="color: null;">buffer</span>, cursor):</span>
+<span id="cb24-4">    cursor.left(<span class="bu" style="color: null;">buffer</span>)</span>
+<span id="cb24-5">    window.up(cursor)</span>
+<span id="cb24-6">    window.horizontal_scroll(cursor)</span>
+<span id="cb24-7"></span>
+<span id="cb24-8"><span class="co" style="color: #5E5E5E;"># ... def main(stdscr):</span></span>
+<span id="cb24-9"></span>
+<span id="cb24-10">    <span class="cf" style="color: #003B4F;">elif</span> k <span class="kw" style="color: #003B4F;">in</span> (<span class="st" style="color: #20794D;">"KEY_BACKSPACE"</span>, <span class="st" style="color: #20794D;">"</span><span class="ch" style="color: #20794D;">\x7f</span><span class="st" style="color: #20794D;">"</span>):</span>
+<span id="cb24-11">        <span class="cf" style="color: #003B4F;">if</span> (cursor.row, cursor.col) <span class="op" style="color: #5E5E5E;">&gt;</span> (<span class="dv" style="color: #AD0000;">0</span>, <span class="dv" style="color: #AD0000;">0</span>):</span>
+<span id="cb24-12">            left(window, <span class="bu" style="color: null;">buffer</span>, cursor)</span>
+<span id="cb24-13">            <span class="bu" style="color: null;">buffer</span>.delete(cursor)</span>
+<span id="cb24-14"></span>
+<span id="cb24-15"><span class="co" style="color: #5E5E5E;"># ...</span></span></code></pre></div>
+<p>And look at that! You’ve built a minimal yet functional text editor.</p>
+<p><em>Problem 15.</em> There’s one key piece of functionality still missing: saving the edited file. I’ll leave that as the final unsolved problem.</p>
+</section>
+</section>
+<section id="what-next" class="level2">
+<h2 class="anchored" data-anchor-id="what-next">What next?</h2>
+<p>I hope you enjoyed working through this, and that you learned something new. If you did or if you have any other questions or comments, feel free to reach out to me on <a href="https://twitter.com/wasimlorgat">twitter</a> or via <a href="mailto:mwlorgat@gmail.com">email</a>.</p>
+<p>If this whet your appetite and you’re looking for more, here are some exercises you might find interesting, in roughly increasing difficulty:</p>
+<ol type="1">
+<li>Remap cursor movement to <code>Ctrl-p</code> (up), <code>Ctrl-n</code> (down), <code>Ctrl-b</code> (left), and <code>Ctrl-f</code> (right).</li>
+<li>Add page up and page down commands.</li>
+<li>Add a command to save the buffer to a file.</li>
+<li>Rewrite horizontal scrolling to move the entire window rather than only the current line.</li>
+<li>Add a status line to the bottom of the window that displays the name of the file being edited and the current cursor position.</li>
+<li>Add commands to move one word left or right.</li>
+<li>If the buffer is modified and not yet saved, print a message in the status line and don’t let the user exit. Add a force exit command as well.</li>
+<li>Rewrite the application so that there’s no mutable state. I’ve found <a href="https://docs.python.org/3/library/dataclasses.html">dataclasses</a> with the <code>dataclass.replace</code> function a convenient way to write applications around immutable objects.</li>
+</ol>
+</section>
+<section id="credits" class="level2">
+<h2 class="anchored" data-anchor-id="credits">Credits</h2>
+<p>Many thanks to the following people and projects for sharing their great work, upon which a lot of this was based!</p>
+<ul>
+<li>Many thanks to Pavel Spirhanzl and Alexandre Pajak for their keen eyes in identifying bugs in early versions.</li>
+<li>Gary Bernhardt’s <a href="https://www.destroyallsoftware.com/screencasts/catalog/text-editor-from-scratch">Text Editor From Scratch</a> screencast.</li>
+<li>Anthony Sottile’s <a href="https://github.com/asottile/babi/">babi</a>.</li>
+<li><a href="https://git.savannah.gnu.org/cgit/nano.git/tree/">nano</a> source.</li>
+<li><a href="https://www.gnu.org/software/emacs/">Emacs</a> source. In my opinion, the best way to explore the source is through Emacs’ built-in help commands.</li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>tutorial</category>
+  <category>programming</category>
+  <guid>https://wasimlorgat.com/posts/editor.html</guid>
+  <pubDate>Wed, 30 Dec 2020 00:00:00 GMT</pubDate>
+  <media:content url="https://wasimlorgat.com/posts/images/editor.svg" medium="image" type="image/svg+xml"/>
+</item>
+<item>
+  <title>Tools wishlist</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/posts/tools-wishlist.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>I care a lot about the tools I use. You can see this by looking at how much time I’ve spent on <a href="https://github.com/seem/dotfiles">my dotfiles</a>.<sup>1</sup> It’s not about being more “productive”. It’s about how it <em>feels</em> to use them. I just can’t help myself but tinker until it feels right.</p>
+<p>I also try my best to understand more generally what it is I’m getting from each tool in my toolbox. That gives me good grounds to cut through the hype when new tools come along. To that end, here is a list of requirements I currently hold for the tools I use (kind of) in decreasing order of importance:</p>
+<ol type="1">
+<li><p><strong>Data ownership and privacy.</strong> I must own my data. No one else must be able to touch my data without my express permission. Promises, unfortunately, aren’t good enough. I find it incredibly sad that this item rules out many otherwise amazing tools out there.</p></li>
+<li><p><strong>Speed.</strong> There should be minimal lag between action and outcome. The application should never hang unless for a very obviously long-running process. Even then, input and output shouldn’t freeze.</p></li>
+<li><p><strong>Fuzzy finding.</strong> Choosing from a set of commands should always be through an interface that allows me to incrementally narrow the set via fuzzy search. Fuzzy, at the very least, meaning that letters can be left out.</p>
+<p>Ideally, there’d be fuzzy finding all the way down to auto-completing single keywords. Though, weirdly enough, I’ve still not found an auto-completion system that satisfies my speed requirement. They all seem to introduce a sub-second input lag that grinds my gears. PyCharm does a great job, but doesn’t satisfy my other requirements.</p>
+<p>This is sort of a special case of a more general principle that if there’s a repeated action that the computer could guess with very high accuracy, it should do the work for me. For actions that I perform exceedingly often, I’d bind them to a simple keyboard shortcut. I like VIM’s modal editing because it gives me far more keys to bind.</p></li>
+<li><p><strong>No visual clutter.</strong> There must be an option to disable menu bars, tool bars, icons. Because I prefer keyboard-driven and I have fuzzy finding, I often don’t really need menus/toolbars. In cases where information lends itself well to a visual representation, I prefer it to appear as needed, or if persistent, for it to be compact. For example, a bar displaying open tabs could be a single line of text.</p></li>
+<li><p><strong>Keyboard-driven.</strong> I’m not against the mouse at all. I very happily use it all the time. But between emails, Slack messages, documentation, issue descriptions, code reviews, and good ol’ programming, my work involves tons of writing. And when I’m writing, if there’s even a single action that requires changing my hand position every few minutes, it becomes frustrating really quickly.</p>
+<p>Some of the applications I use aren’t fully keyboard-driven. I don’t really mind that when the primary mode of use isn’t typing. For example, creating presentations, managing tasks (I use <a href="https://culturedcode.com/things/">Things</a>), calendars, Slack and Twitter where I’m reading at least as much as I’m writing, and browsing the web.</p>
+<p>Ideally, I should also be able to reconfigure keyboard shortcuts arbitrarily, and for any action. Unfortunately many modern applications fall short here, but there are typically workarounds.</p>
+<p>This is a special case of keeping similar actions that occur in similar contexts “close”. If the context is that I’m already typing a bunch, actions should be a keyboard shortcut or fuzzy find away. If the context requires pointing and clicking, then mouse shortcuts, toolbars, and maybe even <a href="https://en.wikipedia.org/wiki/Pie_menu">pie menus</a> are better. For this reason, I’m also not really a fan of keyboard-driven tiling window managers.</p></li>
+<li><p><strong>Themes.</strong> I’m red-green colour-blind, and not all default colour schemes account for this. I’m also a picky about my colour schemes, fonts, and overall theme. I also like switching them up every now and then. Most tools allow this these days.</p></li>
+</ol>
+
+
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Caution: They’re not always up-to-date, or easy to understand, and I’ve made no effort to ensure they work for anyone else.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>musing</category>
+  <guid>https://wasimlorgat.com/posts/tools-wishlist.html</guid>
+  <pubDate>Mon, 10 Aug 2020 15:10:00 GMT</pubDate>
+</item>
+<item>
+  <title>Doing important work</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/posts/doing-important-work.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>I’ve been thinking a lot about what it means to Do Important Work, and there two quotes in particular that have stuck with me.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/images/doing-important-work.png" class="rounded img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">AI-generated image of a labyrinth (<a href="https://lexica.art/prompt/76ff2aca-8833-4cc2-a5a0-ae182988d52d">source and prompt</a>).</figcaption><p></p>
+</figure>
+</div>
+<p>The first is from Visa’s <a href="http://www.visakanv.com/blog/prestige/"><em>The Prestige Trap</em></a>. With his classic wit and charm, Visa breaks the problem down in the opening sentence:</p>
+<blockquote class="blockquote">
+<p>I’ve had several conversations with friends who’ve been incapacitated by the burdensome bullshit obligation to Have A Meaningful Life / Be Remembered / Do Important Work.</p>
+</blockquote>
+<p>And though the details differ, the second is <a href="https://twitter.com/michael_nielsen/status/1232789239584059392?s=20">a tweet from Michael Nielsen</a> that I think is closely related:</p>
+<blockquote class="blockquote">
+<p>I try particularly to push back on the efficiency mindset with work (where it’s strongest). Asking “What’s a much more enjoyable way” to achieve some outcome (even if inefficient) has been very good for me. Amusingly, though not the point, it often makes the work much better too</p>
+</blockquote>
+<p>I think they’re very much speaking about the same thing. Many of us want to Do Important Work, including, in my opinion, Michael and Visa. That’s fine. A natural follow-up is to try to make it concrete with a question: What important work can I do?</p>
+<p>But here’s the problem. Measuring the importance or meaning of an action is <em>really hard</em>. I’m not sure it’s even possible. From a pragmatic perspective, we might say that important work is recognised through reward, perhaps monetary. But, as Visa reminds us, ‘nobody really knows what the world needs! The world itself doesn’t quite know either, often until on hindsight!’.</p>
+<p>So what do we do instead? Well, what seems to have worked empirically is to ‘enjoy the piddling’. To be playful and curious. To prefer the more enjoyable way. Feynman, Jobs, Wozniak, and Newton are all examples cited by Visa. It’s okay to want to Do Important Work. I think both Michael and Visakan really do want that. And I know I do. The trick is to rejig the way that you think about it away from the destructive default to a more constructive, and amusingly efficient alternative. I’m delighted by the similarity between Visa’s and Michael’s descriptions:</p>
+<blockquote class="blockquote">
+<p>Visa: Wonderfully, it seems to me that lots of people who end up Doing Important Work often got there by being playful and curious.</p>
+</blockquote>
+<blockquote class="blockquote">
+<p>Michael: Amusingly, though not the point, it often makes the work much better too.</p>
+</blockquote>
+<p>It really is both wonderful and amusing. It feels like the gist of a koan: to Do Important Work, you must forget about Doing Important Work.</p>
+
+
+
+ ]]></description>
+  <category>musing</category>
+  <guid>https://wasimlorgat.com/posts/doing-important-work.html</guid>
+  <pubDate>Sun, 02 Aug 2020 17:48:09 GMT</pubDate>
+  <media:content url="https://wasimlorgat.com/posts/images/doing-important-work.png" medium="image" type="image/png" height="93" width="144"/>
+</item>
+<item>
+  <title>Hats and productivity</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/posts/hats.html</link>
+  <description><![CDATA[ 
+
+
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/images/hats.png" class="rounded img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">AI-generated image of hats (<a href="https://lexica.art/prompt/93148ca1-3480-4e82-8d2c-c384adbcb6fe">source and prompt</a>).</figcaption><p></p>
+</figure>
+</div>
+<p>Sometimes I feel like pursuing depth. Scribbling through a difficult problem. Other times it’s about breadth. Searching for existing solutions to my problem. Sometimes it’s about people. Connecting with others, seeing what they’re working on, what they’re thinking about, and how we might help each other. Sometimes it’s about planning, or otherwise separating coulds from shoulds.</p>
+<p>All of these require a different hat, a different set of skills and tools, and there’s a cost to switching. But more subtle than that, there’s a cost to wearing the wrong hat at the wrong time. I understand that it’s unrealistic to expect absolute freedom here. In fact, I’m not sure that’s ideal. Too much freedom is itself a source of pressure. A vacuum. But somewhere in the middle, where there’s just enough pressure to push you forward, together with just enough room to wear the right hat, there’s a sweet spot.</p>
+<p>You might be wondering how anything would get done if we decided what work to do on a whim. I think this is one of the defining factors of a great team. A team with diversity in strengths, weaknesses, backgrounds, and more generally, modes of thought, is like a <a href="https://en.wikipedia.org/wiki/Polyphase_system">polyphase system</a>. It provides constant power transfer, despite its individual conductors peaking at different points in time, ultimately delivering more power than single-phase systems for the same voltage.</p>
+
+
+
+ ]]></description>
+  <category>musing</category>
+  <guid>https://wasimlorgat.com/posts/hats.html</guid>
+  <pubDate>Sun, 26 Jul 2020 18:37:00 GMT</pubDate>
+  <media:content url="https://wasimlorgat.com/posts/images/hats.png" medium="image" type="image/png" height="68" width="144"/>
+</item>
+<item>
+  <title>Include derivations</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/posts/derivations.html</link>
+  <description><![CDATA[ 
+
+
+
+<blockquote class="blockquote">
+<p>Include derivations! It’s perfectly fine to use clever techniques and definitions, such as <code>rleDecode = (uncurry replicate =&lt;&lt;)</code> for decoding run-length encoded lists of tuples, but in the comments, include the original giant definition which you progressively refined into a short diamond! Even better, add a test (like a QuickCheck property) where you demonstrate that the output from the two are the same. If you are optimizing, somewhere hold onto the slow ones which you know are correct. Derivations are brilliant documentation of your intent, they provide numerous alternate implementations which might work if the current one breaks, and they give the future Haskellers a view of how you were thinking.</p>
+<p>— Gwern, <cite><a href="https://www.gwern.net/Resilient-Haskell-Software">Resilient Haskell Software</a></cite></p>
+</blockquote>
+<p>Include derivations! An idea I hadn’t seen before. In fact, an idea <em>counter to</em> what I’ve seen. It got me thinking about comments and documentation.</p>
+<section id="prefer-self-documenting-code-over-comments" class="level2">
+<h2 class="anchored" data-anchor-id="prefer-self-documenting-code-over-comments">Prefer self-documenting code over comments</h2>
+<p>I’m sure you’ve heard this advice before. I’ve heard it and even given it many times.</p>
+<p>The argument goes something like this: comments tend to become out of sync with the code they’re commenting. While your code is tested by its users and by your test suite, there’s nothing to ensure that comments remain correct.<sup>1</sup> It seems natural then that without any sticking force your comments become outdated.</p>
+<p>Yet I still find myself smiling when I come across well-commented code. Why the discrepency?</p>
+</section>
+<section id="developer--vs-user-oriented-comments" class="level2">
+<h2 class="anchored" data-anchor-id="developer--vs-user-oriented-comments">Developer- vs user-oriented comments</h2>
+<p>Any given program has at least two groups of people interacting with it: developers, who directly change and extend the underlying functionality; and users, who use that functionality.</p>
+<p>Developers and users benefit from different forms of documentation. Users typically don’t need to know the full extent of implementation details and the context in which decisions were made, instead they need to know the interface of the various components, how those components interact, and how to compose them to achieve a desired goal. Developers, on the other hand, need to know the implementation details in all their glory.</p>
+<p>For example, while users probably don’t need to know <em>why</em> a specific method was chosen to decode run-length encoded lists of tuples, this is absolutely the type of information a developer needs to make good decisions about how to further extend that functionality. In the same way users probably don’t need to know why the specific method was chosen, developers probably don’t need the function’s arguments redescribed to them each time. Self-documenting functions and argument names do just fine. I increasingly see inline comments and docstrings for the purpose of auto-generating user docs as redundant noise <em>while working with the code</em>. Perhaps a topic for a future post. Naturally, comments describing those arguments gradually fade away from our attention, and are left outdated.</p>
+<p>I view developer-oriented comments as distinctly different from user-oriented comments. Someone from the past is talking directly to me: warning me of a trap, describing a hard-to-find workaround, or lamenting why this “temporary hack” should be temporary. These feel like an extension of the code, thus I consider them less susceptible to becoming outdated.</p>
+</section>
+<section id="takeaway-everythings-hard-and-there-are-no-easy-answers" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway-everythings-hard-and-there-are-no-easy-answers">Takeaway: everything’s hard and there are no easy answers</h2>
+<p>There are (almost) no absolutes. There are <em>guidelines</em>, and they serve you well as you’re learning the ropes. But as your expertise grows, you learn to see them as the fuzzy boundaries that they are.</p>
+<p>It makes sense though. As beginners, we aren’t primed for the nuance required to understand the reality in all of its complexity. But always remember that guidelines are only approximations and that reality is more complex.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>While there are options like Python’s <code>doctest</code>, it still doesn’t apply to prose.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>musing</category>
+  <guid>https://wasimlorgat.com/posts/derivations.html</guid>
+  <pubDate>Sun, 19 Jul 2020 19:40:00 GMT</pubDate>
+  <media:content url="https://wasimlorgat.com/posts/images/derivations.png" medium="image" type="image/png" height="42" width="144"/>
+</item>
+<item>
+  <title>Introducing pdlog</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/posts/pdlog.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>Most data problems <a href="https://vickiboykis.com/2017/03/20/should-you-replace-hadoop-with-your-laptop/">don’t need the horsepower of Spark or Hadoop</a>. If all of your data fits comfortably in memory, pandas may be a great fit. pandas is my goto for quickly building out production pipelines that are both efficient and easy to maintain.</p>
+<p>One issue I’ve run into is that pandas doesn’t natively log. Fortunately, it allows extending the dataframe API with <a href="https://pandas.pydata.org/pandas-docs/stable/development/extending.html#registering-custom-accessors">accessors</a>. We have since implemented an accessor for logging in the publicly avilable <a href="https://github.com/dataprophet/pdlog"><code>pdlog</code></a> package.</p>
+<p>To get started:</p>
+<ol type="1">
+<li><p>Install <code>pdlog</code>:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;">pip</span> install pdlog</span></code></pre></div></li>
+<li><p>Import <code>pdlog</code> in your application:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;">import</span> pdlog</span></code></pre></div></li>
+<li><p>Add <code>.log</code> before your method calls:</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">df <span class="op" style="color: #5E5E5E;">=</span> df.log.dropna()</span></code></pre></div>
+<p>They’ll now log useful information about the operation, for example:</p>
+<pre class="output"><code>2020-05-26 20:55:30,049 INFO &lt;pdlog&gt; dropna: dropped 1 row (17%), 5 rows remaining</code></pre></li>
+</ol>
+<p>It works by registering a custom <code>LogAccessor</code> under the <code>.log</code> namespace on import. The accessor containes a collection of wrapper methods that log what they’re doing.</p>
+
+
+
+ ]]></description>
+  <category>tabular</category>
+  <guid>https://wasimlorgat.com/posts/pdlog.html</guid>
+  <pubDate>Fri, 29 May 2020 00:00:00 GMT</pubDate>
+  <media:content url="https://wasimlorgat.com/posts/images/pdlog.png" medium="image" type="image/png" height="81" width="144"/>
+</item>
+</channel>
+</rss>
