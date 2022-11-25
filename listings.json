@@ -1,5 +1,18 @@
 [
   {
+    "listing": "/tils/index.html",
+    "items": [
+      "/tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html",
+      "/tils/update-fastai-union-annotations-using-ast.html",
+      "/tils/compiling-python-to-c-using-setuptools-and-cython.html",
+      "/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html",
+      "/tils/creating-a-minimal-custom-jupyter-widget.html",
+      "/tils/create-and-execute-cells-inside-a-jupyter-notebook.html",
+      "/tils/setting-up-tils-in-pelican.html",
+      "/tils/using-pelican-as-a-library.html"
+    ]
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/posts/math-of-diffusion.html",
@@ -11,19 +24,6 @@
       "/posts/hats.html",
       "/posts/derivations.html",
       "/posts/pdlog.html"
-    ]
-  },
-  {
-    "listing": "/tils/index.html",
-    "items": [
-      "/tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html",
-      "/tils/update-fastai-union-annotations-using-ast.html",
-      "/tils/compiling-python-to-c-using-setuptools-and-cython.html",
-      "/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html",
-      "/tils/creating-a-minimal-custom-jupyter-widget.html",
-      "/tils/create-and-execute-cells-inside-a-jupyter-notebook.html",
-      "/tils/setting-up-tils-in-pelican.html",
-      "/tils/using-pelican-as-a-library.html"
     ]
   }
 ]
