@@ -24,7 +24,7 @@ Previously, I held technical leadership positions in South African AI startups i
 
 ::: {.callout-note appearance="simple"}
 
-Using [nbdev](https://nbdev.fast.ai/) for notebook-driven development but need it adapted to your business needs? Need to build robust machine learning systems? Need to implement a novel deep learning technique customized to your use-case?
+Using [nbdev](https://nbdev.fast.ai/) for notebook-driven development but need it adapted to your business needs? Need support architecting and building a machine learning system? Need to implement a novel deep learning technique customized to your use-case?
 
 I'm open to consulting or contract work on a per-project basis. If you'd like to get in touch, please contact me at [mwlorgat@gmail.com](mailto:mwlorgat@gmail.com).
 
