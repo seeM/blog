@@ -12,10 +12,22 @@ comments: false
 description: Recent posts on wasimlorgat.com
 ---
 
-# Hi 👋 my name is Wasim
+# Hi 👋 I'm Wasim
+
+I'm a software engineer, data scientist, and aspiring entrepreneur.
 
 This is where I write about what I'm working on, which includes [notebook-driven development](/posts/notebook-best-practices.qmd), [artificial intelligence](/posts/math-of-diffusion.qmd), [software design](/posts/editor.qmd), [programming languages](/posts/fastai-array-programming-day-1.ipynb), and [other](/posts/doing-important-work.qmd) [musings](/posts/hats.qmd).
 
-You might also want to check out my [TILs](/tils/index.qmd) (today I learneds) and [projects](/projects.qmd).
+You might also want to check out [my TILs](/tils/index.qmd) (today I learneds) and [my full list of projects](/projects.qmd).
+
+Previously, I held technical leadership positions in South African AI startups in manufacturing and agriculture. Before that, I was a professional DotA 2 player.
+
+::: {.callout-note appearance="simple"}
+
+Using [nbdev](https://nbdev.fast.ai/) for notebook-driven development but need it adapted to your business needs? Need to build robust machine learning systems? Need to implement a novel deep learning technique customized to your use-case?
+
+I'm open to consulting or contract work on a per-project basis. If you'd like to get in touch, please contact me at [mwlorgat@gmail.com](mailto:mwlorgat@gmail.com).
+
+:::
 
 [Mastodon verification](https://sigmoid.social/@seem){rel="me" style="display: none"}
