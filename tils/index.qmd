@@ -1,5 +1,5 @@
 ---
-title: TILs
+title: 📖 TILs
 listing:
   contents: .
   sort: "date desc"

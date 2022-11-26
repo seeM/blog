@@ -11,10 +11,10 @@ website:
   navbar:
     background: dark
     left:
-      - text: Posts
+      - text: 📮 Posts
         file: index.qmd
-      - tils/index.qmd
       - projects.qmd
+      - tils/index.qmd
     right:
       - icon: twitter
         href: https://twitter.com/wasimlorgat

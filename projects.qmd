@@ -1,5 +1,5 @@
 ---
-title: Projects
+title: 💻 Projects
 page-layout: full
 toc: true
 comments: false
@@ -9,11 +9,38 @@ My projects span machine learning, programming languages, personal analytics, br
 I work on projects for fun, to learn, or to solve a specific problem I have.
 More recent projects are listed first.
 
+Click on a project's heading to go to its website/repo.
+
 ## 2022
+
+### [Meepo](https://meepo.shop)
+
+A smarter search engine for a local (South African) fashion and homeware store.
+
+I have no affiliation with said store. I built this for myself, because I was frustrated at how difficult it was to find what I wanted with the existing search engine + I was curious how well CLIP (a relatively new AI technique with open source code and models) would work here.
+
+I think it works quite well! It's much more forgiving than the original search engine. I don't have to guess what exactly they decided to label a particular item. But what I like even more is that it works quite well for abstract things like "colourful shoes".
+
+Here's the full stack:
+
+- Hardware: Deployed on a 2CPU 4GB RAM VPS with docker
+- Storage: SQLite + object storage (for images)
+- Search: CLIP text/image neural networks + faiss similarity search index
+- Pipeline: Python scripts + cron
+- Web: Django serving HTML/Tailwind/daisyUI
+- IDE: Developed in notebooks with nbdev
+
+I tried to keep the implementation as simple as possible and I'm happy with the result! It took ~2 weeks to build and has been running seamlessly without my input ever since.
+
+Check out [this Twitter thread](https://twitter.com/wasimlorgat/status/1596038255236915200) for more details.
 
 ### [nbdev](https://nbdev.fast.ai)
 
-I'm a core contributor to nbdev, a notebook-driven software development platform.
+I'm a core developer of nbdev, an open source notebook-driven software development platform.
+
+nbdev let's me use exploratory programming (related to REPL-driven development and literate programming) for all of my software development.
+
+I also came up with the idea of hooking into the Jupyter file save API and using a custom git merge driver to improve Jupyter/git integration. All of the core functionality used by these hooks was already implemented by other nbdev core developers. You can find out more in [the write-up](https://www.fast.ai/posts/2022-08-25-jupyter-git.html).
 
 ### [Plum dispatch for fastcore (experimental)](https://github.com/fastai/fastcore/pull/415)
 
