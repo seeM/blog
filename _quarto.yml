@@ -2,7 +2,6 @@ project:
   type: website
 
 website:
-  google-analytics: G-HFC893KRQ7
   open-graph: true
   twitter-card:
     creator: "@wasimlorgat"
@@ -35,6 +34,8 @@ website:
 format:
   html:
     theme: seem.scss
+    include-in-header:
+      - analytics.html
 
 comments:
   giscus: 
