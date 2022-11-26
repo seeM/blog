@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Wasim Lorgat - Projects</title>
+<title>Wasim Lorgat - 💻 Projects</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -62,10 +62,10 @@ ul.task-list li input[type="checkbox"] {
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
 
 
-<meta property="og:title" content="Wasim Lorgat - Projects">
+<meta property="og:title" content="Wasim Lorgat - 💻 Projects">
 <meta property="og:description" content="My projects span machine learning, programming languages, personal analytics, browser extensions, code editors, and personal tools to support my workflows.">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta name="twitter:title" content="Wasim Lorgat - Projects">
+<meta name="twitter:title" content="Wasim Lorgat - 💻 Projects">
 <meta name="twitter:description" content="My projects span machine learning, programming languages, personal analytics, browser extensions, code editors, and personal tools to support my workflows.">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
@@ -90,15 +90,15 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html" rel="">
- <span class="menu-text">Posts</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./tils/index.html" rel="">
- <span class="menu-text">TILs</span></a>
+ <span class="menu-text">📮 Posts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link active" href="./projects.html" rel="" aria-current="page">
- <span class="menu-text">Projects</span></a>
+ <span class="menu-text">💻 Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./tils/index.html" rel="">
+ <span class="menu-text">📖 TILs</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -144,6 +144,7 @@ ul.task-list li input[type="checkbox"] {
   <ul>
   <li><a href="#section" id="toc-section" class="nav-link active" data-scroll-target="#section">2022</a>
   <ul class="collapse">
+  <li><a href="#meepo" id="toc-meepo" class="nav-link" data-scroll-target="#meepo">Meepo</a></li>
   <li><a href="#nbdev" id="toc-nbdev" class="nav-link" data-scroll-target="#nbdev">nbdev</a></li>
   <li><a href="#plum-dispatch-for-fastcore-experimental" id="toc-plum-dispatch-for-fastcore-experimental" class="nav-link" data-scroll-target="#plum-dispatch-for-fastcore-experimental">Plum dispatch for fastcore (experimental)</a></li>
   </ul></li>
@@ -180,7 +181,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Projects</h1>
+<h1 class="title">💻 Projects</h1>
 </div>
 
 
@@ -196,11 +197,31 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 <p>My projects span machine learning, programming languages, personal analytics, browser extensions, code editors, and personal tools to support my workflows. I work on projects for fun, to learn, or to solve a specific problem I have. More recent projects are listed first.</p>
+<p>Click on a project’s heading to go to its website/repo.</p>
 <section id="section" class="level2">
 <h2 class="anchored" data-anchor-id="section">2022</h2>
+<section id="meepo" class="level3">
+<h3 class="anchored" data-anchor-id="meepo"><a href="https://meepo.shop">Meepo</a></h3>
+<p>A smarter search engine for a local (South African) fashion and homeware store.</p>
+<p>I have no affiliation with said store. I built this for myself, because I was frustrated at how difficult it was to find what I wanted with the existing search engine + I was curious how well CLIP (a relatively new AI technique with open source code and models) would work here.</p>
+<p>I think it works quite well! It’s much more forgiving than the original search engine. I don’t have to guess what exactly they decided to label a particular item. But what I like even more is that it works quite well for abstract things like “colourful shoes”.</p>
+<p>Here’s the full stack:</p>
+<ul>
+<li>Hardware: Deployed on a 2CPU 4GB RAM VPS with docker</li>
+<li>Storage: SQLite + object storage (for images)</li>
+<li>Search: CLIP text/image neural networks + faiss similarity search index</li>
+<li>Pipeline: Python scripts + cron</li>
+<li>Web: Django serving HTML/Tailwind/daisyUI</li>
+<li>IDE: Developed in notebooks with nbdev</li>
+</ul>
+<p>I tried to keep the implementation as simple as possible and I’m happy with the result! It took ~2 weeks to build and has been running seamlessly without my input ever since.</p>
+<p>Check out <a href="https://twitter.com/wasimlorgat/status/1596038255236915200">this Twitter thread</a> for more details.</p>
+</section>
 <section id="nbdev" class="level3">
 <h3 class="anchored" data-anchor-id="nbdev"><a href="https://nbdev.fast.ai">nbdev</a></h3>
-<p>I’m a core contributor to nbdev, a notebook-driven software development platform.</p>
+<p>I’m a core developer of nbdev, an open source notebook-driven software development platform.</p>
+<p>nbdev let’s me use exploratory programming (related to REPL-driven development and literate programming) for all of my software development.</p>
+<p>I also came up with the idea of hooking into the Jupyter file save API and using a custom git merge driver to improve Jupyter/git integration. All of the core functionality used by these hooks was already implemented by other nbdev core developers. You can find out more in <a href="https://www.fast.ai/posts/2022-08-25-jupyter-git.html">the write-up</a>.</p>
 </section>
 <section id="plum-dispatch-for-fastcore-experimental" class="level3">
 <h3 class="anchored" data-anchor-id="plum-dispatch-for-fastcore-experimental"><a href="https://github.com/fastai/fastcore/pull/415">Plum dispatch for fastcore (experimental)</a></h3>
