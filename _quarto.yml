@@ -34,8 +34,8 @@ website:
 format:
   html:
     theme: seem.scss
-    include-in-header:
-      - analytics.html
+    include-in-header: [analytics-head.html]
+    include-after-body: [analytics-body.html]
 
 comments:
   giscus: 
