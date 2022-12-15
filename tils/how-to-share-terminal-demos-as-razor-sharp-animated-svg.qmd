@@ -1,0 +1,29 @@
+---
+title: How to share terminal demos as razor-sharp animated SVG
+date: 2022-12-15
+categories: [terminal]
+---
+
+1. Install [asciinema](https://github.com/asciinema/asciinema) and [svg-term-cli](https://github.com/marionebl/svg-term-cli).
+2. Record with asciinema:
+
+    ```bash
+    asciinema rec demo.cast
+    ```
+
+    This records the session in the [asciicast v2 plaintext file format](https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md) (newline-delimited JSON with an initial header object followed by a timestamped event stream of stdin and stdout).
+3. Convert the `.cast` file to `.svg` with svg-term-cli:
+
+    ```bash
+    svg-term --in demo.cast --out demo.svg --window --width 80 --height 22 --no-optimize
+    ```
+
+    - You probably want to play around with `width` and `height`
+    - `window` adds a fake OS window around the terminal session
+    - I found that `no-optimize` fixed some weird font rendering issues on my macOS -- not sure why
+
+---
+
+Here's an example I created for my blog post [_Build a text editor with Python and curses_](/posts/editor.qmd):
+
+![](/posts/images/editor.svg)
