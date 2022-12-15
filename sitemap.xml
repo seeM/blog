@@ -2,82 +2,86 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wasimlorgat.com/projects.html</loc>
-    <lastmod>2022-11-26T18:25:29.594Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/tils/setting-up-tils-in-pelican.html</loc>
-    <lastmod>2022-11-26T18:25:30.422Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</loc>
-    <lastmod>2022-11-26T18:25:30.894Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/tils/update-fastai-union-annotations-using-ast.html</loc>
-    <lastmod>2022-11-26T18:25:31.370Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/tils/compiling-python-to-c-using-setuptools-and-cython.html</loc>
-    <lastmod>2022-11-26T18:25:31.794Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/tils/index.html</loc>
-    <lastmod>2022-11-26T18:25:32.654Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html</loc>
-    <lastmod>2022-11-26T18:25:33.590Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/tils/using-pelican-as-a-library.html</loc>
-    <lastmod>2022-11-26T18:25:34.342Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</loc>
-    <lastmod>2022-11-26T18:25:34.750Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/tils/create-and-execute-cells-inside-a-jupyter-notebook.html</loc>
-    <lastmod>2022-11-26T18:25:35.162Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/index.html</loc>
-    <lastmod>2022-11-26T18:25:35.822Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/posts/pdlog.html</loc>
-    <lastmod>2022-11-26T18:25:36.402Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/posts/hats.html</loc>
-    <lastmod>2022-11-26T18:25:36.810Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/posts/tools-wishlist.html</loc>
-    <lastmod>2022-11-26T18:25:37.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/posts/fastai-array-programming-day-1.html</loc>
-    <lastmod>2022-11-26T18:25:38.002Z</lastmod>
-  </url>
-  <url>
-    <loc>https://wasimlorgat.com/posts/editor.html</loc>
-    <lastmod>2022-11-26T18:25:39.074Z</lastmod>
+    <lastmod>2022-12-15T06:28:13.804Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/math-of-diffusion.html</loc>
-    <lastmod>2022-11-26T18:25:39.634Z</lastmod>
+    <lastmod>2022-12-15T06:28:15.028Z</lastmod>
   </url>
   <url>
-    <loc>https://wasimlorgat.com/posts/derivations.html</loc>
-    <lastmod>2022-11-26T18:25:40.586Z</lastmod>
+    <loc>https://wasimlorgat.com/posts/pdlog.html</loc>
+    <lastmod>2022-12-15T06:28:15.592Z</lastmod>
   </url>
   <url>
-    <loc>https://wasimlorgat.com/posts/notebook-best-practices.html</loc>
-    <lastmod>2022-11-26T18:25:41.094Z</lastmod>
+    <loc>https://wasimlorgat.com/posts/tools-wishlist.html</loc>
+    <lastmod>2022-12-15T06:28:15.952Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/posts/fastai-array-programming-day-1.html</loc>
+    <lastmod>2022-12-15T06:28:16.596Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/posts/editor.html</loc>
+    <lastmod>2022-12-15T06:28:17.496Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/doing-important-work.html</loc>
-    <lastmod>2022-11-26T18:25:41.534Z</lastmod>
+    <lastmod>2022-12-15T06:28:17.848Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/posts/notebook-best-practices.html</loc>
+    <lastmod>2022-12-15T06:28:18.252Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/posts/hats.html</loc>
+    <lastmod>2022-12-15T06:28:18.576Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/posts/derivations.html</loc>
+    <lastmod>2022-12-15T06:28:18.948Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/index.html</loc>
+    <lastmod>2022-12-15T06:28:19.448Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</loc>
+    <lastmod>2022-12-15T06:28:19.788Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html</loc>
+    <lastmod>2022-12-15T06:28:20.108Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html</loc>
+    <lastmod>2022-12-15T06:28:20.536Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/setting-up-tils-in-pelican.html</loc>
+    <lastmod>2022-12-15T06:28:20.888Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</loc>
+    <lastmod>2022-12-15T06:28:21.264Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/compiling-python-to-c-using-setuptools-and-cython.html</loc>
+    <lastmod>2022-12-15T06:28:21.592Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/using-pelican-as-a-library.html</loc>
+    <lastmod>2022-12-15T06:28:22.256Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/index.html</loc>
+    <lastmod>2022-12-15T06:28:22.960Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/update-fastai-union-annotations-using-ast.html</loc>
+    <lastmod>2022-12-15T06:28:23.676Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/create-and-execute-cells-inside-a-jupyter-notebook.html</loc>
+    <lastmod>2022-12-15T06:28:24.000Z</lastmod>
   </url>
 </urlset>

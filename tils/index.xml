@@ -9,8 +9,41 @@
 <link>https://wasimlorgat.com/tils/index.html</link>
 <atom:link href="https://wasimlorgat.com/tils/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent TILs on wasimlorgat.com</description>
-<generator>quarto-1.3.26</generator>
-<lastBuildDate>Sun, 10 Jul 2022 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.3.56</generator>
+<lastBuildDate>Thu, 15 Dec 2022 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>How to share terminal demos as razor-sharp animated SVG</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html</link>
+  <description><![CDATA[ 
+
+
+
+<ol type="1">
+<li><p>Install <a href="https://github.com/asciinema/asciinema">asciinema</a> and <a href="https://github.com/marionebl/svg-term-cli">svg-term-cli</a>.</p></li>
+<li><p>Record with asciinema:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;">asciinema</span> rec demo.cast</span></code></pre></div>
+<p>This records the session in the <a href="https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md">asciicast v2 plaintext file format</a> (newline-delimited JSON with an initial header object followed by a timestamped event stream of stdin and stdout).</p></li>
+<li><p>Convert the <code>.cast</code> file to <code>.svg</code> with svg-term-cli:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;">svg-term</span> <span class="at" style="color: #657422;">--in</span> demo.cast <span class="at" style="color: #657422;">--out</span> demo.svg <span class="at" style="color: #657422;">--window</span> <span class="at" style="color: #657422;">--width</span> 80 <span class="at" style="color: #657422;">--height</span> 22 <span class="at" style="color: #657422;">--no-optimize</span></span></code></pre></div>
+<ul>
+<li>You probably want to play around with <code>width</code> and <code>height</code></li>
+<li><code>window</code> adds a fake OS window around the terminal session</li>
+<li>I found that <code>no-optimize</code> fixed some weird font rendering issues on my macOS – not sure why</li>
+</ul></li>
+</ol>
+<hr>
+<p>Here’s an example I created for my blog post <a href="../posts/editor.html"><em>Build a text editor with Python and curses</em></a>:</p>
+<p><img src="https://wasimlorgat.com/posts/images/editor.svg" class="img-fluid"></p>
+
+
+
+ ]]></description>
+  <category>terminal</category>
+  <guid>https://wasimlorgat.com/tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html</guid>
+  <pubDate>Thu, 15 Dec 2022 00:00:00 GMT</pubDate>
+  <media:content url="https://wasimlorgat.com/posts/images/editor.svg" medium="image" type="image/svg+xml"/>
+</item>
 <item>
   <title>Diagnosing an issue with plugin modules, process pools, and the import system</title>
   <dc:creator>Wasim Lorgat</dc:creator>
@@ -404,6 +437,91 @@ requires = [
   <pubDate>Mon, 04 Jul 2022 00:00:00 GMT</pubDate>
 </item>
 <item>
+  <title>Creating a minimal custom Jupyter widget</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>I couldn’t find a super minimal example of implementing a custom Jupyter widget, so here it is. This is based on Pierre Marion’s <a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder"><em>Binder Repo for Hello World Jupyter Widget</em></a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;">import</span> ipywidgets <span class="im" style="color: #00769E;">as</span> widgets</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;">from</span> traitlets <span class="im" style="color: #00769E;">import</span> Unicode, validate</span>
+<span id="cb1-3"></span>
+<span id="cb1-4"></span>
+<span id="cb1-5"><span class="kw" style="color: #003B4F;">class</span> HelloWidget(widgets.DOMWidget):</span>
+<span id="cb1-6">    _view_name <span class="op" style="color: #5E5E5E;">=</span> Unicode(<span class="st" style="color: #20794D;">'HelloView'</span>).tag(sync<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
+<span id="cb1-7">    _view_module <span class="op" style="color: #5E5E5E;">=</span> Unicode(<span class="st" style="color: #20794D;">'hello'</span>).tag(sync<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
+<span id="cb1-8">    _view_module_version <span class="op" style="color: #5E5E5E;">=</span> Unicode(<span class="st" style="color: #20794D;">'0.1.0'</span>).tag(sync<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
+<span id="cb1-9">    value <span class="op" style="color: #5E5E5E;">=</span> Unicode(<span class="st" style="color: #20794D;">'Hello World!'</span>).tag(sync<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="op" style="color: #5E5E5E;">%%</span>javascript</span>
+<span id="cb2-2">require.undef(<span class="st" style="color: #20794D;">'hello'</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb2-3"></span>
+<span id="cb2-4">define(<span class="st" style="color: #20794D;">'hello'</span>, [<span class="st" style="color: #20794D;">"@jupyter-widgets/base"</span>], function(widgets) {</span>
+<span id="cb2-5"></span>
+<span id="cb2-6">    var HelloView <span class="op" style="color: #5E5E5E;">=</span> widgets.DOMWidgetView.extend({</span>
+<span id="cb2-7"></span>
+<span id="cb2-8">        render: function() { </span>
+<span id="cb2-9">            this.el.textContent <span class="op" style="color: #5E5E5E;">=</span> this.model.get(<span class="st" style="color: #20794D;">'value'</span>)<span class="op" style="color: #5E5E5E;">;</span> </span>
+<span id="cb2-10">        },</span>
+<span id="cb2-11">    })<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb2-12"></span>
+<span id="cb2-13">    <span class="cf" style="color: #003B4F;">return</span> {</span>
+<span id="cb2-14">        HelloView : HelloView</span>
+<span id="cb2-15">    }<span class="op" style="color: #5E5E5E;">;</span></span>
+<span id="cb2-16">})<span class="op" style="color: #5E5E5E;">;</span></span></code></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/javascript">
+require.undef('hello');
+
+define('hello', ["@jupyter-widgets/base"], function(widgets) {
+
+    var HelloView = widgets.DOMWidgetView.extend({
+
+        render: function() { 
+            this.el.textContent = this.model.get('value'); 
+        },
+    });
+
+    return {
+        HelloView : HelloView
+    };
+});
+
+</script>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">HelloWidget()</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"d90cd88266104b9d82e44ddfaf404407","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<p>Here are some great articles that I referenced while exploring this topic:</p>
+<ul>
+<li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
+<li><a href="https://blog.jupyter.org/authoring-custom-jupyter-widgets-2884a462e724">Authoring Custom Jupyter Widgets: A Hands-On Guide</a></li>
+<li><a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Custom.html">ipywidgets Official Documentation: Building a Custom Widget - Email widget</a></li>
+<li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
+<li><a href="https://jakevdp.github.io/blog/2013/06/01/ipython-notebook-javascript-python-communication/">IPython Notebook: Javascript/Python Bi-directional Communication</a>. I think this may have been the birth of ipywidgets!</li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>jupyter</category>
+  <guid>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</guid>
+  <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>Point and click directory navigation inside a Jupyter notebook</title>
   <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</link>
@@ -539,91 +657,6 @@ requires = [
  ]]></description>
   <category>jupyter</category>
   <guid>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</guid>
-  <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
-</item>
-<item>
-  <title>Creating a minimal custom Jupyter widget</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
-  <link>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</link>
-  <description><![CDATA[ 
-
-
-
-<p>I couldn’t find a super minimal example of implementing a custom Jupyter widget, so here it is. This is based on Pierre Marion’s <a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder"><em>Binder Repo for Hello World Jupyter Widget</em></a>.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;">import</span> ipywidgets <span class="im" style="color: #00769E;">as</span> widgets</span>
-<span id="cb1-2"><span class="im" style="color: #00769E;">from</span> traitlets <span class="im" style="color: #00769E;">import</span> Unicode, validate</span>
-<span id="cb1-3"></span>
-<span id="cb1-4"></span>
-<span id="cb1-5"><span class="kw" style="color: #003B4F;">class</span> HelloWidget(widgets.DOMWidget):</span>
-<span id="cb1-6">    _view_name <span class="op" style="color: #5E5E5E;">=</span> Unicode(<span class="st" style="color: #20794D;">'HelloView'</span>).tag(sync<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
-<span id="cb1-7">    _view_module <span class="op" style="color: #5E5E5E;">=</span> Unicode(<span class="st" style="color: #20794D;">'hello'</span>).tag(sync<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
-<span id="cb1-8">    _view_module_version <span class="op" style="color: #5E5E5E;">=</span> Unicode(<span class="st" style="color: #20794D;">'0.1.0'</span>).tag(sync<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
-<span id="cb1-9">    value <span class="op" style="color: #5E5E5E;">=</span> Unicode(<span class="st" style="color: #20794D;">'Hello World!'</span>).tag(sync<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span></code></pre></div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="op" style="color: #5E5E5E;">%%</span>javascript</span>
-<span id="cb2-2">require.undef(<span class="st" style="color: #20794D;">'hello'</span>)<span class="op" style="color: #5E5E5E;">;</span></span>
-<span id="cb2-3"></span>
-<span id="cb2-4">define(<span class="st" style="color: #20794D;">'hello'</span>, [<span class="st" style="color: #20794D;">"@jupyter-widgets/base"</span>], function(widgets) {</span>
-<span id="cb2-5"></span>
-<span id="cb2-6">    var HelloView <span class="op" style="color: #5E5E5E;">=</span> widgets.DOMWidgetView.extend({</span>
-<span id="cb2-7"></span>
-<span id="cb2-8">        render: function() { </span>
-<span id="cb2-9">            this.el.textContent <span class="op" style="color: #5E5E5E;">=</span> this.model.get(<span class="st" style="color: #20794D;">'value'</span>)<span class="op" style="color: #5E5E5E;">;</span> </span>
-<span id="cb2-10">        },</span>
-<span id="cb2-11">    })<span class="op" style="color: #5E5E5E;">;</span></span>
-<span id="cb2-12"></span>
-<span id="cb2-13">    <span class="cf" style="color: #003B4F;">return</span> {</span>
-<span id="cb2-14">        HelloView : HelloView</span>
-<span id="cb2-15">    }<span class="op" style="color: #5E5E5E;">;</span></span>
-<span id="cb2-16">})<span class="op" style="color: #5E5E5E;">;</span></span></code></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/javascript">
-require.undef('hello');
-
-define('hello', ["@jupyter-widgets/base"], function(widgets) {
-
-    var HelloView = widgets.DOMWidgetView.extend({
-
-        render: function() { 
-            this.el.textContent = this.model.get('value'); 
-        },
-    });
-
-    return {
-        HelloView : HelloView
-    };
-});
-
-</script>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">HelloWidget()</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"d90cd88266104b9d82e44ddfaf404407","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-</div>
-<section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
-<p>Here are some great articles that I referenced while exploring this topic:</p>
-<ul>
-<li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
-<li><a href="https://blog.jupyter.org/authoring-custom-jupyter-widgets-2884a462e724">Authoring Custom Jupyter Widgets: A Hands-On Guide</a></li>
-<li><a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Custom.html">ipywidgets Official Documentation: Building a Custom Widget - Email widget</a></li>
-<li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
-<li><a href="https://jakevdp.github.io/blog/2013/06/01/ipython-notebook-javascript-python-communication/">IPython Notebook: Javascript/Python Bi-directional Communication</a>. I think this may have been the birth of ipywidgets!</li>
-</ul>
-
-
-</section>
-
- ]]></description>
-  <category>jupyter</category>
-  <guid>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</guid>
   <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
 </item>
 <item>

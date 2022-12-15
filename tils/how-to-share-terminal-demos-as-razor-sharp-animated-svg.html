@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
-<meta name="dcterms.date" content="2022-06-21">
+<meta name="dcterms.date" content="2022-12-15">
 
-<title>Wasim Lorgat - Setting up TILs in Pelican</title>
+<title>Wasim Lorgat - How to share terminal demos as razor-sharp animated SVG</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -127,11 +127,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
 
 
-<meta property="og:title" content="Wasim Lorgat - Setting up TILs in Pelican">
-<meta property="og:description" content="Inspired by Simon Willison, I started writing TILs (today I learned). I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks.">
+<meta property="og:title" content="Wasim Lorgat - How to share terminal demos as razor-sharp animated SVG">
+<meta property="og:description" content="Here’s an example I created for my blog post Build a text editor with Python and curses:">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta name="twitter:title" content="Wasim Lorgat - Setting up TILs in Pelican">
-<meta name="twitter:description" content="Inspired by Simon Willison, I started writing TILs (today I learned). I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks.">
+<meta name="twitter:title" content="Wasim Lorgat - How to share terminal demos as razor-sharp animated SVG">
+<meta name="twitter:description" content="Here’s an example I created for my blog post Build a text editor with Python and curses:">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
 <meta name="twitter:card" content="summary">
@@ -203,25 +203,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#reconfigure-your-archives" id="toc-reconfigure-your-archives" class="nav-link active" data-scroll-target="#reconfigure-your-archives">Reconfigure your archives</a></li>
-  <li><a href="#create-the-tils-listing" id="toc-create-the-tils-listing" class="nav-link" data-scroll-target="#create-the-tils-listing">Create the TILs listing</a></li>
-  <li><a href="#hack-article-urls" id="toc-hack-article-urls" class="nav-link" data-scroll-target="#hack-article-urls">Hack article URLs</a></li>
-  <li><a href="#update-invoke-task" id="toc-update-invoke-task" class="nav-link" data-scroll-target="#update-invoke-task">Update invoke task</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Setting up TILs in Pelican</h1>
+<h1 class="title">How to share terminal demos as razor-sharp animated SVG</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">pelican</div>
+    <div class="quarto-category">terminal</div>
   </div>
   </div>
 
@@ -239,7 +230,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">June 21, 2022</p>
+      <p class="date">December 15, 2022</p>
     </div>
   </div>
   
@@ -249,47 +240,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>Inspired by <a href="https://til.simonwillison.net/">Simon Willison</a>, I started writing <a href="../tils/">TILs</a> (today I learned). I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks. TILs are my attempt at documenting and sharing my day-to-day learnings in case they might help others. The focus on learning also feels less daunting than writing blog posts.</p>
-<p>I wanted to support TILs on my blog as a separate set of posts with their own listing page. Thanks to <a href="https://docs.getpelican.com/en">Pelican’s</a> incredible flexibility, this was quite easy!</p>
-<p>Following these steps requires using a custom theme. I personally use a custom theme (forked from the builtin <em>simple</em> theme) precisely so that I can easily make these sorts of customisations.</p>
-<section id="reconfigure-your-archives" class="level2">
-<h2 class="anchored" data-anchor-id="reconfigure-your-archives">Reconfigure your archives</h2>
-<p>Start by renaming <code>archives.html</code> to <code>posts/index.html</code> (relative to your theme’s <code>templates</code> directory).</p>
-<p>Edit the loop over <code>dates</code> in <code>posts/index.html</code> to exclude articles tagged <code>til</code>:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>{<span class="op">%</span> <span class="cf">for</span> article <span class="kw">in</span> dates <span class="cf">if</span> <span class="st">'til'</span> <span class="kw">not</span> <span class="kw">in</span> article.tags<span class="op">|</span>default([]) <span class="op">%</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Add the new path to <code>DIRECT_TEMPLATES</code>, the corresponding line of my <code>pelicanconf.py</code> now looks like:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>DIRECT_TEMPLATES <span class="op">=</span> [<span class="st">'index'</span>, <span class="st">'posts/index'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>… because I don’t have tag or category pages yet. Disable the original archives page:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ARCHIVES_SAVE_AS <span class="op">=</span> <span class="st">''</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>It should be working as it was before, but we’re now able to add a few more listings in the same way!</p>
-</section>
-<section id="create-the-tils-listing" class="level2">
-<h2 class="anchored" data-anchor-id="create-the-tils-listing">Create the TILs listing</h2>
-<p>Copy <code>posts/index.html</code> to <code>tils/index.html</code>, and edit the for loop to <em>only include</em> articles tagged <code>til</code> (note that the <code>not</code> from before is missing):</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>{<span class="op">%</span> <span class="cf">for</span> article <span class="kw">in</span> dates <span class="cf">if</span> <span class="st">'til'</span> <span class="kw">in</span> article.tags<span class="op">|</span>default([]) <span class="op">%</span>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>Add the new path to <code>DIRECT_TEMPLATES</code> in your <code>pelicanconf.py</code>:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>DIRECT_TEMPLATES <span class="op">=</span> [<span class="st">'index'</span>, <span class="st">'posts/index'</span>, <span class="st">'tils/index'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>You probably also want to link to the listing from your nav bar. For my theme, that’s done by adding a line to the <code>&lt;nav&gt;</code> tag in my <code>base.html</code> template:</p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">&lt;a</span> <span class="er">href</span><span class="ot">=</span><span class="st">"{{ SITEURL }}/tils/"</span><span class="kw">&gt;</span>TILs<span class="kw">&lt;/a&gt;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="hack-article-urls" class="level2">
-<h2 class="anchored" data-anchor-id="hack-article-urls">Hack article URLs</h2>
-<p>This is my favourite part! At this point, you should have two working listings, but TIL article URLs will be the same as any other article. Pelican determines the URL and output location of an article by calling <code>format</code> with the article’s metadata on strings <code>ARTICLE_URL</code> and <code>ARTICLE_SAVE_AS</code>. That means we can implement a tiny string class with a custom <code>format</code> to dynamically set the URL of TILs to <code>tils/{slug}</code> and of posts to <code>posts/{slug}</code>!</p>
-<p>Simply include the following in your <code>pelicanconf.py</code>:</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ArticleUrl(<span class="bu">str</span>):</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="bu">format</span>(<span class="va">self</span>,tags<span class="op">=</span>[],<span class="op">**</span>kwargs): <span class="cf">return</span> (<span class="st">'tils/'</span> <span class="cf">if</span> <span class="st">'til'</span> <span class="kw">in</span> tags <span class="cf">else</span> <span class="st">'posts/'</span>) <span class="op">+</span> <span class="bu">super</span>().<span class="bu">format</span>(<span class="op">**</span>kwargs)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ARTICLE_URL <span class="op">=</span> ArticleUrl(<span class="st">'</span><span class="sc">{slug}</span><span class="st">/'</span>)</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>ARTICLE_SAVE_AS <span class="op">=</span> ArticleUrl(<span class="st">'</span><span class="sc">{slug}</span><span class="st">/index.html'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="update-invoke-task" class="level2">
-<h2 class="anchored" data-anchor-id="update-invoke-task">Update invoke task</h2>
-<p>If you’re using live reload via the <code>invoke livereload</code> task, you’ll need to update your task definition to include nested HTML files in your theme:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode diff code-with-copy"><code class="sourceCode diff"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="st">-    server.watch('{}/templates/*.html'.format(theme_path), lambda: build(c))</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="va">+    server.watch('{}/templates/**/*.html'.format(theme_path), lambda: build(c))</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ol type="1">
+<li><p>Install <a href="https://github.com/asciinema/asciinema">asciinema</a> and <a href="https://github.com/marionebl/svg-term-cli">svg-term-cli</a>.</p></li>
+<li><p>Record with asciinema:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="ex">asciinema</span> rec demo.cast</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>This records the session in the <a href="https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md">asciicast v2 plaintext file format</a> (newline-delimited JSON with an initial header object followed by a timestamped event stream of stdin and stdout).</p></li>
+<li><p>Convert the <code>.cast</code> file to <code>.svg</code> with svg-term-cli:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="ex">svg-term</span> <span class="at">--in</span> demo.cast <span class="at">--out</span> demo.svg <span class="at">--window</span> <span class="at">--width</span> 80 <span class="at">--height</span> 22 <span class="at">--no-optimize</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<ul>
+<li>You probably want to play around with <code>width</code> and <code>height</code></li>
+<li><code>window</code> adds a fake OS window around the terminal session</li>
+<li>I found that <code>no-optimize</code> fixed some weird font rendering issues on my macOS – not sure why</li>
+</ul></li>
+</ol>
+<hr>
+<p>Here’s an example I created for my blog post <a href="../posts/editor.html"><em>Build a text editor with Python and curses</em></a>:</p>
+<p><img src="../posts/images/editor.svg" class="img-fluid"></p>
 
 
-</section>
 
 </main> <!-- /main -->
 <script>
