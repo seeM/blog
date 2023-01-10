@@ -117,6 +117,49 @@ body { -webkit-font-smoothing: antialiased; }
 #title-block-header { margin-block-end: 1.5rem; }
 .quarto-listing-default { margin-top: 2em; }
 
+// Code cells & outputs
+
+.cell { margin-bottom: 1rem; }
+.cell > .sourceCode { margin-bottom: 0; }
+.cell-output > pre { margin-bottom: 0; }
+
+.cell-output > pre, .cell-output > .sourceCode > pre, .cell-output-stdout > pre {
+  margin-left: 0.8rem;
+  margin-top: 0;
+  background: none;
+  border-left: 2px solid $blue;
+  border-radius: 0;
+}
+
+.cell-output > .sourceCode {
+  border: none;
+}
+
+.cell-output > .sourceCode {
+  background: none;
+  margin-top: 0;
+}
+
+/* show_doc signature */
+blockquote > pre {
+  font-size: 14px;
+}
+
+.table {
+  font-size: 16px;
+  /* disable striped tables */
+  --bs-table-striped-bg: var(--bs-table-bg);
+}
+
+.quarto-figure-center > figure > figcaption {
+  text-align: center;
+}
+
+.figure-caption {
+  font-size: 75%;
+  font-style: italic;
+}
+
 // Text
 
 h3 { margin-bottom: 1rem; }
