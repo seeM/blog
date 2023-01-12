@@ -2,6 +2,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/jupyter-server-a-whirlwind-tour.html",
       "/posts/math-of-diffusion.html",
       "/posts/notebook-best-practices.html",
       "/posts/fastai-array-programming-day-1.html",
