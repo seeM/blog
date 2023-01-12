@@ -4,7 +4,7 @@ listing:
   sort: "date desc"
   type: default
   categories: true
-  fields: [date, title, categories, description, image]
+  fields: [date, reading-time, title, categories, description, image]
   feed: true
 page-layout: full
 author: ''
