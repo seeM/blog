@@ -1,5 +1,7 @@
 project:
   type: website
+  resources:
+    - "*.png"
 
 website:
   open-graph: true
