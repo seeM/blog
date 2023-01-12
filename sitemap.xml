@@ -2,90 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wasimlorgat.com/index.html</loc>
-    <lastmod>2023-01-12T14:27:53.382Z</lastmod>
+    <lastmod>2023-01-12T14:32:06.505Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/jupyter-server-a-whirlwind-tour.html</loc>
-    <lastmod>2023-01-12T14:27:54.498Z</lastmod>
+    <lastmod>2023-01-12T14:32:07.705Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/math-of-diffusion.html</loc>
-    <lastmod>2023-01-12T14:27:54.902Z</lastmod>
+    <lastmod>2023-01-12T14:32:08.141Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/doing-important-work.html</loc>
-    <lastmod>2023-01-12T14:27:55.250Z</lastmod>
+    <lastmod>2023-01-12T14:32:08.513Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/tools-wishlist.html</loc>
-    <lastmod>2023-01-12T14:27:55.614Z</lastmod>
+    <lastmod>2023-01-12T14:32:08.865Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/editor.html</loc>
-    <lastmod>2023-01-12T14:27:56.582Z</lastmod>
+    <lastmod>2023-01-12T14:32:09.945Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/pdlog.html</loc>
-    <lastmod>2023-01-12T14:27:57.046Z</lastmod>
+    <lastmod>2023-01-12T14:32:10.461Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/hats.html</loc>
-    <lastmod>2023-01-12T14:27:57.302Z</lastmod>
+    <lastmod>2023-01-12T14:32:10.773Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/fastai-array-programming-day-1.html</loc>
-    <lastmod>2023-01-12T14:27:57.966Z</lastmod>
+    <lastmod>2023-01-12T14:32:11.537Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/derivations.html</loc>
-    <lastmod>2023-01-12T14:27:58.290Z</lastmod>
+    <lastmod>2023-01-12T14:32:11.905Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/notebook-best-practices.html</loc>
-    <lastmod>2023-01-12T14:27:59.086Z</lastmod>
+    <lastmod>2023-01-12T14:32:12.825Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/projects.html</loc>
-    <lastmod>2023-01-12T14:27:59.462Z</lastmod>
+    <lastmod>2023-01-12T14:32:13.237Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/setting-up-tils-in-pelican.html</loc>
-    <lastmod>2023-01-12T14:27:59.790Z</lastmod>
+    <lastmod>2023-01-12T14:32:13.605Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/index.html</loc>
-    <lastmod>2023-01-12T14:28:00.474Z</lastmod>
+    <lastmod>2023-01-12T14:32:14.333Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html</loc>
-    <lastmod>2023-01-12T14:28:01.222Z</lastmod>
+    <lastmod>2023-01-12T14:32:15.133Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/compiling-python-to-c-using-setuptools-and-cython.html</loc>
-    <lastmod>2023-01-12T14:28:01.482Z</lastmod>
+    <lastmod>2023-01-12T14:32:15.433Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/using-pelican-as-a-library.html</loc>
-    <lastmod>2023-01-12T14:28:02.086Z</lastmod>
+    <lastmod>2023-01-12T14:32:16.121Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</loc>
-    <lastmod>2023-01-12T14:28:02.422Z</lastmod>
+    <lastmod>2023-01-12T14:32:16.481Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/create-and-execute-cells-inside-a-jupyter-notebook.html</loc>
-    <lastmod>2023-01-12T14:28:02.698Z</lastmod>
+    <lastmod>2023-01-12T14:32:16.777Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html</loc>
-    <lastmod>2023-01-12T14:28:02.982Z</lastmod>
+    <lastmod>2023-01-12T14:32:17.061Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/update-fastai-union-annotations-using-ast.html</loc>
-    <lastmod>2023-01-12T14:28:03.310Z</lastmod>
+    <lastmod>2023-01-12T14:32:17.425Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</loc>
-    <lastmod>2023-01-12T14:28:03.586Z</lastmod>
+    <lastmod>2023-01-12T14:32:17.761Z</lastmod>
   </url>
 </urlset>

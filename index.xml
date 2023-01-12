@@ -496,6 +496,7 @@ Receiving execute_reply
 
  ]]></description>
   <category>jupyter</category>
+  <category>tutorial</category>
   <guid>https://wasimlorgat.com/posts/jupyter-server-a-whirlwind-tour.html</guid>
   <pubDate>Thu, 12 Jan 2023 00:00:00 GMT</pubDate>
   <media:content url="https://wasimlorgat.com/posts/images/jupiter.jpg" medium="image" type="image/jpeg"/>
