@@ -107,6 +107,10 @@ body { -webkit-font-smoothing: antialiased; }
   &-warning { color: $white; }
 }
 
+// Listing
+
+div.quarto-post .thumbnail img { border-radius: .25rem; }
+
 // Navs
 
 .pagination { a:hover { text-decoration: none; } }
