@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.97">
+<meta name="generator" content="quarto-1.3.103">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -226,7 +226,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#executing-code" id="toc-executing-code" class="nav-link" data-scroll-target="#executing-code">Executing code</a>
   <ul class="collapse">
   <li><a href="#start-a-session" id="toc-start-a-session" class="nav-link" data-scroll-target="#start-a-session">Start a session</a></li>
-  <li><a href="#open-a-websocket" id="toc-open-a-websocket" class="nav-link" data-scroll-target="#open-a-websocket">Open a WebSocket</a></li>
+  <li><a href="#communicate-over-websockets" id="toc-communicate-over-websockets" class="nav-link" data-scroll-target="#communicate-over-websockets">Communicate over WebSockets</a></li>
   </ul></li>
   <li><a href="#cleanup" id="toc-cleanup" class="nav-link" data-scroll-target="#cleanup">Cleanup</a>
   <ul class="collapse">
@@ -329,7 +329,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>A 200 response means that the server processed the request successfully.</p>
-<p>Next we need to authenticate. What happens if we try to make a request to an endpoint that requires authentication, for example <code>GET /api/sessions</code>?</p>
+<p>Next we need to authenticate. What happens if we try to make a request to an endpoint that requires authentication, for example <code>GET /api/contents</code>?</p>
 <div class="cell" data-execution_count="884">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>requests.get(url <span class="op">+</span> <span class="st">'api/contents'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="884">
@@ -359,7 +359,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Let’s use the Contents API to create a file, rename it, and write some contents to it.</p>
 <section id="list-the-contents-of-a-directory" class="level3">
 <h3 class="anchored" data-anchor-id="list-the-contents-of-a-directory">List the contents of a directory</h3>
-<p><code>GET /api/contents/&lt;path&gt;</code> lists the contents of the directory at <code>path</code>. You can think of it as <code>ls</code> for Jupyter Server:</p>
+<p><code>GET /api/contents/&lt;path&gt;</code> returns the contents of the file or directory at <code>path</code>. You can think of it as <code>ls</code> for Jupyter Server:</p>
 <div class="cell" data-execution_count="891">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="st">'api/contents'</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="891">
@@ -412,7 +412,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  'type': 'directory'}</code></pre>
 </div>
 </div>
-<p>The response is a nested dict. The root dict refers to the root directory as before, however, <code>content</code> now contains the newly created notebook file <code>Untitled.ipynb</code>.</p>
+<p>The response is a nested dict. The root dict refers to the root directory as before, however, <code>content</code> now contains the newly created notebook named <code>Untitled.ipynb</code>.</p>
 <p>We can get the contents of this file using the same method but referring to the file’s path i.e.&nbsp;<code>GET /api/contents/&lt;path&gt;</code>:</p>
 <div class="cell" data-execution_count="895">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> session.get(url <span class="op">+</span> <span class="st">'api/contents/Untitled.ipynb'</span>).json()</span>
@@ -613,8 +613,8 @@ Note
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>session_id <span class="op">=</span> data[<span class="st">'id'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="open-a-websocket" class="level3">
-<h3 class="anchored" data-anchor-id="open-a-websocket">Open a WebSocket</h3>
+<section id="communicate-over-websockets" class="level3">
+<h3 class="anchored" data-anchor-id="communicate-over-websockets">Communicate over WebSockets</h3>
 <p>First we need to let the server know that we’d like to make a websocket connection. This request looks quite different from the others. We include <code>Connection</code> and <code>Upgrade</code> headers:</p>
 <div class="cell" data-execution_count="866">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="ss">f'api/kernels/</span><span class="sc">{</span>kernel_id<span class="sc">}</span><span class="ss">/channels?session_id=</span><span class="sc">{</span>session_id<span class="sc">}</span><span class="ss">'</span>, headers<span class="op">=</span>{<span class="st">'Connection'</span>: <span class="st">'upgrade'</span>, <span class="st">'Upgrade'</span>: <span class="st">'websocket'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -746,6 +746,7 @@ Receiving execute_reply
 <li>How does Jupyter’s trust system work?</li>
 <li>How would you implement Jupyter’s checkpointing system?</li>
 <li>Can you redo this in another language?</li>
+<li>How would you design and build your own UI on top of this?</li>
 </ul>
 <p>As for me, my next step is to start translating these into Swift as part of the native macOS Jupyter frontend I’m building.</p>
 <p>Let me know on Twitter or via email if you enjoyed this or if you have any questions!</p>
