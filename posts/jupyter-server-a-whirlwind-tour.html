@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.103">
+<meta name="generator" content="quarto-1.3.107">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -300,7 +300,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     Or copy and paste one of these URLs:
         http://localhost:8889/?token=72b22f0cee26baaa6aed492b6fed5a010d57bd6c0e1adcce
      or http://127.0.0.1:8889/?token=72b22f0cee26baaa6aed492b6fed5a010d57bd6c0e1adcce</code></pre>
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="47">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># NB: Update this based on your terminal output</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>url_with_token <span class="op">=</span> <span class="st">'http://localhost:8889/?token=72b22f0cee26baaa6aed492b6fed5a010d57bd6c0e1adcce'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -308,47 +308,47 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="authenticating" class="level2">
 <h2 class="anchored" data-anchor-id="authenticating">Authenticating</h2>
 <p>First, we’ll do a quick check that there is a server at the defined <code>url</code>. We need to get the URL without the <code>token</code> query parameter:</p>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="48">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> urllib.parse <span class="im">import</span> urlparse</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="3">
+<div class="cell" data-execution_count="93">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>url <span class="op">=</span> urlparse(url_with_token)._replace(query<span class="op">=</span><span class="va">None</span>).geturl()</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>url</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="93">
 <pre><code>'http://localhost:8889/'</code></pre>
 </div>
 </div>
 <p>Now we can make the request:</p>
-<div class="cell" data-execution_count="4">
+<div class="cell" data-execution_count="50">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> requests</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="51">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>requests.get(url)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="51">
 <pre><code>&lt;Response [200]&gt;</code></pre>
 </div>
 </div>
 <p>A 200 response means that the server processed the request successfully.</p>
 <p>Next we need to authenticate. What happens if we try to make a request to an endpoint that requires authentication, for example <code>GET /api/contents</code>?</p>
-<div class="cell" data-execution_count="6">
+<div class="cell" data-execution_count="52">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>requests.get(url <span class="op">+</span> <span class="st">'api/contents'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="52">
 <pre><code>&lt;Response [403]&gt;</code></pre>
 </div>
 </div>
 <p>It fails with <code>403 Forbidden</code>.</p>
 <p>If we include our token in the <code>Authorization</code> header:</p>
-<div class="cell" data-execution_count="7">
+<div class="cell" data-execution_count="53">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>token <span class="op">=</span> urlparse(url_with_token).query.split(<span class="st">'='</span>)[<span class="op">-</span><span class="dv">1</span>]</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>headers <span class="op">=</span> {<span class="st">'Authorization'</span>: <span class="ss">f'token </span><span class="sc">{</span>token<span class="sc">}</span><span class="ss">'</span>}</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>requests.get(url <span class="op">+</span> <span class="st">'api/contents'</span>, headers<span class="op">=</span>headers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="53">
 <pre><code>&lt;Response [200]&gt;</code></pre>
 </div>
 </div>
 <p>… it works!</p>
 <p>Let’s create a <code>requests.Session</code> so we don’t have to keep specifying the header:</p>
-<div class="cell" data-execution_count="8">
+<div class="cell" data-execution_count="54">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>session <span class="op">=</span> requests.Session()</span>
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>session.headers.update(headers)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -360,13 +360,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="list-the-contents-of-a-directory" class="level3">
 <h3 class="anchored" data-anchor-id="list-the-contents-of-a-directory">List the contents of a directory</h3>
 <p><code>GET /api/contents/&lt;path&gt;</code> returns the contents of the file or directory at <code>path</code>. You can think of it as <code>ls</code> for Jupyter Server:</p>
-<div class="cell" data-execution_count="10">
+<div class="cell" data-execution_count="56">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="st">'api/contents'</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="56">
 <pre><code>{'name': '',
  'path': '',
- 'last_modified': '2023-01-13T08:22:47.286711Z',
- 'created': '2023-01-13T08:22:47.286711Z',
+ 'last_modified': '2023-01-14T05:57:31.170122Z',
+ 'created': '2023-01-14T05:57:31.170122Z',
  'content': [],
  'format': 'json',
  'mimetype': None,
@@ -380,25 +380,25 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="create-an-empty-notebook" class="level3">
 <h3 class="anchored" data-anchor-id="create-an-empty-notebook">Create an empty notebook</h3>
 <p><code>POST /api/contents/&lt;path&gt;</code> creates an empty file in the directory at <code>path</code>. You can specify the <code>type</code> of the file in the request body:</p>
-<div class="cell" data-execution_count="11">
+<div class="cell" data-execution_count="57">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>session.post(url <span class="op">+</span> <span class="st">'api/contents'</span>, json<span class="op">=</span>{<span class="st">'type'</span>: <span class="st">'notebook'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="57">
 <pre><code>&lt;Response [201]&gt;</code></pre>
 </div>
 </div>
 <p>The 201 status code means that the request succeeded and a resource was created.</p>
 <p>Let’s confirm that the file exists with <code>GET /api/contents</code>:</p>
-<div class="cell" data-execution_count="12">
+<div class="cell" data-execution_count="58">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="st">'api/contents'</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="58">
 <pre><code>{'name': '',
  'path': '',
- 'last_modified': '2023-01-13T10:15:41.135210Z',
- 'created': '2023-01-13T10:15:41.135210Z',
+ 'last_modified': '2023-01-14T05:57:31.561513Z',
+ 'created': '2023-01-14T05:57:31.561513Z',
  'content': [{'name': 'Untitled.ipynb',
    'path': 'Untitled.ipynb',
-   'last_modified': '2023-01-13T10:15:41.140623Z',
-   'created': '2023-01-13T10:15:41.140623Z',
+   'last_modified': '2023-01-14T05:57:31.576883Z',
+   'created': '2023-01-14T05:57:31.576883Z',
    'content': None,
    'format': None,
    'mimetype': None,
@@ -414,14 +414,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <p>The response is a nested dict. The root dict refers to the root directory as before, however, <code>content</code> now contains the newly created notebook named <code>Untitled.ipynb</code>.</p>
 <p>We can get the contents of this file using the same method but referring to the file’s path i.e.&nbsp;<code>GET /api/contents/&lt;path&gt;</code>:</p>
-<div class="cell" data-execution_count="13">
+<div class="cell" data-execution_count="59">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> session.get(url <span class="op">+</span> <span class="st">'api/contents/Untitled.ipynb'</span>).json()</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="59">
 <pre><code>{'name': 'Untitled.ipynb',
  'path': 'Untitled.ipynb',
- 'last_modified': '2023-01-13T10:15:41.140623Z',
- 'created': '2023-01-13T10:15:41.140623Z',
+ 'last_modified': '2023-01-14T05:57:31.576883Z',
+ 'created': '2023-01-14T05:57:31.576883Z',
  'content': {'cells': [], 'metadata': {}, 'nbformat': 4, 'nbformat_minor': 5},
  'format': 'json',
  'mimetype': None,
@@ -431,9 +431,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>We’re probably most interested in <code>content</code>, which contains the JSON content of the notebook:</p>
-<div class="cell" data-execution_count="14">
+<div class="cell" data-execution_count="60">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'content'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="14">
+<div class="cell-output cell-output-display" data-execution_count="60">
 <pre><code>{'cells': [], 'metadata': {}, 'nbformat': 4, 'nbformat_minor': 5}</code></pre>
 </div>
 </div>
@@ -442,13 +442,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <section id="rename-a-notebook" class="level3">
 <h3 class="anchored" data-anchor-id="rename-a-notebook">Rename a notebook</h3>
 <p>Our newly created file is still named <code>Untitled.ipynb</code>. Let’s rename it to <code>sum.ipynb</code> with <code>PATCH /api/contents/&lt;path&gt;</code>:</p>
-<div class="cell" data-execution_count="15">
+<div class="cell" data-execution_count="61">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>session.patch(url <span class="op">+</span> <span class="st">'api/contents/Untitled.ipynb'</span>, json<span class="op">=</span>{<span class="st">'path'</span>: <span class="st">'sum.ipynb'</span>}).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="61">
 <pre><code>{'name': 'sum.ipynb',
  'path': 'sum.ipynb',
- 'last_modified': '2023-01-13T10:15:41.140623Z',
- 'created': '2023-01-13T10:15:43.872138Z',
+ 'last_modified': '2023-01-14T05:57:31.576883Z',
+ 'created': '2023-01-14T05:57:33.924151Z',
  'content': None,
  'format': None,
  'mimetype': None,
@@ -458,20 +458,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <p>Confirm that it’s been renamed. <code>Untitled.ipynb</code> no longer exists:</p>
-<div class="cell" data-execution_count="16">
+<div class="cell" data-execution_count="62">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="st">'api/contents/Untitled.ipynb'</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
+<div class="cell-output cell-output-display" data-execution_count="62">
 <pre><code>{'message': 'No such file or directory: Untitled.ipynb', 'reason': None}</code></pre>
 </div>
 </div>
 <p>… but <code>sum.ipynb</code> does:</p>
-<div class="cell" data-execution_count="17">
+<div class="cell" data-execution_count="63">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="st">'api/contents/sum.ipynb'</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
+<div class="cell-output cell-output-display" data-execution_count="63">
 <pre><code>{'name': 'sum.ipynb',
  'path': 'sum.ipynb',
- 'last_modified': '2023-01-13T10:15:41.140623Z',
- 'created': '2023-01-13T10:15:43.872138Z',
+ 'last_modified': '2023-01-14T05:57:31.576883Z',
+ 'created': '2023-01-14T05:57:33.924151Z',
  'content': {'cells': [], 'metadata': {}, 'nbformat': 4, 'nbformat_minor': 5},
  'format': 'json',
  'mimetype': None,
@@ -497,7 +497,7 @@ Note
 <section id="update-a-notebooks-contents" class="level3">
 <h3 class="anchored" data-anchor-id="update-a-notebooks-contents">Update a notebook’s contents</h3>
 <p>Create a cell and append it to existing contents:</p>
-<div class="cell" data-execution_count="18">
+<div class="cell" data-execution_count="64">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>cell <span class="op">=</span> {</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'cell_type'</span>: <span class="st">'code'</span>,</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'id'</span>: <span class="st">'0'</span>,</span>
@@ -512,20 +512,20 @@ Note
 <span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>data[<span class="st">'content'</span>][<span class="st">'cells'</span>].append(cell)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Update the notebook’s contents using <code>PUT /api/contents/&lt;path&gt;</code>:</p>
-<div class="cell" data-execution_count="19">
+<div class="cell" data-execution_count="65">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>session.put(url <span class="op">+</span> <span class="st">'api/contents/sum.ipynb'</span>, json<span class="op">=</span>{<span class="st">'content'</span>: data[<span class="st">'content'</span>], <span class="st">'type'</span>: <span class="st">'notebook'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell-output cell-output-display" data-execution_count="65">
 <pre><code>&lt;Response [200]&gt;</code></pre>
 </div>
 </div>
 <p>Confirm that the notebook’s been updated. Note that <code>last_modified</code> and <code>content</code> have both updated:</p>
-<div class="cell" data-execution_count="20">
+<div class="cell" data-execution_count="66">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="st">'api/contents/sum.ipynb'</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell-output cell-output-display" data-execution_count="66">
 <pre><code>{'name': 'sum.ipynb',
  'path': 'sum.ipynb',
- 'last_modified': '2023-01-13T10:15:46.261982Z',
- 'created': '2023-01-13T10:15:46.261982Z',
+ 'last_modified': '2023-01-14T05:57:35.571379Z',
+ 'created': '2023-01-14T05:57:35.571379Z',
  'content': {'cells': [{'cell_type': 'code',
     'execution_count': 0,
     'id': '0',
@@ -551,16 +551,25 @@ Note
 <section id="start-a-session" class="level3">
 <h3 class="anchored" data-anchor-id="start-a-session">Start a session</h3>
 <p>List open sessions with <code>GET /api/sessions</code>:</p>
-<div class="cell" data-execution_count="21">
+<div class="cell" data-execution_count="67">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="st">'api/sessions'</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>[]</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="67">
+<pre><code>[{'id': '90e534e8-a917-481b-9939-a95a05c21b63',
+  'path': 'sum.ipynb',
+  'name': 'sum.ipynb',
+  'type': 'notebook',
+  'kernel': {'id': '935e5365-f3fc-45cf-8be1-50716cb74a5d',
+   'name': 'python3',
+   'last_activity': '2023-01-13T10:18:25.244563Z',
+   'execution_state': 'idle',
+   'connections': 0},
+  'notebook': {'path': 'sum.ipynb', 'name': 'sum.ipynb'}}]</code></pre>
 </div>
 </div>
 <p>First we need to choose a kernel specification. Here are the available options on my computer – yours will likely differ:</p>
-<div class="cell" data-execution_count="22">
+<div class="cell" data-execution_count="68">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="st">'api/kernelspecs'</span>).json()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="68">
 <pre><code>{'default': 'python3',
  'kernelspecs': {'dyalog-kernel': {'name': 'dyalog-kernel',
    'spec': {'argv': ['python3',
@@ -591,24 +600,24 @@ Note
 </div>
 </div>
 <p>Create a new session with <code>POST /api/sessions</code> with the <code>python3</code> kernelspec:</p>
-<div class="cell" data-execution_count="23">
+<div class="cell" data-execution_count="69">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> session.post(url <span class="op">+</span> <span class="st">'api/sessions'</span>, json<span class="op">=</span>{<span class="st">'kernel'</span>: {<span class="st">'name'</span>: <span class="st">'python3'</span>}, <span class="st">'name'</span>: <span class="st">'sum.ipynb'</span>, <span class="st">'path'</span>: <span class="st">'sum.ipynb'</span>, <span class="st">'type'</span>: <span class="st">'notebook'</span>}).json()</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
+<div class="cell-output cell-output-display" data-execution_count="69">
 <pre><code>{'id': '90e534e8-a917-481b-9939-a95a05c21b63',
  'path': 'sum.ipynb',
  'name': 'sum.ipynb',
  'type': 'notebook',
  'kernel': {'id': '935e5365-f3fc-45cf-8be1-50716cb74a5d',
   'name': 'python3',
-  'last_activity': '2023-01-13T10:15:50.362933Z',
-  'execution_state': 'starting',
+  'last_activity': '2023-01-13T10:18:25.244563Z',
+  'execution_state': 'idle',
   'connections': 0},
  'notebook': {'path': 'sum.ipynb', 'name': 'sum.ipynb'}}</code></pre>
 </div>
 </div>
 <p>Now that a session exists, we can connect to a websocket. We’ll need the <code>kernel_id</code> and <code>session_id</code> to do that, so let’s store them for the next step:</p>
-<div class="cell" data-execution_count="24">
+<div class="cell" data-execution_count="70">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>kernel_id <span class="op">=</span> data[<span class="st">'kernel'</span>][<span class="st">'id'</span>]</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>session_id <span class="op">=</span> data[<span class="st">'id'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -616,51 +625,47 @@ Note
 <section id="communicate-over-websockets" class="level3">
 <h3 class="anchored" data-anchor-id="communicate-over-websockets">Communicate over WebSockets</h3>
 <p>First we need to let the server know that we’d like to make a websocket connection. This request looks quite different from the others. We include <code>Connection</code> and <code>Upgrade</code> headers:</p>
-<div class="cell" data-execution_count="25">
+<div class="cell" data-execution_count="71">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>session.get(url <span class="op">+</span> <span class="ss">f'api/kernels/</span><span class="sc">{</span>kernel_id<span class="sc">}</span><span class="ss">/channels?session_id=</span><span class="sc">{</span>session_id<span class="sc">}</span><span class="ss">'</span>, headers<span class="op">=</span>{<span class="st">'Connection'</span>: <span class="st">'upgrade'</span>, <span class="st">'Upgrade'</span>: <span class="st">'websocket'</span>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="cell-output cell-output-display" data-execution_count="71">
 <pre><code>&lt;Response [426]&gt;</code></pre>
 </div>
 </div>
 <p>The server responds with a 426, which means that it would like to upgrade the connection – in our case, to a websocket.</p>
-<p>We’ll use the <a href="https://websockets.readthedocs.io/en/stable/">websockets</a> library to make the connection.</p>
-<p>First, let’s craft a message to request an execution:</p>
-<div class="cell" data-execution_count="46">
+<p>First, let’s craft a message to request an execution – you can try changing the value of the <code>code</code> variable below to execute something else:</p>
+<div class="cell" data-execution_count="105">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> uuid</span>
 <span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>code_msg_id <span class="op">=</span> <span class="bu">str</span>(uuid.uuid1())</span>
-<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>code_msg <span class="op">=</span> {<span class="st">'channel'</span>: <span class="st">'shell'</span>,</span>
-<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">'content'</span>: {<span class="st">'silent'</span>: <span class="va">False</span>, <span class="st">'code'</span>: code},</span>
-<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">'header'</span>: {<span class="st">'msg_id'</span>: code_msg_id, <span class="st">'msg_type'</span>:<span class="st">'execute_request'</span>},</span>
-<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">'metadata'</span>: {},</span>
-<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">'parent_header'</span>:{}}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>code <span class="op">=</span> <span class="st">'1 + 1'</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>code_msg_id <span class="op">=</span> <span class="bu">str</span>(uuid.uuid1())</span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>code_msg <span class="op">=</span> {<span class="st">'channel'</span>: <span class="st">'shell'</span>,</span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">'content'</span>: {<span class="st">'silent'</span>: <span class="va">False</span>, <span class="st">'code'</span>: code},</span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">'header'</span>: {<span class="st">'msg_id'</span>: code_msg_id, <span class="st">'msg_type'</span>:<span class="st">'execute_request'</span>},</span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">'metadata'</span>: {},</span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>            <span class="st">'parent_header'</span>:{}}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now we can send the message to the server and receive all responses – you can try changing the value of the <code>code</code> variable below to execute something else:</p>
-<div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>code <span class="op">=</span> <span class="st">'1 + 1'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> asyncio, json, websockets, uuid</span>
-<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a><span class="cf">async</span> <span class="kw">def</span> recv_all(websocket):</span>
-<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
-<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>: msg <span class="op">=</span> json.loads(<span class="cf">await</span> asyncio.wait_for(websocket.recv(), <span class="dv">1</span>))</span>
-<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> asyncio.<span class="pp">TimeoutError</span>: <span class="cf">break</span></span>
-<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  type: </span><span class="sc">{</span>msg[<span class="st">'msg_type'</span>]<span class="sc">:16}</span><span class="ss"> content: </span><span class="sc">{</span>msg[<span class="st">'content'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a><span class="cf">async</span> <span class="kw">def</span> main():</span>
-<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>    host, port <span class="op">=</span> urlparse(url_with_token).netloc.split(<span class="st">':'</span>)</span>
-<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>    url <span class="op">=</span> <span class="ss">f'ws://</span><span class="sc">{</span>host<span class="sc">}</span><span class="ss">:</span><span class="sc">{</span>port<span class="sc">}</span><span class="ss">/api/kernels/</span><span class="sc">{</span>kernel_id<span class="sc">}</span><span class="ss">/channels?session_id=</span><span class="sc">{</span>session_id<span class="sc">}</span><span class="ss">'</span></span>
-<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    headers <span class="op">=</span> {<span class="st">'Authorization'</span>: <span class="ss">f'token </span><span class="sc">{</span>token<span class="sc">}</span><span class="ss">'</span>}</span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">async</span> <span class="cf">with</span> websockets.<span class="ex">connect</span>(url, extra_headers<span class="op">=</span>headers) <span class="im">as</span> websocket:</span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Receiving initial messages</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">await</span> recv_all(websocket)        </span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Sending execute_request</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">await</span> websocket.send(json.dumps(code_msg))</span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">'Receiving execute_reply</span><span class="ch">\n</span><span class="st">'</span>)</span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">await</span> recv_all(websocket)</span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>asyncio.get_event_loop().create_task(main())<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Now we can send the message to the server and receive all responses.</p>
+<p>We’ll use the <a href="https://websocket-client.readthedocs.io/">websocket-client</a> library. You might also want to consider the <a href="https://websockets.readthedocs.io/en/stable/">websockets</a> library which is asynchronous.</p>
+<div class="cell" data-execution_count="106">
+<div class="sourceCode cell-code" id="cb46"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> contextlib <span class="im">import</span> closing</span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> websocket <span class="im">import</span> create_connection</span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> recv_all(conn):</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">try</span>: msg <span class="op">=</span> json.loads(conn.recv())</span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">except</span> websocket.WebSocketTimeoutException: <span class="cf">break</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"  type: </span><span class="sc">{</span>msg[<span class="st">'msg_type'</span>]<span class="sc">:16}</span><span class="ss"> content: </span><span class="sc">{</span>msg[<span class="st">'content'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>ws_base_url <span class="op">=</span> urlparse(url)._replace(scheme<span class="op">=</span><span class="st">'ws'</span>).geturl()</span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>ws_url <span class="op">=</span> ws_base_url <span class="op">+</span> <span class="ss">f'api/kernels/</span><span class="sc">{</span>kernel_id<span class="sc">}</span><span class="ss">/channels?session_id=</span><span class="sc">{</span>session_id<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> closing(create_connection(ws_url, header<span class="op">=</span>headers, timeout<span class="op">=</span><span class="dv">1</span>)) <span class="im">as</span> conn:</span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Receiving initial messages</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>    recv_all(conn)</span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Sending execute_request</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>    conn.send(json.dumps(code_msg))</span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'Receiving execute_reply</span><span class="ch">\n</span><span class="st">'</span>)</span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>    recv_all(conn)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Receiving initial messages
 
@@ -673,10 +678,10 @@ Sending execute_request
 Receiving execute_reply
 
   type: status           content: {'execution_state': 'busy'}
-  type: execute_input    content: {'code': '1 + 1', 'execution_count': 10}
-  type: execute_result   content: {'data': {'text/plain': '2'}, 'metadata': {}, 'execution_count': 10}
-  type: execute_reply    content: {'status': 'ok', 'execution_count': 10, 'user_expressions': {}, 'payload': []}
-  type: status           content: {'execution_state': 'idle'}</code></pre>
+  type: execute_input    content: {'code': '1 + 1', 'execution_count': 13}
+  type: execute_result   content: {'data': {'text/plain': '2'}, 'metadata': {}, 'execution_count': 13}
+  type: status           content: {'execution_state': 'idle'}
+  type: execute_reply    content: {'status': 'ok', 'execution_count': 13, 'user_expressions': {}, 'payload': []}</code></pre>
 </div>
 </div>
 <p>Yay! We successfully executed code on the server via websockets.</p>
@@ -691,7 +696,7 @@ Receiving execute_reply
 <h3 class="anchored" data-anchor-id="close-the-session">Close the session</h3>
 <p>Since we’re done with the session, we can close it via <code>DELETE /api/sessions/&lt;session_id&gt;</code>:</p>
 <div class="cell" data-execution_count="874">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>session.delete(url <span class="op">+</span> <span class="ss">f'api/sessions/</span><span class="sc">{</span>session_id<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>session.delete(url <span class="op">+</span> <span class="ss">f'api/sessions/</span><span class="sc">{</span>session_id<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="874">
 <pre><code>&lt;Response [204]&gt;</code></pre>
 </div>
@@ -701,15 +706,15 @@ Receiving execute_reply
 <h3 class="anchored" data-anchor-id="shutdown-the-server">Shutdown the server</h3>
 <p>Finally, shutdown the server via <code>POST /api/shutdown</code>.</p>
 <div class="cell" data-execution_count="875">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>session.post(url <span class="op">+</span> <span class="st">'api/shutdown'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb50"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>session.post(url <span class="op">+</span> <span class="st">'api/shutdown'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="875">
 <pre><code>&lt;Response [200]&gt;</code></pre>
 </div>
 </div>
 <p>… and confirm that it’s been shutdown correctly:</p>
 <div class="cell" data-execution_count="876">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>: session.get(url)</span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> requests.exceptions.<span class="pp">ConnectionError</span>: <span class="bu">print</span>(<span class="st">'Server has been successfully shutdown!'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>: session.get(url)</span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> requests.exceptions.<span class="pp">ConnectionError</span>: <span class="bu">print</span>(<span class="st">'Server has been successfully shutdown!'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Server has been successfully shutdown!</code></pre>
 </div>
