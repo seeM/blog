@@ -18,13 +18,13 @@ I'm a machine learning engineer and aspiring entrepreneur.
 
 This is where I write about what I'm working on, which includes [notebook-driven development](/posts/notebook-best-practices.qmd), [artificial intelligence](/posts/math-of-diffusion.qmd), [software design](/posts/editor.qmd), [programming languages](/posts/fastai-array-programming-day-1.ipynb), and [other](/posts/doing-important-work.qmd) [musings](/posts/hats.qmd).
 
-You might also want to check out [my full list of projects](/projects.qmd) and [my TILs](/tils/index.qmd) (today I learneds).
+You might also want to check out [my full list of projects](/projects.qmd), [talks](/talks/index.qmd), and [TILs](/tils/index.qmd) (today I learneds).
 
 Previously, I held technical leadership positions in South African AI startups in manufacturing and agriculture. Before that, I was a professional DotA 2 player.
 
 ## 👨🏽‍💻 Hire me
 
-Using [nbdev](https://nbdev.fast.ai/) for notebook-driven development but need it adapted to your business needs? Need support architecting and building a machine learning system? Need to implement a novel deep learning technique customized to your use-case?
+Do you use [nbdev](https://nbdev.fast.ai/) for notebook-driven development and need it adapted to your business needs? Do you need support architecting and building machine learning systems? Do you need to implement a novel deep learning technique customized to your use-case?
 
 I'm open to consulting or contract work on a per-project basis. If you'd like to get in touch, please [DM me on Twitter](https://twitter.com/wasimlorgat) or email me at [mwlorgat@gmail.com](mailto:mwlorgat@gmail.com){data-analytics='"Consulting: Click"'} and let's chat!
 
