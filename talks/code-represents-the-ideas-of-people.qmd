@@ -3,6 +3,7 @@ title: Code represents the ideas of people
 description: "By considering the *people* who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves."
 date: 2018-03-17
 categories: []
+image: images/leci-nest-pas-une-pipe.png
 ---
 
 {{< video https://www.youtube.com/embed/o8-IuUMG2T8 >}}
