@@ -166,9 +166,15 @@ blockquote > pre {
 
 // Text
 
+h1 { margin-bottom: 1rem !important; }
+
+h2 img { display: none; }
+
 h3 { margin-bottom: 1rem; }
 
 kbd { padding: 0.1rem; }
+
+nav ul li img, p img { border-radius: 0.25rem; }
 
 $colors: ("blue": $blue,
           "indigo": $indigo,

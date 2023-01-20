@@ -1,0 +1,16 @@
+---
+title: 💬 Talks
+listing:
+  contents: .
+  sort: "date desc"
+  type: default
+  categories: true
+  feed: true
+page-layout: full
+author: ''
+comments: false
+description: Recent talks on wasimlorgat.com
+title-block-style: none
+---
+
+Talks I've given over the years.
