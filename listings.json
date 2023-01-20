@@ -1,5 +1,11 @@
 [
   {
+    "listing": "/talks/index.html",
+    "items": [
+      "/talks/code-represents-the-ideas-of-people.html"
+    ]
+  },
+  {
     "listing": "/index.html",
     "items": [
       "/posts/jupyter-server-a-whirlwind-tour.html",
