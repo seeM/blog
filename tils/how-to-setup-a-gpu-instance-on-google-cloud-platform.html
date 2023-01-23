@@ -7,10 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
-<meta name="dcterms.date" content="2020-07-19">
-<meta name="description" content="Please include code comments for other developers, provided they add more information than the code itself.">
+<meta name="dcterms.date" content="2023-01-23">
 
-<title>Wasim Lorgat - Include derivations</title>
+<title>Wasim Lorgat - How to setup a GPU notebook server on Google Cloud Platform (GCP)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,20 +64,14 @@ ul.task-list li input[type="checkbox"] {
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
 
 
-<meta property="og:title" content="Wasim Lorgat - Include derivations">
-<meta property="og:description" content="Please include code comments for other developers, provided they add more information than the code itself.">
-<meta property="og:image" content="https://wasimlorgat.com/posts/images/derivations.png">
+<meta property="og:title" content="Wasim Lorgat - How to setup a GPU notebook server on Google Cloud Platform (GCP)">
+<meta property="og:description" content="">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta property="og:image:height" content="544">
-<meta property="og:image:width" content="1854">
-<meta name="twitter:title" content="Wasim Lorgat - Include derivations">
-<meta name="twitter:description" content="Please include code comments for other developers, provided they add more information than the code itself.">
-<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/derivations.png">
+<meta name="twitter:title" content="Wasim Lorgat - How to setup a GPU notebook server on Google Cloud Platform (GCP)">
+<meta name="twitter:description" content="">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:image-height" content="544">
-<meta name="twitter:image-width" content="1854">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
@@ -160,9 +153,8 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#prefer-self-documenting-code-over-comments" id="toc-prefer-self-documenting-code-over-comments" class="nav-link active" data-scroll-target="#prefer-self-documenting-code-over-comments">Prefer self-documenting code over comments</a></li>
-  <li><a href="#developer--vs-user-oriented-comments" id="toc-developer--vs-user-oriented-comments" class="nav-link" data-scroll-target="#developer--vs-user-oriented-comments">Developer- vs user-oriented comments</a></li>
-  <li><a href="#takeaway-everythings-hard-and-there-are-no-easy-answers" id="toc-takeaway-everythings-hard-and-there-are-no-easy-answers" class="nav-link" data-scroll-target="#takeaway-everythings-hard-and-there-are-no-easy-answers">Takeaway: everything’s hard and there are no easy answers</a></li>
+  <li><a href="#setup-a-gcp-account" id="toc-setup-a-gcp-account" class="nav-link active" data-scroll-target="#setup-a-gcp-account">Setup a GCP account</a></li>
+  <li><a href="#create-a-notebook-instance-using-vertex-ai" id="toc-create-a-notebook-instance-using-vertex-ai" class="nav-link" data-scroll-target="#create-a-notebook-instance-using-vertex-ai">Create a notebook instance using Vertex AI</a></li>
   </ul>
 </nav>
     </div>
@@ -171,17 +163,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Include derivations</h1>
+<h1 class="title">How to setup a GPU notebook server on Google Cloud Platform (GCP)</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">musing</div>
+    <div class="quarto-category">cloud</div>
   </div>
   </div>
 
-<div>
-  <div class="description">
-    Please include code comments for other developers, provided they add more information than the code itself.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -196,7 +183,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">July 19, 2020</p>
+      <p class="date">January 23, 2023</p>
     </div>
   </div>
   
@@ -206,39 +193,51 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<blockquote class="blockquote">
-<p>Include derivations! It’s perfectly fine to use clever techniques and definitions, such as <code>rleDecode = (uncurry replicate =&lt;&lt;)</code> for decoding run-length encoded lists of tuples, but in the comments, include the original giant definition which you progressively refined into a short diamond! Even better, add a test (like a QuickCheck property) where you demonstrate that the output from the two are the same. If you are optimizing, somewhere hold onto the slow ones which you know are correct. Derivations are brilliant documentation of your intent, they provide numerous alternate implementations which might work if the current one breaks, and they give the future Haskellers a view of how you were thinking.</p>
-<p>— Gwern, <cite><a href="https://www.gwern.net/Resilient-Haskell-Software">Resilient Haskell Software</a></cite></p>
-</blockquote>
-<p>Include derivations! An idea I hadn’t seen before. In fact, an idea <em>counter to</em> what I’ve seen. It got me thinking about comments and documentation.</p>
-<section id="prefer-self-documenting-code-over-comments" class="level2">
-<h2 class="anchored" data-anchor-id="prefer-self-documenting-code-over-comments">Prefer self-documenting code over comments</h2>
-<p>I’m sure you’ve heard this advice before. I’ve heard it and even given it many times.</p>
-<p>The argument goes something like this: comments tend to become out of sync with the code they’re commenting. While your code is tested by its users and by your test suite, there’s nothing to ensure that comments remain correct.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> It seems natural then that without any sticking force your comments become outdated.</p>
-<p>Yet I still find myself smiling when I come across well-commented code. Why the discrepency?</p>
-</section>
-<section id="developer--vs-user-oriented-comments" class="level2">
-<h2 class="anchored" data-anchor-id="developer--vs-user-oriented-comments">Developer- vs user-oriented comments</h2>
-<p>Any given program has at least two groups of people interacting with it: developers, who directly change and extend the underlying functionality; and users, who use that functionality.</p>
-<p>Developers and users benefit from different forms of documentation. Users typically don’t need to know the full extent of implementation details and the context in which decisions were made, instead they need to know the interface of the various components, how those components interact, and how to compose them to achieve a desired goal. Developers, on the other hand, need to know the implementation details in all their glory.</p>
-<p>For example, while users probably don’t need to know <em>why</em> a specific method was chosen to decode run-length encoded lists of tuples, this is absolutely the type of information a developer needs to make good decisions about how to further extend that functionality. In the same way users probably don’t need to know why the specific method was chosen, developers probably don’t need the function’s arguments redescribed to them each time. Self-documenting functions and argument names do just fine. I increasingly see inline comments and docstrings for the purpose of auto-generating user docs as redundant noise <em>while working with the code</em>. Perhaps a topic for a future post. Naturally, comments describing those arguments gradually fade away from our attention, and are left outdated.</p>
-<p>I view developer-oriented comments as distinctly different from user-oriented comments. Someone from the past is talking directly to me: warning me of a trap, describing a hard-to-find workaround, or lamenting why this “temporary hack” should be temporary. These feel like an extension of the code, thus I consider them less susceptible to becoming outdated.</p>
-</section>
-<section id="takeaway-everythings-hard-and-there-are-no-easy-answers" class="level2">
-<h2 class="anchored" data-anchor-id="takeaway-everythings-hard-and-there-are-no-easy-answers">Takeaway: everything’s hard and there are no easy answers</h2>
-<p>There are (almost) no absolutes. There are <em>guidelines</em>, and they serve you well as you’re learning the ropes. But as your expertise grows, you learn to see them as the fuzzy boundaries that they are.</p>
-<p>It makes sense though. As beginners, we aren’t primed for the nuance required to understand the reality in all of its complexity. But always remember that guidelines are only approximations and that reality is more complex.</p>
-
-
-</section>
-
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>While there are options like Python’s <code>doctest</code>, it still doesn’t apply to prose.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<p>GCP is my current preferred cloud provider for GPU servers. I <a href="https://twitter.com/wasimlorgat/status/1524301276179312644?s=20">compared prices last year</a> and found that GCP was the cheapest for lower-end GPUs. The notebook servers offered Vertex AI are very easy to setup. They come with PyTorch and NVIDIA/CUDA drivers already configured. I also prefer options that give me full control over the instance via an SSH connection from my terminal, which this does.</p>
+<p>Depending on when you’re reading this, these instructions may no longer be valid. Please <a href="mailto:mwlorgat@gmail.com">let me know</a> if that’s the case!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/cloud-gpu-prices.jpeg" class="border shadow-sm img-fluid figure-img"></p>
+<p></p><figcaption class="figure-caption">Cloud GPU prices as of May 2022 (<a href="https://twitter.com/wasimlorgat/status/1524301276179312644">via</a>).</figcaption><p></p>
+</figure>
+</div>
+<section id="setup-a-gcp-account" class="level2">
+<h2 class="anchored" data-anchor-id="setup-a-gcp-account">Setup a GCP account</h2>
+<ol type="1">
+<li>Create a GCP account <a href="https://cloud.google.com/">here</a>.</li>
+<li>Request a GPU quota increase (follow <a href="https://cloud.google.com/ai-platform/training/docs/quotas#requesting_a_quota_increase">the official instructions</a>). This may take up to 48 hours.</li>
+<li>Enable the AI Platform via the left sidebar.</li>
 </ol>
-</section></div></main> <!-- /main -->
+</section>
+<section id="create-a-notebook-instance-using-vertex-ai" class="level2">
+<h2 class="anchored" data-anchor-id="create-a-notebook-instance-using-vertex-ai">Create a notebook instance using Vertex AI</h2>
+<ol type="1">
+<li>Open the <a href="https://console.cloud.google.com/vertex-ai/workbench">Vertex AI Workbench</a>.</li>
+<li>Click <em>New Notebook</em>, <em>PyTorch 1.12</em>, then <em>With 1 NVIDIA T4</em>.</li>
+<li>Set your <em>Notebook name</em>.</li>
+<li>Choose a <em>Region</em> and <em>Zone</em>. I went with <code>us-central1</code> and <code>us-central-1b</code> (which was the cheapest available at the time). Note that your choice of region and zone may affect GPU availability and does slightly affect pricing.</li>
+<li>By default, you’ll be provided with an <code>n1-standard-4</code> which has 4 vCPUs and 15 GB RAM, and an NVIDIA Tesla T4. If you need more resources, click the edit button next to <em>Notebook properties</em>, then <em>Machine configuration</em>, set your <em>Machine type</em> and <em>GPU type</em>, then click <em>Create</em>.</li>
+<li>Check <em>Install NVIDIA GPU driver automatically for me</em>.</li>
+<li>Wait a few seconds for the notebook server to spin up. Then click <em>OPEN JUPYTERLAB</em>.</li>
+</ol>
+<div class="callout callout-style-default callout-important callout-captioned">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-caption-container flex-fill">
+Shutdown your server when you’re done working
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>You’ll be billed for as long as the server is running. You may also be billed a smaller amount for persistent storage even while the server is shutdown.</p>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
 <script>
   let links = document.querySelectorAll("a[data-analytics]");
   for (var i = 0; i < links.length; i++) {

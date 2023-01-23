@@ -336,6 +336,27 @@
     "text": "What’s Cython?\nCython is a compiler for compiling programs written in Python and the Cython programming language into C extension modules. I’d recommend the reading through the rather friendly documentation as well."
   },
   {
+    "objectID": "tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html",
+    "href": "tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html",
+    "title": "How to setup a GPU notebook server on Google Cloud Platform (GCP)",
+    "section": "",
+    "text": "GCP is my current preferred cloud provider for GPU servers. I compared prices last year and found that GCP was the cheapest for lower-end GPUs. The notebook servers offered Vertex AI are very easy to setup. They come with PyTorch and NVIDIA/CUDA drivers already configured. I also prefer options that give me full control over the instance via an SSH connection from my terminal, which this does.\nDepending on when you’re reading this, these instructions may no longer be valid. Please let me know if that’s the case!"
+  },
+  {
+    "objectID": "tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html#setup-a-gcp-account",
+    "href": "tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html#setup-a-gcp-account",
+    "title": "How to setup a GPU notebook server on Google Cloud Platform (GCP)",
+    "section": "Setup a GCP account",
+    "text": "Setup a GCP account\n\nCreate a GCP account here.\nRequest a GPU quota increase (follow the official instructions). This may take up to 48 hours.\nEnable the AI Platform via the left sidebar."
+  },
+  {
+    "objectID": "tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html#create-a-notebook-instance-using-vertex-ai",
+    "href": "tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html#create-a-notebook-instance-using-vertex-ai",
+    "title": "How to setup a GPU notebook server on Google Cloud Platform (GCP)",
+    "section": "Create a notebook instance using Vertex AI",
+    "text": "Create a notebook instance using Vertex AI\n\nOpen the Vertex AI Workbench.\nClick New Notebook, PyTorch 1.12, then With 1 NVIDIA T4.\nSet your Notebook name.\nChoose a Region and Zone. I went with us-central1 and us-central-1b (which was the cheapest available at the time). Note that your choice of region and zone may affect GPU availability and does slightly affect pricing.\nBy default, you’ll be provided with an n1-standard-4 which has 4 vCPUs and 15 GB RAM, and an NVIDIA Tesla T4. If you need more resources, click the edit button next to Notebook properties, then Machine configuration, set your Machine type and GPU type, then click Create.\nCheck Install NVIDIA GPU driver automatically for me.\nWait a few seconds for the notebook server to spin up. Then click OPEN JUPYTERLAB.\n\n\n\n\n\n\n\nShutdown your server when you’re done working\n\n\n\nYou’ll be billed for as long as the server is running. You may also be billed a smaller amount for persistent storage even while the server is shutdown."
+  },
+  {
     "objectID": "tils/using-pelican-as-a-library.html",
     "href": "tils/using-pelican-as-a-library.html",
     "title": "Using Pelican as a library",
@@ -410,7 +431,7 @@
     "href": "tils/index.html",
     "title": "📖 TILs",
     "section": "",
-    "text": "I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks. TILs (today I learneds) are my attempt at documenting and sharing my day-to-day learnings in case they might help others. The focus on learning also feels less daunting than writing blog posts.\n\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\nDec 15, 2022\n\n\nHow to share terminal demos as razor-sharp animated SVG\n\n\n\n\nJul 10, 2022\n\n\nDiagnosing an issue with plugin modules, process pools, and the import system\n\n\n\n\nJul 8, 2022\n\n\nUpdate fastai union annotations using ast\n\n\n\n\nJul 4, 2022\n\n\nCompiling Python to C using setuptools and Cython\n\n\n\n\nJun 23, 2022\n\n\nPoint and click directory navigation inside a Jupyter notebook\n\n\n\n\nJun 23, 2022\n\n\nCreating a minimal custom Jupyter widget\n\n\n\n\nJun 22, 2022\n\n\nCreate and execute cells inside a Jupyter notebook\n\n\n\n\nJun 21, 2022\n\n\nSetting up TILs in Pelican\n\n\n\n\nJun 20, 2022\n\n\nUsing Pelican as a library\n\n\n\n\n\n\nNo matching items"
+    "text": "I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks. TILs (today I learneds) are my attempt at documenting and sharing my day-to-day learnings in case they might help others. The focus on learning also feels less daunting than writing blog posts.\n\n\n\n\n\n\n\n\n\n\nDate\n\n\nTitle\n\n\n\n\n\n\nJan 23, 2023\n\n\nHow to setup a GPU notebook server on Google Cloud Platform (GCP)\n\n\n\n\nDec 15, 2022\n\n\nHow to share terminal demos as razor-sharp animated SVG\n\n\n\n\nJul 10, 2022\n\n\nDiagnosing an issue with plugin modules, process pools, and the import system\n\n\n\n\nJul 8, 2022\n\n\nUpdate fastai union annotations using ast\n\n\n\n\nJul 4, 2022\n\n\nCompiling Python to C using setuptools and Cython\n\n\n\n\nJun 23, 2022\n\n\nPoint and click directory navigation inside a Jupyter notebook\n\n\n\n\nJun 23, 2022\n\n\nCreating a minimal custom Jupyter widget\n\n\n\n\nJun 22, 2022\n\n\nCreate and execute cells inside a Jupyter notebook\n\n\n\n\nJun 21, 2022\n\n\nSetting up TILs in Pelican\n\n\n\n\nJun 20, 2022\n\n\nUsing Pelican as a library\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "tils/update-fastai-union-annotations-using-ast.html",
