@@ -1,0 +1,37 @@
+---
+title: How to setup a GPU notebook server on Google Cloud Platform (GCP)
+date: 2023-01-23
+categories: [cloud]
+---
+
+GCP is my current preferred cloud provider for GPU servers.
+I [compared prices last year](https://twitter.com/wasimlorgat/status/1524301276179312644?s=20) and found that GCP was the cheapest for lower-end GPUs.
+The notebook servers offered Vertex AI are very easy to setup.
+They come with PyTorch and NVIDIA/CUDA drivers already configured.
+I also prefer options that give me full control over the instance via an SSH connection from my terminal, which this does.
+
+Depending on when you're reading this, these instructions may no longer be valid. Please [let me know](mailto:mwlorgat@gmail.com) if that's the case!
+
+![Cloud GPU prices as of May 2022 ([via](https://twitter.com/wasimlorgat/status/1524301276179312644)).](images/cloud-gpu-prices.jpeg){.border .shadow-sm}
+
+## Setup a GCP account
+
+1. Create a GCP account [here](https://cloud.google.com/).
+2. Request a GPU quota increase (follow [the official instructions](https://cloud.google.com/ai-platform/training/docs/quotas#requesting_a_quota_increase)). This may take up to 48 hours.
+3. Enable the AI Platform via the left sidebar.
+
+## Create a notebook instance using Vertex AI
+
+1. Open the [Vertex AI Workbench](https://console.cloud.google.com/vertex-ai/workbench).
+2. Click *New Notebook*, *PyTorch 1.12*, then *With 1 NVIDIA T4*.
+3. Set your *Notebook name*.
+4. Choose a *Region* and *Zone*. I went with `us-central1` and `us-central-1b` (which was the cheapest available at the time). Note that your choice of region and zone may affect GPU availability and does slightly affect pricing.
+5. By default, you'll be provided with an `n1-standard-4` which has 4 vCPUs and 15 GB RAM, and an NVIDIA Tesla T4. If you need more resources, click the edit button next to *Notebook properties*, then *Machine configuration*, set your *Machine type* and *GPU type*, then click *Create*.
+6. Check *Install NVIDIA GPU driver automatically for me*.
+7. Wait a few seconds for the notebook server to spin up. Then click *OPEN JUPYTERLAB*.
+
+::: {.callout-important}
+### Shutdown your server when you're done working
+
+You'll be billed for as long as the server is running. You may also be billed a smaller amount for persistent storage even while the server is shutdown.
+:::
