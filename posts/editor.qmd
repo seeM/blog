@@ -6,6 +6,10 @@ categories: [tutorial, programming]
 aliases: [/editor, /editor.html]
 ---
 
+::: {.callout-note appearance=simple}
+This article was featured in [Episode 221 of the PythonBytes podcast](https://pythonbytes.fm/episodes/show/221/pattern-matching-and-accepting-change-in-python-with-brett-cannon) by Michael Kennedy and Brian Okken.
+:::
+
 ![](images/editor.svg){.preview-image}
 
 We're going to build a command line text editor from scratch in Python. If
