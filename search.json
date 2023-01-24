@@ -102,7 +102,7 @@
     "href": "posts/editor.html",
     "title": "Build a text editor with Python and curses",
     "section": "",
-    "text": "We’re going to build a command line text editor from scratch in Python. If you’d like to learn the most out of this, I’d recommend to code along. When we encounter problems, I’ll try to state them first before suggesting a solution. I encourage you to pause and give yourself about fifteen minutes to try to solve it first. If you’re still stuck, move along and compare the solution with your own approach. It’s also totally fine if you simply read through at your leisure.\nOne more thing, if you struggle to even get started, reach out to me on twitter or via email and I’ll try my best to help.\nLet’s dive right in!"
+    "text": "This article was featured in Episode 221 of the PythonBytes podcast by Michael Kennedy and Brian Okken.\nWe’re going to build a command line text editor from scratch in Python. If you’d like to learn the most out of this, I’d recommend to code along. When we encounter problems, I’ll try to state them first before suggesting a solution. I encourage you to pause and give yourself about fifteen minutes to try to solve it first. If you’re still stuck, move along and compare the solution with your own approach. It’s also totally fine if you simply read through at your leisure.\nOne more thing, if you struggle to even get started, reach out to me on twitter or via email and I’ll try my best to help.\nLet’s dive right in!"
   },
   {
     "objectID": "posts/editor.html#create-a-curses-application",
