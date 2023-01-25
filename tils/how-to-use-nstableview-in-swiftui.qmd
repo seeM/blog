@@ -5,7 +5,7 @@ date: 2023-01-25
 categories: [swift, apple]
 ---
 
-I recently started learning macOS development using SwiftUI. While I'm loving Swift (the language) and SwiftUI (the UI framework), it's sometimes extremely difficult to find out information that feels like it should be readily available.
+I recently started learning macOS development using SwiftUI as part of my latest project: [building a macOS Jupyter frontend](https://twitter.com/wasimlorgat/status/1611615676220817415). While I'm loving Swift (the language) and SwiftUI (the UI framework), it's sometimes extremely difficult to find out information that feels like it should be readily available.
 
 The latest such case is how to use an `NSTableView` in SwiftUI. SwiftUI's new `List` is great for iOS and multiplatform apps, but doesn't seem to be designed for desktop-specific apps which can do with much more information-dense UIs.
 
@@ -49,7 +49,7 @@ struct TableView: NSViewRepresentable {
 }
 ```
 
-## Step-by-step
+**Step-by-step:**
 
 Create your table view struct, conforming to `NSViewRepresentable`. This is a standard way of using AppKit/UIKit views in your SwiftUI applications.
 
