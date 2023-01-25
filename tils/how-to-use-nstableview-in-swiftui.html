@@ -254,7 +254,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The latest such case is how to use an <code>NSTableView</code> in SwiftUI. SwiftUI’s new <code>List</code> is great for iOS and multiplatform apps, but doesn’t seem to be designed for desktop-specific apps which can do with much more information-dense UIs.</p>
 <p>SwiftUI has the newer <code>Table</code> too, but it’s also quite limited at this stage. For example, I don’t think it’s possible to make an entire row clickable.</p>
 <p>This left me wanting to try out the much more battle-tested <code>NSTableView</code> – but as an Apple dev noob, I couldn’t get a minimal example up and running after a few hours of tinkering!</p>
-<p>… So here’s a snippet you can copy paste. Keep reading below if you’d like to see how it works step-by-step.</p>
+<p>… So here’s a snippet you can copy paste.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> Keep reading below if you’d like to see how it works step-by-step.</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">import</span> <span class="im">SwiftUI</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> TableView<span class="op">:</span> <span class="dt">NSViewRepresentable</span> <span class="op">{</span></span>
@@ -421,7 +421,13 @@ struct TableView: NSViewRepresentable { # <1>
 
 
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Many thanks to Alex Grebenyuk whose <a href="https://kean.blog/post/not-list">article</a> and <a href="https://github.com/kean/PulsePro">repo</a> I heavily referenced to figure this out.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script>
   let links = document.querySelectorAll("a[data-analytics]");
   for (var i = 0; i < links.length; i++) {

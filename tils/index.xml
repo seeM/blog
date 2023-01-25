@@ -23,7 +23,7 @@
 <p>The latest such case is how to use an <code>NSTableView</code> in SwiftUI. SwiftUI’s new <code>List</code> is great for iOS and multiplatform apps, but doesn’t seem to be designed for desktop-specific apps which can do with much more information-dense UIs.</p>
 <p>SwiftUI has the newer <code>Table</code> too, but it’s also quite limited at this stage. For example, I don’t think it’s possible to make an entire row clickable.</p>
 <p>This left me wanting to try out the much more battle-tested <code>NSTableView</code> – but as an Apple dev noob, I couldn’t get a minimal example up and running after a few hours of tinkering!</p>
-<p>… So here’s a snippet you can copy paste. Keep reading below if you’d like to see how it works step-by-step.</p>
+<p>… So here’s a snippet you can copy paste.<sup>1</sup> Keep reading below if you’d like to see how it works step-by-step.</p>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb1-1"><span class="kw" style="color: #003B4F;">import</span> <span class="im" style="color: #00769E;">SwiftUI</span></span>
 <span id="cb1-2"></span>
 <span id="cb1-3"><span class="kw" style="color: #003B4F;">struct</span> TableView<span class="op" style="color: #5E5E5E;">:</span> <span class="dt" style="color: #AD0000;">NSViewRepresentable</span> <span class="op" style="color: #5E5E5E;">{</span></span>
@@ -190,7 +190,13 @@ struct TableView: NSViewRepresentable { # <1>
 
 
 
- ]]></description>
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Many thanks to Alex Grebenyuk whose <a href="https://kean.blog/post/not-list">article</a> and <a href="https://github.com/kean/PulsePro">repo</a> I heavily referenced to figure this out.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
   <category>swift</category>
   <category>apple</category>
   <guid>https://wasimlorgat.com/tils/how-to-use-nstableview-in-swiftui.html</guid>
