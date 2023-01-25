@@ -176,6 +176,8 @@ kbd { padding: 0.1rem; }
 
 nav ul li img, p img { border-radius: 0.25rem; }
 
+main ol ol, main ul ul, main ol ul, main ul ol { margin-bottom: 0; }
+
 $colors: ("blue": $blue,
           "indigo": $indigo,
           "purple": $purple,

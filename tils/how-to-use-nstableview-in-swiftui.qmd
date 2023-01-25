@@ -1,0 +1,195 @@
+---
+title: How to use NSTableView in SwiftUI
+description: ""
+date: 2023-01-25
+categories: [swift, apple]
+---
+
+I recently started learning macOS development using SwiftUI. While I'm loving Swift (the language) and SwiftUI (the UI framework), it's sometimes extremely difficult to find out information that feels like it should be readily available.
+
+The latest such case is how to use an `NSTableView` in SwiftUI. SwiftUI's new `List` is great for iOS and multiplatform apps, but doesn't seem to be designed for desktop-specific apps which can do with much more information-dense UIs.
+
+SwiftUI has the newer `Table` too, but it's also quite limited at this stage. For example, I don't think it's possible to make an entire row clickable.
+
+This left me wanting to try out the much more battle-tested `NSTableView` -- but as an Apple dev noob, I couldn't get a minimal example up and running after a few hours of tinkering!
+
+... So here's a snippet you can copy paste. Keep reading below if you'd like to see how it works step-by-step.
+
+```swift
+import SwiftUI
+
+struct TableView: NSViewRepresentable {
+    class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
+        let data = ["Apple", "Banana", "Cherry"]
+
+        func numberOfRows(in tableView: NSTableView) -> Int {
+            data.count
+        }
+
+        func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+            NSTextField(labelWithString: data[row])
+        }
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+
+    func makeNSView(context: Context) -> NSTableView {
+        let tableView = NSTableView()
+        tableView.delegate = context.coordinator
+        tableView.dataSource = context.coordinator
+        tableView.addTableColumn(NSTableColumn())
+        return tableView
+    }
+
+    func updateNSView(_ nsView: NSTableView, context: Context) {
+        // Do nothing
+    }
+}
+```
+
+## Step-by-step
+
+Create your table view struct, conforming to `NSViewRepresentable`. This is a standard way of using AppKit/UIKit views in your SwiftUI applications.
+
+In `makeNSView`, create the `NSTableView` with a single column, and leave `updateNSView` blank for now:
+
+```swift
+struct TableView: NSViewRepresentable {
+    func makeNSView(context: Context) -> NSTableView {
+        let tableView = NSTableView()
+		tableView.addColumn(NSTableColumn())
+        return tableView
+    }
+
+    func updateNSView(_ nsView: NSTableView, context: Context) {
+        // Do nothing
+    }
+}
+```
+
+Create a `Coordinator`, subclassing:
+
+- `NSTableViewDelegate` which we'll use to customize how cells are rendered as views, and
+- `NSTableViewDataSource` to define the number of rows.
+
+Implement `makeCoordinator`, returning an instance of `Coordinator`, then link it to the table view in `makeNSView`:
+
+```swift
+struct TableView: NSViewRepresentable {
+    class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
+    }
+
+    func makeCoordinator() -> Coordinator {
+        Coordinator()
+    }
+
+    func makeNSView(context: Context) -> NSTableView {
+        let tableView = NSTableView()
+        tableView.delegate = context.coordinator
+        tableView.dataSource = context.coordinator
+        tableView.addColumn(NSTableColumn())
+        return tableView
+    }
+
+    func updateNSView(_ nsView: NSTableView, context: Context) {
+        // Do nothing
+    }
+}
+```
+
+You still won't see anything being rendered yet, since we still need to implement `NSTableViewDelegate` and `NSTableViewDataSource` methods.
+
+For this minimal example, we'll use a simple static array of strings defined right in the coordinator, although in practice you would probably get data from the view.
+
+Implement `NSTableViewDataSource`'s `numberOfRows` and `NSTableViewDelegate`'s `tableView(tableView:viewFor:row)`. The former returns the length of our array. The latter returns an `NSTextField` created from the corresponding row of data.
+
+
+```swift
+    class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource {
+        let data = ["Apple", "Banana", "Cherry"]
+
+        func numberOfRows(in tableView: NSTableView) -> Int {
+            data.count
+        }
+
+        func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? {
+            NSTextField(labelWithString: data[row])
+        }
+    }
+```
+
+That's it! This is the minimal implementation of an `NSTableView` in SwiftUI that I could find. Let me know on [Twitter](https://twitter.com/wasimlorgat), via [email](mailto:mwlorgat@gmail.com), or via the GitHub discussion below if you have any comments or suggestions.
+
+Here are some next steps I have in mind:
+
+- Get preview working ([this](https://www.swiftjectivec.com/using-xcode-previews-for-uikit/) looks helpful)
+- Custom cell view
+    - Vertically align text
+- Multiple columns
+    - Index column
+    - Image column
+    - Date column
+- Column headers
+- Make it interactive
+    - Do something on select
+    - Do something on hover
+    - Do something on click
+- Load data dynamically
+
+Let me know if you'd find these helpful!
+
+<!--
+```swift
+import SwiftUI
+
+struct TableView: NSViewRepresentable { # <1>
+    class Coordinator: NSObject, NSTableViewDelegate, NSTableViewDataSource { # <2>
+        let data = ["Apple", "Banana", "Cherry"] # <3>
+
+        func numberOfRows(in tableView: NSTableView) -> Int { # <4>
+            return data.count # <4>
+        } # <4>
+
+        func tableView(_ tableView: NSTableView, viewFor tableColumn: NSTableColumn?, row: Int) -> NSView? { # <5>
+            let rowData = data[row] # <5>
+            let id = NSUserInterfaceItemIdentifier(rawValue: "cell") # <5>
+            let text = NSTextField(labelWithString: rowData) # <5>
+            let view = NSTableCellView() # <5>
+            view.identifier = id # <5>
+            view.addSubview(text) # <5>
+            return view # <5>
+        }
+    }
+
+    func makeNSView(context: Context) -> NSTableView { # <6>
+        let tableView = NSTableView() # <6>
+        tableView.delegate = context.coordinator   # <6>
+        tableView.dataSource = context.coordinator # <6>
+
+        let column = NSTableColumn() # <7>
+        column.identifier = NSUserInterfaceItemIdentifier("name") # <7>
+        tableView.addTableColumn(column) # <7>
+
+        return tableView
+    }
+
+    func updateNSView(_ nsView: NSTableView, context: Context) { } # <8>
+
+    func makeCoordinator() -> Coordinator { # <8>
+        Coordinator()
+    }
+}
+```
+
+1. Create your table view struct, conforming to `NSViewRepresentable`. This is a typical way of using AppKit/UIKit views in your SwiftUI applications.
+2. Create a `Coordinator` subclassing: `NSTableViewDelegate` which we'll use to customize how cells are rendered as views, and `NSTableViewDataSource` to define the number of rows.
+3. Define our data as a static array of strings for this simple example.
+4. Implement `NSTableViewDataSource.numberOfRows`, passing through to `data`.
+5. Implement `NSTableViewDelegate.tableView` with `(..., viewFor: NSTableColumn?, row: Int)` signature, which is used to render a view given a column and row number. This is a minimal `NSTableCellView` containing a single `NSTextField` subview.
+6. Implement `makeNSView`, assigning `delegate` and `dataSource` to our `Coordinator`. This ensures that the methods defined above get called when appropriate.
+7. Create an `NSTableColumn` and add it to the table view.
+8. Implement `updateNSView`, although since we have static data it does nothing.
+9. Implement `makeCoordinator` to return our custom `Coordinator` defined above.
+-->
