@@ -212,13 +212,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#step-by-step" id="toc-step-by-step" class="nav-link active" data-scroll-target="#step-by-step">Step-by-step</a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
@@ -256,7 +250,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<p>I recently started learning macOS development using SwiftUI. While I’m loving Swift (the language) and SwiftUI (the UI framework), it’s sometimes extremely difficult to find out information that feels like it should be readily available.</p>
+<p>I recently started learning macOS development using SwiftUI as part of my latest project: <a href="https://twitter.com/wasimlorgat/status/1611615676220817415">building a macOS Jupyter frontend</a>. While I’m loving Swift (the language) and SwiftUI (the UI framework), it’s sometimes extremely difficult to find out information that feels like it should be readily available.</p>
 <p>The latest such case is how to use an <code>NSTableView</code> in SwiftUI. SwiftUI’s new <code>List</code> is great for iOS and multiplatform apps, but doesn’t seem to be designed for desktop-specific apps which can do with much more information-dense UIs.</p>
 <p>SwiftUI has the newer <code>Table</code> too, but it’s also quite limited at this stage. For example, I don’t think it’s possible to make an entire row clickable.</p>
 <p>This left me wanting to try out the much more battle-tested <code>NSTableView</code> – but as an Apple dev noob, I couldn’t get a minimal example up and running after a few hours of tinkering!</p>
@@ -292,8 +286,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>        <span class="co">// Do nothing</span></span>
 <span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<section id="step-by-step" class="level2">
-<h2 class="anchored" data-anchor-id="step-by-step">Step-by-step</h2>
+<p><strong>Step-by-step:</strong></p>
 <p>Create your table view struct, conforming to <code>NSViewRepresentable</code>. This is a standard way of using AppKit/UIKit views in your SwiftUI applications.</p>
 <p>In <code>makeNSView</code>, create the <code>NSTableView</code> with a single column, and leave <code>updateNSView</code> blank for now:</p>
 <div class="sourceCode" id="cb2"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">struct</span> TableView<span class="op">:</span> <span class="dt">NSViewRepresentable</span> <span class="op">{</span></span>
@@ -427,7 +420,6 @@ struct TableView: NSViewRepresentable { # <1>
 -->
 
 
-</section>
 
 </main> <!-- /main -->
 <script>
