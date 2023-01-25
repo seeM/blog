@@ -13,7 +13,9 @@ SwiftUI has the newer `Table` too, but it's also quite limited at this stage. Fo
 
 This left me wanting to try out the much more battle-tested `NSTableView` -- but as an Apple dev noob, I couldn't get a minimal example up and running after a few hours of tinkering!
 
-... So here's a snippet you can copy paste. Keep reading below if you'd like to see how it works step-by-step.
+... So here's a snippet you can copy paste.[^1] Keep reading below if you'd like to see how it works step-by-step.
+
+[^1]: Many thanks to Alex Grebenyuk whose [article](https://kean.blog/post/not-list) and [repo](https://github.com/kean/PulsePro) I heavily referenced to figure this out.
 
 ```swift
 import SwiftUI
