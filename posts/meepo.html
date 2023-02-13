@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.195">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Wasim Lorgat">
+<meta name="dcterms.date" content="2023-02-13">
+<meta name="description" content="A step-by-step account of how I built Meepo, a semantic search engine for a leading online fashion and homeware store, and what I learned along the way.">
+
+<title>Wasim Lorgat - How I built Meepo: A fashion search engine</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/videojs/video.min.js"></script>
+<link href="../site_libs/quarto-contrib/videojs/video-js.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
+
+
+<meta property="og:title" content="Wasim Lorgat - How I built Meepo: A fashion search engine">
+<meta property="og:description" content="A step-by-step account of how I built Meepo, a semantic search engine for a leading online fashion and homeware store, and what I learned along the way.">
+<meta property="og:image" content="https://wasimlorgat.com/posts/images/meepo.png">
+<meta property="og:site-name" content="Wasim Lorgat">
+<meta property="og:image:height" content="900">
+<meta property="og:image:width" content="1600">
+<meta name="twitter:title" content="Wasim Lorgat - How I built Meepo: A fashion search engine">
+<meta name="twitter:description" content="A step-by-step account of how I built Meepo, a semantic search engine for a leading online fashion and homeware store, and what I learned along the way.">
+<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/meepo.png">
+<meta name="twitter:creator" content="@wasimlorgat">
+<meta name="twitter:site" content="@wasimlorgat">
+<meta name="twitter:image-height" content="900">
+<meta name="twitter:image-width" content="1600">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Wasim Lorgat</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">📮 Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html" rel="" target="">
+ <span class="menu-text">💻 Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../talks/index.html" rel="" target="">
+ <span class="menu-text">💬 Talks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tils/index.html" rel="" target="">
+ <span class="menu-text">📖 TILs</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/wasimlorgat" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/seem" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/wasim-lorgat" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../talks/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text">Talks</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tils/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text">TILs</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-idea" id="toc-the-idea" class="nav-link active" data-scroll-target="#the-idea">The idea</a></li>
+  <li><a href="#notebook-prototype" id="toc-notebook-prototype" class="nav-link" data-scroll-target="#notebook-prototype">Notebook prototype</a></li>
+  <li><a href="#web-prototype" id="toc-web-prototype" class="nav-link" data-scroll-target="#web-prototype">Web prototype</a></li>
+  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a></li>
+  <li><a href="#scraper" id="toc-scraper" class="nav-link" data-scroll-target="#scraper">Scraper</a></li>
+  <li><a href="#launch" id="toc-launch" class="nav-link" data-scroll-target="#launch">Launch</a></li>
+  <li><a href="#image-search" id="toc-image-search" class="nav-link" data-scroll-target="#image-search">Image search</a></li>
+  <li><a href="#cost" id="toc-cost" class="nav-link" data-scroll-target="#cost">Cost</a></li>
+  <li><a href="#analytics" id="toc-analytics" class="nav-link" data-scroll-target="#analytics">Analytics</a></li>
+  <li><a href="#feedback" id="toc-feedback" class="nav-link" data-scroll-target="#feedback">Feedback</a></li>
+  <li><a href="#thats-all-folks" id="toc-thats-all-folks" class="nav-link" data-scroll-target="#thats-all-folks">That’s all folks</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">How I built Meepo: A fashion search engine</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">maker log</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    A step-by-step account of how I built <a href="https://meepo.shop">Meepo</a>, a semantic search engine for a leading online fashion and homeware store, and what I learned along the way.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Wasim Lorgat </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">February 13, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/meepo.png" class="preview-image img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+<p>It’s been about 3 months since I launched <a href="https://meepo.shop">Meepo</a>, a semantic search engine for a South African fashion and homeware store. A few people have asked me to share a write-up so here we go.</p>
+<p>Let’s skip right to the end first. Ultimately, I stopped working on Meepo in December of last year. Why? I’m not particularly passionate about fashion (as anyone who has met me would probably agree lol), which I think is necessary to pursue a project like this in the long-term. I do think there are tons of opportunities in this space if you are interested in fashion and AI! I expect to see AI-powered features enter the mainstream of online fashion stores in the next few years (e.g.&nbsp;search, virtual try-on, outfit generation, and more).</p>
+<p>Why did I make this if I’m not interested in fashion? I guess I underestimated how important it is to have some deeper connection with an idea before pursuing it. I didn’t really think about whether it was something I would want to do for the next 1-2 years.</p>
+<p>That said, I’m still glad I built it. I learned about semantic search, similarity search indexes, gained more experience shipping a full stack AI product, and gained first-hand experience of making the most classic newbie mistakes in existence: no clear plan to monetise or reach users 😅. It also sparked a few interesting connections with people in the fashion ∩ AI space internationally and in South Africa.</p>
+<p>Alright, so how did this all begin?</p>
+<section id="the-idea" class="level2">
+<h2 class="anchored" data-anchor-id="the-idea">The idea</h2>
+<p>Leading up to Meepo, I’d seen the creator of <a href="https://lexica.art/">Lexica</a> share the <a href="https://twitter.com/sharifshameem/status/1567962701237997568?s=20">details of their stack</a> on Twitter. I’d also recently learned the detail behind how CLIP worked from the <a href="https://www.fast.ai/posts/part2-2022-preview.html">most recent iteration of the incredible fastai course</a>. Shortly after that, I saw <a href="https://twitter.com/karinanguyen_/status/1587217615885406213">the launch</a> of <a href="https://interalia.vcflab.org/">InterAlia</a>. I had a brief look at the tech, and it looked simple enough to be able to very quickly prototype. I also imagined that there were ways to potentially monetise this via ads or affiliate links. In hindsight, I’m not really sure if there’s an obvious way to monetise it. Maybe the simple approach of making it a paid service would be best? It would have to really solve users’ problems in that case, which I’m not quite sure it does.</p>
+<p>Here are the messages I sent to some friends about the idea:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/meepo-idea.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+<p>Anyway, I wanted to build this as quickly as possible. And I wanted to do so in a series of incremental steps each of which had a (somewhat) useable product.</p>
+</section>
+<section id="notebook-prototype" class="level2">
+<h2 class="anchored" data-anchor-id="notebook-prototype">Notebook prototype</h2>
+<p>Later that day, I shared the first demo with friends:</p>
+<div class="quarto-video"><video id="video_shortcode_videojs_video1" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="videos/meepo-demo-1.mp4"></video></div>
+<p>In general, I always try to focus on the most uncertain part of the project at each step. (Although if I were really following this principle I would’ve spent more time thinking about monetisation and marketing 😝.) At this stage I wasn’t sure if the search would actually work for the types of queries a shopper would have, like “wooden bowl” or “small purple lamp”. So the first step was to isolate and answer that specific question, as quickly as possible.</p>
+<p>I manually scraped some images from the target website: literally opened the website and scraped the image URLs with some JavaScript in the browser console. I only scraped one page to start with, which was about 70 images. Then CLIP encoded in memory and did simple distance ranking on those vectors.</p>
+<p>This took about 1 hour in total. And it worked quite well!</p>
+</section>
+<section id="web-prototype" class="level2">
+<h2 class="anchored" data-anchor-id="web-prototype">Web prototype</h2>
+<p>The next step was to do the same thing in a web app. The simplest approach I could think of was a server-side rendered app serving static pages the search interface implemented as a standard HTML form.</p>
+<p>As for design, I knew that I was going to use an existing component library so that I could have a decent UI without much customization (I don’t have much experience with design). I really like the way DaisyUI’s components look, and it’s free, so I went with that. I love how it turned out!</p>
+<p>I started out by drawing a simple design with pen and paper. I know it seems like a very obvious design 😅 but it wasn’t obvious to me until I drew it out. I highly recommend doing so! It gave me a clear goal to work toward. This is also when I decided on the name “Meepo”, which my wife suggested. There’s no real meaning behind the name. It’s the name of a <a href="https://dota2.fandom.com/wiki/Meepo">DotA character</a> that she liked, and felt like the right vibe!</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/meepo-sketch.png" class="img-fluid figure-img" width="600"></p>
+</figure>
+</div>
+<p>I used Django as the backend framework since I have a few years of experience working with it, and many years with Python. Again, since the goal was to ship fast, I tried to go with what I knew, simple and boring! As part of keeping things simple, and because it’s almost a read-only application (only the scraper writes to the database), I used SQLite.</p>
+<p>This step took 4 hours, after which I shared another demo with friends.</p>
+<div class="quarto-video"><video id="video_shortcode_videojs_video2" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="videos/meepo-demo-2.mp4"></video></div>
+</section>
+<section id="deployment" class="level2">
+<h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
+<p>Now that I had a minimal working Django app, I wanted to deploy it so that I could share a link for people to play around with instead of just videos. I found it very helpful to get feedback throughout the process, and there’s nothing better than getting feedback on an actual interactive (but minimal) version of the thing. I also wanted to get practice shipping changes to a live app. I definitely think it’s the right idea to deploy early in the development process, then ship often!</p>
+<p>I used the very boring (but robust) stack of nginx and gunicorn in front of Django (image created by <a href="https://medium.com/@serdarilarslan">Serdar Ilarslan</a>, <a href="https://medium.com/@serdarilarslan/what-is-gunicorn-5e674fff131b">source</a>):</p>
+<p><img src="images/meepo-stack.webp" class="img-fluid"></p>
+<p>This step took 7 hours. I think it could’ve been a lot faster, but I got sidetracked trying to use a platform-as-a-service option instead of working directly on a Linux VPS (which I’m much more experienced with). I’m not sure if I’ll revisit PaaS in the future, because the VPS has been working really well for a few months now. I personally love the transparency and being able to directly interact with it if anything goes wrong, rather than struggling to find the right logs in some web interface. I knew that <a href="https://twitter.com/levelsio">Pieter Levels</a> does similar, and serves significantly more traffic than I expected to. My good friend <a href="https://twitter.com/ashtonshudson">Ashton Hudson</a> took the same approach with <a href="https://www.servaltracker.com/">Serval</a>, which also serves tons of traffic with a really massive time series database (more info in <a href="https://twitter.com/ashtonshudson/status/1609621491481460737?s=20">this thread</a>).</p>
+<p>I bought a DNS using Namecheap. I tried to find the cheapest domain for “meepo”, and was lucky to score <a href="https://meepo.shop">meepo.shop</a> at $2!</p>
+<p>I did some basic Linux setup following <a href="https://www.linode.com/docs/products/compute/compute-instances/guides/set-up-and-secure/">this Linode guide</a>. Things like updating packages, configuring the timezone, configuring a custom hostname, and most importantly creating a limited user and tightening SSH options.</p>
+<p>I found the docs really difficult to follow, but it turned out to be quite simple to get Linode to be able to manage the DNS instead of Namecheap. All I had to do was go to the domain management page, Domain tab, and add Linode’s nameservers under the Nameservers section. They are ns1.linode.com through to ns5.linode.com. I think it might’ve taken some time to reflect, then I could create a Domain in the Linode console, link it to my Node, and it automatically filled it with what I needed!</p>
+<p>As part of this step, I also setup nginx and gunicorn on the Linux VPS. I followed <a href="https://realpython.com/django-nginx-gunicorn">this Real Python guide</a>.</p>
+<p>I also highly recommend setting up Longview, which has a free option! It’s really cool to be able to check some basic stats from the console and even from my phone.</p>
+<p>I only much later (yesterday, actually!) setup <a href="https://sentry.io/">Sentry</a> as well which also has a free option. It’s very easy with Django, just a few lines in your <code>settings.py</code> file and you’re good to go. Now I get emails whenever there’s an error in either the web server or the scraper, with a neat stacktrace and local variables.</p>
+<p>Once it was setup, I used <a href="https://github.com/ddosify/ddosify">ddosify</a> to load test it (great tool!). Given that I’d barely done any optimization, I wanted to make sure that it could at least standard a reasonable amount of traffic. I hit the search endpoint with a bunch of random queries. It just about handles 60 requests over 10 seconds, which I was relatively sure I wouldn’t reach for an extended period of time 😅 and worst case I could upgrade the VPS if needed.</p>
+<p><img src="images/meepo-ddosify.png" class="img-fluid"></p>
+<p>Now I could just tell people to goto <a href="https://meepo.shop">meepo.shop</a> and see what I was working on, yay! 🎉</p>
+</section>
+<section id="scraper" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="scraper">Scraper</h2>
+<p>The next step was to come up with a scraping strategy and pipeline design. This was probably the trickiest, but fortunately this sort of work has been a large part of my role as an ML Engineer 💪🏽.</p>
+<p>The big question here is how do we maintain a list of available products that is accurate for at least 24 hours, with minimal load to the upstream service?</p>
+<p><strong>A very important detour:</strong> if you’re scraping, you are most likely not the intended audience of a website, so try very hard not to negatively impact the service or the user experience of their intended audience! Here are some ways you can do so.</p>
+<ul>
+<li>Check how big the viewership is of the website. I would personally be hesitant to scrape a small website and would probably prefer to email the owner directly.</li>
+<li>Identify yourself (website URL), with contact information, via the user agent header – don’t try to fake being a human! A simple pattern you can use is&nbsp;<code>your.website.com/x.y (your@email.com)</code>&nbsp;where&nbsp;<code>x.y</code>&nbsp;is a version number of the scraper.</li>
+<li>Be considerate about their resource usage, especially given that you aren’t their intended audience.</li>
+<li>Do as much of your requests during off-peak times depending on the local timezone of their audience.</li>
+<li>Sleep between requests as much as you possibly can. Add small random amounts as well to reduce the likelihood of overlapping with other scheduled scrapers/bots thus reducing peak load.</li>
+<li>Use compression when scraping plain text or JSON to minimise their outgoing traffic! It doesn’t work nearly as well for images so probably best to use uncompressed to avoid extra CPU usage on their side.</li>
+</ul>
+<p>The rough idea was to first scrape the entire “catalogue”. Walk through each department’s “New in” section, and each page in the section, resulting in a list of currently available products. Then download images for products we haven’t seen before, calculate their CLIP embeddings, and finally reindex. (I simply recreate the entire index, since it’s very fast for the size of my dataset. For larger datasets you might need to update an existing index.)</p>
+<p>Unfortunately, I couldn’t scrape only new pages. I needed the entire catalogue to check which older products were made unavailable so I can remove them from the index.</p>
+<p>I first tried jumping in head first and coding this up, but got totally stuck. Even with that plan I wasn’t quite sure how to break it down into smaller components that I could easily build.</p>
+<p>A perfect opportunity to whip out a whiteboard, or in my case <a href="https://excalidraw.com">Excalidraw</a>. Here’s what I came up with:</p>
+<p class="page-columns page-full"><img src="images/meepo-pipeline.png" class="column-screen img-fluid"></p>
+<p>I often find it helpful to think about data pipelines in terms of statements that I want to be true about the data.</p>
+<p>For example, after step 1, we should have a .json.gz file for each scrapes page, in a folder structure indicating the run timestamp, department, and page number. It’s also useful to specify the schema at this point too. It’s also often a good idea to store raw external data before we do any processing so that if we change our logic we don’t need to rescrape the entire thing. For example, if I wanted to add prices to products I could do so without rescraping anything.</p>
+<p>This is generally one reason it’s good to split a pipeline into components. Another is that it can be easier to comprehend, although splitting too fine can be counterproductive.</p>
+<p>I used Chrome dev tools to figure out the API paths and what requests should look like. Although I built the scraper to work with all departments, I started out by scraping only one, the smallest: Home and Living. I figured that would be a neat way to test it out end-to-end.</p>
+<p>I then configured cron to run this daily just after midnight. By the way, a neat tip to get cron to log its output (including errors) to the system log is to add the following to the end of your job definition:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="ex">logger</span> <span class="at">-t</span> meepo_pipeline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The <code>2&gt;&amp;1</code> redirects standard error to standard out (so error messages are logged too), then it’s piped to <code>logger</code> which writes to the system log, with a tag specified by the <code>-t</code> flag.</p>
+<p>Building out the scraper and getting the cron job working smoothly took about 20 hours! After that, all that was left was to let it scrape all departments, watch and fix any bugs that popped up (unhandled cases and so on), and prepare for launch!</p>
+</section>
+<section id="launch" class="level2">
+<h2 class="anchored" data-anchor-id="launch">Launch</h2>
+<p>My launch plan was simple. Just post it on Twitter, LinkedIn, Reddit (/r/southafrica), and HackerNews. In fact, this was my entire marketing plan. Not very good, I know 😂 I was a bit nervous so I also procrastinated a bit and ended up staggering posts to different sites. I know that I still have lots to learn here!</p>
+<blockquote class="twitter-tweet blockquote">
+<p lang="en" dir="ltr">
+Introducing Meepo – a smarter search engine for <a href="https://twitter.com/superbalist?ref_src=twsrc%5Etfw"><span class="citation" data-cites="Superbalist">@Superbalist</span></a> (leading South African fashion and homeware store 🇿🇦)<br><br>I have no affiliation with Superbalist. I just thought this was something that needed to exist! Let me explain…<a href="https://t.co/5HNOfM6k1T">https://t.co/5HNOfM6k1T</a>
+</p>
+— Wasim Lorgat (<span class="citation" data-cites="wasimlorgat">@wasimlorgat</span>) <a href="https://twitter.com/wasimlorgat/status/1596038255236915200?ref_src=twsrc%5Etfw">November 25, 2022</a>
+</blockquote>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>In hindsight, there were really two audiences for this:</p>
+<ol type="1">
+<li>Actual users i.e.&nbsp;South African online shoppers.</li>
+<li>Tech people who are more interested in the stack and the process.</li>
+</ol>
+<p>Given what I typically post on Twitter and LinkedIn, these platforms would primarily only get people from the latter group. My only access to the former was Reddit. I also had the idea of making a Twitter account (<a href="https://twitter.com/MeepoShop"><span class="citation" data-cites="MeepoShop">@MeepoShop</span></a>) and replying to South Africans influencers with good recommendations, but I didn’t keep that up. I thought about making a bot that let you search from Twitter, and maybe even including a side-by-side of Superbalist’s search results vs Meepo’s, as a sort of viral marketing by engineering thing, but didn’t end up doing that either. I also considered approaching local news websites with the story of “a lone developer builds a search engine for a large eCommerce store” – I still think this would probably work well. I could’ve even tried to target fashion subreddits and considered pivoting to a more general fashion product rather than target a specific South African store.</p>
+<p>I think my lack of follow-through here goes back to the point I made in the beginning. I’m not really interested in fashion 😬.</p>
+<p>There are a couple of tiny details that are totally worth the effort for a launch IMO. Make sure you have a nice social preview card (and other metadata) and favicon.</p>
+<p>My goto is a very boring 1-2 letters with a nice font and following the same colour scheme as the website, using something like <a href="https://favicon.io/">favicon.io</a>. An emoji might be an even better idea.</p>
+<p>For the preview card, I use <a href="https://unsplash.com/">Unsplash</a> to find a beautiful stock photo, and then use <a href="https://www.canva.com/">Canva</a> to edit it. Be sure to get the dimensions right for the website(s) you’re targeting. For me it was primarily Twitter and Reddit. I just cropped the image, played around with colour settings, added text, and got the fonts and effects pretty. I was inspired by Lexica’s card which I think is really beautiful. So I went with a headline and short description overlaying the image.</p>
+<p>Here’s the stock image I used, credit to <a href="https://unsplash.com/@harpersunday">Harper Sunday</a> (<a href="https://unsplash.com/photos/RmQWqLKsVv8">source</a>):</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/meepo-stock.avif" class="img-fluid figure-img" width="400"></p>
+</figure>
+</div>
+<p>At some point I’d like to start working with a designer for these sorts of things. Let me know if you’re interested!</p>
+<p>This step took about 4 hours, mostly procrastinating.</p>
+</section>
+<section id="image-search" class="level2">
+<h2 class="anchored" data-anchor-id="image-search">Image search</h2>
+<p>Thanks to the power of CLIP, it was really easy to add image search after launching. I try to parse the search query, and if it’s a URL of an image (and the image isn’t larger than some file limit), I download the image (in-memory, I don’t wanna store arbitrary files), calculate its CLIP embedding, and use that to find similar images.</p>
+<p>It doesn’t work as well as I would’ve hoped. One possible improvement idea is to take an average of the image and the existing text query, which is closer to what I think people would expect.</p>
+<p>This took 2 hours to implement end-to-end.</p>
+<div class="quarto-video"><video id="video_shortcode_videojs_video3" class="video-js vjs-default-skin vjs-fluid" controls="" preload="auto" data-setup="{}" title=""><source src="videos/meepo-demo-3.mp4"></video></div>
+</section>
+<section id="cost" class="level2">
+<h2 class="anchored" data-anchor-id="cost">Cost</h2>
+<p>The biggest cost here was really the ~40 hours it took to build. Other than that, Meepo cost me $30/month via Linode. The bottleneck is RAM. I need a 4GB server, which adds a fair bit to the cost, though I definitely could’ve reduced that by playing around with something like <a href="https://github.com/criteo/autofaiss">autofaiss</a>.</p>
+</section>
+<section id="analytics" class="level2">
+<h2 class="anchored" data-anchor-id="analytics">Analytics</h2>
+<p>Here is the weekly number of unique visitors since day 1 (via <a href="https://plausible.io/">Plausible</a>):</p>
+<p><img src="images/meepo-analytics.png" class="img-fluid"></p>
+<p>Not much! The huge drop-off is also a sign of my really bad marketing lol. There really isn’t any other way for people to discover Meepo than via one of my posts (most traffic came from Twitter). And my followers are more tech-focused which isn’t even the target audience. So all-in-all, really not a great job at marketing.</p>
+<p>One more interesting point here: more than half of the views were via mobile. It’s super important these days to ensure that your apps works well on mobile!</p>
+</section>
+<section id="feedback" class="level2">
+<h2 class="anchored" data-anchor-id="feedback">Feedback</h2>
+<p>I shared the website with friends and tried to gauge their interest. Most people thought it was cool and shared positive feedback, but to be honest, I don’t think it <em>really</em> addresses a pain point and I could see that in peoples’ reactions.</p>
+<p>On top of that, the fact that the website isn’t really integrated into Superbalist also significantly worsens its usefulness. You can’t see prices (I didn’t include them because there wasn’t a great way for me to keep them up-to-date), you can’t add things to your wish list, cart, and so on.</p>
+<p>That said, I did see a reasonable amount of really long sessions, which I think is a strong sign that there is <em>something</em> very valuable here. For the true fashionistas, I suspect. I should’ve come up with a way to communicate with these people! A way to more directly reach the target audience and hear back from them.</p>
+<p>This could be as simple as allowing users to subscribe to a mailing list. Slightly more complex would be a feedback form with well-chosen questions. I’m still planning on adding this to Meepo, and will make it a priority in all future projects.</p>
+</section>
+<section id="thats-all-folks" class="level2">
+<h2 class="anchored" data-anchor-id="thats-all-folks">That’s all folks</h2>
+<p>All-in-all, I had tons of fun working on Meepo! I also learned some valuable lessons about choosing the right idea for you (“founder-market fit”), having a clear and simple plan for monetisation, and the age-old problem of <em>actually</em> doing some marketing.</p>
+<p>If you found this entertaining, please follow me on Twitter <a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span></a>. And if you have any feedback, comments, questions, please feel free to pop me <a href="mailto:mwlorgat@gmail.com">an email</a>.</p>
+<p>Having learned the lesson of “founder-market fit”, I’m now building my own native macOS Jupyter frontend. The best place to follow along is via Twitter.</p>
+<p>Take care 👋🏽.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script>
+  let links = document.querySelectorAll("a[data-analytics]");
+  for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', handleLinkEvent);
+      links[i].addEventListener('auxclick', handleLinkEvent);
+  }
+
+  function handleLinkEvent(event) {
+      var link = event.target;
+      var middle = event.type == "auxclick" && event.which == 2;
+      var click = event.type == "click";
+      while (link && (typeof link.tagName == 'undefined' || link.tagName.toLowerCase() != 'a' || !link.href)) {
+          link = link.parentNode;
+      }
+      if (middle || click) {
+          let attributes = link.getAttribute('data-analytics').split(/,(.+)/);
+          let events = [JSON.parse(attributes[0]), JSON.parse(attributes[1] || '{}')];
+          plausible(...events);
+      }
+      if (!link.target) {
+          if (!(event.ctrlKey || event.metaKey || event.shiftKey) && click) {
+              setTimeout(function () {
+                  location.href = link.href;
+              }, 150);
+              event.preventDefault();
+          }
+      }
+  }
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="seem/blog" data-repo-id="R_kgDOIBWk3A" data-category="Announcements" data-category-id="DIC_kwDOIBWk3M4CSSa6" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+</div> <!-- /content -->
+<script>videojs(video_shortcode_videojs_video1);</script>
+<script>videojs(video_shortcode_videojs_video2);</script>
+<script>videojs(video_shortcode_videojs_video3);</script>
+
+
+
+</body></html>
