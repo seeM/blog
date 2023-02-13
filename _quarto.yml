@@ -4,6 +4,7 @@ project:
     port: 4200
   resources:
     - "*.png"
+    - "*.mp4"
 
 website:
   open-graph: true
