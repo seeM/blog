@@ -9,8 +9,148 @@
 <link>https://wasimlorgat.com/tils/index.html</link>
 <atom:link href="https://wasimlorgat.com/tils/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent TILs on wasimlorgat.com</description>
-<generator>quarto-1.3.124</generator>
-<lastBuildDate>Wed, 25 Jan 2023 00:00:00 GMT</lastBuildDate>
+<generator>quarto-1.3.191</generator>
+<lastBuildDate>Mon, 13 Feb 2023 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Callbacks vs async/await</title>
+  <dc:creator>Wasim Lorgat</dc:creator>
+  <link>https://wasimlorgat.com/tils/callbacks-vs-async-await.html</link>
+  <description><![CDATA[ 
+
+
+
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;">import</span> ipywidgets</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;">import</span> time</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;">from</span> threading <span class="im" style="color: #00769E;">import</span> Thread</span></code></pre></div>
+</div>
+<p>Let’s start with a very simple interface. An input text, a submit button, and an output text (<code>disabled=True</code> so that it’s not editable):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">input_ <span class="op" style="color: #5E5E5E;">=</span> ipywidgets.Text(<span class="st" style="color: #20794D;">"Hey ChatGPT, please summarise this text."</span>)</span>
+<span id="cb2-2">button <span class="op" style="color: #5E5E5E;">=</span> ipywidgets.Button(description<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">"Submit"</span>)</span>
+<span id="cb2-3">output <span class="op" style="color: #5E5E5E;">=</span> ipywidgets.Text(disabled<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
+<span id="cb2-4">display(input_, button, output)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"4bf5b79bfb63429abe02bb65dbbe9777","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"f9e78dedd4ce44dc8c63bfa57ef0ca5f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"ff55d098626e469eab8f3a44b0960030","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<p>This won’t do anything yet. We need to setup an <code>on_click</code> callback first. We’ll fake a request to OpenAI that simply sleeps for half a second then returns a fixed string. Then we’ll update the output text’s value with the result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;">def</span> request_open_ai(prompt):</span>
+<span id="cb3-2">    time.sleep(<span class="fl" style="color: #AD0000;">0.5</span>)</span>
+<span id="cb3-3">    <span class="cf" style="color: #003B4F;">return</span> <span class="st" style="color: #20794D;">"Here's a summary of your text."</span></span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="kw" style="color: #003B4F;">def</span> update_output(text):</span>
+<span id="cb4-2">    output.value <span class="op" style="color: #5E5E5E;">=</span> text</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;">def</span> on_click(button):</span>
+<span id="cb5-2">    text <span class="op" style="color: #5E5E5E;">=</span> request_open_ai(input_.value)</span>
+<span id="cb5-3">    update_output(text)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">button.on_click(on_click)</span></code></pre></div>
+</div>
+<p>If you click “Submit” now, it should populate the output after half a second.</p>
+<p>If we do this synchronously and in the main thread, the entire UI will hang during the <code>requestOpenAi</code> call. So instead, we can separate that call into another thread. I think ipywidgets already does a version of this for us. But if it didn’t, here’s a very rough version of how we’d do it:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">Thread(target<span class="op" style="color: #5E5E5E;">=</span>request_open_ai, args<span class="op" style="color: #5E5E5E;">=</span>(<span class="bu" style="color: null;">input</span>,)).run()</span></code></pre></div>
+</div>
+<p>But then how do we get the result and update the output with it? It’s often trickier to pass data across threads. Instead, we define our request function so that it accepts a callback that gets called with the result:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;">def</span> request_open_ai(prompt, on_completion):</span>
+<span id="cb8-2">    time.sleep(<span class="fl" style="color: #AD0000;">0.5</span>)</span>
+<span id="cb8-3">    on_completion(<span class="st" style="color: #20794D;">"Here's a summary of your text."</span>)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;">def</span> on_click(button):</span>
+<span id="cb9-2">    Thread(target<span class="op" style="color: #5E5E5E;">=</span>request_open_ai, args<span class="op" style="color: #5E5E5E;">=</span>(<span class="bu" style="color: null;">input</span>, update_output)).run()</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">input_ <span class="op" style="color: #5E5E5E;">=</span> ipywidgets.Text(<span class="st" style="color: #20794D;">"Hey ChatGPT, please summarise this text."</span>)</span>
+<span id="cb10-2">button <span class="op" style="color: #5E5E5E;">=</span> ipywidgets.Button(description<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">"Submit"</span>)</span>
+<span id="cb10-3">output <span class="op" style="color: #5E5E5E;">=</span> ipywidgets.Text(disabled<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
+<span id="cb10-4">button.on_click(on_click)</span>
+<span id="cb10-5">display(input_, button, output)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"0dddaf1ad66c40d5942a999cff5760c9","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"94173406b49540fe89fec9493db08140","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"d95e9bdafdfc4a16839a63992732b04d","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<p>This works okay, but starts to get very confusing as you add more and more nested callbacks. In fact, it can get so bad that it’s been nicknamed callback hell. Someone was so frustrated with it that they even created a <a href="http://callbackhell.com/">website</a>! This is where async/await becomes useful, since it looks a lot more like ordinary programming:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;">import</span> asyncio</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="cf" style="color: #003B4F;">async</span> <span class="kw" style="color: #003B4F;">def</span> request_open_ai(prompt):</span>
+<span id="cb12-2">    time.sleep(<span class="fl" style="color: #AD0000;">0.5</span>)</span>
+<span id="cb12-3">    <span class="cf" style="color: #003B4F;">return</span> <span class="st" style="color: #20794D;">"Here's a summary of your text."</span></span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="cf" style="color: #003B4F;">async</span> <span class="kw" style="color: #003B4F;">def</span> on_click(button):</span>
+<span id="cb13-2">    text <span class="op" style="color: #5E5E5E;">=</span> <span class="cf" style="color: #003B4F;">await</span> request_open_ai(input_.value)</span>
+<span id="cb13-3">    update_output(text)</span></code></pre></div>
+</div>
+<p>Note how these functions look a lot similar to the original synchronous ones instead of having the weird callbacks.</p>
+<p>In most UI frameworks, we’d be able to pass in an async function like the new <code>on_click</code>. I’m not sure how to do that with ipywidgets, so we need to define a little wrapper that synchronously calls the async function, so we can set it as the button’s <code>on_click</code> handler (confusing, I know):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="kw" style="color: #003B4F;">def</span> on_click_sync(button):</span>
+<span id="cb14-2">    coroutine <span class="op" style="color: #5E5E5E;">=</span> on_click(button)</span>
+<span id="cb14-3">    asyncio.ensure_future(coroutine)</span></code></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">input_ <span class="op" style="color: #5E5E5E;">=</span> ipywidgets.Text(<span class="st" style="color: #20794D;">"Hey ChatGPT, please summarise this text."</span>)</span>
+<span id="cb15-2">button <span class="op" style="color: #5E5E5E;">=</span> ipywidgets.Button(description<span class="op" style="color: #5E5E5E;">=</span><span class="st" style="color: #20794D;">"Submit"</span>)</span>
+<span id="cb15-3">output <span class="op" style="color: #5E5E5E;">=</span> ipywidgets.Text(disabled<span class="op" style="color: #5E5E5E;">=</span><span class="va" style="color: #111111;">True</span>)</span>
+<span id="cb15-4">button.on_click(on_click_sync)</span>
+<span id="cb15-5">display(input_, button, output)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"19463a60508b44c0be86a16992db82d9","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"862ae7f2344840ffa0da95efbe739d54","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"3050c63e89844065b950446438bc73e6","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+
+
+
+ ]]></description>
+  <guid>https://wasimlorgat.com/tils/callbacks-vs-async-await.html</guid>
+  <pubDate>Mon, 13 Feb 2023 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>How to use NSTableView in SwiftUI</title>
   <dc:creator>Wasim Lorgat</dc:creator>
