@@ -529,7 +529,7 @@
     "href": "tils/creating-a-minimal-custom-jupyter-widget.html",
     "title": "Creating a minimal custom Jupyter widget",
     "section": "",
-    "text": "I couldn’t find a super minimal example of implementing a custom Jupyter widget, so here it is. This is based on Pierre Marion’s Binder Repo for Hello World Jupyter Widget."
+    "text": "I couldn’t find a super minimal example of implementing a custom Jupyter widget, so here it is. This is based on Pierre Marion’s Binder Repo for Hello World Jupyter Widget.\nimport ipywidgets as widgets\nfrom traitlets import Unicode, validate\n\n\nclass HelloWidget(widgets.DOMWidget):\n    _view_name = Unicode('HelloView').tag(sync=True)\n    _view_module = Unicode('hello').tag(sync=True)\n    _view_module_version = Unicode('0.1.0').tag(sync=True)\n    value = Unicode('Hello World!').tag(sync=True)\n%%javascript\nrequire.undef('hello');\n\ndefine('hello', [\"@jupyter-widgets/base\"], function(widgets) {\n\n    var HelloView = widgets.DOMWidgetView.extend({\n\n        render: function() { \n            this.el.textContent = this.model.get('value'); \n        },\n    });\n\n    return {\n        HelloView : HelloView\n    };\n});\nHelloWidget()"
   },
   {
     "objectID": "tils/creating-a-minimal-custom-jupyter-widget.html#further-reading",
