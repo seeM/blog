@@ -26,7 +26,7 @@ Here are the messages I sent to some friends about the idea:
 
 ![](images/meepo-idea.png){width=600 fig-align=center}
 
-Anyway, I wanted to build this as quickly as possible. And I wanted to do so in a series of incremental steps each of which had a (somewhat) useable product.
+Anyway, I wanted to build this as quickly as possible. And I wanted to do so in a series of incremental steps, each resulting in an end-to-end useable product.
 
 ## Notebook prototype
 
@@ -36,21 +36,21 @@ Later that day, I shared the first demo with friends:
 
 In general, I always try to focus on the most uncertain part of the project at each step. (Although if I were really following this principle I would've spent more time thinking about monetisation and marketing 😝.) At this stage I wasn't sure if the search would actually work for the types of queries a shopper would have, like "wooden bowl" or "small purple lamp". So the first step was to isolate and answer that specific question, as quickly as possible.
 
-I manually scraped some images from the target website: literally opened the website and scraped the image URLs with some JavaScript in the browser console. I only scraped one page to start with, which was about 70 images. Then CLIP encoded in memory and did simple distance ranking on those vectors.
+I manually scraped some images from the target website: literally opened the website and scraped the image URLs with some JavaScript in the browser console. I only scraped one page to start with, which was about 70 images. Then I CLIP encoded the images and did simple distance ranking on those vectors.
 
 This took about 1 hour in total. And it worked quite well!
 
 ## Web prototype
 
-The next step was to do the same thing in a web app. The simplest approach I could think of was a server-side rendered app serving static pages the search interface implemented as a standard HTML form.
+The next step was to do the same thing in a web app. The simplest approach I could think of was a server-side rendered app that served static pages with a search interface implemented as a standard HTML form.
 
 As for design, I knew that I was going to use an existing component library so that I could have a decent UI without much customization (I don't have much experience with design). I really like the way DaisyUI's components look, and it's free, so I went with that. I love how it turned out!
 
-I started out by drawing a simple design with pen and paper. I know it seems like a very obvious design 😅 but it wasn't obvious to me until I drew it out. I highly recommend doing so! It gave me a clear goal to work toward. This is also when I decided on the name "Meepo", which my wife suggested. There's no real meaning behind the name. It's the name of a [DotA character](https://dota2.fandom.com/wiki/Meepo) that she liked, and felt like the right vibe!
+I started out by drawing a simple design with pen and paper. I know it seems like a very obvious design 😅 but it wasn't obvious to me until I drew it out. I highly recommend doing so! It gave me a clear goal to work towards. This is also when I decided on the name "Meepo", which my wife suggested. There's no real meaning behind the name. It's the name of a [DotA character](https://dota2.fandom.com/wiki/Meepo) that she liked, and it felt like the right vibe!
 
 ![](images/meepo-sketch.png){width=600 fig-align=center}
 
-I used Django as the backend framework since I have a few years of experience working with it, and many years with Python. Again, since the goal was to ship fast, I tried to go with what I knew, simple and boring! As part of keeping things simple, and because it's almost a read-only application (only the scraper writes to the database), I used SQLite.
+I used Django as the backend framework since I have a few years of experience with it. Again, since the goal was to ship fast, I tried to go with what I knew: simple and boring! I used SQLite too to keep things simple, since it’s almost entirely a read-only application; only the scraper writes to the database.
 
 This step took 4 hours, after which I shared another demo with friends.
 
@@ -58,31 +58,31 @@ This step took 4 hours, after which I shared another demo with friends.
 
 ## Deployment
 
-Now that I had a minimal working Django app, I wanted to deploy it so that I could share a link for people to play around with instead of just videos. I found it very helpful to get feedback throughout the process, and there's nothing better than getting feedback on an actual interactive (but minimal) version of the thing. I also wanted to get practice shipping changes to a live app. I definitely think it's the right idea to deploy early in the development process, then ship often!
+Now that I had a minimal working Django app, I wanted to deploy it so that I could share a link for people to play around with, instead of just videos. I found it very helpful to get feedback throughout the process, and there's nothing better than getting feedback on an actual interactive (but minimal) version of the thing. I also wanted to get practice shipping changes to a live app. I definitely think it's the right idea to deploy early in the development process, then ship often!
 
 I used the very boring (but robust) stack of nginx and gunicorn in front of Django (image created by [Serdar Ilarslan](https://medium.com/@serdarilarslan), [source](https://medium.com/@serdarilarslan/what-is-gunicorn-5e674fff131b)):
 
 ![](images/meepo-stack.webp)
 
-This step took 7 hours. I think it could've been a lot faster, but I got sidetracked trying to use a platform-as-a-service option instead of working directly on a Linux VPS (which I'm much more experienced with). I'm not sure if I'll revisit PaaS in the future, because the VPS has been working really well for a few months now. I personally love the transparency and being able to directly interact with it if anything goes wrong, rather than struggling to find the right logs in some web interface. I knew that [Pieter Levels](https://twitter.com/levelsio) does similar, and serves significantly more traffic than I expected to. My good friend [Ashton Hudson](https://twitter.com/ashtonshudson) took the same approach with [Serval](https://www.servaltracker.com/), which also serves tons of traffic with a really massive time series database (more info in [this thread](https://twitter.com/ashtonshudson/status/1609621491481460737?s=20)).
+This step took 7 hours. I think it could've been a lot faster, but I got sidetracked trying to use a platform-as-a-service (PaaS) option instead of working directly on a Linux virtual private server (VPS) – which I'm much more experienced with. I'm not sure if I'll revisit PaaS in the future, because the VPS has been working really well for a few months now. I personally love the transparency and being able to directly interact with it if anything goes wrong, rather than struggling to find the right logs in some web interface. I knew that [Pieter Levels](https://twitter.com/levelsio) does similarly, and serves significantly more traffic than I expected to. My good friend [Ashton Hudson](https://twitter.com/ashtonshudson) took the same approach with [Serval](https://www.servaltracker.com/), which also serves tons of traffic with a really massive time series database (more info in [this thread](https://twitter.com/ashtonshudson/status/1609621491481460737?s=20)).
 
 I bought a DNS using Namecheap. I tried to find the cheapest domain for "meepo", and was lucky to score [meepo.shop](https://meepo.shop) at $2!
 
 I did some basic Linux setup following [this Linode guide](https://www.linode.com/docs/products/compute/compute-instances/guides/set-up-and-secure/). Things like updating packages, configuring the timezone, configuring a custom hostname, and most importantly creating a limited user and tightening SSH options.
 
-I found the docs really difficult to follow, but it turned out to be quite simple to get Linode to be able to manage the DNS instead of Namecheap. All I had to do was go to the domain management page, Domain tab, and add Linode's nameservers under the Nameservers section. They are ns1.linode.com through to ns5.linode.com. I think it might've taken some time to reflect, then I could create a Domain in the Linode console, link it to my Node, and it automatically filled it with what I needed!
+I found the docs really difficult to follow, but it turned out to be quite simple to get Linode to manage the DNS instead of Namecheap. All I had to do was go to the domain management page, then the Domain tab, and add Linode's nameservers under the Nameservers section. The domains were ns1.linode.com through ns5.linode.com. I think it might've taken some time to reflect, and once it did, I could create a domain in the Linode console, link it to my Node, and have it automatically fill what I needed!
 
 As part of this step, I also setup nginx and gunicorn on the Linux VPS. I followed [this Real Python guide](https://realpython.com/django-nginx-gunicorn).
 
 I also highly recommend setting up Longview, which has a free option! It's really cool to be able to check some basic stats from the console and even from my phone.
 
-I only much later (yesterday, actually!) setup [Sentry](https://sentry.io/) as well which also has a free option. It's very easy with Django, just a few lines in your `settings.py` file and you're good to go. Now I get emails whenever there's an error in either the web server or the scraper, with a neat stacktrace and local variables.
+Only much later (yesterday, actually!) did I setup [Sentry](https://sentry.io/) too, which also has a free option. Now I get emails whenever there's an error in either the web server or the scraper, with a neat stacktrace and local variables. It's very easy with Django, just a few lines in your `settings.py` file and you're good to go.
 
-Once it was setup, I used [ddosify](https://github.com/ddosify/ddosify) to load test it (great tool!). Given that I'd barely done any optimization, I wanted to make sure that it could at least standard a reasonable amount of traffic. I hit the search endpoint with a bunch of random queries. It just about handles 60 requests over 10 seconds, which I was relatively sure I wouldn't reach for an extended period of time 😅 and worst case I could upgrade the VPS if needed.
+Once it was setup, I used [ddosify](https://github.com/ddosify/ddosify) to load test it – great tool! Given that I'd barely done any optimization, I wanted to make sure that it could at least handle a reasonable amount of traffic. So I hit the search endpoint with a bunch of random queries. It just about handled 60 requests over 10 seconds, which I was relatively sure I wouldn't reach for an extended period of time 😅 and worst case I could upgrade the VPS if needed.
 
 ![](images/meepo-ddosify.png)
 
-Now I could just tell people to goto [meepo.shop](https://meepo.shop) and see what I was working on, yay! 🎉
+Now I could tell people to goto [meepo.shop](https://meepo.shop) and see what I was working on. Yay! 🎉
 
 ## Scraper
 
@@ -90,18 +90,26 @@ The next step was to come up with a scraping strategy and pipeline design. This 
 
 The big question here is how do we maintain a list of available products that is accurate for at least 24 hours, with minimal load to the upstream service?
 
-**A very important detour:** if you're scraping, you are most likely not the intended audience of a website, so try very hard not to negatively impact the service or the user experience of their intended audience! Here are some ways you can do so.
+**A very important detour:** if you're scraping, you are most likely not the intended audience of a website, so try very hard not to negatively impact the service or the user experience of their intended audience! Here are some ways you can do so:
 
-- Check how big the viewership is of the website. I would personally be hesitant to scrape a small website and would probably prefer to email the owner directly.
+- Check how big the viewership of the website is. I would personally be hesitant to scrape a small website and would probably prefer to email the owner directly.
 - Identify yourself (website URL), with contact information, via the user agent header – don't try to fake being a human! A simple pattern you can use is `your.website.com/x.y (your@email.com)` where `x.y` is a version number of the scraper.
 - Be considerate about their resource usage, especially given that you aren't their intended audience.
-- Do as much of your requests during off-peak times depending on the local timezone of their audience.
-- Sleep between requests as much as you possibly can. Add small random amounts as well to reduce the likelihood of overlapping with other scheduled scrapers/bots thus reducing peak load.
-- Use compression when scraping plain text or JSON to minimise their outgoing traffic! It doesn't work nearly as well for images so probably best to use uncompressed to avoid extra CPU usage on their side.
+- Do the bulk of your requests during off-peak times depending on the local timezone of their audience.
+- Sleep between requests as much as you possibly can. Add small random amounts as well to reduce the likelihood of overlapping with other scheduled scrapers/bots, thus reducing peak load.
+- Use compression when scraping plain text or JSON to minimise their outgoing traffic! It doesn't work nearly as well for images so it's probably best to not compress them to avoid extra CPU usage on their servers.
 
-The rough idea was to first scrape the entire "catalogue". Walk through each department's "New in" section, and each page in the section, resulting in a list of currently available products. Then download images for products we haven't seen before, calculate their CLIP embeddings, and finally reindex. (I simply recreate the entire index, since it's very fast for the size of my dataset. For larger datasets you might need to update an existing index.)
+The rough idea was to:
 
-Unfortunately, I couldn't scrape only new pages. I needed the entire catalogue to check which older products were made unavailable so I can remove them from the index.
+1. First scrape the entire "catalogue". Walk through each department's "New in" section
+2. Then for each page in the section, create a list of the currently available products.
+3. Download the images for those products that we haven't seen before.
+4. Calculate their CLIP embeddings
+5. And finally rebuild the index.
+
+It's faster for me to recreate the index instead of updating the existing one due to the small size of my dataset. For larger datasets this would be a more complex process.
+
+Unfortunately, I couldn't scrape new pages only. I needed to check the entire catalogue to determine which products were unavailable so I can remove them from the index.
 
 I first tried jumping in head first and coding this up, but got totally stuck. Even with that plan I wasn't quite sure how to break it down into smaller components that I could easily build.
 
@@ -111,11 +119,11 @@ A perfect opportunity to whip out a whiteboard, or in my case [Excalidraw](https
 
 I often find it helpful to think about data pipelines in terms of statements that I want to be true about the data.
 
-For example, after step 1, we should have a .json.gz file for each scrapes page, in a folder structure indicating the run timestamp, department, and page number. It's also useful to specify the schema at this point too. It's also often a good idea to store raw external data before we do any processing so that if we change our logic we don't need to rescrape the entire thing. For example, if I wanted to add prices to products I could do so without rescraping anything.
+For example, after step 1, we should have a .json.gz file for each scraped page, in a folder structure indicating the run timestamp, department, and page number. It's also useful to specify a more precise schema at this point too. What would the file structure look like? What tables will you create in the database, and what are their constraints and foreign key relationships?
 
-This is generally one reason it's good to split a pipeline into components. Another is that it can be easier to comprehend, although splitting too fine can be counterproductive.
+It's also often a good idea to store raw external data before we do any processing so that when we change the logic we don't need to rescrape anything. For example, if I wanted to add prices to products I could do so without rescraping anything. This is also one good reason for splitting a pipeline into smaller components. Another is that it can be easier to comprehend, although splitting it too fine can be counterproductive.
 
-I used Chrome dev tools to figure out the API paths and what requests should look like. Although I built the scraper to work with all departments, I started out by scraping only one, the smallest: Home and Living. I figured that would be a neat way to test it out end-to-end.
+I used Chrome dev tools to figure out the API paths and what the requests should look like. Although I built the scraper to work with all departments, I started out by scraping the smallest one: Home and Living. I figured that would be a neat way to test the end-to-end process.
 
 I then configured cron to run this daily just after midnight. By the way, a neat tip to get cron to log its output (including errors) to the system log is to add the following to the end of your job definition:
 
@@ -123,7 +131,7 @@ I then configured cron to run this daily just after midnight. By the way, a neat
 2>&1 | logger -t meepo_pipeline
 ```
 
-The `2>&1` redirects standard error to standard out (so error messages are logged too), then it's piped to `logger` which writes to the system log, with a tag specified by the `-t` flag.
+The `2>&1` redirects the standard error stream to the standard out stream so that error messages are logged too. The combined result is then piped to the `logger` application which writes to the system log, with a tag specified by the `-t` flag.
 
 Building out the scraper and getting the cron job working smoothly took about 20 hours! After that, all that was left was to let it scrape all departments, watch and fix any bugs that popped up (unhandled cases and so on), and prepare for launch!
 
@@ -136,17 +144,17 @@ My launch plan was simple. Just post it on Twitter, LinkedIn, Reddit (/r/southaf
 In hindsight, there were really two audiences for this:
 
 1. Actual users i.e. South African online shoppers.
-2. Tech people who are more interested in the stack and the process.
+2. Tech people who are more interested in the stack and process.
 
-Given what I typically post on Twitter and LinkedIn, these platforms would primarily only get people from the latter group. My only access to the former was Reddit. I also had the idea of making a Twitter account ([@MeepoShop](https://twitter.com/MeepoShop)) and replying to South Africans influencers with good recommendations, but I didn't keep that up. I thought about making a bot that let you search from Twitter, and maybe even including a side-by-side of Superbalist's search results vs Meepo's, as a sort of viral marketing by engineering thing, but didn't end up doing that either. I also considered approaching local news websites with the story of "a lone developer builds a search engine for a large eCommerce store" – I still think this would probably work well. I could've even tried to target fashion subreddits and considered pivoting to a more general fashion product rather than target a specific South African store.
+Given what I typically post on Twitter and LinkedIn, these platforms would primarily only get people from the latter group. My only access to the former was Reddit. I also had the idea of making a Twitter account ([@MeepoShop](https://twitter.com/MeepoShop)) and replying to South Africans influencers with good recommendations, but I didn't keep that up. I also thought about making a bot that let you search from Twitter, and even including a side-by-side of Superbalist's and Meepo's search results, as a sort of viral marketing campaign. I also considered approaching local news websites with the story of "a lone developer builds a search engine for a large eCommerce store". I still think this would probably work well. I could've even tried to target fashion subreddits and pivoting to a more general fashion product rather than target a specific South African store.
 
 I think my lack of follow-through here goes back to the point I made in the beginning. I'm not really interested in fashion 😬.
 
-There are a couple of tiny details that are totally worth the effort for a launch IMO. Make sure you have a nice social preview card (and other metadata) and favicon.
+There are a couple of tiny details that are totally worth the effort for a launch IMO, such as having a nice social preview card (and other metadata) and a favicon.
 
-My goto is a very boring 1-2 letters with a nice font and following the same colour scheme as the website, using something like [favicon.io](https://favicon.io/). An emoji might be an even better idea.
+For the preview card, I used [Unsplash](https://unsplash.com/) to find a beautiful stock photo, and then [Canva](https://www.canva.com/) to edit it. Be sure to get the dimensions right for the website(s) you're targeting. For me it was primarily Twitter and Reddit. I cropped the image, played around with colour settings, added text, and added some pretty fonts and effects. I was inspired by Lexica's card which I think is really beautiful. I added a headline and short description over the image.
 
-For the preview card, I use [Unsplash](https://unsplash.com/) to find a beautiful stock photo, and then use [Canva](https://www.canva.com/) to edit it. Be sure to get the dimensions right for the website(s) you're targeting. For me it was primarily Twitter and Reddit. I just cropped the image, played around with colour settings, added text, and got the fonts and effects pretty. I was inspired by Lexica's card which I think is really beautiful. So I went with a headline and short description overlaying the image.
+For favicons, my goto is a simple 1 or 2 letters with a nice font in the same colour scheme as the website. I used [favicon.io](https://favicon.io/) to create mine. You can use emojis too, which I might consider in the future.
 
 Here's the stock image I used, credit to [Harper Sunday](https://unsplash.com/@harpersunday) ([source](https://unsplash.com/photos/RmQWqLKsVv8)):
 
@@ -158,9 +166,11 @@ This step took about 4 hours, mostly procrastinating.
 
 ## Image search
 
-Thanks to the power of CLIP, it was really easy to add image search after launching. I try to parse the search query, and if it's a URL of an image (and the image isn't larger than some file limit), I download the image (in-memory, I don't wanna store arbitrary files), calculate its CLIP embedding, and use that to find similar images.
+Thanks to the power of CLIP, it was really easy to add image search after launching the site.
 
-It doesn't work as well as I would've hoped. One possible improvement idea is to take an average of the image and the existing text query, which is closer to what I think people would expect.
+Here's how it works. I try to parse the search query, and if it's a URL of an image (and the image isn't larger than some file limit), I download the image (in-memory, I don't wanna store arbitrary files), calculate its CLIP embedding, and use that to find similar images.
+
+It doesn't work as well as I hoped. One possible improvement is to use the average of the image embedding and the text embedding as the query, which I suspect is closer to what users expect from the feature. For example, a user might take an average of the image and the existing text query, which is closer to what I think people would expect. Another suggestion I received on Twitter is to make clicking on a product visit a detailed page about that proudct with similar products listed below.
 
 This took 2 hours to implement end-to-end.
 
@@ -177,17 +187,17 @@ Here is the weekly number of unique visitors since day 1 (via [Plausible](https:
 
 ![](images/meepo-analytics.png)
 
-Not much! The huge drop-off is also a sign of my really bad marketing lol. There really isn't any other way for people to discover Meepo than via one of my posts (most traffic came from Twitter). And my followers are more tech-focused which isn't even the target audience. So all-in-all, really not a great job at marketing.
+Not much! The huge drop-off is also a sign of my really bad marketing lol. There really isn't any way for people to discover Meepo other than via one of my posts (most traffic came from Twitter). And my followers are more tech-focused which isn't even the target audience. So all-in-all, really not a great job at marketing.
 
-One more interesting point here: more than half of the views were via mobile. It's super important these days to ensure that your apps works well on mobile!
+One more interesting point here: more than half of the views were via mobile. It's super important these days to ensure that your apps work well on mobile!
 
-As for the dataset, we've scraped and indexed a total of 101 128 images so far. Not bad!
+As for the dataset, we've scraped and indexed a total of 101,128 images so far. Not bad!
 
 ## Feedback
 
-I shared the website with friends and tried to gauge their interest. Most people thought it was cool and shared positive feedback, but to be honest, I don't think it *really* addresses a pain point and I could see that in peoples' reactions.
+I shared the website with friends and tried to gauge their interest. Most people thought it was cool and shared positive feedback. But to be honest, I don't think it *really* addresses a pain point and I could see that in peoples' reactions.
 
-On top of that, the fact that the website isn't really integrated into Superbalist also significantly worsens its usefulness. You can't see prices (I didn't include them because there wasn't a great way for me to keep them up-to-date), you can't add things to your wish list, cart, and so on.
+On top of that, the fact that the website isn't really integrated into Superbalist also significantly worsens its usefulness. You can't see prices (I didn't include them because there wasn't a great way for me to keep them up-to-date) and you can't add things to your wish list, cart, and so on.
 
 That said, I did see a reasonable amount of really long sessions, which I think is a strong sign that there is *something* very valuable here. For the true fashionistas, I suspect. I should've come up with a way to communicate with these people! A way to more directly reach the target audience and hear back from them.
 
@@ -197,7 +207,7 @@ This could be as simple as allowing users to subscribe to a mailing list. Slight
 
 All-in-all, I had tons of fun working on Meepo! I also learned some valuable lessons about choosing the right idea for you ("founder-market fit"), having a clear and simple plan for monetisation, and the age-old problem of *actually* doing some marketing.
 
-If you found this entertaining, please follow me on Twitter [@wasimlorgat](https://twitter.com/wasimlorgat). And if you have any feedback, comments, questions, please feel free to pop me [an email](mailto:mwlorgat@gmail.com).
+If you found this entertaining, please do follow me on Twitter [@wasimlorgat](https://twitter.com/wasimlorgat). And if you have any feedback, comments or questions, please feel free to pop me [an email](mailto:mwlorgat@gmail.com).
 
 Having learned the lesson of "founder-market fit", I'm now building my own native macOS Jupyter frontend. The best place to follow along is via Twitter.
 
