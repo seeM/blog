@@ -1,22 +1,38 @@
 ---
-title: "How I built Meepo: A fashion search engine"
-description: "A step-by-step account of how I built [Meepo](https://meepo.shop), a semantic search engine for a leading online fashion and homeware store, and what I learned along the way."
+title: "How I built Meepo: A visual search engine for fashion"
+description: "A step-by-step account of how I built Meepo -- a visual search engine for fashion -- and how you can create your own search engine too."
 date: 2023-02-13
 categories: [maker log]
 draft: true
 ---
 
-![](images/meepo.png){width=600 fig-align=center .preview-image}
+<!-- ![](images/meepo.png){width=600 fig-align=center .preview-image} -->
 
-It's been about 3 months since I launched [Meepo](https://meepo.shop), a semantic search engine for a South African fashion and homeware store. A few people have asked me to share a write-up so here we go.
+I built a visual search engine for a leading fashion store in the Southern-most tip of Africa.
+Thanks to the power and availability of foundational deep learning models, cloud infrastructure, and open-source software -- together with a sprinkle of good planning and prioritization -- it took me 1 week and costs $30 per month.
 
-Let's skip right to the end first. Ultimately, I stopped working on Meepo in December of last year. Why? I'm not particularly passionate about fashion (as anyone who has met me would probably agree lol), which I think is necessary to pursue a project like this in the long-term. I do think there are tons of opportunities in this space if you are interested in fashion and AI! I expect to see AI-powered features enter the mainstream of online fashion stores in the next few years (e.g. search, virtual try-on, outfit generation, and more).
+Honestly, it blows my mind that this is possible.
+Decades of hard work by many bright minds have allowed us to create and distribute incredible AI-powered products over the internet at low cost.
 
-Why did I make this if I'm not interested in fashion? I guess I underestimated how important it is to have some deeper connection with an idea before pursuing it. I didn't really think about whether it was something I would want to do for the next 1-2 years.
+I couldn't be more excited about what the future holds, and what problems we will be able to solve.
+This is why I decided to share how I built Meepo.
+I hope to help others create even more powerful solutions to problems that are unique to their circumstances.
 
-That said, I'm still glad I built it. I learned about semantic search, similarity search indexes, gained more experience shipping a full stack AI product, and gained first-hand experience of making the most classic newbie mistakes in existence: no clear plan to monetise or reach users 😅. It also sparked a few interesting connections with people in the fashion ∩ AI space internationally and in South Africa.
+Here's the entire stack powering Meepo. Don't be overwhelmed. In this post, you'll learn about each and every one of these, and how you can use them to create your own search engine:
 
-Alright, so how did this all begin?
+- CLIP
+- Faiss
+- Conda
+- nbdev
+- Jupyter
+- Tailwind
+- DaisyUI
+- Django
+- SQLite
+- Gunicorn
+- Nginx
+- Cron
+- Linode
 
 ## The idea
 
