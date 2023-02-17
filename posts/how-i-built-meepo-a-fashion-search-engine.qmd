@@ -18,7 +18,7 @@ Decades of hard work by many bright minds have empowered us to create and distri
 I couldn't be more excited about what this means for our future.
 What problems will we be able to solve?
 This is why I decided to share how I built Meepo.
-I hope to help others to create even more powerful products that solve problems unique to their circumstances.
+I hope to help others create even more powerful products that solve problems unique to their circumstances.
 
 Here's the entire stack powering Meepo. Don't be overwhelmed. In this post, you'll learn about each and every one of these, and how you can use them to create your own search engine:
 
