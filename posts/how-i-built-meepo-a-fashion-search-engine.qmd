@@ -10,12 +10,13 @@ image: images/meepo.png
 <!-- ![](images/meepo.png){width=600 fig-align=center .preview-image} -->
 
 I built a visual search engine for a leading fashion store in the Southern-most tip of Africa.
-Thanks to the power and availability of foundational deep learning models, cloud infrastructure, and open-source software -- together with a sprinkle of good planning and prioritization -- it took me 1 week and costs $30 per month.
+Thanks to the power and availability of foundational deep learning models, open-source software, and cloud infrastructure -- with a sprinkle of good planning -- it took me 1 week and costs only $30 per month.
 
 Honestly, it blows my mind that this is possible.
-Decades of hard work by many bright minds have allowed us to create and distribute incredible AI-powered products over the internet at low cost.
+Decades of hard work by many bright minds have empowered us to create and distribute incredible AI-powered products over the internet from almost anywhere in the world.
 
-I couldn't be more excited about what the future holds, and what problems we will be able to solve.
+I couldn't be more excited about what this means for our future.
+What problems will we be able to solve?
 This is why I decided to share how I built Meepo.
 I hope to help others create even more powerful solutions to problems that are unique to their circumstances.
 
