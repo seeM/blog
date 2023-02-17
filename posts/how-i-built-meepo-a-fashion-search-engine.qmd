@@ -4,6 +4,7 @@ description: "A step-by-step account of how I built Meepo -- a visual search eng
 date: 2023-02-13
 categories: [maker log]
 draft: true
+image: images/meepo.png
 ---
 
 <!-- ![](images/meepo.png){width=600 fig-align=center .preview-image} -->
