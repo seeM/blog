@@ -10,7 +10,7 @@ image: images/meepo.png
 <!-- ![](images/meepo.png){width=600 fig-align=center .preview-image} -->
 
 I built a visual search engine for a leading fashion store in the Southern-most tip of Africa.
-Thanks to the power and availability of foundational deep learning models, open-source software, and cloud infrastructure -- with a sprinkle of good planning -- it took me 1 week and costs only $30 per month.
+Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure -- with a sprinkle of good planning -- it took me 1 week and costs only $30 per month.
 
 Honestly, it blows my mind that this is possible.
 Decades of hard work by many bright minds have empowered us to create and distribute incredible AI-powered products from almost anywhere in the world.
@@ -22,19 +22,19 @@ I hope to help others to create even more powerful products that solve problems 
 
 Here's the entire stack powering Meepo. Don't be overwhelmed. In this post, you'll learn about each and every one of these, and how you can use them to create your own search engine:
 
-- CLIP
-- Faiss
-- Conda
-- nbdev
-- Jupyter
-- Tailwind
-- DaisyUI
-- Django
-- SQLite
-- Gunicorn
-- Nginx
-- Cron
-- Linode
+- [CLIP](https://github.com/openai/CLIP): the neural network underlying Meepo's visual search engine
+- [Faiss](https://github.com/facebookresearch/faiss): a library that lets us efficiently search over CLIP outputs
+- [Conda](https://docs.conda.io/en/latest/): a Python package management system
+- [Jupyter Notebook](https://jupyter.org/): an interactive programming environment
+- [nbdev](http://nbdev.fast.ai/): a platform for developing software using Jupyter Notebooks
+- [Tailwind CSS](https://tailwindcss.com/): a simpler CSS framework
+- [DaisyUI](https://daisyui.com/): a component library built on Tailwind CSS
+- [SQLite](https://www.sqlite.org/): a light but powerful database engine
+- [Django](https://www.djangoproject.com/): a battle-tested Python web framework
+- [Gunicorn](): a Python HTTP server that lets us serve our Django application
+- [Nginx](https://www.nginx.com/): a powerful and customizeable web server
+- [Cron](https://cron.com/): a job scheduler built into Unix operating system
+- [Linode](https://www.linode.com/): a cloud hosting provider.
 
 ## The idea
 
