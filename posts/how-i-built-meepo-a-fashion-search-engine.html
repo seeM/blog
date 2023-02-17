@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.200">
+<meta name="generator" content="quarto-1.3.203">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
 <meta name="dcterms.date" content="2023-02-13">
-<meta name="description" content="A step-by-step account of how I built Meepo, a semantic search engine for a leading online fashion and homeware store, and what I learned along the way.">
+<meta name="description" content="A step-by-step account of how I built Meepo – a visual search engine for fashion – and how you can create your own search engine too.">
 
-<title>Wasim Lorgat - How I built Meepo: A fashion search engine</title>
+<title>Wasim Lorgat - How I built Meepo: A visual search engine for fashion</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -130,20 +130,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
 
 
-<meta property="og:title" content="Wasim Lorgat - How I built Meepo: A fashion search engine">
-<meta property="og:description" content="A step-by-step account of how I built Meepo, a semantic search engine for a leading online fashion and homeware store, and what I learned along the way.">
-<meta property="og:image" content="https://wasimlorgat.com/posts/images/meepo.png">
+<meta property="og:title" content="Wasim Lorgat - How I built Meepo: A visual search engine for fashion">
+<meta property="og:description" content="A step-by-step account of how I built Meepo – a visual search engine for fashion – and how you can create your own search engine too.">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta property="og:image:height" content="900">
-<meta property="og:image:width" content="1600">
-<meta name="twitter:title" content="Wasim Lorgat - How I built Meepo: A fashion search engine">
-<meta name="twitter:description" content="A step-by-step account of how I built Meepo, a semantic search engine for a leading online fashion and homeware store, and what I learned along the way.">
-<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/meepo.png">
+<meta name="twitter:title" content="Wasim Lorgat - How I built Meepo: A visual search engine for fashion">
+<meta name="twitter:description" content="A step-by-step account of how I built Meepo – a visual search engine for fashion – and how you can create your own search engine too.">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:image-height" content="900">
-<meta name="twitter:image-width" content="1600">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
@@ -246,7 +240,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">How I built Meepo: A fashion search engine</h1>
+<h1 class="title">How I built Meepo: A visual search engine for fashion</h1>
   <div class="quarto-categories">
     <div class="quarto-category">maker log</div>
   </div>
@@ -254,7 +248,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 <div>
   <div class="description">
-    A step-by-step account of how I built <a href="https://meepo.shop">Meepo</a>, a semantic search engine for a leading online fashion and homeware store, and what I learned along the way.
+    A step-by-step account of how I built Meepo – a visual search engine for fashion – and how you can create your own search engine too.
   </div>
 </div>
 
@@ -281,16 +275,26 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/meepo.png" class="preview-image img-fluid figure-img" width="600"></p>
-</figure>
-</div>
-<p>It’s been about 3 months since I launched <a href="https://meepo.shop">Meepo</a>, a semantic search engine for a South African fashion and homeware store. A few people have asked me to share a write-up so here we go.</p>
-<p>Let’s skip right to the end first. Ultimately, I stopped working on Meepo in December of last year. Why? I’m not particularly passionate about fashion (as anyone who has met me would probably agree lol), which I think is necessary to pursue a project like this in the long-term. I do think there are tons of opportunities in this space if you are interested in fashion and AI! I expect to see AI-powered features enter the mainstream of online fashion stores in the next few years (e.g.&nbsp;search, virtual try-on, outfit generation, and more).</p>
-<p>Why did I make this if I’m not interested in fashion? I guess I underestimated how important it is to have some deeper connection with an idea before pursuing it. I didn’t really think about whether it was something I would want to do for the next 1-2 years.</p>
-<p>That said, I’m still glad I built it. I learned about semantic search, similarity search indexes, gained more experience shipping a full stack AI product, and gained first-hand experience of making the most classic newbie mistakes in existence: no clear plan to monetise or reach users 😅. It also sparked a few interesting connections with people in the fashion ∩ AI space internationally and in South Africa.</p>
-<p>Alright, so how did this all begin?</p>
+<!-- ![](images/meepo.png){width=600 fig-align=center .preview-image} -->
+<p>I built a visual search engine for a leading fashion store in the Southern-most tip of Africa. Thanks to the power and availability of foundational deep learning models, cloud infrastructure, and open-source software – together with a sprinkle of good planning and prioritization – it took me 1 week and costs $30 per month.</p>
+<p>Honestly, it blows my mind that this is possible. Decades of hard work by many bright minds have allowed us to create and distribute incredible AI-powered products over the internet at low cost.</p>
+<p>I couldn’t be more excited about what the future holds, and what problems we will be able to solve. This is why I decided to share how I built Meepo. I hope to help others create even more powerful solutions to problems that are unique to their circumstances.</p>
+<p>Here’s the entire stack powering Meepo. Don’t be overwhelmed. In this post, you’ll learn about each and every one of these, and how you can use them to create your own search engine:</p>
+<ul>
+<li>CLIP</li>
+<li>Faiss</li>
+<li>Conda</li>
+<li>nbdev</li>
+<li>Jupyter</li>
+<li>Tailwind</li>
+<li>DaisyUI</li>
+<li>Django</li>
+<li>SQLite</li>
+<li>Gunicorn</li>
+<li>Nginx</li>
+<li>Cron</li>
+<li>Linode</li>
+</ul>
 <section id="the-idea" class="level2">
 <h2 class="anchored" data-anchor-id="the-idea">The idea</h2>
 <p>Leading up to Meepo, I’d seen the creator of <a href="https://lexica.art/">Lexica</a> share the <a href="https://twitter.com/sharifshameem/status/1567962701237997568?s=20">details of their stack</a> on Twitter. I’d also recently learned the detail behind how CLIP worked from the <a href="https://www.fast.ai/posts/part2-2022-preview.html">most recent iteration of the incredible fastai course</a>. Shortly after that, I saw <a href="https://twitter.com/karinanguyen_/status/1587217615885406213">the launch</a> of <a href="https://interalia.vcflab.org/">InterAlia</a>. I had a brief look at the tech, and it looked simple enough to be able to very quickly prototype. I also imagined that there were ways to potentially monetise this via ads or affiliate links. In hindsight, I’m not really sure if there’s an obvious way to monetise it. Maybe the simple approach of making it a paid service would be best? It would have to really solve users’ problems in that case, which I’m not quite sure it does.</p>
