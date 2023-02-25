@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/talks/index.html</link>
 <atom:link href="https://wasimlorgat.com/talks/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent talks on wasimlorgat.com</description>
-<generator>quarto-1.3.220</generator>
+<generator>quarto-1.2.335</generator>
 <lastBuildDate>Sat, 17 Mar 2018 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Code represents the ideas of people</title>
@@ -19,7 +19,7 @@
 
 
 
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/o8-IuUMG2T8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<div class="quarto-video ratio ratio-16x9"><iframe src="https://www.youtube.com/embed/o8-IuUMG2T8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p><em>(The original title and description of the talk changed between the pitch and final version, hence the differences.)</em></p>
 <p>This is a lightning talk I gave at the satRday 2018 conference. In it, I share an epiphany I had about programming and how it relates to people and our ideas, after programming for most of my life and discovering higher-level languages like Python and R. The talk won best student lightning talk, which included a copy of the beautiful <a href="https://r4ds.hadley.nz/">R for Data Science</a> signed by Hadley Wickham himself!</p>
 <p>Fast forward 4 years, and this realisation doesn’t feel as profound as it once did, but that’s okay. I believe the world would be a little better if everyone shared their personal learnings and experiences. Please <a href="mailto:mwlorgat@gmail.com">let me know</a> of yours!</p>

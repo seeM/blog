@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/tils/index.html</link>
 <atom:link href="https://wasimlorgat.com/tils/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent TILs on wasimlorgat.com</description>
-<generator>quarto-1.3.220</generator>
+<generator>quarto-1.2.335</generator>
 <lastBuildDate>Mon, 13 Feb 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Callbacks vs async/await</title>
@@ -32,17 +32,17 @@
 <span id="cb2-4">display(input_, button, output)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"4bf5b79bfb63429abe02bb65dbbe9777","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"4bf5b79bfb63429abe02bb65dbbe9777","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"f9e78dedd4ce44dc8c63bfa57ef0ca5f","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"f9e78dedd4ce44dc8c63bfa57ef0ca5f","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"ff55d098626e469eab8f3a44b0960030","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"ff55d098626e469eab8f3a44b0960030","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -87,17 +87,17 @@
 <span id="cb10-5">display(input_, button, output)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"0dddaf1ad66c40d5942a999cff5760c9","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"0dddaf1ad66c40d5942a999cff5760c9","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"94173406b49540fe89fec9493db08140","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"94173406b49540fe89fec9493db08140","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"d95e9bdafdfc4a16839a63992732b04d","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"d95e9bdafdfc4a16839a63992732b04d","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -130,17 +130,17 @@
 <span id="cb15-5">display(input_, button, output)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"19463a60508b44c0be86a16992db82d9","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"19463a60508b44c0be86a16992db82d9","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"862ae7f2344840ffa0da95efbe739d54","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"862ae7f2344840ffa0da95efbe739d54","version_major":2,"version_minor":0}
 </script>
 </div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"3050c63e89844065b950446438bc73e6","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"3050c63e89844065b950446438bc73e6","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -377,7 +377,7 @@ struct TableView: NSViewRepresentable { # <1>
 <li>Check <em>Install NVIDIA GPU driver automatically for me</em>.</li>
 <li>Wait a few seconds for the notebook server to spin up. Then click <em>OPEN JUPYTERLAB</em>.</li>
 </ol>
-<div class="callout callout-style-default callout-important callout-captioned">
+<div class="callout-important callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -648,7 +648,7 @@ Shutdown your server when you’re done working
 
 
 
-<div class="callout callout-style-simple callout-note">
+<div class="callout-note callout callout-style-simple">
 <div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
@@ -947,7 +947,7 @@ requires = [
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">ls(<span class="st" style="color: #20794D;">'~/code/fastai'</span>)</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"169fb41e3a56421dba0169a52f8d35f4","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"169fb41e3a56421dba0169a52f8d35f4","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -1025,7 +1025,7 @@ define('hello', ["@jupyter-widgets/base"], function(widgets) {
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">HelloWidget()</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"d90cd88266104b9d82e44ddfaf404407","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+{"model_id":"d90cd88266104b9d82e44ddfaf404407","version_major":2,"version_minor":0}
 </script>
 </div>
 </div>
@@ -1057,7 +1057,7 @@ define('hello', ["@jupyter-widgets/base"], function(widgets) {
 
 
 <p>I’ve been thinking a lot about <a href="https://twitter.com/wasimlorgat/status/1536549059292692481">unique Jupyter notebook interactions</a>. A pattern that keeps coming up in my head is to click on the output of one cell to create a new cell below it. For example, <code>ls()</code> could output file and directory widgets for the current directory. Clicking on a directory widget, say <code>foo</code>, could create a code cell below with code <code>ls(foo)</code>, to interactively browse through files.</p>
-<div class="callout callout-style-default callout-note callout-captioned">
+<div class="callout-note callout callout-style-default callout-captioned">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
