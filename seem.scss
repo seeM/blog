@@ -123,8 +123,10 @@ div.quarto-post .thumbnail img { border-radius: .25rem; }
 
 // Code cells & outputs
 
-.cell { margin-bottom: 1rem; }
-.cell > .sourceCode { margin-bottom: 0; }
+.cell {
+  margin-bottom: 1rem;
+}
+.cell > .sourceCode { margin-top: 0; margin-bottom: 0; }
 .cell-output > pre { margin-bottom: 0; }
 
 .cell-output > pre, .cell-output > .sourceCode > pre, .cell-output-stdout > pre {
