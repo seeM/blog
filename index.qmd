@@ -8,7 +8,6 @@ listing:
   feed: true
   filter-ui: false
   sort-ui: false
-page-layout: full
 author: ''
 comments: false
 description: Recent posts on wasimlorgat.com
@@ -24,7 +23,7 @@ I'm a software engineer and data scientist.
 
 This is where I share lessons learned during my projects, spanning [notebook-driven development](https://nbdev.fast.ai/tutorials/best_practices.html), [artificial intelligence](/posts/math-of-diffusion.qmd) and [software design](/posts/editor.qmd).
 
-You might also be interested in [my full list of side projects](/projects.qmd) and [TILs](/tils/index.qmd) (today I learned).
+You might also be interested in [my full list of side projects](/projects.qmd) and [notes](/tils/index.qmd).
 
 Previously, I held technical leadership positions in South African AI startups in manufacturing and agriculture. Before that, I was a professional DotA 2 player.
 

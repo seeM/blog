@@ -1,6 +1,5 @@
 ---
 title: Projects
-page-layout: full
 toc: true
 comments: false
 ---

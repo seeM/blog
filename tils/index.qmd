@@ -9,7 +9,6 @@ listing:
   sort-ui: false
   filter-ui: false
   feed: true
-page-layout: full
 author: ''
 comments: false
 description: Recent TILs on wasimlorgat.com
