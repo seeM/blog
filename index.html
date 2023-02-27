@@ -73,9 +73,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-reading-time','listing-title','listing-categories','listing-description','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -125,19 +125,15 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
- <span class="menu-text">📮 Posts</span></a>
+ <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./projects.html" rel="" target="">
- <span class="menu-text">💻 Projects</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./talks/index.html" rel="" target="">
- <span class="menu-text">💬 Talks</span></a>
+ <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./tils/index.html" rel="" target="">
- <span class="menu-text">📖 TILs</span></a>
+ <span class="menu-text">TILs</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -162,11 +158,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./talks/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
-</i> 
- <span class="menu-text">Talks</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="./tils/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
 </i> 
  <span class="menu-text">TILs</span></a>
@@ -182,27 +173,28 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(10)</span></div><div class="category" data-category="fastai">fastai <span class="quarto-category-count">(2)</span></div><div class="category" data-category="generative">generative <span class="quarto-category-count">(1)</span></div><div class="category" data-category="jupyter">jupyter <span class="quarto-category-count">(1)</span></div><div class="category" data-category="musing">musing <span class="quarto-category-count">(4)</span></div><div class="category" data-category="nbdev">nbdev <span class="quarto-category-count">(1)</span></div><div class="category" data-category="programming">programming <span class="quarto-category-count">(2)</span></div><div class="category" data-category="tabular">tabular <span class="quarto-category-count">(1)</span></div><div class="category" data-category="talk">talk <span class="quarto-category-count">(1)</span></div><div class="category" data-category="tutorial">tutorial <span class="quarto-category-count">(4)</span></div></div></div>
+    
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content column-page" id="quarto-document-content">
 
 
 
 <section id="hi-im-wasim" class="level1">
-<h1>👋🏽 Hi, I’m Wasim</h1>
-<p>I’m a machine learning engineer and aspiring entrepreneur.</p>
-<p>This is where I write about what I’m working on, which includes <a href="./posts/notebook-best-practices.html">notebook-driven development</a>, <a href="./posts/math-of-diffusion.html">artificial intelligence</a>, <a href="./posts/editor.html">software design</a>, <a href="./posts/fastai-array-programming-day-1.html">programming languages</a>, and <a href="./posts/doing-important-work.html">other</a> <a href="./posts/hats.html">musings</a>.</p>
-<p>You might also want to check out <a href="./projects.html">my full list of projects</a>, <a href="./talks/index.html">talks</a>, and <a href="./tils/index.html">TILs</a> (today I learneds).</p>
+<h1>Hi, I’m Wasim</h1>
+<div class="me">
+<p><img src="images/me.jpeg" class="img-fluid"></p>
+</div>
+<p>I’m a software engineer and data scientist.</p>
+<p>This is where I share lessons learned during my projects, spanning <a href="https://nbdev.fast.ai/tutorials/best_practices.html">notebook-driven development</a>, <a href="./posts/math-of-diffusion.html">artificial intelligence</a> and <a href="./posts/editor.html">software design</a>.</p>
+<p>You might also be interested in <a href="./projects.html">my full list of side projects</a> and <a href="./tils/index.html">TILs</a> (today I learned).</p>
 <p>Previously, I held technical leadership positions in South African AI startups in manufacturing and agriculture. Before that, I was a professional DotA 2 player.</p>
-<section id="hire-me" class="level2">
-<h2 class="anchored" data-anchor-id="hire-me">👨🏽‍💻 Hire me</h2>
-<p>Do you use <a href="https://nbdev.fast.ai/">nbdev</a> for notebook-driven development and need it adapted to your business needs? Do you need support architecting and building machine learning systems? Do you need to implement a novel deep learning technique customized to your use-case?</p>
-<p>I’m open to consulting or contract work on a per-project basis. If you’d like to get in touch, please <a href="https://twitter.com/wasimlorgat">DM me on Twitter</a> or email me at <a href="mailto:mwlorgat@gmail.com" data-analytics="&quot;Consulting: Click&quot;">mwlorgat@gmail.com</a> and let’s chat!</p>
+<section id="get-in-touch" class="level2">
+<h2 class="anchored" data-anchor-id="get-in-touch">Get in touch</h2>
+<p>One of my biggest motivations for sharing online is to connect with interesting people from across the world.</p>
+<p>Email me at <a href="mailto:mwlorgat@gmail.com" data-analytics="&quot;Consulting: Click&quot;">mwlorgat@gmail.com</a> or DM me on <a href="https://twitter.com/wasimlorgat">Twitter</a> or <a href="https://www.linkedin.com/in/wasim-lorgat/">LinkedIn</a> if you’d like to chat!</p>
 </section>
-<section id="posts" class="level2">
-<h2 class="anchored" data-anchor-id="posts">📮 Posts</h2>
+<section id="recent-posts" class="level2">
+<h2 class="anchored" data-anchor-id="recent-posts">Recent posts</h2>
 <p><a href="https://sigmoid.social/@seem" rel="me" style="display: none">Mastodon verification</a></p>
 
 
@@ -210,380 +202,79 @@ ul.task-list li input[type="checkbox"] {
 </section>
 </section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="jupyter,tutorial" data-listing-date-sort="1673481600000" data-listing-file-modified-sort="1677486852850" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4.78">
-<div class="thumbnail">
-<p><a href="./posts/jupyter-server-a-whirlwind-tour.html"> <img src="/posts/images/jupiter.jpg" /> </a></p>
-</div>
-<div class="body">
-<a href="./posts/jupyter-server-a-whirlwind-tour.html">
-<h3 class="no-anchor listing-title">
-Jupyter Server: A whirlwind tour
-</h3>
-<div class="listing-subtitle">
+<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('jupyter'); return false;">
-jupyter
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-</div>
-<a href="./posts/jupyter-server-a-whirlwind-tour.html">
-<div class="listing-description">
-<p>A step-by-step guide to interacting with Jupyter Server and creating your own Jupyter frontend.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/jupyter-server-a-whirlwind-tour.html">
-<div class="listing-date">
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+Date
+</th>
+<th>
+Title
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-categories="notebooks" data-listing-date-sort="1673481600000" data-listing-file-modified-sort="1677491859156" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4.78" data-listing-title-sort="How to build your own minimal Jupyter frontend" data-listing-filename-sort="jupyter-server-a-whirlwind-tour.ipynb">
+<td class="listing-date">
 Jan 12, 2023
-</div>
-<div class="listing-reading-time">
-4 min
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="generative,fastai,talk,tutorial" data-listing-date-sort="1666483200000" data-listing-file-modified-sort="1677486852850" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2.425">
-<div class="thumbnail">
-<p><a href="./posts/math-of-diffusion.html"> <img src="./posts/images/math-of-diffusion.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/math-of-diffusion.html">
-<h3 class="no-anchor listing-title">
-Math of diffusion
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('generative'); return false;">
-generative
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('talk'); return false;">
-talk
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-</div>
-<a href="./posts/math-of-diffusion.html">
-<div class="listing-description">
-<p>Walk through the math of diffusion models from the ground up with no prerequisites beyond high school math required. This is Lesson 9B of fast.ai’s Practical Deep Learning for Coders Part 2, 2022.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/math-of-diffusion.html">
-<div class="listing-date">
+</td>
+<td class="listing-title">
+<a href="./posts/jupyter-server-a-whirlwind-tour.html" class="title">How to build your own minimal Jupyter frontend</a>
+</td>
+</tr>
+<tr data-index="1" data-categories="artificial intelligence,talk" data-listing-date-sort="1666483200000" data-listing-file-modified-sort="1677491859156" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2.425" data-listing-title-sort="Understand the math of diffusion without a PhD" data-listing-filename-sort="math-of-diffusion.qmd">
+<td class="listing-date">
 Oct 23, 2022
-</div>
-<div class="listing-reading-time">
-2 min
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="nbdev,tutorial" data-listing-date-sort="1663545600000" data-listing-file-modified-sort="1677486852850" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2.08">
-<div class="thumbnail">
-<p><a href="./posts/notebook-best-practices.html"> <div class="listing-item-img-placeholder" >&nbsp;</div> </a></p>
-</div>
-<div class="body">
-<a href="./posts/notebook-best-practices.html">
-<h3 class="no-anchor listing-title">
-Notebook best practices
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('nbdev'); return false;">
-nbdev
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-</div>
-<a href="./posts/notebook-best-practices.html">
-<div class="listing-description">
-<p>How to write great notebooks – everything we know about writing great notebooks after years of working with nbdev.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/notebook-best-practices.html">
-<div class="listing-date">
+</td>
+<td class="listing-title">
+<a href="./posts/math-of-diffusion.html" class="title">Understand the math of diffusion without a PhD</a>
+</td>
+</tr>
+<tr data-index="2" data-categories="notebooks" data-listing-date-sort="1663545600000" data-listing-title-sort="How to write great Jupyter notebooks">
+<td class="listing-date">
 Sep 19, 2022
-</div>
-<div class="listing-reading-time">
-2 min
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="programming,fastai" data-listing-date-sort="1656979200000" data-listing-file-modified-sort="1677486852810" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4.86">
-<div class="thumbnail">
-<p><a href="./posts/fastai-array-programming-day-1.html"> <img src="./posts/images/juggling.svg" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/fastai-array-programming-day-1.html">
-<h3 class="no-anchor listing-title">
-fast.ai APL study group: Day 1
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('programming'); return false;">
-programming
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('fastai'); return false;">
-fastai
-</div>
-</div>
-<a href="./posts/fastai-array-programming-day-1.html">
-<div class="listing-description">
-<p>APL is a way to learn and teach math. It’s a beautiful and powerful notation that challenges you to think about programming in new ways.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/fastai-array-programming-day-1.html">
-<div class="listing-date">
+</td>
+<td class="listing-title">
+<a href="https://nbdev.fast.ai/tutorials/best_practices.html" class="title">How to write great Jupyter notebooks</a>
+</td>
+</tr>
+<tr data-index="3" data-categories="software" data-listing-date-sort="1656979200000" data-listing-file-modified-sort="1677491859088" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4.86" data-listing-title-sort="Notes from the fast.ai APL study group" data-listing-filename-sort="fastai-array-programming-day-1.ipynb">
+<td class="listing-date">
 Jul 5, 2022
-</div>
-<div class="listing-reading-time">
-4 min
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="tutorial,programming" data-listing-date-sort="1609286400000" data-listing-file-modified-sort="1677486852806" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="24.95">
-<div class="thumbnail">
-<p><a href="./posts/editor.html"> <img src="/posts/images/editor.svg" /> </a></p>
-</div>
-<div class="body">
-<a href="./posts/editor.html">
-<h3 class="no-anchor listing-title">
-Build a text editor with Python and curses
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory('programming'); return false;">
-programming
-</div>
-</div>
-<a href="./posts/editor.html">
-<div class="listing-description">
-<p>Work through a series of fifteen incremental coding problems ending with a minimal command line text editor.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/editor.html">
-<div class="listing-date">
+</td>
+<td class="listing-title">
+<a href="./posts/fastai-array-programming-day-1.html" class="title">Notes from the fast.ai APL study group</a>
+</td>
+</tr>
+<tr data-index="4" data-categories="software" data-listing-date-sort="1609286400000" data-listing-file-modified-sort="1677491859088" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="24.95" data-listing-title-sort="How to build a text editor with Python and curses" data-listing-filename-sort="editor.qmd">
+<td class="listing-date">
 Dec 30, 2020
-</div>
-<div class="listing-reading-time">
-24 min
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="musing" data-listing-date-sort="1597072200000" data-listing-file-modified-sort="1677486852850" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3.965">
-<div class="thumbnail">
-<p><a href="./posts/tools-wishlist.html"> <div class="listing-item-img-placeholder" >&nbsp;</div> </a></p>
-</div>
-<div class="body">
-<a href="./posts/tools-wishlist.html">
-<h3 class="no-anchor listing-title">
-Tools wishlist
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('musing'); return false;">
-musing
-</div>
-</div>
-<a href="./posts/tools-wishlist.html">
-<div class="listing-description">
-<p>Base requirements I want from my tools.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/tools-wishlist.html">
-<div class="listing-date">
-Aug 10, 2020
-</div>
-<div class="listing-reading-time">
-3 min
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="musing" data-listing-date-sort="1596390489000" data-listing-file-modified-sort="1677486852806" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1.965">
-<div class="thumbnail">
-<p><a href="./posts/doing-important-work.html"> <img src="./posts/images/doing-important-work.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/doing-important-work.html">
-<h3 class="no-anchor listing-title">
-Doing important work
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('musing'); return false;">
-musing
-</div>
-</div>
-<a href="./posts/doing-important-work.html">
-<div class="listing-description">
-<p>Don’t try too hard to do important work.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/doing-important-work.html">
-<div class="listing-date">
+</td>
+<td class="listing-title">
+<a href="./posts/editor.html" class="title">How to build a text editor with Python and curses</a>
+</td>
+</tr>
+<tr data-index="5" data-categories="musing" data-listing-date-sort="1596390489000" data-listing-file-modified-sort="1677491859084" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1.925" data-listing-title-sort="Doing important work" data-listing-filename-sort="doing-important-work.qmd">
+<td class="listing-date">
 Aug 2, 2020
-</div>
-<div class="listing-reading-time">
-1 min
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="musing" data-listing-date-sort="1595788620000" data-listing-file-modified-sort="1677486852810" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1.155">
-<div class="thumbnail">
-<p><a href="./posts/hats.html"> <img src="./posts/images/hats.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/hats.html">
-<h3 class="no-anchor listing-title">
-Hats and productivity
-</h3>
-<div class="listing-subtitle">
+</td>
+<td class="listing-title">
+<a href="./posts/doing-important-work.html" class="title">Doing important work</a>
+</td>
+</tr>
+<tr data-index="6" data-categories="software,talk" data-listing-date-sort="1521244800000" data-listing-file-modified-sort="1677491859084" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4.18" data-listing-title-sort="Code != idea" data-listing-filename-sort="code-neq-idea.qmd">
+<td class="listing-date">
+Mar 17, 2018
+</td>
+<td class="listing-title">
+<a href="./posts/code-neq-idea.html" class="title">Code != idea</a>
+</td>
+</tr>
+</tbody>
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('musing'); return false;">
-musing
-</div>
-</div>
-<a href="./posts/hats.html">
-<div class="listing-description">
-<p>The most productive individuals, teams, and organisations, create slack to invite serendipity.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/hats.html">
-<div class="listing-date">
-Jul 26, 2020
-</div>
-<div class="listing-reading-time">
-1 min
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="musing" data-listing-date-sort="1595187600000" data-listing-file-modified-sort="1677486852806" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2.93">
-<div class="thumbnail">
-<p><a href="./posts/derivations.html"> <img src="./posts/images/derivations.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/derivations.html">
-<h3 class="no-anchor listing-title">
-Include derivations
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('musing'); return false;">
-musing
-</div>
-</div>
-<a href="./posts/derivations.html">
-<div class="listing-description">
-<p>Please include code comments for other developers, provided they add more information than the code itself.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/derivations.html">
-<div class="listing-date">
-Jul 19, 2020
-</div>
-<div class="listing-reading-time">
-2 min
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="9" data-categories="tabular" data-listing-date-sort="1590710400000" data-listing-file-modified-sort="1677486852850" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="0.95">
-<div class="thumbnail">
-<p><a href="./posts/pdlog.html"> <img src="./posts/images/pdlog.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/pdlog.html">
-<h3 class="no-anchor listing-title">
-Introducing pdlog
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('tabular'); return false;">
-tabular
-</div>
-</div>
-<a href="./posts/pdlog.html">
-<div class="listing-description">
-<p>Seamless logging for pandas operations.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/pdlog.html">
-<div class="listing-date">
-May 29, 2020
-</div>
-<div class="listing-reading-time">
-0 min
-</div>
-</a>
-</div>
-</div>
-</div>
+</table>
 <div class="listing-no-matching d-none">
 No matching items
 </div>

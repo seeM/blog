@@ -7,10 +7,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
-<meta name="dcterms.date" content="2022-09-19">
-<meta name="description" content="How to write great notebooks – everything we know about writing great notebooks after years of working with nbdev.">
+<meta name="dcterms.date" content="2022-06-25">
+<meta name="description" content="todo">
 
-<title>Wasim Lorgat - Notebook best practices</title>
+<title>Wasim Lorgat - Master Jupyter notebook keyboard shortcuts</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,14 +65,16 @@ ul.task-list li input[type="checkbox"] {
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
 
 
-<meta property="og:title" content="Wasim Lorgat - Notebook best practices">
-<meta property="og:description" content="How to write great notebooks – everything we know about writing great notebooks after years of working with nbdev.">
+<meta property="og:title" content="Wasim Lorgat - Master Jupyter notebook keyboard shortcuts">
+<meta property="og:description" content="todo">
+<meta property="og:image" content="https://wasimlorgat.com/posts/todo">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta name="twitter:title" content="Wasim Lorgat - Notebook best practices">
-<meta name="twitter:description" content="How to write great notebooks – everything we know about writing great notebooks after years of working with nbdev.">
+<meta name="twitter:title" content="Wasim Lorgat - Master Jupyter notebook keyboard shortcuts">
+<meta name="twitter:description" content="todo">
+<meta name="twitter:image" content="https://wasimlorgat.com/posts/todo">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed">
@@ -94,19 +96,15 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">📮 Posts</span></a>
+ <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../projects.html" rel="" target="">
- <span class="menu-text">💻 Projects</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../talks/index.html" rel="" target="">
- <span class="menu-text">💬 Talks</span></a>
+ <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../tils/index.html" rel="" target="">
- <span class="menu-text">📖 TILs</span></a>
+ <span class="menu-text">TILs</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -131,11 +129,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../talks/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
-</i> 
- <span class="menu-text">Talks</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../tils/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
 </i> 
  <span class="menu-text">TILs</span></a>
@@ -156,11 +149,17 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#use-jupyters-rich-display-features-to-supercharge-your-users" id="toc-use-jupyters-rich-display-features-to-supercharge-your-users" class="nav-link active" data-scroll-target="#use-jupyters-rich-display-features-to-supercharge-your-users">1. Use Jupyter’s rich display features to supercharge your users</a></li>
-  <li><a href="#use-lots-of-code-examples" id="toc-use-lots-of-code-examples" class="nav-link" data-scroll-target="#use-lots-of-code-examples">2. Use lots of code examples</a></li>
-  <li><a href="#know-which-form-of-notebook-youre-writing" id="toc-know-which-form-of-notebook-youre-writing" class="nav-link" data-scroll-target="#know-which-form-of-notebook-youre-writing">3. Know which form of notebook you’re writing</a></li>
-  <li><a href="#further-reading" id="toc-further-reading" class="nav-link" data-scroll-target="#further-reading">Further reading</a></li>
-  <li><a href="#appendix-marie-curies-research-notebook" id="toc-appendix-marie-curies-research-notebook" class="nav-link" data-scroll-target="#appendix-marie-curies-research-notebook">Appendix: Marie Curie’s research notebook</a></li>
+  <li><a href="#save" id="toc-save" class="nav-link active" data-scroll-target="#save">Save</a></li>
+  <li><a href="#undo-and-redo-edits" id="toc-undo-and-redo-edits" class="nav-link" data-scroll-target="#undo-and-redo-edits">Undo and redo edits</a></li>
+  <li><a href="#command-vs-edit-mode" id="toc-command-vs-edit-mode" class="nav-link" data-scroll-target="#command-vs-edit-mode">Command vs edit mode</a></li>
+  <li><a href="#navigate-through-cells" id="toc-navigate-through-cells" class="nav-link" data-scroll-target="#navigate-through-cells">Navigate through cells</a></li>
+  <li><a href="#execute-cells" id="toc-execute-cells" class="nav-link" data-scroll-target="#execute-cells">Execute cells</a></li>
+  <li><a href="#markdown-vs-code-cells" id="toc-markdown-vs-code-cells" class="nav-link" data-scroll-target="#markdown-vs-code-cells">Markdown vs code cells</a></li>
+  <li><a href="#create-cells" id="toc-create-cells" class="nav-link" data-scroll-target="#create-cells">Create cells</a></li>
+  <li><a href="#copy-cut-and-paste-cells" id="toc-copy-cut-and-paste-cells" class="nav-link" data-scroll-target="#copy-cut-and-paste-cells">Copy, cut, and paste cells</a></li>
+  <li><a href="#select-and-act-on-multiple-cells" id="toc-select-and-act-on-multiple-cells" class="nav-link" data-scroll-target="#select-and-act-on-multiple-cells">Select and act on multiple cells</a></li>
+  <li><a href="#edit-mode-shortcuts" id="toc-edit-mode-shortcuts" class="nav-link" data-scroll-target="#edit-mode-shortcuts">Edit mode shortcuts</a></li>
+  <li><a href="#set-a-keyboard-shortcut-to-restart-and-rerun-all-cells" id="toc-set-a-keyboard-shortcut-to-restart-and-rerun-all-cells" class="nav-link" data-scroll-target="#set-a-keyboard-shortcut-to-restart-and-rerun-all-cells">Set a keyboard shortcut to restart and rerun all cells</a></li>
   </ul>
 </nav>
     </div>
@@ -169,16 +168,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Notebook best practices</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">nbdev</div>
-    <div class="quarto-category">tutorial</div>
-  </div>
-  </div>
+<h1 class="title">Master Jupyter notebook keyboard shortcuts</h1>
+</div>
 
 <div>
   <div class="description">
-    How to write great notebooks – everything we know about writing great notebooks after years of working with nbdev.
+    todo
   </div>
 </div>
 
@@ -195,7 +190,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">September 19, 2022</p>
+      <p class="date">June 25, 2022</p>
     </div>
   </div>
   
@@ -205,71 +200,54 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>Notebooks are an incredibly powerful and flexible medium… which can be overwhelming. We just published an article in the nbdev docs sharing everything we know about writing great notebooks after years of working with nbdev.</p>
-<p>Here are 3 tips to get you started. Check out the <a href="https://nbdev.fast.ai/tutorials/best_practices.html">full article</a> for more!</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://nbdev.fast.ai/tutorials/best_practices.html"><img src="https://nbdev.fast.ai/tutorials/images/marie-curie-notebook.jpg" class="img-fluid figure-img" width="500"></a></p>
-<p></p><figcaption class="figure-caption">Marie Curie’s research notebook dated 19-21 January 1900 (<a href="https://commons.wikimedia.org/wiki/File:Marie_Curie;_Holograph_Notebook._Wellcome_L0021265.jpg">source</a>).</figcaption><p></p>
-</figure>
-</div>
-<section id="use-jupyters-rich-display-features-to-supercharge-your-users" class="level3">
-<h3 class="anchored" data-anchor-id="use-jupyters-rich-display-features-to-supercharge-your-users">1. Use Jupyter’s <a href="https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display">rich display features</a> to supercharge your users</h3>
-<p>Jupyter lets your objects render themselves with rich formatting. Many libraries have taken advantage of this to include rich displays of their objects, which helps with prototyping, debugging, presenting your work, and makes the entire experience more delightful.</p>
-<p>We highly recommend using these in your own notebooks, and creating rich displays of objects in your own libraries. Here are a few examples to get you started:</p>
-<div class="panel-tabset">
-<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true">RDKit molecule</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">fastai’s learning rate finder</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">Mermaid + Graphviz diagram via Quarto</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-4-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-4" role="tab" aria-controls="tabset-1-4" aria-selected="false"><code>Color</code> – a minimal hackable example</a></li></ul>
-<div class="tab-content">
-<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
-<p><img src="images/nb-rdkit.png" class="img-fluid"></p>
-</div>
-<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
-<p><img src="images/nb-lr-finder.png" class="img-fluid"></p>
-</div>
-<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
-<p><img src="images/nb-mermaid.png" class="img-fluid"></p>
-</div>
-<div id="tabset-1-4" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-4-tab">
-<p><img src="images/nb-color.png" class="img-fluid"></p>
-</div>
-</div>
-</div>
-<p>You can add rich representations to your own objects by defining a <code>_repr_markdown_</code> method that returns markdown text (which may also include HTML/CSS). See the <a href="https://nbdev.fast.ai/tutorials/best_practices.html#add-rich-representations-to-your-classes">full <code>Color</code> example</a> in the article to get started.</p>
+<p>I find that the best way to learn keyboard shortcuts is to force myself to use them day-to-day. I’ve also had success with spaced repetition. I never got used to using any of the dvanced spaced repetition software. What worked for me was to set a daily reminder on my phone with a prompt like “what is the hotkey to create a new cell below the current?”. Then, after a few days of answering correctly, change the reminder to weekly, and then monthly at which point I didn’t actually need it anymore!</p>
+<p>I also find it useful to focus on small sections one at a time until they enter my muscle memory - this is helpful for learning most physical things. I’ve collected the shortcuts that I find useful here, organised into meaningful groups, and ordered in roughly the way I’d learn them if I had to start from scratch.</p>
+<section id="save" class="level2">
+<h2 class="anchored" data-anchor-id="save">Save</h2>
+<p>The most important key to learn is <code>Cmd-s</code> (replace all <code>Cmd</code>s here and below with <code>Ctrl</code>s if you’re not on Mac) to save your notebook. This is very important to avoid losing your work if anything unexpected happens. I haven’t measured, but I suspect I save every few seconds!</p>
 </section>
-<section id="use-lots-of-code-examples" class="level3">
-<h3 class="anchored" data-anchor-id="use-lots-of-code-examples">2. Use lots of code examples</h3>
-<p>…and convert some of them to tests using assertions. nbdev blurs the lines between code, docs, and tests. Every code cell is run as a test (unless it’s explicitly marked otherwise), and any error in the cell fails the test.</p>
-<p><a href="https://fast.ai">fast.ai</a>’s <a href="https://docs.fast.ai/vision.augment.html">vision augmentation notebook</a> is a great example that also uses rich display features:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://docs.fast.ai/vision.augment.html"><img src="images/nb-aug.png" class="img-fluid figure-img" width="600"></a></p>
-</figure>
-</div>
+<section id="undo-and-redo-edits" class="level2">
+<h2 class="anchored" data-anchor-id="undo-and-redo-edits">Undo and redo edits</h2>
+<p>You can undo and redo edits inside a cell with <code>Cmd-z</code> and <code>Cmd-Shift-z</code>. Jupyter notebook maintains a unique history for every cell, which I find incredibly helpful! Unfortunately Jupyter lab’s default undo-redo behaviour differs. I’m not a fan. Also beware: cutting or copying and pasting a cell loses its history.</p>
 </section>
-<section id="know-which-form-of-notebook-youre-writing" class="level3">
-<h3 class="anchored" data-anchor-id="know-which-form-of-notebook-youre-writing">3. Know which form of notebook you’re writing</h3>
-<p>Decide which form of notebook you’re writing. We’re fans of the <a href="https://diataxis.fr/">Diátaxis system</a> which classifies documentation into four forms: tutorials, how-to guides, explanations, and references. They’ve laid this out beautifully in the following diagram:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><a href="https://diataxis.fr/"><img src="https://diataxis.fr/_images/diataxis.png" class="img-fluid figure-img"></a></p>
-</figure>
-</div>
+<section id="command-vs-edit-mode" class="level2">
+<h2 class="anchored" data-anchor-id="command-vs-edit-mode">Command vs edit mode</h2>
+<p>There are two modes in Jupyter notebooks: command mode (the default mode), and edit mode. The next step is to get comfortable switching modes. While in command mode, press <code>Enter</code> to edit the focused cell. You can then press <code>Escape</code> to switch back to command mode.</p>
 </section>
-<section id="further-reading" class="level3">
-<h3 class="anchored" data-anchor-id="further-reading">Further reading</h3>
-<p>These are only 3 of many more best practices detailed in <a href="https://nbdev.fast.ai/tutorials/best_practices.html">the full article</a>. We also include a full example that converts a numpy docstring to a notebook-friendly format following these practices.</p>
-<p>You can follow the conversation on Twitter:</p>
-<blockquote class="twitter-tweet blockquote">
-<p lang="en" dir="ltr">
-Notebooks are an incredibly powerful and flexible medium… which can be overwhelming<br><br>Here's everything we know about writing great notebooks after years of working with <a href="https://twitter.com/hashtag/nbdev?src=hash&amp;ref_src=twsrc%5Etfw">#nbdev</a><a href="https://t.co/yihcwasDvd">https://t.co/yihcwasDvd</a>
-</p>
-— Wasim Lorgat (<span class="citation" data-cites="wasimlorgat">@wasimlorgat</span>) <a href="https://twitter.com/wasimlorgat/status/1571658455605481473?ref_src=twsrc%5Etfw">September 19, 2022</a>
-</blockquote>
-<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<section id="navigate-through-cells" class="level2">
+<h2 class="anchored" data-anchor-id="navigate-through-cells">Navigate through cells</h2>
+<p>Being able to switch modes easily leads to a really fluid workflow when you also learn to navigate through cells in command mode. Pressing <code>j</code> moves to the next cell, and <code>k</code> to the previous cell. You can also use the down and up arrow keys, but I find <code>j</code> and <code>k</code> more comfortable because I don’t have to lift my right hand or bend my wrist from its resting position. In fact, I consciously made the switch after experiencing really bad wrist pain in my first job as a data scientist!</p>
 </section>
-<section id="appendix-marie-curies-research-notebook" class="level3">
-<h3 class="anchored" data-anchor-id="appendix-marie-curies-research-notebook">Appendix: Marie Curie’s research notebook</h3>
-<p>I really love the preview image! It’s an excerpt from <a href="https://wellcomecollection.org/works/cywqefw4/items?canvas=82">Marie Curie’s research notebook</a> dated 19-21 January 1900. I could pick out a few words here and there: a l’air (looks), rien (nothing), alumin (aluminium), frod (cold), chauffé (heated), and parafin. Unfortunately, I don’t know much more than that. Please <a href="https://twitter.com/wasimlorgat/status/1571298832885100545?s=20&amp;t=rSYu2_X3IOFteQ39py3ygg">let me know</a> if you do!</p>
+<section id="execute-cells" class="level2">
+<h2 class="anchored" data-anchor-id="execute-cells">Execute cells</h2>
+<p>Once you’ve mastered navigation, learn to use <code>Shift-enter</code> to execute the focused cell and move to the next cell. If no next cell exists, a new one is created. As I develop a notebook, this is the main way that I create new cells since I’m often working on the last cell. It’s also useful to repeat <code>Shift-enter</code> a few times if you want to run consecutive cells.</p>
+</section>
+<section id="markdown-vs-code-cells" class="level2">
+<h2 class="anchored" data-anchor-id="markdown-vs-code-cells">Markdown vs code cells</h2>
+<p><code>m</code> converts the focused cell into a markdown cell, and <code>y</code> converts it back to a code cell. I often use <code>Shift-enter</code> followed by <code>m</code> to quickly add markdown-formatted prose as I write the first draft of a notebook.</p>
+</section>
+<section id="create-cells" class="level2">
+<h2 class="anchored" data-anchor-id="create-cells">Create cells</h2>
+<p>The next set of hotkeys are about creating new cells. <code>a</code> creates a cell above the focused cell, and <code>b</code> creates a cell below the focused cell. I tend to use these instead of <code>Shift-enter</code> when I’m editing a notebook. I often find it convenient to add a heading or description above a code cell, and I use <code>am</code> to do that very quickly.</p>
+</section>
+<section id="copy-cut-and-paste-cells" class="level2">
+<h2 class="anchored" data-anchor-id="copy-cut-and-paste-cells">Copy, cut, and paste cells</h2>
+<p>You can copy an entire cell using <code>c</code>, and then paste it below the focused cell using <code>v</code>. I often use <code>cv</code> to duplicate a cell.</p>
+<p>You can delete the focused cell with <code>x</code>, and store it in the cell clipboard. You can paste the cell again with <code>v</code>. You can also undo cell deletion with <code>z</code>.</p>
+</section>
+<section id="select-and-act-on-multiple-cells" class="level2">
+<h2 class="anchored" data-anchor-id="select-and-act-on-multiple-cells">Select and act on multiple cells</h2>
+<p>These commands can act across multiple cells: <code>c</code>, <code>x</code>, <code>m</code>, <code>y</code>, and <code>Shift-Enter</code>. You can select multiple consecutive cells by holding down <code>Shift</code> and then navigating up or down.</p>
+</section>
+<section id="edit-mode-shortcuts" class="level2">
+<h2 class="anchored" data-anchor-id="edit-mode-shortcuts">Edit mode shortcuts</h2>
+<p>TODO: Tab for code completion</p>
+<p>TODO: Shift-Tab for tooltips</p>
+<p>TODO: Comment, indent, dedent, select all</p>
+<p>TODO: Emacs keys. I recommend learning the so-called Emacs keyboard shortcuts for edit mode as well, since they tend to work in lots of places. TODO: Add my tweet’s contents here</p>
+</section>
+<section id="set-a-keyboard-shortcut-to-restart-and-rerun-all-cells" class="level2">
+<h2 class="anchored" data-anchor-id="set-a-keyboard-shortcut-to-restart-and-rerun-all-cells">Set a keyboard shortcut to restart and rerun all cells</h2>
 
 
 </section>

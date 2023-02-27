@@ -774,7 +774,7 @@ Shutdown your server when you’re done working
 
 
  ]]></description>
-  <category>jupyter</category>
+  <category>notebooks</category>
   <category>nbdev</category>
   <category>fastai</category>
   <guid>https://wasimlorgat.com/tils/update-fastai-union-annotations-using-ast.html</guid>
@@ -1343,6 +1343,7 @@ Update (2022-06-23)
 
  ]]></description>
   <category>pelican</category>
+  <category>python</category>
   <guid>https://wasimlorgat.com/tils/using-pelican-as-a-library.html</guid>
   <pubDate>Mon, 20 Jun 2022 00:00:00 GMT</pubDate>
 </item>

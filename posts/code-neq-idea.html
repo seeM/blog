@@ -6,10 +6,11 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="">
-<meta name="description" content="Recent talks on wasimlorgat.com">
+<meta name="author" content="Wasim Lorgat">
+<meta name="dcterms.date" content="2018-03-17">
+<meta name="description" content="Code is not an idea — it represents an idea. By considering the people who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.">
 
-<title>Wasim Lorgat - 💬 Talks</title>
+<title>Wasim Lorgat - Code != idea</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,8 +34,6 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../">
 <link href="../favicon.ico" rel="icon">
-<script src="../site_libs/quarto-listing/list.min.js"></script>
-<script src="../site_libs/quarto-listing/quarto-listing.js"></script>
 <script src="../site_libs/quarto-html/quarto.js"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -63,47 +62,23 @@ ul.task-list li input[type="checkbox"] {
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-reading-time','listing-title','listing-categories','listing-description','listing-image',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
 
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="alternate" type="application/rss+xml" title="Wasim Lorgat" href="index.xml"><meta property="og:title" content="Wasim Lorgat - 💬 Talks">
-<meta property="og:description" content="Recent talks on wasimlorgat.com">
+<meta property="og:title" content="Wasim Lorgat - Code != idea">
+<meta property="og:description" content="Code is not an idea — it represents an idea. By considering the people who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.">
+<meta property="og:image" content="https://wasimlorgat.com/posts/images/leci-nest-pas-une-pipe.png">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta name="twitter:title" content="Wasim Lorgat - 💬 Talks">
-<meta name="twitter:description" content="Recent talks on wasimlorgat.com">
+<meta property="og:image:height" content="476">
+<meta property="og:image:width" content="684">
+<meta name="twitter:title" content="Wasim Lorgat - Code != idea">
+<meta name="twitter:description" content="Code is not an idea — it represents an idea. By considering the people who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.">
+<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/leci-nest-pas-une-pipe.png">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="476">
+<meta name="twitter:image-width" content="684">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed">
@@ -125,19 +100,15 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">📮 Posts</span></a>
+ <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../projects.html" rel="" target="">
- <span class="menu-text">💻 Projects</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link active" href="../talks/index.html" rel="" target="" aria-current="page">
- <span class="menu-text">💬 Talks</span></a>
+ <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../tils/index.html" rel="" target="">
- <span class="menu-text">📖 TILs</span></a>
+ <span class="menu-text">TILs</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -162,11 +133,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../talks/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
-</i> 
- <span class="menu-text">Talks</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../tils/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
 </i> 
  <span class="menu-text">TILs</span></a>
@@ -179,66 +145,166 @@ ul.task-list li input[type="checkbox"] {
     </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(1)</span></div></div></div>
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#my-journey-from-game-maker-to-python" id="toc-my-journey-from-game-maker-to-python" class="nav-link active" data-scroll-target="#my-journey-from-game-maker-to-python">My journey from Game Maker to Python <img src="images/code-represents-the-ideas-of-people-1.png" class="img-fluid"></a></li>
+  <li><a href="#the-joy-of-high-level-languages" id="toc-the-joy-of-high-level-languages" class="nav-link" data-scroll-target="#the-joy-of-high-level-languages">The joy of high-level languages <img src="images/code-represents-the-ideas-of-people-4.png" class="img-fluid"></a></li>
+  <li><a href="#this-is-not-a-pipe" id="toc-this-is-not-a-pipe" class="nav-link" data-scroll-target="#this-is-not-a-pipe">This is not a pipe <img src="images/leci-nest-pas-une-pipe.png" class="img-fluid"></a></li>
+  <li><a href="#this-is-not-an-idea" id="toc-this-is-not-an-idea" class="nav-link" data-scroll-target="#this-is-not-an-idea">This is not an idea <img src="images/code-represents-the-ideas-of-people-7.png" class="img-fluid"></a></li>
+  <li><a href="#translating-code-to-idea" id="toc-translating-code-to-idea" class="nav-link" data-scroll-target="#translating-code-to-idea">Translating code to idea <img src="images/code-represents-the-ideas-of-people.gif" class="img-fluid"></a></li>
+  <li><a href="#code-represents-the-ideas-of-people" id="toc-code-represents-the-ideas-of-people" class="nav-link" data-scroll-target="#code-represents-the-ideas-of-people">Code represents the ideas of people <img src="images/code-represents-the-ideas-of-people-6.png" class="img-fluid"></a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<main class="content column-page-left" id="quarto-document-content">
+<main class="content" id="quarto-document-content">
 
-<header id="title-block-header">
-<h1 class="title display-7">💬 Talks</h1>
-<p class="author"></p>
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Code != idea</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">software</div>
+    <div class="quarto-category">talk</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Code is not an idea — it represents an idea. By considering the <em>people</em> who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Wasim Lorgat </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">March 17, 2018</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
 
 </header>
 
-<p>Talks I’ve given over the years.</p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/o8-IuUMG2T8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
+<p><em>(The original title and description of the talk changed between the pitch and final version, hence the differences.)</em></p>
+<p>This is a lightning talk I gave at the satRday 2018 conference. In it, I share an epiphany I had about programming and how it relates to people and our ideas, after programming for most of my life and discovering higher-level languages like Python and R. The talk won best student lightning talk, which included a copy of the beautiful <a href="https://r4ds.hadley.nz/">R for Data Science</a> signed by Hadley Wickham himself!</p>
+<p>Fast forward 4 years, and this realisation doesn’t feel as profound as it once did, but that’s okay. I believe the world would be a little better if everyone shared their personal learnings and experiences. Please <a href="mailto:mwlorgat@gmail.com">let me know</a> of yours!</p>
+<p>Anyway, keep scrolling for a written version of the talk.</p>
+<section id="my-journey-from-game-maker-to-python" class="level2">
+<h2 class="anchored" data-anchor-id="my-journey-from-game-maker-to-python">My journey from Game Maker to Python <img src="images/code-represents-the-ideas-of-people-1.png" class="img-fluid"></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/code-represents-the-ideas-of-people-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Good morning everyone, my name is Wasim.</p>
+<p>A little background. I started programming when I was in primary school. I’ve always loved games, and making things. Unsurprisingly, my foray into programming started with making games.</p>
+<p>After vigorous searching for game making software, with my favourite search engine at the time, AltaVista, which some of you may remember, I found a program called Game Maker.</p>
+<p>It had a GUI, where you created game objects and programmed logic into them with buttons. It also had scripting capabilities. But I didn’t dare to delve into them.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/code-represents-the-ideas-of-people-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Eventually, a cousin of mine introduced me to a more powerful tool. A programming language called DarkBASIC, a form of the language, BASIC.</p>
+<p>It had a nice editor, a built-in command line interface. I think the 1 and 2 on the top right corresponded to tabs. And it allowed you to create 3D games.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/code-represents-the-ideas-of-people-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>I then moved on to some of the more “real” programming languages. I dabbled in C++.</p>
+<p>I was taught Java in high school.</p>
+<p>And finally, I settled on Python. I think the reason I hopped so often from one language to the next, was because I was never quite satisfied with how it “felt” to program in these languages. I was never truly comfortable with the way I had to translate what I <em>thought</em> into what I <em>typed</em>. Until Python.</p>
+</section>
+<section id="the-joy-of-high-level-languages" class="level2">
+<h2 class="anchored" data-anchor-id="the-joy-of-high-level-languages">The joy of high-level languages <img src="images/code-represents-the-ideas-of-people-4.png" class="img-fluid"></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/code-represents-the-ideas-of-people-4.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>With Python, I learned about writing and reading beautiful code. If you haven’t already seen this poem, <a href="https://peps.python.org/pep-0020/">The Zen of Python</a>, by Tim Peters, you should check it out.</p>
+<p>There is an idea called writing “Pythonic” code, which this poem sort of defines. There was something compelling, almost poetic, about reading and writing “Pythonic” code.</p>
+<p>As a young programmer, it was the first time I realized the importance of how code <em>looks</em>, not just what it <em>does</em>.</p>
+</section>
+<section id="this-is-not-a-pipe" class="level2">
+<h2 class="anchored" data-anchor-id="this-is-not-a-pipe">This is not a pipe <img src="images/leci-nest-pas-une-pipe.png" class="img-fluid"></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/leci-nest-pas-une-pipe.png" class="preview-image img-fluid figure-img"></p>
+</figure>
+</div>
+<p>More recently, I came across an even more interesting idea about how code <em>looks</em>.</p>
+<p>Here’s a painting, by the French artist, René Magritte, that captures the idea. The text at the bottom translates to “This is not a pipe.”</p>
+<p>If you haven’t seen this before, that might be a little confusing.</p>
+<p>“That is a pipe. I’ve seen pipes before, and that, my friend, is a pipe.”</p>
+<p>Well, you can’t pack <em>this</em> with tobacco and smoke it. <em>This</em> is a painting of a pipe, an image, a representation, but its not the pipe itself.</p>
+<p>At this point, you might be wondering: What does this have to do with code? And what does this talk have to do with R?</p>
+<p>Well, just as <em>this</em> is a representation of a pipe…</p>
+</section>
+<section id="this-is-not-an-idea" class="level2">
+<h2 class="anchored" data-anchor-id="this-is-not-an-idea">This is not an idea <img src="images/code-represents-the-ideas-of-people-7.png" class="img-fluid"></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/code-represents-the-ideas-of-people-7.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p><em>This</em> is a <em>representation</em> of an <em>idea</em>. The code is <em>not</em> the idea itself.</p>
+<p>I believe that when we code (even for experts) we constantly struggle translating between our idea and its representation. If the code is a particularly good representation of our underlying idea, then it flows seamlessly, almost by itself.</p>
+<p>On the other hand, if the code is not a good representation of our idea, then this struggle is quite costly.</p>
+<p>I wanna show you, by example, why I’m so fascinated by R. This is some very simple dplyr code.</p>
+<p>What I do when I read (or write) code like this, is to translate it to and from English. I don’t think “df percent greater than percent…”</p>
+</section>
+<section id="translating-code-to-idea" class="level2">
+<h2 class="anchored" data-anchor-id="translating-code-to-idea">Translating code to idea <img src="images/code-represents-the-ideas-of-people.gif" class="img-fluid"></h2>
+<p><img src="images/code-represents-the-ideas-of-people.gif" class="img-fluid"></p>
+<p>I might start off by thinking that I want to “Take df”, in order to do something to it.</p>
+<p>I’d read the pipe symbol <code>%&gt;%</code> as “then”.</p>
+<p>I <em>then</em> want to filter “rows of df where”</p>
+<p>Read the symbol as “is less than”</p>
+<p>Replace the pipe symbol with “then” again</p>
+<p>I <em>then</em> want to arrange rows of df by…</p>
+<p>Same thing with the pipe symbol.</p>
+<p>And finally, I want to select the column…</p>
+<p>And, very easily, we have an English sentence.</p>
+<p>Oh! And if we’re really fussy, we could add punctuation.</p>
+<p>So we’ve translated, very easily and systematically, from dplyr code to English.</p>
+<p>Isn’t that a beautiful representation?</p>
+<p>It’s beautiful because it’s been so carefully designed, functions have been so carefully named, all keeping in mind one very important principle:</p>
+</section>
+<section id="code-represents-the-ideas-of-people" class="level2">
+<h2 class="anchored" data-anchor-id="code-represents-the-ideas-of-people">Code represents the ideas of people <img src="images/code-represents-the-ideas-of-people-6.png" class="img-fluid"></h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/code-represents-the-ideas-of-people-6.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+<p>Code represents the ideas of <em>people</em>. By considering the <em>people</em> who will use it, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose.</p>
+<p>And by minimizing this cost, it frees our minds to focus on what’s really important: the ideas themselves.</p>
 
 
+</section>
 
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="" data-listing-date-sort="1521244800000" data-listing-file-modified-sort="1677486852874" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4.18">
-<div class="thumbnail">
-<p><a href="../talks/this-is-not-an-idea.html"> <img src="../talks/images/leci-nest-pas-une-pipe.png" class="thumnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="../talks/this-is-not-an-idea.html">
-<h3 class="no-anchor listing-title">
-This is not an idea
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-
-</div>
-<a href="../talks/this-is-not-an-idea.html">
-<div class="listing-description">
-<p>Code is not an idea — it represents an idea. By considering the <em>people</em> who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="../talks/this-is-not-an-idea.html">
-<div class="listing-date">
-Mar 17, 2018
-</div>
-<div class="listing-reading-time">
-4 min
-</div>
-</a>
-</div>
-</div>
-</div>
-<div class="listing-no-matching d-none">
-No matching items
-</div>
-</div></main> <!-- /main -->
+</main> <!-- /main -->
 <script>
   let links = document.querySelectorAll("a[data-analytics]");
   for (var i = 0; i < links.length; i++) {
@@ -486,6 +552,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
+</script>
+<script src="https://giscus.app/client.js" data-repo="seem/blog" data-repo-id="R_kgDOIBWk3A" data-category="Announcements" data-category-id="DIC_kwDOIBWk3M4CSSa6" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script>
 </div> <!-- /content -->
 

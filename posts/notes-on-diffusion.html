@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.231">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Wasim Lorgat">
+<meta name="dcterms.date" content="2022-10-01">
+
+<title>Wasim Lorgat - Notes on diffusion</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<meta property="og:title" content="Wasim Lorgat - Notes on diffusion">
+<meta property="og:description" content="">
+<meta property="og:site-name" content="Wasim Lorgat">
+<meta name="twitter:title" content="Wasim Lorgat - Notes on diffusion">
+<meta name="twitter:description" content="">
+<meta name="twitter:creator" content="@wasimlorgat">
+<meta name="twitter:site" content="@wasimlorgat">
+<meta name="twitter:card" content="summary">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Wasim Lorgat</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html" rel="" target="">
+ <span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tils/index.html" rel="" target="">
+ <span class="menu-text">TILs</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/wasimlorgat" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/seem" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/wasim-lorgat" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tils/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text">TILs</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#background-understanding-the-math-in-ml-papers" id="toc-background-understanding-the-math-in-ml-papers" class="nav-link active" data-scroll-target="#background-understanding-the-math-in-ml-papers">Background: understanding the math in ML papers</a></li>
+  <li><a href="#deep-unsupervised-learning-using-nonequilibrium-thermodynamics" id="toc-deep-unsupervised-learning-using-nonequilibrium-thermodynamics" class="nav-link" data-scroll-target="#deep-unsupervised-learning-using-nonequilibrium-thermodynamics">Deep Unsupervised Learning using Nonequilibrium Thermodynamics</a>
+  <ul class="collapse">
+  <li><a href="#forward-trajectory" id="toc-forward-trajectory" class="nav-link" data-scroll-target="#forward-trajectory">2.1. Forward Trajectory</a></li>
+  </ul></li>
+  <li><a href="#old" id="toc-old" class="nav-link" data-scroll-target="#old">Old</a>
+  <ul class="collapse">
+  <li><a href="#forward-trajectory-1" id="toc-forward-trajectory-1" class="nav-link" data-scroll-target="#forward-trajectory-1">2.1 Forward trajectory</a></li>
+  <li><a href="#reverse-trajectory" id="toc-reverse-trajectory" class="nav-link" data-scroll-target="#reverse-trajectory">2.2 Reverse trajectory</a></li>
+  <li><a href="#gaussian-distribution" id="toc-gaussian-distribution" class="nav-link" data-scroll-target="#gaussian-distribution">Gaussian distribution</a></li>
+  </ul></li>
+  <li><a href="#rough" id="toc-rough" class="nav-link" data-scroll-target="#rough">Rough</a></li>
+  <li><a href="#discovering-diffusion" id="toc-discovering-diffusion" class="nav-link" data-scroll-target="#discovering-diffusion">Discovering diffusion</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Notes on diffusion</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">artificial intelligence</div>
+  </div>
+  </div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Wasim Lorgat </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 1, 2022</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="background-understanding-the-math-in-ml-papers" class="level2">
+<h2 class="anchored" data-anchor-id="background-understanding-the-math-in-ml-papers">Background: understanding the math in ML papers</h2>
+<p>The most popular introductions to diffusion models derive them from starting points like non-equilibrium thermodynamics, or make assumptions that you’re an expert in the generative modeling literature, probability theory, <a href="https://en.wikipedia.org/wiki/Metropolis-adjusted_Langevin_algorithm">Langevin dynamics</a>, and so on. I don’t have anything against these articles. In fact, I think they’re excellent, they help me develop my understanding of diffusion models, and they’re very well written. But there isn’t really an article for people without these backgrounds.</p>
+<p>There isn’t an introduction to diffusion models for coders. This is that introduction!</p>
+<p>I would go so far as to say that the math-first approach can hinder further development of the ideas. I think it hamstrings our thinking into forms that fit math (e.g.&nbsp;Gaussian distributions and so on) whereas history has shown that progress in deep learning is often made through leaps that aren’t informed by math.</p>
+<p>There are two main ways to derive diffusion models.</p>
+<ol type="1">
+<li>The first is to assume that you generate images by iteratively adding Gaussian noise. Then try to estimate the reverse process using variational inference (?).</li>
+<li>The second is to try to sample from the data distribution using the gradient of the log likelihood, so-called “score-based” models.</li>
+</ol>
+<p>(I think Jeremy is developing another “hacker” approach to derive it as a natural consequence of GANs.)</p>
+</section>
+<section id="deep-unsupervised-learning-using-nonequilibrium-thermodynamics" class="level2">
+<h2 class="anchored" data-anchor-id="deep-unsupervised-learning-using-nonequilibrium-thermodynamics">Deep Unsupervised Learning using Nonequilibrium Thermodynamics</h2>
+<p><em>Jascha Sohl-Dickstein, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 2015, June.</em></p>
+<p>https://github.com/Sohl-Dickstein/Diffusion-Probabilistic-Models</p>
+<p>https://arxiv.org/abs/1503.03585</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.vision.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<section id="forward-trajectory" class="level3">
+<h3 class="anchored" data-anchor-id="forward-trajectory">2.1. Forward Trajectory</h3>
+<div class="pt-3 pb-1 px-3 my-3 border rounded shadow-sm">
+<p>We label the <span class="hl-indigo">data distribution <span class="math inline">\(q(\mathbf{x}^{(0)})\)</span></span>. The data distribution is gradually converted into a <span class="hl-green">well behaved (analytically tractable) distribution <span class="math inline">\(\pi(\mathbf y)\)</span></span> by repeated application of a <span class="hl-yellow">Markov diffusion kernel <span class="math inline">\(T_\pi(\mathbf y|\mathbf y'; \beta)\)</span></span> for <span class="math inline">\(\pi(\mathbf y)\)</span>, where <span class="hl-blue"><span class="math inline">\(\beta\)</span> is the diffusion rate</span>,</p>
+<p><span class="math display">\[\begin{align}
+\pi(\mathbf y) &amp;= \int d\mathbf y' T_\pi (\mathbf y|\mathbf y';\beta) \pi(\mathbf y') \tag{1} \\
+q(\mathbf x^{(t)}|\mathbf x^{(t-1)}) &amp;= T_\pi(\mathbf x^{(t)} | \mathbf x^{(t-1)}; \beta_t) \tag{2}
+\end{align}\]</span></p>
+</div>
+<p>There are four objects introduced here, highlighted in four different colors. The two equations describe the relationships between these objects.</p>
+<section id="random-variables-vs-probability-density-functions" class="level4">
+<h4 class="anchored" data-anchor-id="random-variables-vs-probability-density-functions">Random variables vs probability density functions</h4>
+<p>The first concept required to understand this is that of representing random variables (vectors in this case) in terms of their <em>probability density functions</em>. Mathematicians do this to enable the analysis of random variables. Although it isn’t explicitly mentioned here, <span class="math inline">\(\pi\)</span>, <span class="math inline">\(q\)</span>, and <span class="math inline">\(T_\pi\)</span> are all probability density functions. The pdf <span class="math inline">\(\pi(\mathbf y)\)</span> is a function that accepts a vector as input and returns the probability that the provided value of <span class="math inline">\(\mathbf y\)</span> might occur.</p>
+<p>Pdfs have been studied for a very long time, so they have many properties which are now well understood by mathematicians.</p>
+<p>The authors of this paper use the notation that the input symbol of the pdf is the name of the random vector described by said pdf. For example, <span class="math inline">\(\mathbf y\)</span> is a <em>random vector</em> whose behavior is completely described by the probability density function <span class="math inline">\(\pi\)</span>.</p>
+<p>Coders often find it easier to think in terms of the random variables and vectors, however, since they’re closer to what gets written into our programs in the end. Let’s shift focus to the random vectors introduced here.</p>
+</section>
+<section id="data-distribution-qmathbf-x0" class="level4">
+<h4 class="anchored" data-anchor-id="data-distribution-qmathbf-x0">Data distribution <span class="math inline">\(q(\mathbf x^{(0)})\)</span></h4>
+<p>There are a few more subtleties in the notation used for these random vectors. The first random vector we were introduced to is <span class="math inline">\(\mathbf x^{(0)}\)</span>. <span class="math inline">\(x\)</span> is often used for the object that’s ultimately being modeled. In this case, it’s a random vector representing the <em>data distribution</em>. For example, if we were using the MNIST dataset, then <span class="math inline">\(\mathbf x^{(0)}\)</span> is a randomly sampled image that looks like an MNIST digit. It may not be an actual image from the dataset – this is the goal of the abstraction “data distribution”, it assumes some underlying data generating system, of which the actual MNIST dataset is only one sample.</p>
+<p>The superscript <span class="math inline">\((0)\)</span> here does not mean “to the power of”. This is suggested by the brackets surrounding the zero, a notation commonly used in some domains including physics. The use of the superscript already suggests that we might see the sequence continue, for example, <span class="math inline">\(\mathbf x^{(1)}\)</span>, <span class="math inline">\(\mathbf x^{(2)}\)</span>, and so on.</p>
+</section>
+<section id="analytically-tractable-distribution-pimathbf-y" class="level4">
+<h4 class="anchored" data-anchor-id="analytically-tractable-distribution-pimathbf-y">Analytically tractable distribution <span class="math inline">\(\pi(\mathbf y)\)</span></h4>
+<p>The use of <span class="math inline">\(\mathbf y\)</span> in <span class="math inline">\(\pi(\mathbf y)\)</span> suggests that the authors are trying to highlight a more general property about the functions <span class="math inline">\(\pi\)</span> and <span class="math inline">\(T_\pi\)</span> that’s totally unrelated to the data <span class="math inline">\(\mathbf x\)</span>.</p>
+<p>What does “analytically tractable” distribution mean? I’m not 100% sure but I think it means a relatively straightforward formula that we can type out in Python when defining a simple function. In other words, the authors claim that we can gradually convert the data distribution (some hypothetical Python function that returns novel images that look like MNIST digits) into a relatively straightforward mathematical formula that can be programmed in Python!</p>
+<p>If we peak ahead to Table App. 1<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>, we can see some examples of these objects. However, instead of <span class="math inline">\(\pi(\mathbf y)\)</span> we now see <span class="math inline">\(\pi(\mathbf x^{(T)})\)</span>, which may be set to <span class="math inline">\(\mathcal N (\mathbf x^{(T)}; \mathbf 0, \mathbf I)\)</span> (Gaussian) or <span class="math inline">\(\mathcal B(\mathbf x^{(T)}; 0.5)\)</span> (Binomial).</p>
+<p>This is a new notation, let’s describe it. <span class="math inline">\(\mathcal N\)</span> and <span class="math inline">\(\mathcal B\)</span> refer to pdfs of two well-known distributions: Gaussian and Binomial. The semicolon separates function inputs on the left from parameters on the right. It’s not immediately obvious what the difference is between an input and parameter of a function, they only really make sense for classes of functions aka models. For example, the equation of a Gaussian pdf can be written down as a function of the inputs as well as two parameters. Recall from earlier that this is why we might call it an analytically tractable distribution.</p>
+</section>
+<section id="equation-1" class="level4">
+<h4 class="anchored" data-anchor-id="equation-1">Equation 1</h4>
+<p>I’m not sure that my interpretation of this equation is correct. Please let me know of any mistakes.</p>
+<p><span class="math display">\[
+\pi(\mathbf y) = \int d\mathbf y' T_\pi (\mathbf y|\mathbf y';\beta) \pi(\mathbf y') \tag{1}
+\]</span></p>
+</section>
+</section>
+</section>
+<section id="old" class="level2">
+<h2 class="anchored" data-anchor-id="old">Old</h2>
+<p>You can think of a <em>distribution</em> as a Python function with a random output. A <em>data</em> distribution is such a random function that returns some example from a given dataset. In <em>probability theory</em>, we study the behavior random objects and randomness in general, including these sorts of random functions.</p>
+<p><span class="math inline">\(\mathbf{x}^{(0)}\)</span> represents the image, and <span class="math inline">\(q\)</span> represents the “distribution” of images – which we said we would think of as a function that randomly returns one of the images in our dataset.</p>
+<p>You might be wondering why <span class="math inline">\(\mathbf{x}^{(0)}\)</span> is an input to <span class="math inline">\(q\)</span> if it gets returned from our function. That’s because in probability theory, we define the distribution as a function that accepts an image (in this case) and returns a number between 0 and 1 that tells us how likely it is that that image would occur in our dataset. This definition turns out to be very useful to study these sorts of random variables. Although it isn’t immediately obvious what the likelihood of any given MNIST image is. But we can quite easily sample from the MNIST “distribution” without knowing that!</p>
+<p>For example, here’s how we might construct the MNIST dataset:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> untar_data(URLs.MNIST)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>paths <span class="op">=</span> <span class="bu">list</span>(walk(path))</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>p <span class="op">=</span> random.choice(paths)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>im <span class="op">=</span> Image.<span class="bu">open</span>(p)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>im</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="notes-on-diffusion_files/figure-html/cell-3-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Every time you run the cell above, you’ll “sample” from the MNIST dataset, in other words, you’ll sample an image <span class="math inline">\(\mathbf{x}^{(0)}\)</span> from the distribution <span class="math inline">\(q(\mathbf{x}^{(0)})\)</span>.</p>
+<p>Although this isn’t quite right! The hypothesis in the paper, and in generative modeling in general, is that this dataset itself is only a sample from some underlying data distribution. We hypothesis that there exists some random function that would return other images that look a lot like MNIST images, but aren’t exactly the same – the underlying data distribution <span class="math inline">\(q\)</span>.</p>
+<p>The goal of generative modeling is to learn how to sample from such a data distribution, starting out from a sample dataset drawn from that distribution. This is a useful mathematical framing, although it might be simpler to say that the goal is to learn how to generate novel images that look similar to images from a given dataset.</p>
+<p>The tools of probability theory allow us to better understand the problem, and devise potential solutions, by framing it in this slightly weird format.</p>
+<p>We haven’t gotten to what the <span class="math inline">\((0)\)</span> above the <span class="math inline">\(\mathbf{x}\)</span> means yet.</p>
+<blockquote class="blockquote">
+<p>The data distribution is gradually converted into a well behaved (analytically tractable) distribution <span class="math inline">\(\pi(y)\)</span> by repeated application of a Markov diffusion kernel <span class="math inline">\(T_\pi(y|y′; \beta)\)</span> for <span class="math inline">\(\pi(y)\)</span>, where <span class="math inline">\(\beta\)</span> is the diffusion rate,</p>
+</blockquote>
+<p>Okay, there’s <em>tons</em> to unpack in this sentence!</p>
+<blockquote class="blockquote">
+<p>The data distribution is gradually converted into a well behaved (analytically tractable) distribution <span class="math inline">\(\pi(y)\)</span> …</p>
+</blockquote>
+<p>This is starting to explaining why there’s a <span class="math inline">\((0)\)</span> above the <span class="math inline">\(\mathbf{x}\)</span> – because we’ll be gradually converting the data distribution (think MNIST images) into something else.</p>
+<p>We’ll be converting it into a “well behaved (analytically tractable) distribution”. What does that mean?</p>
+<p>I’m not too sure what well behaved is supposed to mean here to be honest! However, I think “analytically tractable” means a relatively straightforward formula that we can type out in Python when defining a simple function. In other words, the authors claim that we can gradually convert the data distribution (some hypothetical Python function that returns novel images that look like MNIST digits) into a relatively straightforward mathematical formula that can be programmed in Python! If we can do that, we’ve solved the problem we’re trying to solve – of generative modeling.</p>
+<p>I don’t think this is true just yet. This is only the forward process!</p>
+<p>They call that final distribution <span class="math inline">\(\pi(\mathbf y)\)</span></p>
+<p>Where do <span class="math inline">\(\pi\)</span> and <span class="math inline">\(\mathbf y\)</span> come from?</p>
+<p>I’m not sure! But I think the intention behind using <span class="math inline">\(\mathbf y\)</span> instead of something like <span class="math inline">\(\mathbf x\)</span> is to signify that they’re different random variables.</p>
+<p>A “Markov diffusion kernel” basically means a function that is iteratively applied to some input.</p>
+<section id="forward-trajectory-1" class="level3">
+<h3 class="anchored" data-anchor-id="forward-trajectory-1">2.1 Forward trajectory</h3>
+<p>We label the data distribution <span class="math inline">\(q(\mathbf x^{(0)})\)</span>.</p>
+<p><span class="math display">\[\begin{equation}
+\pi(\mathbf y) = \int d\mathbf y' T_\pi (\mathbf y|\mathbf y';\beta) \pi(\mathbf y')
+\tag{1}
+\end{equation}\]</span></p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+What does this mean?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I think the point of this equation is to say that <span class="math inline">\(T_\pi\)</span> is some “kernel” which if convolved with the distribution <span class="math inline">\(\pi\)</span> gives another distribution of the same functional form. The point of the equation is to tell us how <span class="math inline">\(\pi\)</span> and <span class="math inline">\(T_\pi\)</span> relate to each other. I’m not sure why this property is important though… and whether/why it’s satisfied by Gaussian and Binomial distributions.</p>
+<p>I think the point is that applying <span class="math inline">\(T_\pi\)</span> to <span class="math inline">\(\pi\)</span> has no effect! Remember that this is about distributions, so the distribution is the same after “applying” the kernel.</p>
+<p>Let’s reframe this in terms of the forward process:</p>
+<p><span class="math display">\[
+q(\mathbf x^{(t)}) = \int d\mathbf x^{(t-1)} q(\mathbf x^{(t)}|\mathbf x^{(t-1)}) q(\mathbf x^{(t-1)})
+\]</span></p>
+<p>(By the way, this is equivalent to saying the following, due to the law of total probability – and some other assumptions?)</p>
+<p><span class="math display">\[\begin{equation}
+q(\mathbf x^{(0\cdots T)}) = q(\mathbf x^{(0)}) \prod_{t=1}^T q(\mathbf x^{(t)}|\mathbf x^{(t-1)})
+\tag{3}
+\end{equation}\]</span></p>
+<p>For a Gaussian kernel:</p>
+<p><span class="math display">\[
+q(\mathbf x^{(t)}) = \int d\mathbf x^{(t-1)} \mathcal N(\mathbf x^{(t)}; \mathbf x^{(t-1)}\sqrt{1-\beta_t}, \mathbf I \beta_t) q(\mathbf x^{(t-1)})
+\]</span></p>
+<p>Since its a Gaussian:</p>
+<p><span class="math display">\[
+q(\mathbf x^{(t)}) = \int d\mathbf x^{(t-1)} \mathcal N(\mathbf x^{(t)} - \mathbf x^{(t-1)}\sqrt{1-\beta_t}; \mathbf 0, \mathbf I \beta_t) q(\mathbf x^{(t-1)})
+\]</span></p>
+<p>Which is the definition of convolution of two functions:</p>
+<p><span class="math display">\[
+q(\mathbf x^{(t)}) = \mathcal N(\mathbf x^{(t)}; \mathbf 0, \mathbf I \beta_t) \ast q(\mathbf x^{(t-1)})
+\]</span></p>
+<p>Which, for independent distributions, is equivalent to adding their random variables:</p>
+<p><span class="math display">\[
+\mathbf x^{(t)} = \sqrt{\beta_t} \epsilon_t + q(\mathbf x^{(t-1)})
+\]</span></p>
+<p>where</p>
+<p><span class="math display">\[
+\epsilon_t = \mathcal N(\mathbf x^{(t)}; \mathbf 0, \mathbf I)
+\]</span></p>
+<p>The equation in terms of probability density functions is useful to work with mathematically, whereas the equation in terms of random variables is much closer to what the final code looks like.</p>
+</div>
+</div>
+<p>Forward diffusion kernel:</p>
+<p><span class="math display">\[\begin{equation}
+q(\mathbf x^{(t)}|\mathbf x^{(t-1)}) = T_\pi(\mathbf x^{(t)} | \mathbf x^{(t-1)}; \beta_t)
+\tag{2}
+\end{equation}\]</span></p>
+<p>Forward diffusion process:</p>
+<p><span class="math display">\[\begin{equation}
+q(\mathbf x^{(0\cdots T)}) = q(\mathbf x^{(0)}) \prod_{t=1}^T q(\mathbf x^{(t)}|\mathbf x^{(t-1)})
+\tag{3}
+\end{equation}\]</span></p>
+</section>
+<section id="reverse-trajectory" class="level3">
+<h3 class="anchored" data-anchor-id="reverse-trajectory">2.2 Reverse trajectory</h3>
+<p><span class="math display">\[\begin{equation}
+p(\mathbf x^{(T)}) = \pi(\mathbf x^{(T)})
+\tag{4}
+\end{equation}\]</span></p>
+<p><span class="math display">\[\begin{equation}
+p(\mathbf x^{(0\cdots T)}) = p(\mathbf x^{(T)}) \prod_{t=1}^T p(\mathbf x^{(t-1)}|\mathbf x^{(t)})
+\tag{5}
+\end{equation}\]</span></p>
+</section>
+<section id="gaussian-distribution" class="level3">
+<h3 class="anchored" data-anchor-id="gaussian-distribution">Gaussian distribution</h3>
+<p>Well-behaved (analytically tractable) distribution:</p>
+<p><span class="math display">\[\pi(\mathbf x^{(T)}) = \mathcal N (\mathbf x^{(T)}; \mathbf 0, \mathbf I)\]</span></p>
+<p>Forward diffusion kernel:</p>
+<p><span class="math display">\[\begin{equation}
+q(\mathbf x^{(t)}|\mathbf x^{(t-1)}) = \mathcal N(\mathbf x^{(t)}; \mathbf x^{(t-1)}\sqrt{1-\beta_t}, \mathbf I \beta_t)
+\end{equation}\]</span></p>
+<p>Reverse diffusion kernel:</p>
+<p><span class="math display">\[p(\mathbf x^{(t-1)}|\mathbf x^{(t)}) = \mathcal N(\mathbf x^{(t-1)}; \mathbf f_\mu(x^{(t)}, t), \mathbf f_\Sigma(x^{(t)}, t))\]</span></p>
+<p>Training targets:</p>
+<p><span class="math display">\[\mathbf f_\mu(x^{(t)}, t), \mathbf f_\Sigma(x^{(t)}, t)), \beta_{1\cdots T}\]</span></p>
+<p>Forward distribution:</p>
+<p><span class="math display">\[\begin{equation}
+q(\mathbf x^{(0\cdots T)}) = q(\mathbf x^{(0)}) \prod_{t=1}^T q(\mathbf x^{(t)}|\mathbf x^{(t-1)})
+\end{equation}\]</span></p>
+<p>Reverse distribution:</p>
+<p><span class="math display">\[\begin{equation}
+p(\mathbf x^{(0\cdots T)}) = \pi(\mathbf x^{(T)}) \prod_{t=1}^T p(\mathbf x^{(t-1)}|\mathbf x^{(t)})
+\end{equation}\]</span></p>
+</section>
+</section>
+<section id="rough" class="level2">
+<h2 class="anchored" data-anchor-id="rough">Rough</h2>
+<p>I think the first and second mean:</p>
+<p><span class="math display">\[\pi(\mathbf x^{(T)}) = \mathcal N (\mathbf x^{(T)}; \mathbf 0, \mathbf I) = \int d\mathbf ? T_\pi (\mathbf x^{(T)}|\mathbf ?;\beta) \pi(\mathbf ?)\]</span></p>
+<p><span class="math display">\[\pi(\mathbf x^{(T)}) = \mathcal N (\mathbf x^{(T)}; \mathbf 0, \mathbf I) = \int d\mathbf x \mathcal N(\mathbf x^{(T)}; \mathbf x \sqrt{1-\beta_t}, \mathbf I \beta_t) \pi(\mathbf x)\]</span></p>
+<p>I have <em>no idea</em> what the integral means!</p>
+</section>
+<section id="discovering-diffusion" class="level2">
+<h2 class="anchored" data-anchor-id="discovering-diffusion">Discovering diffusion</h2>
+<p>We define a “forward” process, with known parameters, that starts from our data distribution (actual images) and applies a series of very tiny corruptions until we eventually reach pure noise.</p>
+<p>If we do this within some constraints (Markov process, Gaussian transitions, Gaussian noise at the end, small step sizes), then the reverse process will have the same functional form (Markov process, Gaussian transitions, Gaussian noise at the beginning, small step sizes)! The only part that we don’t yet know is the parameters of this reverse process.</p>
+<p>The go-to method of estimating parameters of a probabilistic model is to find the parameters that maximize the log likelihood function. While we can do that with closed-form solutions that we can write down for simple distributions, it becomes impossible for more complex distributions. And it can’t be computed because it would require integrating over a high-dimensional and continuous space. Instead, there’s a trick to optimize a lower bound of it, called the “ELBO”, which in practice is just as good but quite a lot easier to calculate.</p>
+<p>The original paper worked through the math to figure out what the ELBO is if we estimate the mean and variance of the reverse diffusion kernel.</p>
+<p>DDPM improved on that by</p>
+<p>Start by assuming that your data was generated by a Markov process starting from pure random noise (this has really convenient mathematical properties) and gradually refining it.</p>
+<p>If the refinement is tiny at each step, then there’s some math that says that the forward and reverse process have the same functional form. Meaning that we should be able to</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>It’s often a good idea to peak ahead while reading a scientific paper. In fact, I often find it most useful to jump back and forth many times and very rarely read papers linearly. I was introduced to this and other ideas in the wonderful paper: <a href="https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf">“How to Read a Paper”</a> by Srinivasan Keshav.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script>
+  let links = document.querySelectorAll("a[data-analytics]");
+  for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', handleLinkEvent);
+      links[i].addEventListener('auxclick', handleLinkEvent);
+  }
+
+  function handleLinkEvent(event) {
+      var link = event.target;
+      var middle = event.type == "auxclick" && event.which == 2;
+      var click = event.type == "click";
+      while (link && (typeof link.tagName == 'undefined' || link.tagName.toLowerCase() != 'a' || !link.href)) {
+          link = link.parentNode;
+      }
+      if (middle || click) {
+          let attributes = link.getAttribute('data-analytics').split(/,(.+)/);
+          let events = [JSON.parse(attributes[0]), JSON.parse(attributes[1] || '{}')];
+          plausible(...events);
+      }
+      if (!link.target) {
+          if (!(event.ctrlKey || event.metaKey || event.shiftKey) && click) {
+              setTimeout(function () {
+                  location.href = link.href;
+              }, 150);
+              event.preventDefault();
+          }
+      }
+  }
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="seem/blog" data-repo-id="R_kgDOIBWk3A" data-category="Announcements" data-category-id="DIC_kwDOIBWk3M4CSSa6" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

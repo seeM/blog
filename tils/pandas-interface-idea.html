@@ -7,10 +7,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
-<meta name="dcterms.date" content="2018-03-17">
-<meta name="description" content="Code is not an idea — it represents an idea. By considering the people who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.">
 
-<title>Wasim Lorgat - This is not an idea</title>
+<title>Wasim Lorgat - A pandas interface idea</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,6 +21,70 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1.6em;
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 
@@ -65,20 +127,12 @@ ul.task-list li input[type="checkbox"] {
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
 
 
-<meta property="og:title" content="Wasim Lorgat - This is not an idea">
-<meta property="og:description" content="Code is not an idea — it represents an idea. By considering the people who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.">
-<meta property="og:image" content="https://wasimlorgat.com/talks/images/leci-nest-pas-une-pipe.png">
+<meta property="og:title" content="Wasim Lorgat - A pandas interface idea">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta property="og:image:height" content="476">
-<meta property="og:image:width" content="684">
-<meta name="twitter:title" content="Wasim Lorgat - This is not an idea">
-<meta name="twitter:description" content="Code is not an idea — it represents an idea. By considering the people who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.">
-<meta name="twitter:image" content="https://wasimlorgat.com/talks/images/leci-nest-pas-une-pipe.png">
+<meta name="twitter:title" content="Wasim Lorgat - A pandas interface idea">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:image-height" content="476">
-<meta name="twitter:image-width" content="684">
-<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:card" content="summary">
 </head>
 
 <body class="nav-fixed">
@@ -100,19 +154,15 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
     <a class="nav-link" href="../index.html" rel="" target="">
- <span class="menu-text">📮 Posts</span></a>
+ <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../projects.html" rel="" target="">
- <span class="menu-text">💻 Projects</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../talks/index.html" rel="" target="">
- <span class="menu-text">💬 Talks</span></a>
+ <span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../tils/index.html" rel="" target="">
- <span class="menu-text">📖 TILs</span></a>
+ <span class="menu-text">TILs</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -137,11 +187,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../talks/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
-</i> 
- <span class="menu-text">Talks</span></a>
-  </li>  
-  <li class="nav-item">
     <a class="nav-link" href="../tils/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
 </i> 
  <span class="menu-text">TILs</span></a>
@@ -158,32 +203,16 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
-    <h2 id="toc-title">On this page</h2>
-   
-  <ul>
-  <li><a href="#my-journey-from-game-maker-to-python" id="toc-my-journey-from-game-maker-to-python" class="nav-link active" data-scroll-target="#my-journey-from-game-maker-to-python">My journey from Game Maker to Python <img src="images/code-represents-the-ideas-of-people-1.png" class="img-fluid"></a></li>
-  <li><a href="#the-joy-of-high-level-languages" id="toc-the-joy-of-high-level-languages" class="nav-link" data-scroll-target="#the-joy-of-high-level-languages">The joy of high-level languages <img src="images/code-represents-the-ideas-of-people-4.png" class="img-fluid"></a></li>
-  <li><a href="#this-is-not-a-pipe" id="toc-this-is-not-a-pipe" class="nav-link" data-scroll-target="#this-is-not-a-pipe">This is not a pipe <img src="images/leci-nest-pas-une-pipe.png" class="img-fluid"></a></li>
-  <li><a href="#this-is-not-an-idea" id="toc-this-is-not-an-idea" class="nav-link" data-scroll-target="#this-is-not-an-idea">This is not an idea <img src="images/code-represents-the-ideas-of-people-7.png" class="img-fluid"></a></li>
-  <li><a href="#translating-code-to-idea" id="toc-translating-code-to-idea" class="nav-link" data-scroll-target="#translating-code-to-idea">Translating code to idea <img src="images/code-represents-the-ideas-of-people.gif" class="img-fluid"></a></li>
-  <li><a href="#code-represents-the-ideas-of-people" id="toc-code-represents-the-ideas-of-people" class="nav-link" data-scroll-target="#code-represents-the-ideas-of-people">Code represents the ideas of people <img src="images/code-represents-the-ideas-of-people-6.png" class="img-fluid"></a></li>
-  </ul>
-</nav>
+        
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">This is not an idea</h1>
+<h1 class="title">A pandas interface idea</h1>
 </div>
 
-<div>
-  <div class="description">
-    Code is not an idea — it represents an idea. By considering the <em>people</em> who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -195,12 +224,6 @@ ul.task-list li input[type="checkbox"] {
           </div>
   </div>
     
-    <div>
-    <div class="quarto-title-meta-heading">Published</div>
-    <div class="quarto-title-meta-contents">
-      <p class="date">March 17, 2018</p>
-    </div>
-  </div>
   
     
   </div>
@@ -208,106 +231,114 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/o8-IuUMG2T8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
-<p><em>(The original title and description of the talk changed between the pitch and final version, hence the differences.)</em></p>
-<p>This is a lightning talk I gave at the satRday 2018 conference. In it, I share an epiphany I had about programming and how it relates to people and our ideas, after programming for most of my life and discovering higher-level languages like Python and R. The talk won best student lightning talk, which included a copy of the beautiful <a href="https://r4ds.hadley.nz/">R for Data Science</a> signed by Hadley Wickham himself!</p>
-<p>Fast forward 4 years, and this realisation doesn’t feel as profound as it once did, but that’s okay. I believe the world would be a little better if everyone shared their personal learnings and experiences. Please <a href="mailto:mwlorgat@gmail.com">let me know</a> of yours!</p>
-<p>Anyway, keep scrolling for a written version of the talk.</p>
-<section id="my-journey-from-game-maker-to-python" class="level2">
-<h2 class="anchored" data-anchor-id="my-journey-from-game-maker-to-python">My journey from Game Maker to Python <img src="images/code-represents-the-ideas-of-people-1.png" class="img-fluid"></h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/code-represents-the-ideas-of-people-1.png" class="img-fluid figure-img"></p>
-</figure>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> {}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Good morning everyone, my name is Wasim.</p>
-<p>A little background. I started programming when I was in primary school. I’ve always loved games, and making things. Unsurprisingly, my foray into programming started with making games.</p>
-<p>After vigorous searching for game making software, with my favourite search engine at the time, AltaVista, which some of you may remember, I found a program called Game Maker.</p>
-<p>It had a GUI, where you created game objects and programmed logic into them with buttons. It also had scripting capabilities. But I didn’t dare to delve into them.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/code-represents-the-ideas-of-people-2.png" class="img-fluid figure-img"></p>
-</figure>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>x[<span class="st">"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Eventually, a cousin of mine introduced me to a more powerful tool. A programming language called DarkBASIC, a form of the language, BASIC.</p>
-<p>It had a nice editor, a built-in command line interface. I think the 1 and 2 on the top right corresponded to tabs. And it allowed you to create 3D games.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/code-represents-the-ideas-of-people-3.png" class="img-fluid figure-img"></p>
-</figure>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.tabular.<span class="bu">all</span> <span class="im">import</span> <span class="op">*</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>I then moved on to some of the more “real” programming languages. I dabbled in C++.</p>
-<p>I was taught Java in high school.</p>
-<p>And finally, I settled on Python. I think the reason I hopped so often from one language to the next, was because I was never quite satisfied with how it “felt” to program in these languages. I was never truly comfortable with the way I had to translate what I <em>thought</em> into what I <em>typed</em>. Until Python.</p>
-</section>
-<section id="the-joy-of-high-level-languages" class="level2">
-<h2 class="anchored" data-anchor-id="the-joy-of-high-level-languages">The joy of high-level languages <img src="images/code-represents-the-ideas-of-people-4.png" class="img-fluid"></h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/code-represents-the-ideas-of-people-4.png" class="img-fluid figure-img"></p>
-</figure>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> untar_data(URLs.ADULT_SAMPLE)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(path<span class="op">/</span><span class="st">'adult.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>With Python, I learned about writing and reading beautiful code. If you haven’t already seen this poem, <a href="https://peps.python.org/pep-0020/">The Zen of Python</a>, by Tim Peters, you should check it out.</p>
-<p>There is an idea called writing “Pythonic” code, which this poem sort of defines. There was something compelling, almost poetic, about reading and writing “Pythonic” code.</p>
-<p>As a young programmer, it was the first time I realized the importance of how code <em>looks</em>, not just what it <em>does</em>.</p>
-</section>
-<section id="this-is-not-a-pipe" class="level2">
-<h2 class="anchored" data-anchor-id="this-is-not-a-pipe">This is not a pipe <img src="images/leci-nest-pas-une-pipe.png" class="img-fluid"></h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/leci-nest-pas-une-pipe.png" class="preview-image img-fluid figure-img"></p>
-</figure>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">filter</span>(<span class="va">self</span>:pd.core.indexes.base.Index, pat): <span class="cf">return</span> [c <span class="cf">for</span> c <span class="kw">in</span> <span class="va">self</span> <span class="cf">if</span> re.match(pat, c)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>More recently, I came across an even more interesting idea about how code <em>looks</em>.</p>
-<p>Here’s a painting, by the French artist, René Magritte, that captures the idea. The text at the bottom translates to “This is not a pipe.”</p>
-<p>If you haven’t seen this before, that might be a little confusing.</p>
-<p>“That is a pipe. I’ve seen pipes before, and that, my friend, is a pipe.”</p>
-<p>Well, you can’t pack <em>this</em> with tobacco and smoke it. <em>This</em> is a painting of a pipe, an image, a representation, but its not the pipe itself.</p>
-<p>At this point, you might be wondering: What does this have to do with code? And what does this talk have to do with R?</p>
-<p>Well, just as <em>this</em> is a representation of a pipe…</p>
-</section>
-<section id="this-is-not-an-idea" class="level2">
-<h2 class="anchored" data-anchor-id="this-is-not-an-idea">This is not an idea <img src="images/code-represents-the-ideas-of-people-7.png" class="img-fluid"></h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/code-represents-the-ideas-of-people-7.png" class="img-fluid figure-img"></p>
-</figure>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>df.columns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Index(['age', 'workclass', 'fnlwgt', 'education', 'education-num',
+       'marital-status', 'occupation', 'relationship', 'race', 'sex',
+       'capital-gain', 'capital-loss', 'hours-per-week', 'native-country',
+       'salary'],
+      dtype='object')</code></pre>
 </div>
-<p><em>This</em> is a <em>representation</em> of an <em>idea</em>. The code is <em>not</em> the idea itself.</p>
-<p>I believe that when we code (even for experts) we constantly struggle translating between our idea and its representation. If the code is a particularly good representation of our underlying idea, then it flows seamlessly, almost by itself.</p>
-<p>On the other hand, if the code is not a good representation of our idea, then this struggle is quite costly.</p>
-<p>I wanna show you, by example, why I’m so fascinated by R. This is some very simple dplyr code.</p>
-<p>What I do when I read (or write) code like this, is to translate it to and from English. I don’t think “df percent greater than percent…”</p>
-</section>
-<section id="translating-code-to-idea" class="level2">
-<h2 class="anchored" data-anchor-id="translating-code-to-idea">Translating code to idea <img src="images/code-represents-the-ideas-of-people.gif" class="img-fluid"></h2>
-<p><img src="images/code-represents-the-ideas-of-people.gif" class="img-fluid"></p>
-<p>I might start off by thinking that I want to “Take df”, in order to do something to it.</p>
-<p>I’d read the pipe symbol <code>%&gt;%</code> as “then”.</p>
-<p>I <em>then</em> want to filter “rows of df where”</p>
-<p>Read the symbol as “is less than”</p>
-<p>Replace the pipe symbol with “then” again</p>
-<p>I <em>then</em> want to arrange rows of df by…</p>
-<p>Same thing with the pipe symbol.</p>
-<p>And finally, I want to select the column…</p>
-<p>And, very easily, we have an English sentence.</p>
-<p>Oh! And if we’re really fussy, we could add punctuation.</p>
-<p>So we’ve translated, very easily and systematically, from dplyr code to English.</p>
-<p>Isn’t that a beautiful representation?</p>
-<p>It’s beautiful because it’s been so carefully designed, functions have been so carefully named, all keeping in mind one very important principle:</p>
-</section>
-<section id="code-represents-the-ideas-of-people" class="level2">
-<h2 class="anchored" data-anchor-id="code-represents-the-ideas-of-people">Code represents the ideas of people <img src="images/code-represents-the-ideas-of-people-6.png" class="img-fluid"></h2>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/code-represents-the-ideas-of-people-6.png" class="img-fluid figure-img"></p>
-</figure>
 </div>
-<p>Code represents the ideas of <em>people</em>. By considering the <em>people</em> who will use it, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose.</p>
-<p>And by minimizing this cost, it frees our minds to focus on what’s really important: the ideas themselves.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>df.columns[<span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>df.columns.<span class="bu">filter</span>(<span class="st">'.*ge'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>['age']</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>32561</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>path <span class="op">=</span> untar_data(URLs.ADULT_SAMPLE)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(path<span class="op">/</span><span class="st">'adult.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="at">@patch</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> <span class="bu">filter</span>(<span class="va">self</span>:pd.core.indexes.base.Index, pat): <span class="cf">return</span> [c <span class="cf">for</span> c <span class="kw">in</span> <span class="va">self</span> <span class="cf">if</span> re.match(pat, c)]</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>df.columns</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>df.columns.<span class="bu">filter</span>(<span class="st">'.*ge'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> country(x):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _inner(df): <span class="cf">return</span> df[<span class="st">'native-country'</span>] <span class="op">==</span> x</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _inner</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df[country(<span class="st">' United-States'</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>29170</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> eq(k, v):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _inner(df): <span class="cf">return</span> df[k] <span class="op">==</span> v</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> _inner</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df[eq(<span class="st">'native-country'</span>, <span class="st">' United-States'</span>)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>29170</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Eq:</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, df): <span class="va">self</span>.df <span class="op">=</span> df</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__dir__</span>(<span class="va">self</span>): <span class="cf">return</span> df.columns</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> _ipython_key_completions_(<span class="va">self</span>): <span class="cf">return</span> <span class="bu">list</span>(df.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="bu">len</span>(df[<span class="st">'native-country'</span>]<span class="op">==</span><span class="st">' United-States'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>32561</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>df.columns[df.columns.<span class="bu">str</span>.endswith(<span class="st">'foo'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>Index([], dtype='object')</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>df.columns.<span class="bu">filter</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-error">
+<pre><code>AttributeError: 'Index' object has no attribute 'filter'</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="bu">type</span>(df.columns)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>pandas.core.indexes.base.Index</code></pre>
+</div>
+</div>
 
 
-</section>
 
 </main> <!-- /main -->
 <script>
