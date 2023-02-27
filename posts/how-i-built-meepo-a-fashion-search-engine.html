@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.230">
+<meta name="generator" content="quarto-1.3.231">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -232,7 +232,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#clip-zero-shot-text-image-retrieval" id="toc-clip-zero-shot-text-image-retrieval" class="nav-link active" data-scroll-target="#clip-zero-shot-text-image-retrieval">CLIP: Zero-shot text-image retrieval</a></li>
+  <li><a href="#contrastive-language-image-pretraining" id="toc-contrastive-language-image-pretraining" class="nav-link active" data-scroll-target="#contrastive-language-image-pretraining">Contrastive language-image pretraining</a></li>
   <li><a href="#build-a-search-engine-for-oxford-pets" id="toc-build-a-search-engine-for-oxford-pets" class="nav-link" data-scroll-target="#build-a-search-engine-for-oxford-pets">Build a search engine for Oxford Pets</a></li>
   <li><a href="#the-idea" id="toc-the-idea" class="nav-link" data-scroll-target="#the-idea">The idea</a></li>
   <li><a href="#notebook-prototype" id="toc-notebook-prototype" class="nav-link" data-scroll-target="#notebook-prototype">Notebook prototype</a></li>
@@ -306,8 +306,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><a href="https://cron.com/">Cron</a>: a job scheduler built into Unix operating system</li>
 <li><a href="https://www.linode.com/">Linode</a>: a cloud hosting provider.</li>
 </ul>
-<section id="clip-zero-shot-text-image-retrieval" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="clip-zero-shot-text-image-retrieval">CLIP: Zero-shot text-image retrieval</h2>
+<section id="contrastive-language-image-pretraining" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="contrastive-language-image-pretraining">Contrastive language-image pretraining</h2>
+<p>Contrastive language-image pretraining is the essential building block that powers Meepo. The approach was originally proposed by Zhang et al.&nbsp;2020 in the medical domain. As with most machine learning innovations, it starts with data.</p>
+<p>Because high-quality annotations of medical images are expensive to produce, prior work fine-tuned on models pretrained on large image datasets like ImageNet. However, medical images are are often drastically different to natural images, and require discriminating between very fine-grained details. This makes ImageNet a poor pretraining target. One workaround is to craft expert rules to extract labels from doctor’s textual reports. This has produced larger datasets, but these rules are not much easier to create than manually annotating, and they don’t generalize well across domains and writing styles.</p>
+<p>ConVIRT’s key insight was to instead exploit paired descriptions from doctor’s reports <em>in their natural language format</em>, such as the examples shown below. This not only produced larger datasets at lower cost, but also learned image representations with significantly better transfer to other domains and tasks.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/meepo-convirt-examples.png" class="img-fluid figure-img" width="400"></p>
+<p></p><figcaption class="figure-caption">X-ray images with naturally occurring paired descriptions from doctor’s reports. Source: Figure 1 of Zhang et al., 2020</figcaption><p></p>
+</figure>
+</div>
+<p>The idea is to <em>pretrain</em> a neural network to predict the most relevant text snippet given an image (and vice versa).</p>
+<div class="page-columns page-full"><p>It uses a <em>contrastive</em> rather than <em>predictive</em> objective: instead of directly predicting text snippet probabilities, predict a vector for each image and text snippet (called <em>embeddings</em>), then learns to maximize the cosine similarity of the correct pair and minimize that of the remaining pairs. It turns out that contrastive objectives learn representations that transfer much more efficiently than predictive objectives. For example, OpenAI found that a contrastive objective reached the same zero-shot<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> ImageNet accuracy as the predictive objective, while using 4x fewer images.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Zero-shot means that a model was not trained on any examples from a given dataset. In this case, “zero-shot ImageNet accuracy” refers to the accuracy obtained without being trained on any ImageNet examples.</p></li></div></div>
+<!-- The simple image retrieval pretraining task results in a neural network with zero-shot capabilities matching supervised approaches on a variety of downstream tasks and datasets. For example, CLIP matches the original ResNet-50 performance on ImageNet without training on any of its 1.28 million training examples. -->
+<p>While the retrieval pretraining task was originally chosen for its ability to learn useful representations for downstream tasks, ConVIRT still achieved state-of-the-art performance at the retrieval task itself. This key finding lets us create a powerful yet simple visual search engine like Meepo, given access to a dataset of only images without paired queries.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clip-training.png" class="img-fluid figure-img" width="600"></p>
+<p></p><figcaption class="figure-caption">CLIP is pretrained with the contrastive objective of pairing images with text snippets. Source: <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a> by OpenAI.</figcaption><p></p>
+</figure>
+</div>
+<div class="page-columns page-full"><p>While ConVIRT showed promising results, it was trained on far fewer examples than most modern deep learning models. For example, ImageNet has about 1.2 million training examples (6000x more than ConVIRT used). Enter OpenAI’s <a href="https://openai.com/blog/clip/">CLIP</a>: CLIP applied ConVIRT to a dataset of 400 million image-text pairs collected from the internet – ~20x more examples than the original medical dataset – and made the necessary simplifications to make this possible. CLIP achieved state-of-the-art zero-shot ImageNet accuracy as well as zero-shot text-to-image retrieval on the Flickr30k dataset.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;Fast forward two years and CLIP has been dethroned several times, most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>, which builds on top of frozen off-the-shelf pretrained vision and language models.</p></li></div></div>
+<p>The CLIP <a href="https://github.com/openai/CLIP">model source code and weights are open-source</a>, which has allowed it to be leveraged by more recent innovations, such as <a href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a>, the current state of the art open source generative image algorithm. However, OpenAI have not released the underlying dataset, WebImageText, nor have they shared much information about how it was collected. The open-source machine learning community have fortunately filled in this gap by training <a href="https://github.com/mlfoundations/open_clip">OpenCLIP</a> from scratch on publicly available datasets, achieving similar zero-shot accuracy to CLIP itself.</p>
+<p>So how do we practically leverage this leap in zero-shot text-to-image retrieval capabilities to create a visual search engine like Meepo?</p>
+</section>
+<section id="build-a-search-engine-for-oxford-pets" class="level2">
+<h2 class="anchored" data-anchor-id="build-a-search-engine-for-oxford-pets">Build a search engine for Oxford Pets</h2>
 <div class="callout callout-style-default callout-caution callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -321,27 +346,6 @@ This section is under construction
 <p>Check back in a few days.</p>
 </div>
 </div>
-<p>OpenAI’s <a href="https://openai.com/blog/clip/">CLIP</a> is the essential building block that powers Meepo.</p>
-<p>The acronym stands for Contrastive Language-Image Pretraining. It is a neural network <em>pretrained</em> to predict the most relevant text snippet given an image (and vice versa) on a dataset of 400 million image-text pairs collected from the internet.</p>
-<div class="page-columns page-full"><p>It uses a <em>contrastive</em> rather than <em>predictive</em> objective: instead of directly predicting text snippet probabilities, it predicts a vector for each image and text snippet (called <em>embeddings</em>), then learns to maximize the cosine similarity of the correct pair and minimize that of the remaining pairs. The authors found that a contrastive objective reached the same zero-shot<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> ImageNet accuracy as the predictive objective, while using 4x fewer images.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Zero-shot means that a model was not trained on any examples from a given dataset. In this case, “zero-shot ImageNet accuracy” refers to the accuracy obtained by CLIP without being trained on any ImageNet examples.</p></li></div></div>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clip-training.png" class="img-fluid figure-img" width="600"></p>
-<p></p><figcaption class="figure-caption">CLIP is pretrained with the contrastive objective of pairing images with text snippets. Source: <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a> by OpenAI.</figcaption><p></p>
-</figure>
-</div>
-<p>The CLIP <a href="https://github.com/openai/CLIP">model source code and weights are open-source</a>, which has allowed it to be leveraged by more recent innovations, such as <a href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a>, the current state of the art open source generative image algorithm. However, OpenAI have not released the underlying dataset, WebImageText, nor have they shared much information about how it was collected. The open-source machine learning community have fortunately filled in this gap by training <a href="https://github.com/mlfoundations/open_clip">OpenCLIP</a> from scratch on publicly available datasets, achieving similar zero-shot accuracy to CLIP itself.</p>
-<!-- The simple image retrieval pretraining task results in a neural network with zero-shot capabilities matching supervised approaches on a variety of downstream tasks and datasets. For example, CLIP matches the original ResNet-50 performance on ImageNet without training on any of its 1.28 million training examples. -->
-<p>While the retrieval pretraining task was originally chosen for its ability to learn useful representations for downstream tasks, CLIP still has excellent performance at the retrieval task itself.</p>
-<div class="page-columns page-full"><p>The authors showed that CLIP was the state of the art method at zero-shot text-to-image retrieval (finding the relevant image given a text snippet), even outperforming finetuned methods on the Flickr30k dataset!<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> However, finetuned approaches were superior on the MSCOCO dataset, and at image-text retrieval (finding the relevant text snippet given an image) on both datasets.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;Fast forward two years and CLIP has been dethroned several times, most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>, which builds on top of frozen off-the-shelf pretrained vision and language models.</p></li></div></div>
-<blockquote class="blockquote">
-<p><strong>CLIP improves zero-shot retrieval and is competitive with the best fine-tuned result on Flickr30k text retrieval.</strong></p>
-</blockquote>
-<p>This key finding lets us create a powerful yet simple visual search engine like Meepo, given access to a dataset of only images without paired queries.</p>
-<p>It’s so simple, in fact, that we can build a search engine right now.</p>
-</section>
-<section id="build-a-search-engine-for-oxford-pets" class="level2">
-<h2 class="anchored" data-anchor-id="build-a-search-engine-for-oxford-pets">Build a search engine for Oxford Pets</h2>
 <p>Let’s create a text-to-image search engine for the Oxford Pets dataset.</p>
 <p>First install the required libraries. Both of these were created by HuggingFace:</p>
 <ul>
