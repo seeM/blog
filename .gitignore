@@ -4,3 +4,5 @@ _freeze/
 /.quarto/
 .DS_Store
 .ipynb_checkpoints/
+temp/
+*.npy

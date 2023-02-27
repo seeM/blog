@@ -3,13 +3,10 @@ title: Doing important work
 description: "Don't try too hard to do important work."
 date: 2020-08-02 17:48:09
 categories: [musing]
-image: images/doing-important-work.png
 ---
 
 I’ve been thinking a lot about what it means to Do Important Work, and there
 two quotes in particular that have stuck with me.
-
-![AI-generated image of a labyrinth ([source and prompt](https://lexica.art/prompt/76ff2aca-8833-4cc2-a5a0-ae182988d52d)).](images/doing-important-work.png){fig-align="center" .rounded}
 
 The first is from Visa's [_The Prestige Trap_](http://www.visakanv.com/blog/prestige/). With his classic wit and charm, Visa breaks the problem down in the opening sentence:
 

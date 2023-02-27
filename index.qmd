@@ -1,33 +1,39 @@
 ---
 listing:
-  contents: posts
+  contents: [posts, posts.yml]
   sort: "date desc"
-  type: default
-  categories: true
-  fields: [date, reading-time, title, categories, description, image]
+  type: table
+  categories: false
+  fields: [date, title]
   feed: true
+  filter-ui: false
+  sort-ui: false
 page-layout: full
 author: ''
 comments: false
 description: Recent posts on wasimlorgat.com
 ---
 
-# 👋🏽 Hi, I'm Wasim
+# Hi, I'm Wasim
 
-I'm a machine learning engineer and aspiring entrepreneur.
+::: {.me}
+![](images/me.jpeg)
+:::
 
-This is where I write about what I'm working on, which includes [notebook-driven development](/posts/notebook-best-practices.qmd), [artificial intelligence](/posts/math-of-diffusion.qmd), [software design](/posts/editor.qmd), [programming languages](/posts/fastai-array-programming-day-1.ipynb), and [other](/posts/doing-important-work.qmd) [musings](/posts/hats.qmd).
+I'm a software engineer and data scientist.
 
-You might also want to check out [my full list of projects](/projects.qmd), [talks](/talks/index.qmd), and [TILs](/tils/index.qmd) (today I learneds).
+This is where I share lessons learned during my projects, spanning [notebook-driven development](https://nbdev.fast.ai/tutorials/best_practices.html), [artificial intelligence](/posts/math-of-diffusion.qmd) and [software design](/posts/editor.qmd).
+
+You might also be interested in [my full list of side projects](/projects.qmd) and [TILs](/tils/index.qmd) (today I learned).
 
 Previously, I held technical leadership positions in South African AI startups in manufacturing and agriculture. Before that, I was a professional DotA 2 player.
 
-## 👨🏽‍💻 Hire me
+## Get in touch
 
-Do you use [nbdev](https://nbdev.fast.ai/) for notebook-driven development and need it adapted to your business needs? Do you need support architecting and building machine learning systems? Do you need to implement a novel deep learning technique customized to your use-case?
+One of my biggest motivations for sharing online is to connect with interesting people from across the world.
 
-I'm open to consulting or contract work on a per-project basis. If you'd like to get in touch, please [DM me on Twitter](https://twitter.com/wasimlorgat) or email me at [mwlorgat@gmail.com](mailto:mwlorgat@gmail.com){data-analytics='"Consulting: Click"'} and let's chat!
+Email me at [mwlorgat@gmail.com](mailto:mwlorgat@gmail.com){data-analytics='"Consulting: Click"'} or DM me on [Twitter](https://twitter.com/wasimlorgat) or [LinkedIn](https://www.linkedin.com/in/wasim-lorgat/) if you'd like to chat!
 
-## 📮 Posts
+## Recent posts
 
 [Mastodon verification](https://sigmoid.social/@seem){rel="me" style="display: none"}

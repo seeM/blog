@@ -1,8 +1,8 @@
 ---
-title: Math of diffusion
-description: "Walk through the math of diffusion models from the ground up with no prerequisites beyond high school math required. This is Lesson 9B of fast.ai's Practical Deep Learning for Coders Part 2, 2022."
+title: "Understand the math of diffusion without a PhD"
+description: "Walk through the math of diffusion models from the ground up with no prerequisites beyond high school math."
 date: 2022-10-23
-categories: [generative, fastai, talk, tutorial]
+categories: [artificial intelligence, talk]
 image: images/math-of-diffusion.png
 bibliography: ../fastdiffusion.bib
 ---

@@ -3,7 +3,8 @@ title: Introducing pdlog
 description: "Seamless logging for pandas operations."
 date: 2020-05-29
 image: images/pdlog.png
-categories: [tabular]
+categories: [software]
+draft: true
 ---
 
 Most data problems [don't need the horsepower of Spark or Hadoop](https://vickiboykis.com/2017/03/20/should-you-replace-hadoop-with-your-laptop/).

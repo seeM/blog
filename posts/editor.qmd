@@ -1,8 +1,8 @@
 ---
-title: Build a text editor with Python and curses
+title: How to build a text editor with Python and curses
 description: "Work through a series of fifteen incremental coding problems ending with a minimal command line text editor."
 date: 2020-12-30
-categories: [tutorial, programming]
+categories: [software]
 aliases: [/editor, /editor.html]
 ---
 

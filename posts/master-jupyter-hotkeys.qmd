@@ -1,0 +1,107 @@
+---
+title: Master Jupyter notebook keyboard shortcuts
+description: todo
+date: 2022-06-25
+categories: []
+image: todo
+draft: true
+---
+
+I find that the best way to learn keyboard shortcuts is to force myself
+to use them day-to-day. I’ve also had success with spaced repetition. I
+never got used to using any of the dvanced spaced repetition software.
+What worked for me was to set a daily reminder on my phone with a prompt
+like “what is the hotkey to create a new cell below the current?”. Then,
+after a few days of answering correctly, change the reminder to weekly,
+and then monthly at which point I didn’t actually need it anymore!
+
+I also find it useful to focus on small sections one at a time until
+they enter my muscle memory - this is helpful for learning most physical
+things. I’ve collected the shortcuts that I find useful here, organised
+into meaningful groups, and ordered in roughly the way I’d learn them if
+I had to start from scratch.
+
+## Save
+
+The most important key to learn is `Cmd-s` (replace all `Cmd`s here and
+below with `Ctrl`s if you’re not on Mac) to save your notebook. This is
+very important to avoid losing your work if anything unexpected happens.
+I haven’t measured, but I suspect I save every few seconds!
+
+## Undo and redo edits
+
+You can undo and redo edits inside a cell with `Cmd-z` and
+`Cmd-Shift-z`. Jupyter notebook maintains a unique history for every
+cell, which I find incredibly helpful! Unfortunately Jupyter lab’s
+default undo-redo behaviour differs. I’m not a fan. Also beware: cutting
+or copying and pasting a cell loses its history.
+
+## Command vs edit mode
+
+There are two modes in Jupyter notebooks: command mode (the default
+mode), and edit mode. The next step is to get comfortable switching
+modes. While in command mode, press `Enter` to edit the focused cell.
+You can then press `Escape` to switch back to command mode.
+
+## Navigate through cells
+
+Being able to switch modes easily leads to a really fluid workflow when
+you also learn to navigate through cells in command mode. Pressing `j`
+moves to the next cell, and `k` to the previous cell. You can also use
+the down and up arrow keys, but I find `j` and `k` more comfortable
+because I don’t have to lift my right hand or bend my wrist from its
+resting position. In fact, I consciously made the switch after
+experiencing really bad wrist pain in my first job as a data scientist!
+
+## Execute cells
+
+Once you’ve mastered navigation, learn to use `Shift-enter` to execute
+the focused cell and move to the next cell. If no next cell exists, a
+new one is created. As I develop a notebook, this is the main way that I
+create new cells since I’m often working on the last cell. It’s also
+useful to repeat `Shift-enter` a few times if you want to run
+consecutive cells.
+
+## Markdown vs code cells
+
+`m` converts the focused cell into a markdown cell, and `y` converts it
+back to a code cell. I often use `Shift-enter` followed by `m` to
+quickly add markdown-formatted prose as I write the first draft of a
+notebook.
+
+## Create cells
+
+The next set of hotkeys are about creating new cells. `a` creates a cell
+above the focused cell, and `b` creates a cell below the focused cell. I
+tend to use these instead of `Shift-enter` when I’m editing a notebook.
+I often find it convenient to add a heading or description above a code
+cell, and I use `am` to do that very quickly.
+
+## Copy, cut, and paste cells
+
+You can copy an entire cell using `c`, and then paste it below the
+focused cell using `v`. I often use `cv` to duplicate a cell.
+
+You can delete the focused cell with `x`, and store it in the cell
+clipboard. You can paste the cell again with `v`. You can also undo cell
+deletion with `z`.
+
+## Select and act on multiple cells
+
+These commands can act across multiple cells: `c`, `x`, `m`, `y`, and
+`Shift-Enter`. You can select multiple consecutive cells by holding down
+`Shift` and then navigating up or down.
+
+## Edit mode shortcuts
+
+TODO: Tab for code completion
+
+TODO: Shift-Tab for tooltips
+
+TODO: Comment, indent, dedent, select all
+
+TODO: Emacs keys. I recommend learning the so-called Emacs keyboard
+shortcuts for edit mode as well, since they tend to work in lots of
+places. TODO: Add my tweet’s contents here
+
+## Set a keyboard shortcut to restart and rerun all cells

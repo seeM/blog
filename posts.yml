@@ -1,0 +1,7 @@
+- title: How to write great Jupyter notebooks
+  path: https://nbdev.fast.ai/tutorials/best_practices.html
+  description: How to write great notebooks -- everything we know about writing great notebooks after years of working with nbdev.
+  date: 2022-09-19
+  categories: [notebooks]
+  aliases: [notebook_best_practices.html]
+  image: images/marie-curie-notebook.jpg

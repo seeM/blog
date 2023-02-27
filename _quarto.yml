@@ -16,10 +16,9 @@ website:
   navbar:
     background: dark
     left:
-      - text: 📮 Posts
+      - text: Posts
         file: index.qmd
       - projects.qmd
-      - talks/index.qmd
       - tils/index.qmd
     right:
       - icon: twitter
@@ -31,9 +30,6 @@ website:
       - icon: rss
         text: Posts
         href: index.xml
-      - icon: rss
-        text: Talks
-        href: talks/index.xml
       - icon: rss
         text: TILs
         href: tils/index.xml

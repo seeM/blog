@@ -170,9 +170,11 @@ blockquote > pre {
 
 h1 { margin-bottom: 1rem !important; }
 
+h2 { margin-top: 3rem !important; margin-bottom: 0.3rem; border-bottom: none; }
+
 h2 img { display: none; }
 
-h3 { margin-bottom: 1rem; }
+h3 { margin-bottom: 0.3rem; }
 
 kbd { padding: 0.1rem; }
 
@@ -208,3 +210,20 @@ $colors: ("blue": $blue,
 // [green]{.hl-green}<br>
 // [teal]{.hl-teal}<br>
 // [cyan]{.hl-cyan}<br>
+
+// Other
+
+.me {
+  text-align: center;
+}
+
+.me img {
+  max-width: 200px;
+}
+
+@media(min-width:640px) {
+  .me {
+    float: right;
+    padding-left: 20px;
+  }
+}

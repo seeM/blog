@@ -1,5 +1,5 @@
 ---
-title: 💻 Projects
+title: Projects
 page-layout: full
 toc: true
 comments: false
