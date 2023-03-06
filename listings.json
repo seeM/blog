@@ -2,6 +2,7 @@
   {
     "listing": "/tils/index.html",
     "items": [
+      "/tils/how-to-create-an-ai-profile-picture-from-scratch.html",
       "/tils/callbacks-vs-async-await.html",
       "/tils/how-to-use-nstableview-in-swiftui.html",
       "/tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html",

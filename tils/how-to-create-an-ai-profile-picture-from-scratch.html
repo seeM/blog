@@ -7,10 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
-<meta name="dcterms.date" content="2020-08-02">
-<meta name="description" content="Don’t try too hard to do important work.">
+<meta name="dcterms.date" content="2023-03-06">
 
-<title>Wasim Lorgat - Doing important work</title>
+<title>Wasim Lorgat - How to create your own AI avatar using HuggingFace Diffusers and Dreambooth</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -65,14 +64,20 @@ ul.task-list li input[type="checkbox"] {
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
 
 
-<meta property="og:title" content="Wasim Lorgat - Doing important work">
-<meta property="og:description" content="Don’t try too hard to do important work.">
+<meta property="og:title" content="Wasim Lorgat - How to create your own AI avatar using HuggingFace Diffusers and Dreambooth">
+<meta property="og:description" content="">
+<meta property="og:image" content="https://wasimlorgat.com/tils/images/dreambooth.png">
 <meta property="og:site-name" content="Wasim Lorgat">
-<meta name="twitter:title" content="Wasim Lorgat - Doing important work">
-<meta name="twitter:description" content="Don’t try too hard to do important work.">
+<meta property="og:image:height" content="1024">
+<meta property="og:image:width" content="1024">
+<meta name="twitter:title" content="Wasim Lorgat - How to create your own AI avatar using HuggingFace Diffusers and Dreambooth">
+<meta name="twitter:description" content="">
+<meta name="twitter:image" content="https://wasimlorgat.com/tils/images/dreambooth.png">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:card" content="summary">
+<meta name="twitter:image-height" content="1024">
+<meta name="twitter:image-width" content="1024">
+<meta name="twitter:card" content="summary_large_image">
 </head>
 
 <body class="nav-fixed">
@@ -150,17 +155,12 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Doing important work</h1>
+<h1 class="title">How to create your own AI avatar using HuggingFace Diffusers and Dreambooth</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">musing</div>
+    <div class="quarto-category">artificial intelligence</div>
   </div>
   </div>
 
-<div>
-  <div class="description">
-    Don’t try too hard to do important work.
-  </div>
-</div>
 
 
 <div class="quarto-title-meta">
@@ -175,7 +175,7 @@ ul.task-list li input[type="checkbox"] {
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">August 2, 2020</p>
+      <p class="date">March 6, 2023</p>
     </div>
   </div>
   
@@ -185,29 +185,62 @@ ul.task-list li input[type="checkbox"] {
 
 </header>
 
-<p>I’ve been thinking a lot about what it means to Do Important Work, and there two quotes in particular that have stuck with me.</p>
-<p>The first is from Visa’s <a href="http://www.visakanv.com/blog/prestige/"><em>The Prestige Trap</em></a>. With his classic wit and charm, Visa breaks the problem down in the opening sentence:</p>
-<blockquote class="blockquote">
-<p>I’ve had several conversations with friends who’ve been incapacitated by the burdensome bullshit obligation to Have A Meaningful Life / Be Remembered / Do Important Work.</p>
+<p>I’m super impressed with the quality of Dreambooth using <a href="https://huggingface.co/docs/diffusers/training/dreambooth">HuggingFace Diffusers</a> 🚀 — with only 14 images of myself! These four images are created by Stable Diffusion using the same fine-tuned model with different prompts:<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/dreambooth.png" class="img-fluid figure-img" width="600"></p>
+<p></p><figcaption class="figure-caption">Four AI-generated pictures of me.</figcaption><p></p>
+</figure>
+</div>
+<p>Here are a few details that made the difference for me:</p>
+<ol type="1">
+<li><p><strong>High-quality data:</strong> As always, the most crucial element is data. I got away with very few images, but quality is important. I used:</p>
+<ul>
+<li>14 images</li>
+<li>Captured around the same time, therefore same facial structure, hairstyle, etc</li>
+<li>Cropped to head &amp; shoulders</li>
+<li>I was the only subject</li>
+</ul></li>
+<li><p><strong>Avoid overfitting:</strong> Second most important is to avoid overfitting. I used:</p>
+<ul>
+<li>Prior preservation loss with 90 high quality portraits scraped from Pexel via the <a href="https://huggingface.co/datasets/yuvalkirstain/portrait_dreambooth"><code>yuvalkirstain/portrait_dreambooth</code></a> HuggingFace dataset</li>
+<li>Low learning rate (1e-6)</li>
+<li>Low training step count (300) – adjust this based on how many images you have</li>
+</ul></li>
+<li><p><strong>Train the text encoder:</strong> In addition to the U-Net. I needed to use a few of the supported memory optimization features to run this on a 16GB GPU:</p>
+<ul>
+<li><a href="https://github.com/facebookresearch/xformers">Xformers’</a> efficient attention – had to build from source, prebuilt didn’t work</li>
+<li><a href="https://github.com/huggingface/accelerate">HuggingFace Accelerate’s</a> gradient accumulation</li>
+<li><a href="https://github.com/facebookresearch/bitsandbytes">Bitsandbytes’</a> 8bit adam</li>
+</ul></li>
+<li><p><strong>High-quality prompts:</strong> If you do all of the above perfectly, you still won’t get great results without high quality prompts. I’m not a prompt guru myself, so I took from the excellent prompts curated at <a href="https://publicprompts.art/">PublicPrompts</a> as well as <a href="https://lexica.art">Lexica</a>.</p>
+<p>Even with great prompts, it is a struggle to get it to deviate from the training set. I had to tweak the order of words, and try adding and removing certain words to get it to work. For some reason, adding “Hypnotic illustration” to the start of the prompt worked consistently 🤷🏽‍♂️.</p></li>
+</ol>
+<p>Please don’t hestitate to share any questions or comments in the Twitter thread below or via <a href="mailto:mwlorgat@gmail.com">email</a>:</p>
+<blockquote class="twitter-tweet blockquote">
+<p lang="en" dir="ltr">
+I'm super impressed with the quality of Dreambooth with <a href="https://twitter.com/huggingface?ref_src=twsrc%5Etfw"><span class="citation" data-cites="huggingface">@huggingface</span></a> Diffusers 🚀 using only 14 pics of myself!<br><br>All of these are generated, with different prompts for: plain photo, psy art, anime, toy story<br><br>What worked for me:<br><br>1. As always, the most crucial element is data… <a href="https://t.co/ueZd13AuwR">pic.twitter.com/ueZd13AuwR</a>
+</p>
+— Wasim Lorgat (<span class="citation" data-cites="wasimlorgat">@wasimlorgat</span>) <a href="https://twitter.com/wasimlorgat/status/1632636435722534913?ref_src=twsrc%5Etfw">March 6, 2023</a>
 </blockquote>
-<p>And though the details differ, the second is <a href="https://twitter.com/michael_nielsen/status/1232789239584059392?s=20">a tweet from Michael Nielsen</a> that I think is closely related:</p>
-<blockquote class="blockquote">
-<p>I try particularly to push back on the efficiency mindset with work (where it’s strongest). Asking “What’s a much more enjoyable way” to achieve some outcome (even if inefficient) has been very good for me. Amusingly, though not the point, it often makes the work much better too</p>
-</blockquote>
-<p>I think they’re very much speaking about the same thing. Many of us want to Do Important Work, including, in my opinion, Michael and Visa. That’s fine. A natural follow-up is to try to make it concrete with a question: What important work can I do?</p>
-<p>But here’s the problem. Measuring the importance or meaning of an action is <em>really hard</em>. I’m not sure it’s even possible. From a pragmatic perspective, we might say that important work is recognised through reward, perhaps monetary. But, as Visa reminds us, ‘nobody really knows what the world needs! The world itself doesn’t quite know either, often until on hindsight!’.</p>
-<p>So what do we do instead? Well, what seems to have worked empirically is to ‘enjoy the piddling’. To be playful and curious. To prefer the more enjoyable way. Feynman, Jobs, Wozniak, and Newton are all examples cited by Visa. It’s okay to want to Do Important Work. I think both Michael and Visakan really do want that. And I know I do. The trick is to rejig the way that you think about it away from the destructive default to a more constructive, and amusingly efficient alternative. I’m delighted by the similarity between Visa’s and Michael’s descriptions:</p>
-<blockquote class="blockquote">
-<p>Visa: Wonderfully, it seems to me that lots of people who end up Doing Important Work often got there by being playful and curious.</p>
-</blockquote>
-<blockquote class="blockquote">
-<p>Michael: Amusingly, though not the point, it often makes the work much better too.</p>
-</blockquote>
-<p>It really is both wonderful and amusing. It feels like the gist of a koan: to Do Important Work, you must forget about Doing Important Work.</p>
+<script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 
-</main> <!-- /main -->
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Here are the exact prompts I used for each of the above images:</p>
+<ul>
+<li><strong>Top-left:</strong> a photo of &lt;dreambooth token&gt;</li>
+<li><strong>Top-right:</strong> Hypnotic illustration of &lt;dreambooth token&gt;, hypnotic psychedelic art by Dan Mumford, pop surrealism, dark glow neon paint, mystical, Behance (<a href="https://publicprompts.art/psychedelic-pop-art/">PublicPrompts source</a>)</li>
+<li><strong>Bottom-left:</strong> Hypnotic illustration of &lt;dreambooth token&gt;, anime illustration by makoto shinkai, stanley artgerm lau, wlop, rossdraws, concept art, digital painting (<a href="https://publicprompts.art/hyper-realistic-anime-portraits/">PublicPrompts source</a>)</li>
+<li><strong>Bottom-right:</strong> Toy Story’s Woody as &lt;dreambooth token&gt;, 4k, artstation, cgsociety, award-winning, masterpiece, stunning, beautiful, glorious, powerful, fantasy art by Greg Rutkowski, octane render, unreal engine, high (<a href="https://lexica.art/prompt/6c0dd61e-3d90-49ac-b32f-07f19b1a7d84">Lexica source</a>)</li>
+</ul>
+<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></li>
+</ol>
+</section></div></main> <!-- /main -->
 <script>
   let links = document.querySelectorAll("a[data-analytics]");
   for (var i = 0; i < links.length; i++) {

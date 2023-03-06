@@ -2,86 +2,90 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wasimlorgat.com/posts/fastai-array-programming-day-1.html</loc>
-    <lastmod>2023-02-27T10:40:16.323Z</lastmod>
+    <lastmod>2023-03-06T10:09:40.120Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/code-neq-idea.html</loc>
-    <lastmod>2023-02-27T10:40:17.435Z</lastmod>
+    <lastmod>2023-03-06T10:09:40.952Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/math-of-diffusion.html</loc>
-    <lastmod>2023-02-27T10:40:19.379Z</lastmod>
+    <lastmod>2023-03-06T10:09:42.376Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/jupyter-server-a-whirlwind-tour.html</loc>
-    <lastmod>2023-02-27T10:40:21.119Z</lastmod>
+    <lastmod>2023-03-06T10:09:43.636Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/editor.html</loc>
-    <lastmod>2023-02-27T10:40:23.283Z</lastmod>
+    <lastmod>2023-03-06T10:09:45.180Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/doing-important-work.html</loc>
-    <lastmod>2023-02-27T10:40:27.183Z</lastmod>
+    <lastmod>2023-03-06T10:09:48.304Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/create-and-execute-cells-inside-a-jupyter-notebook.html</loc>
-    <lastmod>2023-02-27T10:40:28.023Z</lastmod>
+    <lastmod>2023-03-06T10:09:49.032Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/how-to-use-nstableview-in-swiftui.html</loc>
-    <lastmod>2023-02-27T10:40:28.579Z</lastmod>
+    <lastmod>2023-03-06T10:09:49.464Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html</loc>
-    <lastmod>2023-02-27T10:40:28.995Z</lastmod>
+    <lastmod>2023-03-06T10:09:49.836Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/using-pelican-as-a-library.html</loc>
-    <lastmod>2023-02-27T10:40:29.907Z</lastmod>
+    <lastmod>2023-03-06T10:09:50.592Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/compiling-python-to-c-using-setuptools-and-cython.html</loc>
-    <lastmod>2023-02-27T10:40:30.767Z</lastmod>
+    <lastmod>2023-03-06T10:09:51.284Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/index.html</loc>
-    <lastmod>2023-02-27T10:40:31.835Z</lastmod>
+    <lastmod>2023-03-06T10:09:52.200Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/update-fastai-union-annotations-using-ast.html</loc>
-    <lastmod>2023-02-27T10:40:32.791Z</lastmod>
+    <lastmod>2023-03-06T10:09:52.960Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/callbacks-vs-async-await.html</loc>
-    <lastmod>2023-02-27T10:40:33.283Z</lastmod>
+    <lastmod>2023-03-06T10:09:53.376Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/tils/how-to-create-an-ai-profile-picture-from-scratch.html</loc>
+    <lastmod>2023-03-06T10:09:53.816Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</loc>
-    <lastmod>2023-02-27T10:40:33.799Z</lastmod>
+    <lastmod>2023-03-06T10:09:54.264Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</loc>
-    <lastmod>2023-02-27T10:40:34.243Z</lastmod>
+    <lastmod>2023-03-06T10:09:54.592Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html</loc>
-    <lastmod>2023-02-27T10:40:34.735Z</lastmod>
+    <lastmod>2023-03-06T10:09:54.964Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html</loc>
-    <lastmod>2023-02-27T10:40:35.379Z</lastmod>
+    <lastmod>2023-03-06T10:09:55.472Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/setting-up-tils-in-pelican.html</loc>
-    <lastmod>2023-02-27T10:40:35.827Z</lastmod>
+    <lastmod>2023-03-06T10:09:55.840Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/projects.html</loc>
-    <lastmod>2023-02-27T10:40:36.403Z</lastmod>
+    <lastmod>2023-03-06T10:09:56.352Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/index.html</loc>
-    <lastmod>2023-02-27T10:40:36.923Z</lastmod>
+    <lastmod>2023-03-06T10:09:56.792Z</lastmod>
   </url>
 </urlset>
