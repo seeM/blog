@@ -1,0 +1,48 @@
+---
+title: How to create your own AI avatar using HuggingFace Diffusers and Dreambooth
+date: 2023-03-06
+categories: [artificial intelligence]
+image: images/dreambooth.png
+---
+
+I'm super impressed with the quality of Dreambooth using [HuggingFace Diffusers](https://huggingface.co/docs/diffusers/training/dreambooth) 🚀 --- with only 14 images of myself! These four images are created by Stable Diffusion using the same fine-tuned model with different prompts:[^prompts]
+
+[^prompts]:
+
+    Here are the exact prompts I used for each of the above images:
+
+    - **Top-left:** a photo of \<dreambooth token\>
+    - **Top-right:** Hypnotic illustration of \<dreambooth token\>, hypnotic psychedelic art by Dan Mumford, pop surrealism, dark glow neon paint, mystical, Behance ([PublicPrompts source](https://publicprompts.art/psychedelic-pop-art/))
+    -  **Bottom-left:** Hypnotic illustration of \<dreambooth token\>, anime illustration by makoto shinkai, stanley artgerm lau, wlop, rossdraws, concept art, digital painting ([PublicPrompts source](https://publicprompts.art/hyper-realistic-anime-portraits/))
+    -  **Bottom-right:** Toy Story's Woody as \<dreambooth token\>, 4k, artstation, cgsociety, award-winning, masterpiece, stunning, beautiful, glorious, powerful, fantasy art by Greg Rutkowski, octane render, unreal engine, high ([Lexica source](https://lexica.art/prompt/6c0dd61e-3d90-49ac-b32f-07f19b1a7d84))
+
+![Four AI-generated pictures of me.](images/dreambooth.png){width=600px fig-align=center}
+
+Here are a few details that made the difference for me:
+
+1. **High-quality data:** As always, the most crucial element is data. I got away with very few images, but quality is important. I used:
+
+    - 14 images
+    - Captured around the same time, therefore same facial structure, hairstyle, etc
+    - Cropped to head & shoulders
+    - I was the only subject
+
+2. **Avoid overfitting:** Second most important is to avoid overfitting. I used:
+
+    - Prior preservation loss with 90 high quality portraits scraped from Pexel via the [`yuvalkirstain/portrait_dreambooth`](https://huggingface.co/datasets/yuvalkirstain/portrait_dreambooth) HuggingFace dataset
+    - Low learning rate (1e-6)
+    - Low training step count (300) – adjust this based on how many images you have
+
+3. **Train the text encoder:** In addition to the U-Net. I needed to use a few of the supported memory optimization features to run this on a 16GB GPU:
+
+    - [Xformers'](https://github.com/facebookresearch/xformers) efficient attention – had to build from source, prebuilt didn't work
+    - [HuggingFace Accelerate's](https://github.com/huggingface/accelerate) gradient accumulation
+    - [Bitsandbytes'](https://github.com/facebookresearch/bitsandbytes) 8bit adam
+
+4. **High-quality prompts:** If you do all of the above perfectly, you still won't get great results without high quality prompts. I'm not a prompt guru myself, so I took from the excellent prompts curated at [PublicPrompts](https://publicprompts.art/) as well as [Lexica](https://lexica.art).
+
+    Even with great prompts, it is a struggle to get it to deviate from the training set. I had to tweak the order of words, and try adding and removing certain words to get it to work. For some reason, adding "Hypnotic illustration" to the start of the prompt worked consistently 🤷🏽‍♂️.
+
+Please don't hestitate to share any questions or comments in the Twitter thread below or via [email](mailto:mwlorgat@gmail.com):
+
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">I&#39;m super impressed with the quality of Dreambooth with <a href="https://twitter.com/huggingface?ref_src=twsrc%5Etfw">@huggingface</a> Diffusers 🚀 using only 14 pics of myself!<br><br>All of these are generated, with different prompts for: plain photo, psy art, anime, toy story<br><br>What worked for me:<br><br>1. As always, the most crucial element is data... <a href="https://t.co/ueZd13AuwR">pic.twitter.com/ueZd13AuwR</a></p>&mdash; Wasim Lorgat (@wasimlorgat) <a href="https://twitter.com/wasimlorgat/status/1632636435722534913?ref_src=twsrc%5Etfw">March 6, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
