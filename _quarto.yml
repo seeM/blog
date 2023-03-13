@@ -39,6 +39,7 @@ website:
 format:
   html:
     theme: seem.scss
+    highlight-style: seem.theme
     include-in-header: [analytics-head.html]
     include-after-body: [analytics-body.html]
 
