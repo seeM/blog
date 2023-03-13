@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.242">
+<meta name="generator" content="quarto-1.3.260">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -247,6 +247,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>The autoreload extension is already loaded. To reload it, use:
+  %reload_ext autoreload</code></pre>
+</div>
+</div>
 <!-- ![](images/meepo.png){width=600 fig-align=center .preview-image} -->
 <p>I built a visual search engine for a leading fashion store in the Southern-most tip of Africa. Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure – with a sprinkle of good planning – it took me 1 week and costs me only $30 per month to host.</p>
 <p>Honestly, it blows my mind that this is possible. Decades of hard work by many bright minds have empowered us to create and distribute incredible AI-powered products from almost anywhere in the world.</p>
@@ -269,26 +275,30 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <section id="contrastive-language-image-pretraining" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="contrastive-language-image-pretraining">Contrastive language-image pretraining</h2>
-<p>Contrastive language-image pretraining is the essential building block that makes Meepo possible. The approach was originally proposed by <a href="http://arxiv.org/abs/2010.00747">Zhang et al.&nbsp;(2020)</a> in the medical domain, and later scaled up to a 2000x larger dataset by OpenAI.</p>
+<p>Contrastive language-image pretraining is the essential building block that makes Meepo possible. The approach was originally proposed by <a href="http://arxiv.org/abs/2010.00747">Zhang et al.&nbsp;(2020)</a> in the medical domain, and termed ConVIRT (Contrastive Visual Representation Learning from Text). OpenAI later demonstrated the true power of the method by scaling up to a 2000x larger dataset.</p>
 <p>As with most machine learning innovations, it starts with data. Because high-quality annotations of medical images are expensive to produce, prior work fine-tuned models pretrained on large image datasets like ImageNet. However, medical images are are often drastically different to natural images, and require discriminating between very fine-grained details, which makes ImageNet a poor pretraining target. One workaround is to craft expert rules to extract labels from doctor’s textual reports. While this has produced larger datasets, these rules are not much easier to create than manually annotating, and they don’t generalize well across domains and writing styles.</p>
 <p>ConVIRT’s key insight was to instead exploit paired descriptions from doctor’s reports <em>in their natural language format</em>, such as the examples shown below. This not only produces larger datasets at lower cost, but also learns image representations with significantly better transfer to other domains and tasks.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/meepo-convirt-examples.png" class="img-fluid figure-img" width="400"></p>
+<p><img src="images/meepo-convirt-examples.png" class="quarto-discovered-preview-image img-fluid figure-img" width="400"></p>
 <p></p><figcaption class="figure-caption">X-ray images with naturally occurring paired descriptions from doctor’s reports. Source: Figure 1 of Zhang et al., 2020</figcaption><p></p>
 </figure>
 </div>
-<div class="page-columns page-full"><p>The idea is to pretrain a neural network to predict the most relevant text snippet given an image (and vice versa). However, we use a <em>contrastive</em> rather than <em>predictive</em> objective: instead of directly predicting text snippet probabilities, predict a vector for each image and text snippet (often called <em>embeddings</em>), with the objective of maximizing the cosine similarity of the correct pair and minimize that of the remaining pairs. It turns out that contrastive objectives learn representations that transfer much more efficiently than predictive objectives. For instance, OpenAI found that a contrastive objective reached the same zero-shot<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> ImageNet accuracy as the predictive objective while using 4x fewer training examples.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Zero-shot means that a model was not trained on any examples from a given dataset. In this case, “zero-shot ImageNet accuracy” refers to the accuracy obtained without being trained on any ImageNet examples.</p></li></div></div>
+<p>The idea is to pretrain a neural network to predict the most relevant text snippet given an image and vice versa. However, we use a <em>contrastive</em> rather than <em>predictive</em> objective.</p>
+<p>A predictive object might take the image as input and try to predict label indicating the corresponding text snippet.</p>
+<p>On the other hand, a constrative objective would instead predict a vector for each image and another vector for each text snippet; these vectors are called <em>embeddings</em>. It would learn to produce embeddings that maximize the cosine similarity of the correct pair (i.e.&nbsp;the image embedding and its corresponding text embedding) and minimizing that of the remaining pairs (i.e.&nbsp;the image embedding and embeddings of other random text snippets from the dataset).</p>
+<div class="page-columns page-full"><p>It turns out that contrastive objectives learn representations that transfer much more efficiently than predictive objectives. For instance, OpenAI found that a contrastive objective reached the same zero-shot ImageNet accuracy<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> as the predictive objective while using 4x fewer training examples.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Zero-shot means that a model was not trained on any examples from a given dataset. In this case, “zero-shot ImageNet accuracy” refers to the accuracy obtained without training on any ImageNet examples.</p></li></div></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clip-training.png" class="img-fluid figure-img" width="600"></p>
-<p></p><figcaption class="figure-caption">CLIP is pretrained with the contrastive objective of pairing images with text snippets. Source: <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a> by OpenAI.</figcaption><p></p>
+<p></p><figcaption class="figure-caption">A visualization of the contrastive language-image pretraining approach. Source: <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a> by OpenAI.</figcaption><p></p>
 </figure>
 </div>
 <!-- The simple image retrieval pretraining task results in a neural network with zero-shot capabilities matching supervised approaches on a variety of downstream tasks and datasets. For example, CLIP matches the original ResNet-50 performance on ImageNet without training on any of its 1.28 million training examples. -->
 <p>Although the retrieval pretraining task was originally chosen for its ability to learn useful representations for downstream tasks, ConVIRT still achieved state-of-the-art performance at the retrieval task itself. This key finding is what lets us create a simple yet powerful visual search engine like Meepo, given access to a dataset of only images without paired queries.</p>
-<div class="page-columns page-full"><p>While ConVIRT showed promising results, it was trained on far fewer examples than most modern deep learning models. For example, ImageNet has about 1.2 million training examples – 6000x more than ConVIRT’s dataset. Enter OpenAI’s <a href="https://openai.com/blog/clip/">CLIP</a>: CLIP applied a more training-efficient version of ConVIRT to a dataset of 400 million image-text pairs collected from the internet – <strong>2000x</strong> more examples than ConVIRT’s original dataset. CLIP achieved state-of-the-art zero-shot ImageNet accuracy as well as zero-shot text-to-image retrieval on the Flickr30k dataset.<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;Fast forward two years and CLIP has been dethroned several times. Most recently, by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a> which builds on top of frozen off-the-shelf pretrained vision and language models instead of training from scratch.</p></li></div></div>
-<p>The CLIP <a href="https://github.com/openai/CLIP">model source code and weights</a> are open-source, which has allowed it to be leveraged by more recent innovations, such as <a href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a>, the current state-of-the-art open-source generative image algorithm. However, OpenAI have not released the underlying dataset, WebImageText, nor have they shared much information about how it was collected. The open-source machine learning community have fortunately filled in this gap by training <a href="https://github.com/mlfoundations/open_clip">OpenCLIP</a> from scratch on publicly available datasets, achieving similar zero-shot accuracy to CLIP itself.</p>
+<div class="page-columns page-full"><p>Despite the fact that the retrieval pretraining task was initially picked for its capacity to learn valuable representations for downstream tasks<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, the ConVIRT model still performed better than any other model at the retrieval task. This crucial discovery is what enables us to create a visual search engine that is both simple and powerful, like Meepo, even with a dataset that only contains images without paired text queries.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;“Downstream tasks” refer to tasks that are performed using the learned representations from a pretrained model. These tasks can include image classification, object detection, and visual search, among others.</p></li></div></div>
+<div class="page-columns page-full"><p>Although ConVIRT has shown promise, it was trained on far fewer examples than most modern deep learning models. For instance, ImageNet has around 1.2 million training examples, which is 6000 times more than ConVIRT’s dataset. However, OpenAI’s <a href="https://openai.com/blog/clip/">CLIP</a> has applied a more training-efficient version of ConVIRT to a dataset of 400 million image-text pairs collected from the internet, which is 2000 times more examples than ConVIRT’s original dataset. CLIP achieved state-of-the-art zero-shot ImageNet accuracy as well as zero-shot text-to-image retrieval accuracy on the Flickr30k dataset.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;Fast forward two years and CLIP has been dethroned several times. Most recently, by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a> which builds on top of frozen off-the-shelf pretrained vision and language models instead of training from scratch.</p></li></div></div>
+<p>The CLIP <a href="https://github.com/openai/CLIP">model code and weights</a> are available for anyone to use. This has allowed other innovations, like <a href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a>, a state-of-the-art image algorithm, to use it as well. However, the dataset used to train CLIP, called WebImageText, has not been released by OpenAI. Fortunately, the machine learning community has trained the <a href="https://github.com/mlfoundations/open_clip">OpenCLIP</a> model from scratch on public datasets, achieving similar accuracy to CLIP.</p>
 <p>Now that we have some background on CLIP and its impressive zero-shot text-to-image retrieval capabilities, how do we actually create a visual search engine like Meepo?</p>
 </section>
 <section id="build-a-search-engine-for-oxford-pets" class="level2">
@@ -313,135 +323,150 @@ This section is under construction
 <li><a href="https://huggingface.co/docs/transformers/index">Transformers</a> lets us easily download, train, and use state-of-the-art pretrained neural networks.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q torch datasets transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install <span class="op">-</span>q torch datasets transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then load the <a href="https://huggingface.co/datasets/pcuenq/oxford-pets">Oxford Pets</a> dataset – thanks to <a href="https://twitter.com/pcuenq">Pedro Cuenqa</a> for uploading it:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> load_dataset(<span class="st">"pcuenq/oxford-pets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> load_dataset(<span class="st">"pcuenq/oxford-pets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Define a helper function to show smaller thumbnails of an image:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> thumbnail(image, scale<span class="op">=</span><span class="dv">3</span>):</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> image.resize(np.array(image.size)<span class="op">//</span>scale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> thumbnail(image, scale<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> image.resize(np.array(image.size)<span class="op">//</span>scale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s an example of a cat:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cat_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">15</span>]</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cat_image <span class="op">=</span> cat_row[<span class="st">'image'</span>]</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>thumbnail(cat_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
-</div>
-</div>
-<p>… and here’s an example of a dog:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dog_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">10</span>]</span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dog_image <span class="op">=</span> dog_row[<span class="st">'image'</span>]</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>thumbnail(dog_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>cat_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">15</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>cat_image <span class="op">=</span> cat_row[<span class="st">'image'</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>thumbnail(cat_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
 </div>
 </div>
-<p>Now that we have a dataset, we can load the CLIP model and preprocessor. This might take a minute to download the pretrained weights:</p>
+<p>… and here’s an example of a dog:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> CLIPProcessor, CLIPModel</span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> CLIPModel.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>processor <span class="op">=</span> CLIPProcessor.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>dog_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">10</span>]</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>dog_image <span class="op">=</span> dog_row[<span class="st">'image'</span>]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>thumbnail(dog_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
-<p>Define a function to <em>embed</em> an image:</p>
+</div>
+<p>Now that we have a dataset, we can load the CLIP processor and model. The concept of having a separate <em>processor</em> and <em>model</em> is central to the HuggingFace Transformers library, since it allows us to use 174 state-of-the-art models (as of writing this article) with a very similar API.</p>
+<p>It might take a minute to download the pretrained weights:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> CLIPProcessor, CLIPModel</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_image(images):</span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(images, <span class="bu">list</span>): images <span class="op">=</span> [images]</span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> processor(images<span class="op">=</span>images, return_tensors<span class="op">=</span><span class="st">"pt"</span>, padding<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_image_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>processor <span class="op">=</span> CLIPProcessor.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> CLIPModel.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>CLIPProcessor</code> prepares the inputs for the model. Given an input input <a href="https://pillow.readthedocs.io/en/stable/">Pillow</a> (the go-to Python imaging library) image, the processor will:</p>
+<ol type="1">
+<li>Convert the input image into a <a href="https://pytorch.org/">PyTorch</a> tensor</li>
+<li>Resize the tensor so that the shortest edge is 224 pixels long</li>
+<li>Crop the tensor from center to 224x224</li>
+<li>Pad the tensor to 224x224 if it’s smaller</li>
+<li>Divide by 255 (so that values are in the range 0 to 1)</li>
+<li>Normalize values using the mean and standard deviation calculated from the original CLIP dataset</li>
+<li>Swap the dimensions to `(channels, width, height).</li>
+</ol>
+<p>Thankfully, this is all handled seamlessly by the <code>CLIPProcessor</code>. Let’s create a function to embed an image by first passing it through the processor and then into the model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_image(images):</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(images, <span class="bu">list</span>): images <span class="op">=</span> [images]</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> processor(images<span class="op">=</span>images, return_tensors<span class="op">=</span><span class="st">"pt"</span>, padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_image_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Test that it works:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> embed_image(cat_image)</span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>embeddings.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> embed_image(cat_image)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>embeddings.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>torch.Size([1, 512])</code></pre>
 </div>
 </div>
+<p>You can also pass text to the <code>CLIPProcessor</code>. In that case, the processor will:</p>
+<ol type="1">
+<li>TODO</li>
+</ol>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_text(text):</span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> processor(text<span class="op">=</span>text, return_tensors<span class="op">=</span><span class="st">"pt"</span>, padding<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_text_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_text(text):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> processor(text<span class="op">=</span>text, return_tensors<span class="op">=</span><span class="st">"pt"</span>, padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_text_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>img_embs <span class="op">=</span> embed_image([cat_image, dog_image])</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>img_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>img_embs <span class="op">=</span> embed_image([cat_image, dog_image])</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>img_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>torch.Size([2, 512])</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>text_emb <span class="op">=</span> embed_text(<span class="st">"cat"</span>)</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>text_emb.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>text_emb <span class="op">=</span> embed_text(<span class="st">"cat"</span>)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>text_emb.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>torch.Size([1, 512])</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normalize(a): <span class="cf">return</span> a <span class="op">/</span> a.norm(dim<span class="op">=-</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normalize(a): <span class="cf">return</span> a <span class="op">/</span> a.norm(dim<span class="op">=-</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cosine_sim(a, b): <span class="cf">return</span> normalize(a) <span class="op">@</span> normalize(b).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cosine_sim(a, b): <span class="cf">return</span> normalize(a) <span class="op">@</span> normalize(b).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> logits(a, b): <span class="cf">return</span> model.logit_scale.exp() <span class="op">*</span> cosine_sim(a, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> logits(a, b): <span class="cf">return</span> model.logit_scale.exp() <span class="op">*</span> cosine_sim(a, b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> probs(a, b): <span class="cf">return</span> logits(a, b).softmax(dim<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> probs(a, b): <span class="cf">return</span> logits(a, b).softmax(dim<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_dog(image):</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    image_emb <span class="op">=</span> embed_image(image)</span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    template <span class="op">=</span> <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st">"</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    text_emb <span class="op">=</span> embed_text([template.<span class="bu">format</span>(o) <span class="cf">for</span> o <span class="kw">in</span> [<span class="st">"dog"</span>, <span class="st">"cat"</span>]])</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> probs(text_emb, image_emb)[<span class="dv">0</span>].item()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_dog(image):</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    image_emb <span class="op">=</span> embed_image(image)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    template <span class="op">=</span> <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st">"</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>    text_emb <span class="op">=</span> embed_text([template.<span class="bu">format</span>(o) <span class="cf">for</span> o <span class="kw">in</span> [<span class="st">"dog"</span>, <span class="st">"cat"</span>]])</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> probs(text_emb, image_emb)[<span class="dv">0</span>].item()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>is_dog(cat_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>is_dog(cat_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>0.005954070948064327</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>is_dog(dog_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>is_dog(dog_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>0.9972768425941467</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify(image, classes, template<span class="op">=</span><span class="st">"a photo of a </span><span class="sc">{}</span><span class="st">"</span>):</span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>    image_emb <span class="op">=</span> embed_image(image)</span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>    text_emb <span class="op">=</span> embed_text([template.<span class="bu">format</span>(o) <span class="cf">for</span> o <span class="kw">in</span> classes])</span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {k: v.item() <span class="cf">for</span> k, v <span class="kw">in</span> <span class="bu">zip</span>(classes, probs(text_emb, image_emb))}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify(image, classes, template<span class="op">=</span><span class="st">"a photo of a </span><span class="sc">{}</span><span class="st">"</span>):</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    image_emb <span class="op">=</span> embed_image(image)</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>    text_emb <span class="op">=</span> embed_text([template.<span class="bu">format</span>(o) <span class="cf">for</span> o <span class="kw">in</span> classes])</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {k: v.item() <span class="cf">for</span> k, v <span class="kw">in</span> <span class="bu">zip</span>(classes, probs(text_emb, image_emb))}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>classes <span class="op">=</span> [<span class="st">"siamese"</span>, <span class="st">"beagle"</span>]</span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>classify(cat_image, classes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>classes <span class="op">=</span> [<span class="st">"siamese"</span>, <span class="st">"beagle"</span>]</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>classify(cat_image, classes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>{'siamese': 0.9902162551879883, 'beagle': 0.009783802554011345}</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>classify(dog_image, classes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>classify(dog_image, classes)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>{'siamese': 7.44477438274771e-05, 'beagle': 0.9999254941940308}</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>classes <span class="op">=</span> [<span class="st">"white"</span>, <span class="st">"pink"</span>, <span class="st">"brown"</span>]</span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>classify(cat_image, classes, <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st"> animal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>classes <span class="op">=</span> [<span class="st">"white"</span>, <span class="st">"pink"</span>, <span class="st">"brown"</span>]</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>classify(cat_image, classes, <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st"> animal"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>{'white': 0.9660211801528931,
  'pink': 0.03326801210641861,
@@ -449,23 +474,14 @@ This section is under construction
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search(images, text):</span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>    image_emb <span class="op">=</span> embed_image(images)</span>
-<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    text_emb <span class="op">=</span> embed_text([text])</span>
-<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> cosine_sim(image_emb, text_emb).flatten().argsort().flip([<span class="dv">0</span>])</span>
-<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [images[i] <span class="cf">for</span> i <span class="kw">in</span> indices]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search(images, text):</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>    image_emb <span class="op">=</span> embed_image(images)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>    text_emb <span class="op">=</span> embed_text([text])</span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> cosine_sim(image_emb, text_emb).flatten().argsort().flip([<span class="dv">0</span>])</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> [images[i] <span class="cf">for</span> i <span class="kw">in</span> indices]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> search([cat_image, dog_image], <span class="st">"cat"</span>): display(thumbnail(o))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-25-output-1.png" class="img-fluid"></p>
-</div>
-<div class="cell-output cell-output-display">
-<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-25-output-2.png" class="img-fluid"></p>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> search([cat_image, dog_image], <span class="st">"dog"</span>): display(thumbnail(o))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> search([cat_image, dog_image], <span class="st">"cat"</span>): display(thumbnail(o))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-26-output-1.png" class="img-fluid"></p>
 </div>
@@ -473,36 +489,36 @@ This section is under construction
 <p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-26-output-2.png" class="img-fluid"></p>
 </div>
 </div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> o <span class="kw">in</span> search([cat_image, dog_image], <span class="st">"dog"</span>): display(thumbnail(o))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-27-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-27-output-2.png" class="img-fluid"></p>
+</div>
+</div>
 <p>Loading all images into memory at once would require about 17.2 GB of RAM. So we have to embed them one-by-one. An optimization could be to embed in chunks large enough to fit in memory, but this is simpler!</p>
 <p>TODO: Maybe we can upload this as a huggingface dataset?</p>
 <p>Let’s embed all of the images. This took 19 minutes on my laptop:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm.notebook <span class="im">import</span> tqdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm.notebook <span class="im">import</span> tqdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="op">%%</span>time</span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>embeddings <span class="op">=</span> [embed_image(row[<span class="st">'image'</span>]) <span class="cf">for</span> row <span class="kw">in</span> tqdm(dataset[<span class="st">'train'</span>])]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"a564fc91d5254c85ac03358e0e7c213b","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-<div class="cell-output cell-output-stdout">
-<pre><code>CPU times: user 33min 44s, sys: 1min 16s, total: 35min 1s
-Wall time: 19min 17s</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># %%time</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># embeddings = [embed_image(row['image']) for row in tqdm(dataset['train'])]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>emb <span class="op">=</span> np.concatenate(embeddings)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># emb = np.concatenate(embeddings)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># np.save("oxford_pets_embeddings.npy", emb)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>emb2 <span class="op">=</span> np.load(<span class="st">"oxford_pets_embeddings.npy"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># emb2 = np.load("oxford_pets_embeddings.npy")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> np.allclose(emb, emb2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assert np.allclose(emb, emb2)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb41"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -515,13 +531,13 @@ Wall time: 19min 17s</code></pre>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>plot_bar(embed_image(cat_image))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-39-output-1.png" class="img-fluid"></p>
+<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-36-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb44"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>plot_bar(embed_image(dog_image))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-40-output-1.png" class="img-fluid"></p>
+<p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-37-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>That’s one way to visualize embeddings, but they are most useful in the context of other embedded objects.</p>
