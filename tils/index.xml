@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/tils/index.html</link>
 <atom:link href="https://wasimlorgat.com/tils/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent TILs on wasimlorgat.com</description>
-<generator>quarto-1.3.260</generator>
+<generator>quarto-1.3.313</generator>
 <lastBuildDate>Mon, 06 Mar 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>How to create your own AI avatar using HuggingFace Diffusers and Dreambooth</title>
@@ -22,7 +22,7 @@
 <p>I’m super impressed with the quality of Dreambooth using <a href="https://huggingface.co/docs/diffusers/training/dreambooth">HuggingFace Diffusers</a> 🚀 — with only 14 images of myself! These four images are created by Stable Diffusion using the same fine-tuned model with different prompts:<sup>1</sup></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/tils/images/dreambooth.png" class="quarto-discovered-preview-image img-fluid figure-img" width="600"></p>
+<p><img src="https://wasimlorgat.com/tils/images/dreambooth.png" class="img-fluid figure-img" width="600"></p>
 <p></p><figcaption class="figure-caption">Four AI-generated pictures of me.</figcaption><p></p>
 </figure>
 </div>
@@ -1060,7 +1060,7 @@ struct TableView: NSViewRepresentable { # <1>
 <p>Depending on when you’re reading this, these instructions may no longer be valid. Please <a href="mailto:mwlorgat@gmail.com">let me know</a> if that’s the case!</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/tils/images/cloud-gpu-prices.jpeg" class="border shadow-sm quarto-discovered-preview-image img-fluid figure-img"></p>
+<p><img src="https://wasimlorgat.com/tils/images/cloud-gpu-prices.jpeg" class="border shadow-sm img-fluid figure-img"></p>
 <p></p><figcaption class="figure-caption">Cloud GPU prices as of May 2022 (<a href="https://twitter.com/wasimlorgat/status/1524301276179312644">via</a>).</figcaption><p></p>
 </figure>
 </div>
@@ -1144,7 +1144,7 @@ font-style: inherit;">--no-optimize</span></span></code></pre></div>
 </ol>
 <hr>
 <p>Here’s an example I created for my blog post <a href="../posts/editor.html"><em>Build a text editor with Python and curses</em></a>:</p>
-<p><img src="https://wasimlorgat.com/posts/images/editor.svg" class="quarto-discovered-preview-image img-fluid"></p>
+<p><img src="https://wasimlorgat.com/posts/images/editor.svg" class="img-fluid"></p>
 
 
 
@@ -2689,7 +2689,7 @@ font-style: inherit;">'Hello world!'</span>)</span></code></pre></div>
 <p>I didn’t know that there was a neat JavaScript API inside Jupyter notebooks, but it does make sense that it exists. It’s also really useful to browse the API using your browser’s console via auto-complete on the <code>IPython</code> object:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/tils/images/ipython-javascript-api.png" class="rounded border shadow-sm preview-image quarto-discovered-preview-image img-fluid figure-img" alt="Browser console with code: IPython.notebook" width="500"></p>
+<p><img src="https://wasimlorgat.com/tils/images/ipython-javascript-api.png" class="rounded border shadow-sm preview-image img-fluid figure-img" alt="Browser console with code: IPython.notebook" width="500"></p>
 </figure>
 </div>
 

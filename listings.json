@@ -1,5 +1,16 @@
 [
   {
+    "listing": "/index.html",
+    "items": [
+      "/posts/jupyter-server-a-whirlwind-tour.html",
+      "/posts/math-of-diffusion.html",
+      "/posts/fastai-array-programming-day-1.html",
+      "/posts/editor.html",
+      "/posts/doing-important-work.html",
+      "/posts/code-neq-idea.html"
+    ]
+  },
+  {
     "listing": "/tils/index.html",
     "items": [
       "/tils/how-to-create-an-ai-profile-picture-from-scratch.html",
@@ -15,17 +26,6 @@
       "/tils/create-and-execute-cells-inside-a-jupyter-notebook.html",
       "/tils/setting-up-tils-in-pelican.html",
       "/tils/using-pelican-as-a-library.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
-      "/posts/jupyter-server-a-whirlwind-tour.html",
-      "/posts/math-of-diffusion.html",
-      "/posts/fastai-array-programming-day-1.html",
-      "/posts/editor.html",
-      "/posts/doing-important-work.html",
-      "/posts/code-neq-idea.html"
     ]
   }
 ]
