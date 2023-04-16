@@ -192,7 +192,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
    
   <ul>
   <li><a href="#contrastive-language-image-pretraining" id="toc-contrastive-language-image-pretraining" class="nav-link active" data-scroll-target="#contrastive-language-image-pretraining">Contrastive language-image pretraining</a></li>
-  <li><a href="#lets-build-a-search-engine-for-oxford-pets" id="toc-lets-build-a-search-engine-for-oxford-pets" class="nav-link" data-scroll-target="#lets-build-a-search-engine-for-oxford-pets">Let’s build a search engine for Oxford Pets</a></li>
+  <li><a href="#lets-build-a-search-engine-for-oxford-pets" id="toc-lets-build-a-search-engine-for-oxford-pets" class="nav-link" data-scroll-target="#lets-build-a-search-engine-for-oxford-pets">Let’s build a search engine for Oxford Pets</a>
+  <ul class="collapse">
+  <li><a href="#zero-shot-classification" id="toc-zero-shot-classification" class="nav-link" data-scroll-target="#zero-shot-classification">Zero-shot classification</a></li>
+  <li><a href="#search" id="toc-search" class="nav-link" data-scroll-target="#search">Search</a></li>
+  </ul></li>
   <li><a href="#scraper" id="toc-scraper" class="nav-link" data-scroll-target="#scraper">Scraper</a></li>
   <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a></li>
   <li><a href="#thats-all-folks" id="toc-thats-all-folks" class="nav-link" data-scroll-target="#thats-all-folks">That’s all folks</a></li>
@@ -301,6 +305,8 @@ This section is under construction
 </div>
 </div>
 <p>Let’s use CLIP to create a text-to-image search engine for the Oxford Pets dataset.</p>
+<section id="zero-shot-classification" class="level3">
+<h3 class="anchored" data-anchor-id="zero-shot-classification">Zero-shot classification</h3>
 <p>First install the required libraries. Both of these were created by HuggingFace:</p>
 <ul>
 <li><a href="https://huggingface.co/docs/datasets/index">Datasets</a> lets us easily access and share datasets for a variety of machine learning tasks</li>
@@ -463,6 +469,9 @@ This section is under construction
 </div>
 </div>
 <p>Not bad – and super convenient too!</p>
+</section>
+<section id="search" class="level3">
+<h3 class="anchored" data-anchor-id="search">Search</h3>
 <p>Using CLIP for search is not too different from using it for zero-shot classification. In fact, it’s even simpler! We don’t need to calculate probabilities since we only care about the sorted order by similarity:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search(image_embs, text):</span>
@@ -593,6 +602,7 @@ Wall time: 180 µs</code></pre>
 <li>Serve results via a web app</li>
 <li>Deploying the scraper and app</li>
 </ul>
+</section>
 </section>
 <section id="scraper" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="scraper">Scraper</h2>
