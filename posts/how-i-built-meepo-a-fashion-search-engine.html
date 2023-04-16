@@ -246,23 +246,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- ![](images/meepo.png){width=600 fig-align=center .preview-image} -->
 <p>I built a visual search engine for a local (South African 🇿🇦) eCommerce store. Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure – with a sprinkle of good planning – it took me 1 week and costs me only $30 per month to host.</p>
 <p>Honestly, it blows my mind that this is possible. Decades of hard work by the brightest minds have enabled us to create and distribute incredible AI-powered products from almost anywhere in the world.</p>
-<p>I couldn’t be more excited about what this means for our future. What problems will we be able to solve? This is why I decided to share how I built Meepo. My hope is to help others create even more powerful products that solve problems unique to their circumstances.</p>
-<p>Here’s the entire stack powering Meepo. Don’t be overwhelmed. In this post, you’ll learn about each and every one of these, and how you can use them to create your own search engine:</p>
-<ul>
-<li><a href="#contrastive-language-image-pretraining">Contrastive language-image pretraining</a>: the deep learning method powering Meepo’s search</li>
-<li><a href="https://github.com/facebookresearch/faiss">Faiss</a>: a library that lets us efficiently search over CLIP outputs</li>
-<li><a href="https://docs.conda.io/en/latest/">Conda</a>: a Python package management system</li>
-<li><a href="https://jupyter.org/">Jupyter Notebook</a>: an interactive programming environment</li>
-<li><a href="http://nbdev.fast.ai/">nbdev</a>: a platform for developing software using Jupyter Notebooks</li>
-<li><a href="https://tailwindcss.com/">Tailwind CSS</a>: a simpler CSS framework</li>
-<li><a href="https://daisyui.com/">DaisyUI</a>: a component library built on Tailwind CSS</li>
-<li><a href="https://www.sqlite.org/">SQLite</a>: a light but powerful database engine</li>
-<li><a href="https://www.djangoproject.com/">Django</a>: a battle-tested Python web framework</li>
-<li><a href="">Gunicorn</a>: a Python HTTP server that lets us serve our Django application</li>
-<li><a href="https://www.nginx.com/">Nginx</a>: a powerful and customizeable web server</li>
-<li><a href="https://cron.com/">Cron</a>: a job scheduler built into Unix operating system</li>
-<li><a href="https://www.linode.com/">Linode</a>: a cloud hosting provider.</li>
-</ul>
+<p><strong>In this article, I guide you through building your own visual search engine using contrastive language-image pretraining (CLIP) models.</strong></p>
 <section id="contrastive-language-image-pretraining" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="contrastive-language-image-pretraining">Contrastive language-image pretraining</h2>
 <p>Contrastive language-image pretraining is the essential building block that makes Meepo possible. The approach was originally proposed by <a href="http://arxiv.org/abs/2010.00747">Zhang et al.&nbsp;(2020)</a> in the medical domain, and termed ConVIRT (Contrastive Visual Representation Learning from Text). OpenAI later demonstrated the true power of the method by scaling up to a 2000x larger dataset.</p>
@@ -602,6 +586,8 @@ Wall time: 180 µs</code></pre>
 <li>Serve results via a web app</li>
 <li>Deploying the scraper and app</li>
 </ul>
+<hr>
+<p><em>Or</em> just keep going with the CLIP stuff? For example, go slightly deeper on the profiling, visualize embeddings somehow, and so on.</p>
 </section>
 </section>
 <section id="scraper" class="level2 page-columns page-full">
@@ -615,7 +601,7 @@ Wall time: 180 µs</code></pre>
 <li>Be considerate about their resource usage, especially given that you aren’t their intended audience.</li>
 <li>Do the bulk of your requests during off-peak times depending on the local timezone of their audience.</li>
 <li>Sleep between requests as much as you possibly can. Add small random amounts as well to reduce the likelihood of overlapping with other scheduled scrapers/bots, thus reducing peak load.</li>
-<li>Use compression when scraping plain text or JSON to minimise their outgoing traffic! It doesn’t work nearly as well for images so it’s probably best to not compress them to avoid extra CPU usage on their servers.</li>
+<li>Use compression when scraping plain text or JSON to minimise their outgoing traffic. It doesn’t work nearly as well for images so it’s probably best to not compress them to avoid extra CPU usage on their servers.</li>
 </ul>
 <p>The rough idea was to:</p>
 <ol type="1">
