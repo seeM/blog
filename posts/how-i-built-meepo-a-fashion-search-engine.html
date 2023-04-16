@@ -191,14 +191,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#contrastive-language-image-pretraining" id="toc-contrastive-language-image-pretraining" class="nav-link active" data-scroll-target="#contrastive-language-image-pretraining">Contrastive language-image pretraining</a></li>
-  <li><a href="#lets-build-a-search-engine-for-oxford-pets" id="toc-lets-build-a-search-engine-for-oxford-pets" class="nav-link" data-scroll-target="#lets-build-a-search-engine-for-oxford-pets">Let’s build a search engine for Oxford Pets</a>
-  <ul class="collapse">
+  <li><a href="#background-convirt-and-clip" id="toc-background-convirt-and-clip" class="nav-link active" data-scroll-target="#background-convirt-and-clip">Background: ConVIRT and CLIP</a></li>
+  <li><a href="#the-oxford-pets-dataset" id="toc-the-oxford-pets-dataset" class="nav-link" data-scroll-target="#the-oxford-pets-dataset">The Oxford Pets dataset</a></li>
   <li><a href="#zero-shot-classification" id="toc-zero-shot-classification" class="nav-link" data-scroll-target="#zero-shot-classification">Zero-shot classification</a></li>
   <li><a href="#search" id="toc-search" class="nav-link" data-scroll-target="#search">Search</a></li>
-  </ul></li>
-  <li><a href="#scraper" id="toc-scraper" class="nav-link" data-scroll-target="#scraper">Scraper</a></li>
-  <li><a href="#deployment" id="toc-deployment" class="nav-link" data-scroll-target="#deployment">Deployment</a></li>
+  <li><a href="#fast-similarity-search" id="toc-fast-similarity-search" class="nav-link" data-scroll-target="#fast-similarity-search">Fast similarity search</a></li>
   <li><a href="#thats-all-folks" id="toc-thats-all-folks" class="nav-link" data-scroll-target="#thats-all-folks">That’s all folks</a></li>
   </ul>
 </nav>
@@ -246,9 +243,26 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- ![](images/meepo.png){width=600 fig-align=center .preview-image} -->
 <p>I built a visual search engine for a local (South African 🇿🇦) eCommerce store. Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure – with a sprinkle of good planning – it took me 1 week and costs me only $30 per month to host.</p>
 <p>Honestly, it blows my mind that this is possible. Decades of hard work by the brightest minds have enabled us to create and distribute incredible AI-powered products from almost anywhere in the world.</p>
+<p>I couldn’t be more excited about what this means for our future. What problems will we be able to solve? This is why I decided to share how I built Meepo. My hope is to help others create even more powerful products that solve problems unique to their circumstances.</p>
 <p><strong>In this article, I guide you through building your own visual search engine using contrastive language-image pretraining (CLIP) models.</strong></p>
-<section id="contrastive-language-image-pretraining" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="contrastive-language-image-pretraining">Contrastive language-image pretraining</h2>
+<section id="background-convirt-and-clip" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="background-convirt-and-clip">Background: ConVIRT and CLIP</h2>
+<p>Here’s the entire stack powering Meepo. Don’t be overwhelmed. In this post, you’ll learn about each and every one of these, and how you can use them to create your own search engine:</p>
+<ul>
+<li><a href="#contrastive-language-image-pretraining">Contrastive language-image pretraining</a>: the deep learning method powering Meepo’s search</li>
+<li><a href="https://github.com/facebookresearch/faiss">Faiss</a>: a library that lets us efficiently search over CLIP outputs</li>
+<li><a href="https://docs.conda.io/en/latest/">Conda</a>: a Python package management system</li>
+<li><a href="https://jupyter.org/">Jupyter Notebook</a>: an interactive programming environment</li>
+<li><a href="http://nbdev.fast.ai/">nbdev</a>: a platform for developing software using Jupyter Notebooks</li>
+<li><a href="https://tailwindcss.com/">Tailwind CSS</a>: a simpler CSS framework</li>
+<li><a href="https://daisyui.com/">DaisyUI</a>: a component library built on Tailwind CSS</li>
+<li><a href="https://www.sqlite.org/">SQLite</a>: a light but powerful database engine</li>
+<li><a href="https://www.djangoproject.com/">Django</a>: a battle-tested Python web framework</li>
+<li><a href="">Gunicorn</a>: a Python HTTP server that lets us serve our Django application</li>
+<li><a href="https://www.nginx.com/">Nginx</a>: a powerful and customizeable web server</li>
+<li><a href="https://cron.com/">Cron</a>: a job scheduler built into Unix operating system</li>
+<li><a href="https://www.linode.com/">Linode</a>: a cloud hosting provider.</li>
+</ul>
 <p>Contrastive language-image pretraining is the essential building block that makes Meepo possible. The approach was originally proposed by <a href="http://arxiv.org/abs/2010.00747">Zhang et al.&nbsp;(2020)</a> in the medical domain, and termed ConVIRT (Contrastive Visual Representation Learning from Text). OpenAI later demonstrated the true power of the method by scaling up to a 2000x larger dataset.</p>
 <p>As with most machine learning innovations, it starts with data. Because high-quality annotations of medical images are expensive to produce, prior work fine-tuned models pretrained on large image datasets like ImageNet. However, medical images are often quite different to natural images, and require discriminating between fine-grained details, which makes ImageNet a poor pretraining target. One workaround is to craft expert rules to extract labels from doctor’s textual reports. While this has produced larger datasets, these rules are not much easier to create than manually annotating, and they don’t generalize well across domains and writing styles.</p>
 <p>ConVIRT’s key insight was to instead exploit paired descriptions from doctor’s reports <em>in their natural language format</em>, such as the examples shown below. This not only produces larger datasets at lower cost, but also learns image representations with significantly better transfer to other domains and tasks.</p>
@@ -273,31 +287,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>The CLIP <a href="https://github.com/openai/CLIP">model code and weights</a> are available for anyone to use. This has allowed other innovations, like <a href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a>, a state-of-the-art image algorithm, to use it as well. However, the dataset used to train CLIP, called WebImageText, has not been released by OpenAI. Fortunately, the machine learning community has trained the <a href="https://github.com/mlfoundations/open_clip">OpenCLIP</a> model from scratch on public datasets, achieving similar accuracy to CLIP.</p>
 <p>Now that we have some background on CLIP and its impressive zero-shot text-to-image retrieval capabilities, how do we actually use it to create a visual search engine like Meepo?</p>
 </section>
-<section id="lets-build-a-search-engine-for-oxford-pets" class="level2">
-<h2 class="anchored" data-anchor-id="lets-build-a-search-engine-for-oxford-pets">Let’s build a search engine for Oxford Pets</h2>
-<div class="callout callout-style-default callout-caution callout-titled">
-<div class="callout-header d-flex align-content-center">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-This section is under construction
-</div>
-</div>
-<div class="callout-body-container callout-body">
-<p>Check back in a few days.</p>
-</div>
-</div>
+<section id="the-oxford-pets-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="the-oxford-pets-dataset">The Oxford Pets dataset</h2>
 <p>Let’s use CLIP to create a text-to-image search engine for the Oxford Pets dataset.</p>
-<section id="zero-shot-classification" class="level3">
-<h3 class="anchored" data-anchor-id="zero-shot-classification">Zero-shot classification</h3>
 <p>First install the required libraries. Both of these were created by HuggingFace:</p>
 <ul>
 <li><a href="https://huggingface.co/docs/datasets/index">Datasets</a> lets us easily access and share datasets for a variety of machine learning tasks</li>
 <li><a href="https://huggingface.co/docs/transformers/index">Transformers</a> lets us easily download, train, and use state-of-the-art pretrained neural networks.</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install torch datasets transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install torch datasets</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then load the <a href="https://huggingface.co/datasets/pcuenq/oxford-pets">Oxford Pets</a> dataset – thanks to <a href="https://twitter.com/pcuenq">Pedro Cuenqa</a> for uploading it:</p>
 <div class="cell">
@@ -331,6 +330,9 @@ This section is under construction
 <p><img src="how-i-built-meepo-a-fashion-search-engine_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
 </div>
+</section>
+<section id="zero-shot-classification" class="level2">
+<h2 class="anchored" data-anchor-id="zero-shot-classification">Zero-shot classification</h2>
 <p>Now that we have a dataset, we can load the CLIP processor and model. The concept of having a separate <em>processor</em> and <em>model</em> is central to the HuggingFace Transformers library, since it allows us to use 174 state-of-the-art models (as of writing this article) with a very similar API.</p>
 <p>Note that it might take a minute to download the pretrained weights:</p>
 <div class="cell">
@@ -454,8 +456,8 @@ This section is under construction
 </div>
 <p>Not bad – and super convenient too!</p>
 </section>
-<section id="search" class="level3">
-<h3 class="anchored" data-anchor-id="search">Search</h3>
+<section id="search" class="level2">
+<h2 class="anchored" data-anchor-id="search">Search</h2>
 <p>Using CLIP for search is not too different from using it for zero-shot classification. In fact, it’s even simpler! We don’t need to calculate probabilities since we only care about the sorted order by similarity:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search(image_embs, text):</span>
@@ -521,6 +523,9 @@ Wall time: 34.5 ms</code></pre>
 <pre><code>tensor([5166,  225, 6284,  ..., 5318, 4764, 6583])</code></pre>
 </div>
 </div>
+</section>
+<section id="fast-similarity-search" class="level2">
+<h2 class="anchored" data-anchor-id="fast-similarity-search">Fast similarity search</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install hnswlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -588,58 +593,6 @@ Wall time: 180 µs</code></pre>
 </ul>
 <hr>
 <p><em>Or</em> just keep going with the CLIP stuff? For example, go slightly deeper on the profiling, visualize embeddings somehow, and so on.</p>
-</section>
-</section>
-<section id="scraper" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="scraper">Scraper</h2>
-<p>The next step was to come up with a scraping strategy and pipeline design. This was probably the trickiest, but fortunately this sort of work has been a large part of my role as an ML Engineer 💪🏽.</p>
-<p>The big question here is how do we maintain a list of available products that is accurate for at least 24 hours, with minimal load to the upstream service?</p>
-<p><strong>A very important detour:</strong> if you’re scraping, you are most likely not the intended audience of a website, so try very hard not to negatively impact the service or the user experience of their intended audience! Here are some ways you can do so:</p>
-<ul>
-<li>Check how big the viewership of the website is. I would personally be hesitant to scrape a small website and would probably prefer to email the owner directly.</li>
-<li>Identify yourself (website URL), with contact information, via the user agent header – don’t try to fake being a human! A simple pattern you can use is&nbsp;<code>your.website.com/x.y (your@email.com)</code>&nbsp;where&nbsp;<code>x.y</code>&nbsp;is a version number of the scraper.</li>
-<li>Be considerate about their resource usage, especially given that you aren’t their intended audience.</li>
-<li>Do the bulk of your requests during off-peak times depending on the local timezone of their audience.</li>
-<li>Sleep between requests as much as you possibly can. Add small random amounts as well to reduce the likelihood of overlapping with other scheduled scrapers/bots, thus reducing peak load.</li>
-<li>Use compression when scraping plain text or JSON to minimise their outgoing traffic. It doesn’t work nearly as well for images so it’s probably best to not compress them to avoid extra CPU usage on their servers.</li>
-</ul>
-<p>The rough idea was to:</p>
-<ol type="1">
-<li>First scrape the entire “catalogue”. Walk through each department’s “New in” section</li>
-<li>Then for each page in the section, create a list of the currently available products.</li>
-<li>Download the images for those products that we haven’t seen before.</li>
-<li>Calculate their CLIP embeddings</li>
-<li>And finally rebuild the index.</li>
-</ol>
-<p>It’s faster for me to recreate the index instead of updating the existing one due to the small size of my dataset. For larger datasets this would be a more complex process.</p>
-<p>Unfortunately, I couldn’t scrape new pages only. I needed to check the entire catalogue to determine which products were unavailable so I can remove them from the index.</p>
-<p>I first tried jumping in head first and coding this up, but got totally stuck. Even with that plan I wasn’t quite sure how to break it down into smaller components that I could easily build.</p>
-<p>A perfect opportunity to whip out a whiteboard, or in my case <a href="https://excalidraw.com">Excalidraw</a>. Here’s what I came up with:</p>
-<p class="page-columns page-full"><img src="images/meepo-pipeline.png" class="column-screen img-fluid"></p>
-<p>I often find it helpful to think about data pipelines in terms of statements that I want to be true about the data.</p>
-<p>For example, after step 1, we should have a .json.gz file for each scraped page, in a folder structure indicating the run timestamp, department, and page number. It’s also useful to specify a more precise schema at this point too. What would the file structure look like? What tables will you create in the database, and what are their constraints and foreign key relationships?</p>
-<p>It’s also often a good idea to store raw external data before we do any processing so that when we change the logic we don’t need to rescrape anything. For example, if I wanted to add prices to products I could do so without rescraping anything. This is also one good reason for splitting a pipeline into smaller components. Another is that it can be easier to comprehend, although splitting it too fine can be counterproductive.</p>
-<p>I used Chrome dev tools to figure out the API paths and what the requests should look like. Although I built the scraper to work with all departments, I started out by scraping the smallest one: Home and Living. I figured that would be a neat way to test the end-to-end process.</p>
-<p>I then configured cron to run this daily just after midnight. By the way, a neat tip to get cron to log its output (including errors) to the system log is to add the following to the end of your job definition:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="op">&gt;&amp;</span><span class="dv">1</span> <span class="kw">|</span> <span class="ex">logger</span> <span class="at">-t</span> meepo_pipeline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<p>The <code>2&gt;&amp;1</code> redirects the standard error stream to the standard out stream so that error messages are logged too. The combined result is then piped to the <code>logger</code> application which writes to the system log, with a tag specified by the <code>-t</code> flag.</p>
-<p>Building out the scraper and getting the cron job working smoothly took about 20 hours! After that, all that was left was to let it scrape all departments, watch and fix any bugs that popped up (unhandled cases and so on), and prepare for launch!</p>
-</section>
-<section id="deployment" class="level2">
-<h2 class="anchored" data-anchor-id="deployment">Deployment</h2>
-<p>Now that I had a minimal working Django app, I wanted to deploy it so that I could share a link for people to play around with, instead of just videos. I found it very helpful to get feedback throughout the process, and there’s nothing better than getting feedback on an actual interactive version of the product. I also wanted to get practice shipping changes to a live app. I definitely think it’s the right idea to deploy early in the development process, then ship often.</p>
-<p>I used the battle-tested stack of nginx and gunicorn in front of Django (image created by <a href="https://medium.com/@serdarilarslan">Serdar Ilarslan</a>, <a href="https://medium.com/@serdarilarslan/what-is-gunicorn-5e674fff131b">source</a>):</p>
-<p><img src="images/meepo-stack.webp" class="img-fluid"></p>
-<p>This step took 7 hours. I think it could’ve been a lot faster, but I got sidetracked trying to use a platform-as-a-service (PaaS) option instead of working directly on a Linux virtual private server (VPS) – which I’m much more experienced with. I’m not sure if I’ll revisit PaaS in the future, because the VPS has been working really well for a few months now. I personally love the transparency and being able to directly interact with it if anything goes wrong, rather than struggling to find the right logs in some web interface. I knew that <a href="https://twitter.com/levelsio">Pieter Levels</a> does similarly, and serves significantly more traffic than I expected to. My good friend <a href="https://twitter.com/ashtonshudson">Ashton Hudson</a> took the same approach with <a href="https://www.servaltracker.com/">Serval</a>, which also serves tons of traffic with a really massive time series database (more info in <a href="https://twitter.com/ashtonshudson/status/1609621491481460737?s=20">this thread</a>).</p>
-<p>I bought a DNS using Namecheap. I tried to find the cheapest domain for “meepo”, and was lucky to score <a href="https://meepo.shop">meepo.shop</a> at $2!</p>
-<p>I did some basic Linux setup following <a href="https://www.linode.com/docs/products/compute/compute-instances/guides/set-up-and-secure/">this Linode guide</a>. Things like updating packages, configuring the timezone, configuring a custom hostname, and most importantly creating a limited user and tightening SSH options.</p>
-<p>I found the docs really difficult to follow, but it turned out to be quite simple to get Linode to manage the DNS instead of Namecheap. All I had to do was go to the domain management page, then the Domain tab, and add Linode’s nameservers under the Nameservers section. The domains were ns1.linode.com through ns5.linode.com. I think it might’ve taken some time to reflect, and once it did, I could create a domain in the Linode console, link it to my Node, and have it automatically fill what I needed!</p>
-<p>As part of this step, I also setup nginx and gunicorn on the Linux VPS. I followed <a href="https://realpython.com/django-nginx-gunicorn">this Real Python guide</a>.</p>
-<p>I also highly recommend setting up Longview, which has a free option! It’s really cool to be able to check some basic stats from the console and even from my phone.</p>
-<p>I also setup <a href="https://sentry.io/">Sentry</a> which sends me an email whenever there’s an error in either the web server or the scraper, with a neat stacktrace and local variables. It’s very easy with Django, just a few lines in your <code>settings.py</code> file and you’re good to go.</p>
-<p>Once it was setup, I used <a href="https://github.com/ddosify/ddosify">ddosify</a> to load test it – great tool! Given that I’d barely done any optimization, I wanted to make sure that it could at least handle a reasonable amount of traffic. So I hit the search endpoint with a bunch of random queries. It just about handled 60 requests over 10 seconds, which I was relatively sure I wouldn’t reach for an extended period of time 😅 and worst case I could upgrade the VPS if needed.</p>
-<p><img src="images/meepo-ddosify.png" class="img-fluid"></p>
-<p>Now I could tell people to go to <a href="https://meepo.shop">meepo.shop</a> and see what I was working on. Yay! 🎉</p>
 </section>
 <section id="thats-all-folks" class="level2">
 <h2 class="anchored" data-anchor-id="thats-all-folks">That’s all folks</h2>
