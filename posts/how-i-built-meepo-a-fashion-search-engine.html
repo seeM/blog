@@ -247,22 +247,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>In this article, I guide you through building your own visual search engine using contrastive language-image pretraining (CLIP) models.</strong></p>
 <section id="background-convirt-and-clip" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="background-convirt-and-clip">Background: ConVIRT and CLIP</h2>
-<p>Here’s the entire stack powering Meepo. Don’t be overwhelmed. In this post, you’ll learn about each and every one of these, and how you can use them to create your own search engine:</p>
-<ul>
-<li><a href="#contrastive-language-image-pretraining">Contrastive language-image pretraining</a>: the deep learning method powering Meepo’s search</li>
-<li><a href="https://github.com/facebookresearch/faiss">Faiss</a>: a library that lets us efficiently search over CLIP outputs</li>
-<li><a href="https://docs.conda.io/en/latest/">Conda</a>: a Python package management system</li>
-<li><a href="https://jupyter.org/">Jupyter Notebook</a>: an interactive programming environment</li>
-<li><a href="http://nbdev.fast.ai/">nbdev</a>: a platform for developing software using Jupyter Notebooks</li>
-<li><a href="https://tailwindcss.com/">Tailwind CSS</a>: a simpler CSS framework</li>
-<li><a href="https://daisyui.com/">DaisyUI</a>: a component library built on Tailwind CSS</li>
-<li><a href="https://www.sqlite.org/">SQLite</a>: a light but powerful database engine</li>
-<li><a href="https://www.djangoproject.com/">Django</a>: a battle-tested Python web framework</li>
-<li><a href="">Gunicorn</a>: a Python HTTP server that lets us serve our Django application</li>
-<li><a href="https://www.nginx.com/">Nginx</a>: a powerful and customizeable web server</li>
-<li><a href="https://cron.com/">Cron</a>: a job scheduler built into Unix operating system</li>
-<li><a href="https://www.linode.com/">Linode</a>: a cloud hosting provider.</li>
-</ul>
 <p>Contrastive language-image pretraining is the essential building block that makes Meepo possible. The approach was originally proposed by <a href="http://arxiv.org/abs/2010.00747">Zhang et al.&nbsp;(2020)</a> in the medical domain, and termed ConVIRT (Contrastive Visual Representation Learning from Text). OpenAI later demonstrated the true power of the method by scaling up to a 2000x larger dataset.</p>
 <p>As with most machine learning innovations, it starts with data. Because high-quality annotations of medical images are expensive to produce, prior work fine-tuned models pretrained on large image datasets like ImageNet. However, medical images are often quite different to natural images, and require discriminating between fine-grained details, which makes ImageNet a poor pretraining target. One workaround is to craft expert rules to extract labels from doctor’s textual reports. While this has produced larger datasets, these rules are not much easier to create than manually annotating, and they don’t generalize well across domains and writing styles.</p>
 <p>ConVIRT’s key insight was to instead exploit paired descriptions from doctor’s reports <em>in their natural language format</em>, such as the examples shown below. This not only produces larger datasets at lower cost, but also learns image representations with significantly better transfer to other domains and tasks.</p>
