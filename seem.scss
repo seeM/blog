@@ -75,7 +75,22 @@ $web-font-path: "https://fonts.googleapis.com/css2?family=News+Cycle:wght@400;70
 
 // Typography
 
-body { -webkit-font-smoothing: antialiased; }
+body {
+  -webkit-font-smoothing: antialiased;
+  color: black;
+}
+
+a {
+  color: inherit;
+  text-decoration-color: $blue;
+  // text-decoration-thickness: 2px;
+  // text-underline-offset: 0.0625em;
+  transition: color .2s;
+}
+
+a:hover {
+  color: $blue;
+}
 
 // Navbar
 
@@ -116,7 +131,8 @@ div.quarto-post .thumbnail img { border-radius: .25rem; }
 .pagination { a:hover { text-decoration: none; } }
 .quarto-figure-center > figure > figcaption { text-align: center; }
 .twitter-tweet { margin: auto; }
-.description, .quarto-title-meta { font-size: 14px; }
+.description { font-size: 18px; }
+.quarto-title-meta { font-size: 14px; }
 .quarto-title .quarto-categories .quarto-category { font-size: 10px; }
 #title-block-header { margin-block-end: 3rem; }
 .quarto-listing-default { margin-top: 2em; }
@@ -168,13 +184,28 @@ blockquote > pre {
 
 // Text
 
-h1 { margin-bottom: 1rem !important; }
+h1 {
+  margin-bottom: 1rem;
+  font-size: 50px;
+  font-weight: bold;
+}
 
-h2 { margin-top: 3rem !important; margin-bottom: 0.3rem; border-bottom: none; }
+h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: none;
+  font-size: 30px;
+  font-weight: bold;
+}
 
 h2 img { display: none; }
 
-h3 { margin-bottom: 0.3rem; }
+h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: 20px;
+  font-weight: bold;
+}
 
 kbd { padding: 0.1rem; }
 

@@ -2,9 +2,8 @@
 listing:
   contents: [posts, posts.yml]
   sort: "date desc"
-  type: table
-  categories: false
-  fields: [date, title]
+  categories: true
+  fields: [date, title, image, description, categories]
   feed: true
   filter-ui: false
   sort-ui: false
@@ -13,7 +12,7 @@ comments: false
 description: Recent posts on wasimlorgat.com
 ---
 
-# Hi, I'm Wasim
+<h1 style="margin-bottom: 2rem !important">Hi, I'm Wasim</h1>
 
 ::: {.me}
 ![](images/me.jpeg)
