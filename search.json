@@ -179,7 +179,7 @@
     "href": "posts/editor.html",
     "title": "How to build a text editor with Python and curses",
     "section": "",
-    "text": "This article was featured in Episode 221 of the PythonBytes podcast by Michael Kennedy and Brian Okken.\nWe’re going to build a command line text editor from scratch in Python. If you’d like to learn the most out of this, I’d recommend to code along. When we encounter problems, I’ll try to state them first before suggesting a solution. I encourage you to pause and give yourself about fifteen minutes to try to solve it first. If you’re still stuck, move along and compare the solution with your own approach. It’s also totally fine if you simply read through at your leisure.\nIf you prefer to play around with the final end-to-end solution, check out the accompanying repo.\nOne more thing, if you struggle to even get started, reach out to me on twitter or via email and I’ll try my best to help.\nLet’s dive right in!"
+    "text": "We’re going to build a command line text editor from scratch in Python. If you’d like to learn the most out of this, I’d recommend to code along. When we encounter problems, I’ll try to state them first before suggesting a solution. I encourage you to pause and give yourself about fifteen minutes to try to solve it first. If you’re still stuck, move along and compare the solution with your own approach. It’s also totally fine if you simply read through at your leisure.\nIf you prefer to play around with the final end-to-end solution, check out the accompanying repo.\nOne more thing, if you struggle to even get started, reach out to me on twitter or via email and I’ll try my best to help.\nLet’s dive right in!"
   },
   {
     "objectID": "posts/editor.html#create-a-curses-application",
@@ -282,23 +282,23 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Hi, I’m Wasim",
+    "title": "\nHi, I’m Wasim\n",
     "section": "",
-    "text": "I’m a software engineer and data scientist.\nThis is where I share lessons learned during my projects, spanning notebook-driven development, artificial intelligence and software design.\nYou might also be interested in my full list of side projects and notes.\nPreviously, I held technical leadership positions in South African AI startups in manufacturing and agriculture. Before that, I was a professional DotA 2 player.\n\n\nOne of my biggest motivations for sharing online is to connect with interesting people from across the world.\nEmail me at mwlorgat@gmail.com or DM me on Twitter or LinkedIn if you’d like to chat!\n\n\n\nMastodon verification"
+    "text": "Hi, I’m Wasim\nI’m a software engineer and data scientist.\nThis is where I share lessons learned during my projects, spanning notebook-driven development, artificial intelligence and software design.\nYou might also be interested in my full list of side projects and notes.\nPreviously, I held technical leadership positions in South African AI startups in manufacturing and agriculture. Before that, I was a professional DotA 2 player."
   },
   {
     "objectID": "index.html#get-in-touch",
     "href": "index.html#get-in-touch",
-    "title": "Hi, I’m Wasim",
-    "section": "",
-    "text": "One of my biggest motivations for sharing online is to connect with interesting people from across the world.\nEmail me at mwlorgat@gmail.com or DM me on Twitter or LinkedIn if you’d like to chat!"
+    "title": "\nHi, I’m Wasim\n",
+    "section": "Get in touch",
+    "text": "Get in touch\nOne of my biggest motivations for sharing online is to connect with interesting people from across the world.\nEmail me at mwlorgat@gmail.com or DM me on Twitter or LinkedIn if you’d like to chat!"
   },
   {
     "objectID": "index.html#recent-posts",
     "href": "index.html#recent-posts",
-    "title": "Hi, I’m Wasim",
-    "section": "",
-    "text": "Mastodon verification"
+    "title": "\nHi, I’m Wasim\n",
+    "section": "Recent posts",
+    "text": "Recent posts\nMastodon verification"
   },
   {
     "objectID": "tils/using-pelican-as-a-library.html",

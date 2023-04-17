@@ -8,9 +8,9 @@
 
 <meta name="author" content="Wasim Lorgat">
 <meta name="dcterms.date" content="2023-02-13">
-<meta name="description" content="A step-by-step account of how I built Meepo – a visual search engine for fashion – and how you can create your own search engine too.">
+<meta name="description" content="Leverage open-source AI to create a simple yet powerful semantic search engine.">
 
-<title>Wasim Lorgat - How I built Meepo: A visual search engine for fashion</title>
+<title>Wasim Lorgat - How to build your own semantic search engine</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -103,15 +103,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Wasim Lorgat - How I built Meepo: A visual search engine for fashion">
-<meta property="og:description" content="A step-by-step account of how I built Meepo – a visual search engine for fashion – and how you can create your own search engine too.">
-<meta property="og:image" content="https://wasimlorgat.com/posts/images/meepo.png">
+<meta property="og:title" content="Wasim Lorgat - How to build your own semantic search engine">
+<meta property="og:description" content="Leverage open-source AI to create a simple yet powerful semantic search engine.">
+<meta property="og:image" content="https://wasimlorgat.com/posts/images/semantic-search.png">
 <meta property="og:site-name" content="Wasim Lorgat">
 <meta property="og:image:height" content="900">
 <meta property="og:image:width" content="1600">
-<meta name="twitter:title" content="Wasim Lorgat - How I built Meepo: A visual search engine for fashion">
-<meta name="twitter:description" content="A step-by-step account of how I built Meepo – a visual search engine for fashion – and how you can create your own search engine too.">
-<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/meepo.png">
+<meta name="twitter:title" content="Wasim Lorgat - How to build your own semantic search engine">
+<meta name="twitter:description" content="Leverage open-source AI to create a simple yet powerful semantic search engine.">
+<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/semantic-search.png">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
 <meta name="twitter:image-height" content="900">
@@ -191,12 +191,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#background-convirt-and-clip" id="toc-background-convirt-and-clip" class="nav-link active" data-scroll-target="#background-convirt-and-clip">Background: ConVIRT and CLIP</a></li>
+  <li><a href="#convirt-the-medical-foundations-of-clip" id="toc-convirt-the-medical-foundations-of-clip" class="nav-link active" data-scroll-target="#convirt-the-medical-foundations-of-clip">ConVIRT: The medical foundations of CLIP</a></li>
   <li><a href="#the-oxford-pets-dataset" id="toc-the-oxford-pets-dataset" class="nav-link" data-scroll-target="#the-oxford-pets-dataset">The Oxford Pets dataset</a></li>
-  <li><a href="#zero-shot-classification" id="toc-zero-shot-classification" class="nav-link" data-scroll-target="#zero-shot-classification">Zero-shot classification</a></li>
-  <li><a href="#search" id="toc-search" class="nav-link" data-scroll-target="#search">Search</a></li>
-  <li><a href="#fast-similarity-search" id="toc-fast-similarity-search" class="nav-link" data-scroll-target="#fast-similarity-search">Fast similarity search</a></li>
-  <li><a href="#thats-all-folks" id="toc-thats-all-folks" class="nav-link" data-scroll-target="#thats-all-folks">That’s all folks</a></li>
+  <li><a href="#using-clip-for-zero-shot-classification" id="toc-using-clip-for-zero-shot-classification" class="nav-link" data-scroll-target="#using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</a></li>
+  <li><a href="#using-clip-for-image-retrieval" id="toc-using-clip-for-image-retrieval" class="nav-link" data-scroll-target="#using-clip-for-image-retrieval">Using CLIP for image retrieval</a></li>
+  <li><a href="#making-it-faster" id="toc-making-it-faster" class="nav-link" data-scroll-target="#making-it-faster">Making it faster</a></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your turn</a></li>
   </ul>
 </nav>
     </div>
@@ -205,15 +205,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">How I built Meepo: A visual search engine for fashion</h1>
+<h1 class="title">How to build your own semantic search engine</h1>
   <div class="quarto-categories">
-    <div class="quarto-category">maker log</div>
+    <div class="quarto-category">tutorial</div>
   </div>
   </div>
 
 <div>
   <div class="description">
-    A step-by-step account of how I built Meepo – a visual search engine for fashion – and how you can create your own search engine too.
+    Leverage open-source AI to create a simple yet powerful semantic search engine.
   </div>
 </div>
 
@@ -241,14 +241,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <!-- ![](images/meepo.png){width=600 fig-align=center .preview-image} -->
-<p>I built a visual search engine for a local (South African 🇿🇦) eCommerce store. Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure – with a sprinkle of good planning – it took me 1 week and costs me only $30 per month to host.</p>
-<p>Honestly, it blows my mind that this is possible. Decades of hard work by the brightest minds have enabled us to create and distribute incredible AI-powered products from almost anywhere in the world.</p>
-<p><strong>In this article, you will build your own visual search engine using contrastive language-image pretraining (CLIP).</strong></p>
-<section id="background-convirt-and-clip" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="background-convirt-and-clip">Background: ConVIRT and CLIP</h2>
-<p>Contrastive language-image pretraining is the essential building block that makes Meepo possible. The approach was originally proposed by <a href="http://arxiv.org/abs/2010.00747">Zhang et al.&nbsp;(2020)</a> in the medical domain, and termed ConVIRT (Contrastive Visual Representation Learning from Text). OpenAI later demonstrated the true power of the method by scaling up to a 2000x larger dataset.</p>
-<p>As with most machine learning innovations, it starts with data. Because high-quality annotations of medical images are expensive to produce, prior work fine-tuned models pretrained on large image datasets like ImageNet. However, medical images are often quite different to natural images, and require discriminating between fine-grained details, which makes ImageNet a poor pretraining target. One workaround is to craft expert rules to extract labels from doctor’s textual reports. While this has produced larger datasets, these rules are not much easier to create than manually annotating, and they don’t generalize well across domains and writing styles.</p>
-<p>ConVIRT’s key insight was to instead exploit paired descriptions from doctor’s reports <em>in their natural language format</em>, such as the examples shown below. This not only produces larger datasets at lower cost, but also learns image representations with significantly better transfer to other domains and tasks.</p>
+<p><img src="images/semantic-search.png" class="img-fluid"></p>
+<p>I built <a href="https://meepo.shop">a semantic search engine</a> for a local (South African 🇿🇦) eCommerce store. Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure – along with a touch of good planning – the entire process took me just one week, and it costs me a mere $30 per month to host.</p>
+<p>Honestly, it blows my mind that this is possible. Decades of hard work by some of the brightest minds have enabled us to create and distribute incredible AI-powered products from almost anywhere in the world.</p>
+<p><strong>In this article, I show you how to build your own semantic search engine.</strong></p>
+<section id="convirt-the-medical-foundations-of-clip" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="convirt-the-medical-foundations-of-clip">ConVIRT: The medical foundations of CLIP</h2>
+<p>Contrastive Language-Image Pretraining (CLIP) serves as the essential building block for powerful semantic search engines like Meepo. Interestingly, the roots of CLIP’s approach can be traced back to the medical domain, where <a href="http://arxiv.org/abs/2010.00747">Zhang et al.&nbsp;(2020)</a> first introduced the concept as Contrastive Visual Representation Learning from Text (ConVIRT). OpenAI later showcased the true power of this method by scaling it up to a dataset that was 2000 times larger.</p>
+<p>As with most machine learning innovations, it all starts with data. High-quality annotations of medical images are expensive to produce, so prior work often involved fine-tuning models pretrained on large image datasets like ImageNet. However, medical images tend to differ significantly from natural images and require discriminating between fine-grained details, making ImageNet a less-than-ideal pretraining target. One workaround has been to craft expert rules for extracting labels from doctors’ textual reports. Although this approach has yielded larger datasets, creating these rules is hardly easier than manual annotation, and they don’t generalize well across domains or writing styles.</p>
+<p>ConVIRT’s key insight was to leverage paired descriptions from doctor’s reports <em>in their natural language format</em>, such as the examples shown below. This approach not only produces larger datasets at a lower cost, but also learns image representations with significantly better transferability to other domains and tasks.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/meepo-convirt-examples.png" class="img-fluid figure-img" width="400"></p>
@@ -265,10 +266,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p></p><figcaption class="figure-caption">A visualization of the contrastive language-image pretraining approach. Source: <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a> by OpenAI.</figcaption><p></p>
 </figure>
 </div>
-<div class="page-columns page-full"><p>The retrieval pretraining task was originally chosen for its ability to learn useful representations for downstream tasks<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, however, ConVIRT still achieved state-of-the-art performance at the retrieval task itself. This key finding is what lets us create a simple yet powerful visual search engine like Meepo, given access to a dataset of only images without paired queries.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;“Downstream tasks” refer to tasks that are performed using the learned representations from a pretrained model. These tasks can include image classification, object detection, and visual search, among others.</p></li></div></div>
+<div class="page-columns page-full"><p>The retrieval pretraining task was originally chosen for its ability to learn useful representations for downstream tasks<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, however, ConVIRT still achieved state-of-the-art performance at the retrieval task itself. This key finding is what lets us create a simple yet powerful semantic search engine like Meepo, given access to a dataset of only images without paired queries.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;“Downstream tasks” refer to tasks that are performed using the learned representations from a pretrained model. These tasks can include image classification, object detection, and semantic search, among others.</p></li></div></div>
 <div class="page-columns page-full"><p>Although ConVIRT has shown promise, it was trained on far fewer examples than most modern deep learning models. For instance, ImageNet has around 1.2 million training examples, which is 6000 times more than ConVIRT’s dataset. However, OpenAI’s <a href="https://openai.com/blog/clip/">CLIP</a> has applied a more training-efficient version of ConVIRT to a dataset of 400 million image-text pairs collected from the internet, which is 2000 times more examples than ConVIRT’s original dataset. CLIP achieved state-of-the-art zero-shot ImageNet accuracy as well as zero-shot text-to-image retrieval accuracy on the Flickr30k dataset.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;Fast forward two years and CLIP has been dethroned several times. Most recently, by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a> which builds on top of frozen off-the-shelf pretrained vision and language models instead of training from scratch.</p></li></div></div>
 <p>The CLIP <a href="https://github.com/openai/CLIP">model code and weights</a> are available for anyone to use. This has allowed other innovations, like <a href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a>, a state-of-the-art image algorithm, to use it as well. However, the dataset used to train CLIP, called WebImageText, has not been released by OpenAI. Fortunately, the machine learning community has trained the <a href="https://github.com/mlfoundations/open_clip">OpenCLIP</a> model from scratch on public datasets, achieving similar accuracy to CLIP.</p>
-<p>Now that we have some background on CLIP and its impressive zero-shot text-to-image retrieval capabilities, how do we actually use it to create a visual search engine like Meepo?</p>
+<p>Now that we have some background on CLIP and its impressive zero-shot text-to-image retrieval capabilities, how do we actually use it to create a semantic search engine like Meepo?</p>
 </section>
 <section id="the-oxford-pets-dataset" class="level2">
 <h2 class="anchored" data-anchor-id="the-oxford-pets-dataset">The Oxford Pets dataset</h2>
@@ -314,8 +315,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="zero-shot-classification" class="level2">
-<h2 class="anchored" data-anchor-id="zero-shot-classification">Zero-shot classification</h2>
+<section id="using-clip-for-zero-shot-classification" class="level2">
+<h2 class="anchored" data-anchor-id="using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</h2>
 <p>Now that we have a dataset, we can load the CLIP processor and model. The concept of having a separate <em>processor</em> and <em>model</em> is central to the HuggingFace Transformers library, since it allows us to use 174 state-of-the-art models (as of writing this article) with a very similar API.</p>
 <p>Note that it might take a minute to download the pretrained weights:</p>
 <div class="cell">
@@ -439,8 +440,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Not bad – and super convenient too!</p>
 </section>
-<section id="search" class="level2">
-<h2 class="anchored" data-anchor-id="search">Search</h2>
+<section id="using-clip-for-image-retrieval" class="level2">
+<h2 class="anchored" data-anchor-id="using-clip-for-image-retrieval">Using CLIP for image retrieval</h2>
 <p>Using CLIP for search is not too different from using it for zero-shot classification. In fact, it’s even simpler! We don’t need to calculate probabilities since we only care about the sorted order by similarity:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search(image_embs, text):</span>
@@ -507,8 +508,8 @@ Wall time: 34.5 ms</code></pre>
 </div>
 </div>
 </section>
-<section id="fast-similarity-search" class="level2">
-<h2 class="anchored" data-anchor-id="fast-similarity-search">Fast similarity search</h2>
+<section id="making-it-faster" class="level2">
+<h2 class="anchored" data-anchor-id="making-it-faster">Making it faster</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install hnswlib</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -577,8 +578,8 @@ Wall time: 180 µs</code></pre>
 <hr>
 <p><em>Or</em> just keep going with the CLIP stuff? For example, go slightly deeper on the profiling, visualize embeddings somehow, and so on.</p>
 </section>
-<section id="thats-all-folks" class="level2">
-<h2 class="anchored" data-anchor-id="thats-all-folks">That’s all folks</h2>
+<section id="your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
 <p>All-in-all, I had tons of fun working on Meepo!</p>
 <p>If you found this helpful or entertaining, please do follow me on Twitter <a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span></a>. And if you have any feedback, comments or questions, please feel free to pop me <a href="mailto:mwlorgat@gmail.com">an email</a>.</p>
 <p>I’m now building my own native macOS Jupyter frontend. If that sounds interesting, the best place to follow along is via Twitter.</p>
