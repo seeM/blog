@@ -96,6 +96,10 @@ a:hover {
   color: $blue;
 }
 
+a sup {
+  color: $blue;
+}
+
 // Navbar
 
 .bg-dark { background-color: $black !important; }
@@ -200,6 +204,12 @@ h2 {
   border-bottom: none;
   font-size: 30px;
   font-weight: bold;
+}
+
+@media (max-width: 991.98px) {
+  #quarto-content section:first-of-type h2:first-of-type, #quarto-content section:first-of-type .h2:first-of-type {
+    margin-top: 2rem;
+  }
 }
 
 h2 img { display: none; }
