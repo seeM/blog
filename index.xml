@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/index.html</link>
 <atom:link href="https://wasimlorgat.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent posts on wasimlorgat.com</description>
-<generator>quarto-1.3.326</generator>
+<generator>quarto-1.3.333</generator>
 <lastBuildDate>Thu, 12 Jan 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>How to build your own minimal Jupyter frontend</title>
@@ -22,7 +22,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/images/jupiter.jpg" class="preview-image rounded img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Photo by <a href="https://unsplash.com/@planetvolumes?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Planet Volumes</a> on <a href="https://unsplash.com/photos/awYEQyYdHVE?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption><p></p>
+<figcaption class="figure-caption">Photo by <a href="https://unsplash.com/@planetvolumes?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Planet Volumes</a> on <a href="https://unsplash.com/photos/awYEQyYdHVE?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption>
 </figure>
 </div>
 <p>This blog post (and the <a href="https://github.com/seeM/blog/blob/main/posts/jupyter-server-a-whirlwind-tour.ipynb">source notebook</a>) is an executable playground for understanding how to communicate with Jupyter Servers. You can think of it as a barebones Jupyter frontend, since we’ll be implementing the full lifecycle including creating a new notebook, writing and executing code cells, and shutting down the server.</p>
@@ -913,7 +913,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/images/juggling.svg" class="img-fluid figure-img" width="200"></p>
-<p></p><figcaption class="figure-caption">Diagram in a juggling notation, via Wikipedia</figcaption><p></p>
+<figcaption class="figure-caption">Diagram in a juggling notation, via Wikipedia</figcaption>
 </figure>
 </div>
 <section id="why-learn-apl" class="level2">
@@ -950,7 +950,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/42b866ad-1-image.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Create a Dyalog notebook in Jupyter by clicking <i>New</i> then <i>Dyalog APL</i>.|Create a Dyalog notebook in Jupyter by clicking New then Dyalog APL.</figcaption><p></p>
+<figcaption class="figure-caption">Create a Dyalog notebook in Jupyter by clicking <i>New</i> then <i>Dyalog APL</i>.|Create a Dyalog notebook in Jupyter by clicking New then Dyalog APL.</figcaption>
 </figure>
 </div>
 <p>You should now be able to write Dyalog directly in your notebook! Try it out:</p>
@@ -968,14 +968,14 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/c44c1ebf-2-image.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">The APL langauge bar: a horizontal list of APL gylphs.</figcaption><p></p>
+<figcaption class="figure-caption">The APL langauge bar: a horizontal list of APL gylphs.</figcaption>
 </figure>
 </div>
 <p>Hovering on a glyph shows a its name and keyboard shortucts:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/c44c1ebf-1-image-2.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Hovering on the minus sign glyph shows ‘negate minus’.</figcaption><p></p>
+<figcaption class="figure-caption">Hovering on the minus sign glyph shows ‘negate minus’.</figcaption>
 </figure>
 </div>
 </section>
@@ -987,7 +987,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/ec994b95-1-image.png" class="img-fluid figure-img"></p>
-<p></p><figcaption class="figure-caption">Tables of APL glyphs: primitive functions, and primitive operators, via <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">Dyalog docs</a>.</figcaption><p></p>
+<figcaption class="figure-caption">Tables of APL glyphs: primitive functions, and primitive operators, via <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">Dyalog docs</a>.</figcaption>
 </figure>
 </div>
 <p>A good way to learn new concepts in APL (and in general) is to look at an example, try to predict what it’ll do before you run it, then run it and compare with your prediction. APL documentation is filled with examples which makes this approach even more powerful. The documentation will often include multiple examples as separate elements of an array.</p>
