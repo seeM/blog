@@ -198,6 +198,15 @@ h1 {
   font-weight: bold;
 }
 
+h1, .h1, h2, .h2 {
+  margin: 0;
+}
+
+#title-block-header.quarto-title-block.default .description, #title-block-header.quarto-title-block.default .abstract {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
 h2 {
   margin-top: 2rem;
   margin-bottom: 1rem;
