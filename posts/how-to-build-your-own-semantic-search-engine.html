@@ -10,7 +10,7 @@
 <meta name="dcterms.date" content="2023-04-20">
 <meta name="description" content="Leverage open-source AI to create a simple yet powerful semantic search engine.">
 
-<title>Wasim Lorgat - How to build your own semantic search engine</title>
+<title>How to build your own semantic search engine</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -103,13 +103,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="Wasim Lorgat - How to build your own semantic search engine">
+<meta property="og:title" content="How to build your own semantic search engine">
 <meta property="og:description" content="Leverage open-source AI to create a simple yet powerful semantic search engine.">
 <meta property="og:image" content="https://wasimlorgat.com/posts/images/semantic-search.png">
 <meta property="og:site-name" content="Wasim Lorgat">
 <meta property="og:image:height" content="900">
 <meta property="og:image:width" content="1600">
-<meta name="twitter:title" content="Wasim Lorgat - How to build your own semantic search engine">
+<meta name="twitter:title" content="How to build your own semantic search engine">
 <meta name="twitter:description" content="Leverage open-source AI to create a simple yet powerful semantic search engine.">
 <meta name="twitter:image" content="https://wasimlorgat.com/posts/images/semantic-search.png">
 <meta name="twitter:creator" content="@wasimlorgat">
@@ -187,7 +187,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active">
+        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -197,7 +197,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#using-clip-for-image-retrieval" id="toc-using-clip-for-image-retrieval" class="nav-link" data-scroll-target="#using-clip-for-image-retrieval">Using CLIP for image retrieval</a></li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your turn</a></li>
   </ul>
-</nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/seem/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/seem/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb" class="toc-action">View source</a></p><p><a href="https://github.com/seem/blog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
@@ -205,9 +205,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
 <h1 class="title">How to build your own semantic search engine</h1>
-  <div class="quarto-categories">
-    <div class="quarto-category">tutorial</div>
-  </div>
   </div>
 
 <div>
@@ -387,8 +384,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify(image, classes, template<span class="op">=</span><span class="st">"a photo of a </span><span class="sc">{}</span><span class="st">"</span>):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    image_embs <span class="op">=</span> embed_image(image)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    text_embs <span class="op">=</span> embed_text([template.<span class="bu">format</span>(o) <span class="cf">for</span> o <span class="kw">in</span> classes])</span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> probs(text_embs, image_embs)</span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>    <span class="co"># return {k: v.item() for k, v in zip(classes, probs(text_embs, image_embs))}</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> probs(text_embs, image_embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>To use this, simply pass in a list of classes. You can also customize the <code>template</code>, which can improve the classification accuracy.</p>
 <p>Here’s how we can classify the breed of a cat:</p>
@@ -526,8 +522,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="your-turn" class="level2">
 <h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
-<p>Now it’s your turn. Dive into <a href="TODO">the accompanying notebook</a> for this post and give it a try with your own dataset!</p>
-<p>If you found this enjoyable, consider <a href="TODO">subscribing to my newsletter</a> and <a href="TODO">following me on Twitter</a>, where I share similar content in more digestible, bite-sized pieces. For instance, I’m currently developing my own <a href="TODO">native macOS Jupyter frontend</a>—the very tool I used to create this notebook.</p>
+<p>Now it’s your turn. Dive into <a href="https://github.com/seeM/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb">the accompanying notebook</a> for this post and give it a try with your own dataset!</p>
+<p>If you found this enjoyable, consider giving it a thumbs up below and following me <a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span> on Twitter</a>, where I share similar content in more digestible, bite-sized pieces. For instance, I’m currently developing my own <a href="https://twitter.com/wasimlorgat/status/1611615676220817415?s=20">native macOS Jupyter frontend</a>—the very tool I used to create this notebook.</p>
 
 
 </section>

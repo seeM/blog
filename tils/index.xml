@@ -13,7 +13,6 @@
 <lastBuildDate>Mon, 06 Mar 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>How to create your own AI avatar using HuggingFace Diffusers and Dreambooth</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/how-to-create-an-ai-profile-picture-from-scratch.html</link>
   <description><![CDATA[ 
 
@@ -82,7 +81,6 @@ I'm super impressed with the quality of Dreambooth with <a href="https://twitter
 </item>
 <item>
   <title>Callbacks vs async/await</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/callbacks-vs-async-await.html</link>
   <description><![CDATA[ 
 
@@ -338,7 +336,6 @@ font-style: inherit;">True</span>)</span>
 </item>
 <item>
   <title>How to use NSTableView in SwiftUI</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/how-to-use-nstableview-in-swiftui.html</link>
   <description><![CDATA[ 
 
@@ -1050,7 +1047,6 @@ struct TableView: NSViewRepresentable { # <1>
 </item>
 <item>
   <title>How to setup a GPU notebook server on Google Cloud Platform (GCP)</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html</link>
   <description><![CDATA[ 
 
@@ -1107,7 +1103,6 @@ Shutdown your server when you’re done working
 </item>
 <item>
   <title>How to share terminal demos as razor-sharp animated SVG</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html</link>
   <description><![CDATA[ 
 
@@ -1155,7 +1150,6 @@ font-style: inherit;">--no-optimize</span></span></code></pre></div>
 </item>
 <item>
   <title>Diagnosing an issue with plugin modules, process pools, and the import system</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html</link>
   <description><![CDATA[ 
 
@@ -1477,7 +1471,6 @@ font-style: inherit;">'nbs/nb_with_failing_test.ipynb'</span>)</span></code></pr
 </item>
 <item>
   <title>Update fastai union annotations using ast</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/update-fastai-union-annotations-using-ast.html</link>
   <description><![CDATA[ 
 
@@ -1964,7 +1957,6 @@ font-style: inherit;">=</span> read_nb(f)</span>
 </item>
 <item>
   <title>Compiling Python to C using setuptools and Cython</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/compiling-python-to-c-using-setuptools-and-cython.html</link>
   <description><![CDATA[ 
 
@@ -2007,7 +1999,6 @@ requires = [
 </item>
 <item>
   <title>Creating a minimal custom Jupyter widget</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</link>
   <description><![CDATA[ 
 
@@ -2160,7 +2151,6 @@ define('hello', ["@jupyter-widgets/base"], function(widgets) {
 </item>
 <item>
   <title>Point and click directory navigation inside a Jupyter notebook</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</link>
   <description><![CDATA[ 
 
@@ -2596,7 +2586,6 @@ font-style: inherit;">'~/code/fastai'</span>)</span></code></pre></div>
 </item>
 <item>
   <title>Create and execute cells inside a Jupyter notebook</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/create-and-execute-cells-inside-a-jupyter-notebook.html</link>
   <description><![CDATA[ 
 
@@ -2702,7 +2691,6 @@ font-style: inherit;">'Hello world!'</span>)</span></code></pre></div>
 </item>
 <item>
   <title>Setting up TILs in Pelican</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/setting-up-tils-in-pelican.html</link>
   <description><![CDATA[ 
 
@@ -2877,7 +2865,6 @@ font-style: inherit;">+    server.watch('{}/templates/**/*.html'.format(theme_pa
 </item>
 <item>
   <title>Using Pelican as a library</title>
-  <dc:creator>Wasim Lorgat</dc:creator>
   <link>https://wasimlorgat.com/tils/using-pelican-as-a-library.html</link>
   <description><![CDATA[ 
 
