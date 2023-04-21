@@ -1,12 +1,3 @@
-# options specified here will apply to all posts in this folder
-
-# freeze computational output
-# (see https://quarto.org/docs/projects/code-execution.html#freeze)
-freeze: true
-
-# Enable banner style title blocks
-title-block-banner: false
-
+# Can't yet move this to _quarto.yml because it causes "On this page" to appear on index.html
+# even if I set its post-level `toc: false`
 toc: true
-
-author: Wasim Lorgat

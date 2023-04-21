@@ -42,6 +42,17 @@ format:
     highlight-style: seem.theme
     include-in-header: [analytics-head.html]
     include-after-body: [analytics-body.html]
+    metadata:
+      pagetitle: "{{< meta title >}}"
+      freeze: true
+      # Enable banner style title blocks
+      title-block-banner: false
+      author: Wasim Lorgat
+      # Can't yet enable this because it causes "On this page" to appear on index.html
+      # even if I set its post-level `toc: false`
+      # toc: true
+      toc-expand: true
+      title-block-categories: false
 
 comments:
   giscus: 

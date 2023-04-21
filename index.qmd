@@ -7,9 +7,9 @@ listing:
   feed: true
   filter-ui: false
   sort-ui: false
-author: ''
 comments: false
 description: Recent posts on wasimlorgat.com
+pagetitle: Wasim Lorgat
 ---
 
 <h1 style="margin-bottom: 2rem !important">Hi, I'm Wasim</h1>
