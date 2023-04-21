@@ -3,8 +3,9 @@ project:
   preview:
     port: 4200
   resources:
-    - "*.png"
-    - "*.mp4"
+    - posts/notebook_best_practices.html
+    - posts/notebook-best-practices.html
+    # - "*.png"
 
 website:
   open-graph: true
