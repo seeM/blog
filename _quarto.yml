@@ -5,6 +5,7 @@ project:
   resources:
     - posts/notebook_best_practices.html
     - posts/notebook-best-practices.html
+    # Can't remember what next line was for
     # - "*.png"
 
 website:
@@ -36,6 +37,8 @@ website:
         href: tils/index.xml
 
   site-url: https://wasimlorgat.com
+  repo-url: https://github.com/seem/blog
+  repo-actions: [edit, source, issue]
 
 format:
   html:
