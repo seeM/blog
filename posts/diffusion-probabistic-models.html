@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.333">
+<meta name="generator" content="quarto-1.4.11">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -178,7 +178,7 @@ div.csl-indent {
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/seem/blog/blob/main/posts/diffusion-probabistic-models.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/seem/blog/blob/main/posts/diffusion-probabistic-models.ipynb" class="toc-action">View source</a></p><p><a href="https://github.com/seem/blog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -253,19 +253,19 @@ q(\mathbf x^{(t)}|\mathbf x^{(t-1)}) &amp;= T_\pi(\mathbf x^{(t)} | \mathbf x^{(
 
 </section>
 </section>
-
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>While the authors used the name “diffusion probabilistic models”, they’re more commonly known as “diffusion models” today.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p>It’s often a good idea to peak ahead while reading a scientific paper. In fact, I often find it most useful to jump back and forth many times and very rarely read papers linearly. I was introduced to this and other ideas in the wonderful <a href="https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf"><em>How to Read a Paper</em></a> by Srinivasan Keshav.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</aside>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" role="list">
 <div id="ref-sohl-dickstein_deep_2015" class="csl-entry" role="listitem">
 Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 2015. <span>“Deep Unsupervised Learning Using Nonequilibrium Thermodynamics.”</span> <span>arXiv</span>. <a href="https://doi.org/10.48550/arXiv.1503.03585">https://doi.org/10.48550/arXiv.1503.03585</a>.
 </div>
-</div></section><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
-<ol>
-<li id="fn1"><p>While the authors used the name “diffusion probabilistic models”, they’re more commonly known as “diffusion models” today.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-<li id="fn2"><p>It’s often a good idea to peak ahead while reading a scientific paper. In fact, I often find it most useful to jump back and forth many times and very rarely read papers linearly. I was introduced to this and other ideas in the wonderful <a href="https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf"><em>How to Read a Paper</em></a> by Srinivasan Keshav.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section></div></main> <!-- /main -->
+</div></section></div></main> <!-- /main -->
 <script>
   let links = document.querySelectorAll("a[data-analytics]");
   for (var i = 0; i < links.length; i++) {
@@ -401,6 +401,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, function() {
+      let href = xref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children.length > 2) {
+          for (let i = 0; i < 2; i++) {
+            container.appendChild(note.children[i].cloneNode(true));
+          }
+          return container.innerHTML
+        } else {
+          return note.innerHTML;
+        }
+      } else {
+        return note.innerHTML;
+      }
     });
   }
       let selectedAnnoteEl;

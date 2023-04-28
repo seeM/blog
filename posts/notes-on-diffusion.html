@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.333">
+<meta name="generator" content="quarto-1.4.11">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -205,7 +205,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/seem/blog/blob/main/posts/notes-on-diffusion.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/seem/blog/blob/main/posts/notes-on-diffusion.ipynb" class="toc-action">View source</a></p><p><a href="https://github.com/seem/blog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -444,14 +444,14 @@ p(\mathbf x^{(0\cdots T)}) = \pi(\mathbf x^{(T)}) \prod_{t=1}^T p(\mathbf x^{(t-
 
 
 </section>
-
-
-<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
-
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
 <ol>
 <li id="fn1"><p>It’s often a good idea to peak ahead while reading a scientific paper. In fact, I often find it most useful to jump back and forth many times and very rarely read papers linearly. I was introduced to this and other ideas in the wonderful paper: <a href="https://web.stanford.edu/class/ee384m/Handouts/HowtoReadPaper.pdf">“How to Read a Paper”</a> by Srinivasan Keshav.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
 </ol>
-</section></div></main> <!-- /main -->
+</aside>
+
+</main> <!-- /main -->
 <script>
   let links = document.querySelectorAll("a[data-analytics]");
   for (var i = 0; i < links.length; i++) {
@@ -587,6 +587,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, function() {
+      let href = xref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children.length > 2) {
+          for (let i = 0; i < 2; i++) {
+            container.appendChild(note.children[i].cloneNode(true));
+          }
+          return container.innerHTML
+        } else {
+          return note.innerHTML;
+        }
+      } else {
+        return note.innerHTML;
+      }
     });
   }
       let selectedAnnoteEl;

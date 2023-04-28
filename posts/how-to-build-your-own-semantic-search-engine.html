@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.3.333">
+<meta name="generator" content="quarto-1.4.11">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -191,11 +191,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#convirt-the-medical-foundations-of-clip" id="toc-convirt-the-medical-foundations-of-clip" class="nav-link active" data-scroll-target="#convirt-the-medical-foundations-of-clip">ConVIRT: The medical foundations of CLIP</a></li>
+  <li><a href="#part-1-background" id="toc-part-1-background" class="nav-link active" data-scroll-target="#part-1-background">Part 1: Background</a>
+  <ul class="collapse">
+  <li><a href="#why-do-we-need-semantic-search" id="toc-why-do-we-need-semantic-search" class="nav-link" data-scroll-target="#why-do-we-need-semantic-search">Why do we need semantic search?</a></li>
+  <li><a href="#whats-clip" id="toc-whats-clip" class="nav-link" data-scroll-target="#whats-clip">What’s CLIP?</a></li>
+  <li><a href="#convirt-the-little-known-medical-roots-of-clip" id="toc-convirt-the-little-known-medical-roots-of-clip" class="nav-link" data-scroll-target="#convirt-the-little-known-medical-roots-of-clip">ConVIRT: The little-known medical roots of CLIP</a></li>
+  </ul></li>
+  <li><a href="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset" id="toc-part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset" class="nav-link" data-scroll-target="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a CLIP search engine for the Oxford Pets dataset</a>
+  <ul class="collapse">
   <li><a href="#the-oxford-pets-dataset" id="toc-the-oxford-pets-dataset" class="nav-link" data-scroll-target="#the-oxford-pets-dataset">The Oxford Pets dataset</a></li>
   <li><a href="#using-clip-for-zero-shot-classification" id="toc-using-clip-for-zero-shot-classification" class="nav-link" data-scroll-target="#using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</a></li>
   <li><a href="#using-clip-for-image-retrieval" id="toc-using-clip-for-image-retrieval" class="nav-link" data-scroll-target="#using-clip-for-image-retrieval">Using CLIP for image retrieval</a></li>
+  </ul></li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your turn</a></li>
+  <li><a href="#thanks" id="toc-thanks" class="nav-link" data-scroll-target="#thanks">Thanks</a></li>
   </ul>
 <div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/seem/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/seem/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb" class="toc-action">View source</a></p><p><a href="https://github.com/seem/blog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
@@ -239,37 +248,75 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><img src="images/semantic-search.png" class="img-fluid"></p>
 <p>I built a semantic search engine named <a href="https://meepo.shop">Meepo</a> for a local (South African 🇿🇦) eCommerce store. Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure – along with a touch of good planning – the entire process took me just one week, and it costs me a mere $30 per month to host.</p>
 <p>Honestly, it blows my mind that this is possible. Decades of hard work by some of the brightest minds have enabled us to create and distribute incredible AI-powered products from almost anywhere in the world.</p>
-<p><strong>In this article, I show you how to build your own semantic search engine.</strong></p>
-<p>Let’s start with the little-known roots of the technique underlying semantic search engines like Meepo.</p>
-<section id="convirt-the-medical-foundations-of-clip" class="level2 page-columns page-full">
-<h2 class="anchored" data-anchor-id="convirt-the-medical-foundations-of-clip">ConVIRT: The medical foundations of CLIP</h2>
-<p>Contrastive Language-Image Pretraining (CLIP) serves as the essential building block for powerful semantic search engines like Meepo. Interestingly, the roots of CLIP’s approach can be traced back to the medical domain, where <a href="http://arxiv.org/abs/2010.00747">Zhang et al.&nbsp;(2020)</a> first introduced the concept as Contrastive Visual Representation Learning from Text (ConVIRT). OpenAI later showcased the true power of this method by scaling it up to a dataset that was 2000 times larger.</p>
-<p>As with most machine learning innovations, it all starts with data. High-quality annotations of medical images are expensive to produce, so prior work often involved fine-tuning models pretrained on large image datasets like ImageNet. However, medical images tend to differ significantly from natural images and require discriminating between fine-grained details, making ImageNet a less-than-ideal pretraining target. One workaround has been to craft expert rules for extracting labels from doctors’ textual reports. Although this approach has yielded larger datasets, creating these rules is hardly easier than manual annotation, and they don’t generalize well across domains or writing styles.</p>
-<p>ConVIRT’s key insight was to leverage paired descriptions from doctor’s reports <em>in their natural language format</em>, such as the examples shown below. This approach not only produces larger datasets at a lower cost, but also learns image representations with significantly better transferability to other domains and tasks.</p>
+<p><strong>In this post, I show you how to build your own semantic search engine.</strong></p>
+<p>By the end of the post you’ll be able to search through a dataset of pet images for queries as obscure as “a fluffy pink cat on a tv” – and it’ll work! We’ll get there in two parts:</p>
+<ul>
+<li><strong><a href="#part-1-background">Part 1: Background</a>.</strong> We discuss why you might need semantic search over regular search, how the underlying technique works, and its little-known roots in the medical domain.</li>
+<li><strong><a href="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a search engine for the Oxford Pets dataset</a>.</strong> We build our own CLIP-based semantic search engine from scratch. We use a dataset with a good size and complexity to demonstrate the power of CLIP without slowing down iteration. However, I urge you to try it out on your own dataset too!</li>
+</ul>
+<section id="part-1-background" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="part-1-background">Part 1: Background</h2>
+<section id="why-do-we-need-semantic-search" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-need-semantic-search">Why do we need semantic search?</h3>
+<p>I built Meepo out of frustration with existing search engines. I needed a fork, so naturally I tried to search “fork” on my favourite online store… but the result contained only 4 items – none of which resemble a fork at all!</p>
+<p><img src="images/normal-fork.png" class="img-fluid"></p>
+<p>It turns out, you have to search “cutlery” instead, because that’s how the items happen to be tagged in the store’s catalogue.</p>
+<p>On the other hand, here are the first few results with Meepo. So many forks!</p>
+<p><img src="images/semantic-fork.png" class="img-fluid"></p>
+<p>Not only can you find forks, you can also use colors, textures, patterns, and more!</p>
+<p>For example, here is the top search result for “fluffy striped salmon pillow”:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/meepo-convirt-examples.png" class="img-fluid figure-img" width="400"></p>
-<figcaption class="figure-caption">X-ray images with naturally occurring paired descriptions from doctor’s reports. Source: Figure 1 of Zhang et al., 2020</figcaption>
+<p><img src="images/fluffy-striped-salmon-pillow.png" class="img-fluid figure-img" width="200"></p>
 </figure>
 </div>
-<p>The idea is to pretrain a neural network to predict the most relevant text snippet given an image and vice versa. However, we use a <em>contrastive</em> rather than <em>predictive</em> objective. What does that mean?</p>
-<p>A predictive object might take the image as input and try to predict label indicating the corresponding text snippet.</p>
-<p>On the other hand, a constrative objective would instead predict a vector for each image and another vector for each text snippet; these vectors are called <em>embeddings</em>. It would learn to produce embeddings that maximize the cosine similarity of the correct pair (i.e.&nbsp;the image embedding and its corresponding text embedding) and minimizing that of the remaining pairs (i.e.&nbsp;the image embedding and embeddings of other random text snippets from the dataset).</p>
-<div class="page-columns page-full"><p>It turns out that contrastive objectives learn representations that transfer much more efficiently than predictive objectives. For instance, OpenAI found that a contrastive objective reached the same zero-shot ImageNet accuracy<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> as the predictive objective while using 4x fewer training examples.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Zero-shot means that a model was not trained on any examples from a given dataset. In this case, “zero-shot ImageNet accuracy” refers to the accuracy obtained without training on any ImageNet examples.</p></li></div></div>
+<p>Incredible! And even more incredible is how easy it was to build thanks to a powerful and open-source technology: contrastive language-image pretraining.</p>
+<!-- TODO: Keep?
+
+Now I'm not claiming that semantic search is a silver bullet. If you're searching for a very specific item, say by brand or model, conventional search is likely to get you to the right answer quicker. But when we're shopping for clothing we often have a much more vague idea of what we're looking for. It turns out that semantic search is a great fit for this! For example, we can use queries like "james bond wedding suit" or "wednesday addams halloween costume" and find great candidates. -->
+</section>
+<section id="whats-clip" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="whats-clip">What’s CLIP?</h3>
+<div class="page-columns page-full"><p>Contrastive Language-Image Pretraining (CLIP) is a technique for training neural networks that beat the state-of-the-art zero-shot performance on a variety of tasks using mixed image and text data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> By “zero-shot” we mean that the model was not trained on any examples from a given dataset.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Fast forward two years and CLIP has been dethroned several times. Most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>, which builds on top of off-the-shelf models instead of training from scratch.</p></li></div></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clip-training.png" class="img-fluid figure-img" width="600"></p>
 <figcaption class="figure-caption">A visualization of the contrastive language-image pretraining approach. Source: <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a> by OpenAI.</figcaption>
 </figure>
 </div>
-<div class="page-columns page-full"><p>The retrieval pretraining task was originally chosen for its ability to learn useful representations for downstream tasks<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>, however, ConVIRT still achieved state-of-the-art performance at the retrieval task itself. This key finding is what lets us create a simple yet powerful semantic search engine like Meepo, given access to a dataset of only images without paired queries.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;“Downstream tasks” refer to tasks that are performed using the learned representations from a pretrained model. These tasks can include image classification, object detection, and semantic search, among others.</p></li></div></div>
-<div class="page-columns page-full"><p>Although ConVIRT has shown promise, it was trained on far fewer examples than most modern deep learning models. For instance, ImageNet has around 1.2 million training examples, which is 6000 times more than ConVIRT’s dataset. However, OpenAI’s <a href="https://openai.com/blog/clip/">CLIP</a> has applied a more training-efficient version of ConVIRT to a dataset of 400 million image-text pairs collected from the internet, which is 2000 times more examples than ConVIRT’s original dataset. CLIP achieved state-of-the-art zero-shot ImageNet accuracy as well as zero-shot text-to-image retrieval accuracy on the Flickr30k dataset.<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn3"><p><sup>3</sup>&nbsp;Fast forward two years and CLIP has been dethroned several times. Most recently, by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a> which builds on top of frozen off-the-shelf pretrained vision and language models instead of training from scratch.</p></li></div></div>
-<p>The CLIP <a href="https://github.com/openai/CLIP">model code and weights</a> are available for anyone to use. This has allowed other innovations, like <a href="https://stability.ai/blog/stable-diffusion-public-release">Stable Diffusion</a>, a state-of-the-art image algorithm, to use it as well. However, the dataset used to train CLIP, called WebImageText, has not been released by OpenAI. Fortunately, the machine learning community has trained the <a href="https://github.com/mlfoundations/open_clip">OpenCLIP</a> model from scratch on public datasets, achieving similar accuracy to CLIP.</p>
-<p>Now that we have some background on CLIP and its impressive zero-shot text-to-image retrieval capabilities, how do we actually use it to create a semantic search engine like Meepo?</p>
+<p>The idea is to pretrain a neural network to predict the most relevant text snippet given an image and vice versa.</p>
+<p><strong>But the trick is to use a <em>contrastive</em> rather than predictive objective.</strong></p>
+<p>What does that mean?</p>
+<p>A predictive objective takes an input image and tries to predict its corresponding text snippet.</p>
+<div class="page-columns page-full"><p>On the other hand, a contrastive objective predicts a vector<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for each image and another vector for each text snippet; these vectors are called <em>embeddings</em>. It does so in such a way that corresponding image and text vectors are more <em>similar</em> (according to some chosen similarity function) and non-corresponding image and text vectors are less similar.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;<em>Vectors</em> are well-studied mathematical objects, however, it’s often sufficient to think of a vector as a list of numbers.</p></li></div></div>
+<p>OpenAI found that a contrastive objective reached the same zero-shot ImageNet accuracy as the predictive objective while using 4x fewer training examples!</p>
 </section>
-<section id="the-oxford-pets-dataset" class="level2">
-<h2 class="anchored" data-anchor-id="the-oxford-pets-dataset">The Oxford Pets dataset</h2>
-<p>Let’s use CLIP to create a text-to-image search engine for the Oxford Pets dataset.</p>
+<section id="convirt-the-little-known-medical-roots-of-clip" class="level3">
+<h3 class="anchored" data-anchor-id="convirt-the-little-known-medical-roots-of-clip">ConVIRT: The little-known medical roots of CLIP</h3>
+<p>A little-known fact is that CLIP is a scaled up version of another technique called ConVIRT <a href="https://arxiv.org/abs/2010.00747">(Zhang et al.&nbsp;2020)</a>, which demonstrated the approach on 217k medical image-text pairs (~2000x fewer than CLIP).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/meepo-convirt-examples.png" class="img-fluid figure-img" width="400"></p>
+<figcaption class="figure-caption">X-ray images with naturally occurring paired descriptions from doctor’s reports. Source: Figure 1 of Zhang et al., 2020</figcaption>
+</figure>
+</div>
+<p>Despite being acknowledged in the CLIP paper, I hadn’t heard of ConVIRT until I read the CLIP paper myself:</p>
+<blockquote class="blockquote">
+<p><strong>[…] we create a new dataset of 400 million (image, text) pairs and demonstrate that a simplified version of ConVIRT trained from scratch, which we call CLIP, for Contrastive Language-image Pre-training, is an efficient method of learning from natural language supervision.</strong></p>
+</blockquote>
+<p>As with most machine learning innovations, <a href="https://vicki.substack.com/p/neural-nets-are-just-people-all-the">it all starts with data</a>. High-quality annotations of medical images are expensive to make.</p>
+<p><strong>ConVIRT’s key insight was to mine doctor’s reports <em>in their natural language format</em> for image-text pairs.</strong></p>
+<p>OpenAI’s later contribution was largely an engineering effort. They scaled ConVIRT up to a dataset 2000x larger – 400 million examples in total! This is of course a mighty task which I don’t mean to understate either.</p>
+<p>Now that we have some background on CLIP and its impressive zero-shot capabilities, how do we actually use it to create a semantic search engine like Meepo?</p>
+</section>
+</section>
+<section id="part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a CLIP search engine for the Oxford Pets dataset</h2>
+<p>In this section, we’ll build our own CLIP-based semantic search engine on the Oxford Pets dataset.</p>
+<p>I chose the Oxford Pets dataset since it’s a good size and complexity to demonstrate the power of CLIP, but I urge you to try this out on your own dataset too.</p>
+<p>We’ll do this in two parts. First, we’ll use CLIP as a convenient zero-shot classifier, and then we’ll show how search requires even fewer steps. By the end of the section you will be able to search for queries as obscure as “a fluffy pink cat on a tv” – and it’ll work!</p>
+<section id="the-oxford-pets-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="the-oxford-pets-dataset">The Oxford Pets dataset</h3>
 <p>First install these required libraries:</p>
 <ul>
 <li><a href="https://huggingface.co/docs/datasets/index">HuggingFace Datasets</a>: easily access and share datasets for a variety of machine learning tasks</li>
@@ -311,8 +358,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
-<section id="using-clip-for-zero-shot-classification" class="level2">
-<h2 class="anchored" data-anchor-id="using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</h2>
+<section id="using-clip-for-zero-shot-classification" class="level3">
+<h3 class="anchored" data-anchor-id="using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</h3>
 <p>Now that we have a dataset, we can load the CLIP processor and model. The concept of having a separate <em>processor</em> and <em>model</em> is central to the HuggingFace Transformers library, since it allows us to use 174 state-of-the-art models (as of writing this article) with a very similar API.</p>
 <p>Note that it might take a minute to download the pretrained weights:</p>
 <div class="cell">
@@ -426,8 +473,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>It works – and it’s super convenient too!</p>
 </section>
-<section id="using-clip-for-image-retrieval" class="level2">
-<h2 class="anchored" data-anchor-id="using-clip-for-image-retrieval">Using CLIP for image retrieval</h2>
+<section id="using-clip-for-image-retrieval" class="level3">
+<h3 class="anchored" data-anchor-id="using-clip-for-image-retrieval">Using CLIP for image retrieval</h3>
 <p>Using CLIP for search is not too different from using it for zero-shot classification. In fact, search is even simpler! We don’t need to calculate probabilities since we ultimately only care about the order of items:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search(image_embs, query_embs):</span>
@@ -504,8 +551,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>It always surprises me how well this works! 🤯</p>
-<p>And once again, it’s super flexible. For example, all we need to change in order to use an image query is to pass the image’s embeddings into our <code>search</code> function!</p>
-<p>Let’s find the top 5 most similar images to our fluffy white persian</p>
+<p>And once again, it’s super flexible. For example, all we need to change in order to use an image query is to pass the image’s embeddings instead of text embeddings!</p>
 <p>Let’s find the most similar images to our fluffy white persian cat from earlier:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_image(cat_image))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -520,14 +566,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </section>
+</section>
 <section id="your-turn" class="level2">
 <h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
 <p>Now it’s your turn. Dive into <a href="https://github.com/seeM/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb">the accompanying notebook</a> for this post and give it a try with your own dataset!</p>
-<p>If you found this enjoyable, consider giving it a thumbs up below and following me <a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span> on Twitter</a>, where I share similar content in more digestible, bite-sized pieces. For instance, I’m currently developing my own <a href="https://twitter.com/wasimlorgat/status/1611615676220817415?s=20">native macOS Jupyter frontend</a>—the very tool I used to create this notebook.</p>
+<p><strong>If you found this enjoyable, consider giving it a thumbs up below, commenting, and following me <a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span> on Twitter</a>. The positive feedback really helps me get a sense of what readers find valuable!</strong></p>
+</section>
+<section id="thanks" class="level2">
+<h2 class="anchored" data-anchor-id="thanks">Thanks</h2>
+<p>Many thanks to <a href="https://twitter.com/kurianbenoy2">Kurian Benoy</a> for his kind and thoughtful comments on early versions of this post.</p>
 
 
 </section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
 
+
+</ol>
+</aside>
 
 </main> <!-- /main -->
 <script>
@@ -665,6 +722,30 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
       return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, function() {
+      let href = xref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children.length > 2) {
+          for (let i = 0; i < 2; i++) {
+            container.appendChild(note.children[i].cloneNode(true));
+          }
+          return container.innerHTML
+        } else {
+          return note.innerHTML;
+        }
+      } else {
+        return note.innerHTML;
+      }
     });
   }
       let selectedAnnoteEl;
