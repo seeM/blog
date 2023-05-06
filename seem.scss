@@ -25,7 +25,7 @@ $orange:  #fd7e14 !default;
 $yellow:  #f5e625 !default;
 $green:   #22b24c !default;
 $teal:    #20c997 !default;
-$cyan:    #369 !default;
+$cyan:    #369000 !default;
 
 $primary:       $blue !default;
 $secondary:     $gray-500 !default;
@@ -230,6 +230,11 @@ h3 {
   font-weight: bold;
 }
 
+h4 {
+  font-size: 16px;
+  margin-bottom: 1em;
+}
+
 kbd { padding: 0.1rem; }
 
 nav ul li img, p img { border-radius: 0.25rem; }
@@ -280,4 +285,50 @@ $colors: ("blue": $blue,
     float: right;
     padding-left: 20px;
   }
+}
+
+.callout.callout-style-default {
+  border-top: none;
+  border-bottom: none;
+  border-right: none;
+}
+
+.callout.callout-style-default:not(.no-icon) div.callout-icon-container {
+  padding-right: 0.5em;
+}
+
+.callout {
+  padding: 0.5em;
+}
+
+.callout.callout-titled>.callout-header {
+  margin-bottom: 1em;
+}
+
+div.callout-note.callout-style-default>.callout-header,
+div.callout-warning.callout-style-default>.callout-header,
+div.callout-important.callout-style-default>.callout-header,
+div.callout-tip.callout-style-default>.callout-header,
+{
+  background-color: transparent;
+}
+
+div.callout-note.callout {
+  border-left-color: #{$info}7F; // 7F = 50% opacity, via https://stackoverflow.com/a/8254129
+  background-color: #{$info}19; // 19 = 10% opacity, via https://stackoverflow.com/a/8254129
+}
+
+div.callout-warning.callout {
+  border-left-color: #{$warning}7F; // 7F = 50% opacity, via https://stackoverflow.com/a/8254129
+  background-color: #{$warning}19; // 19 = 10% opacity, via https://stackoverflow.com/a/8254129
+}
+
+div.callout-important.callout {
+  border-left-color: #{$danger}7F; // 7F = 50% opacity, via https://stackoverflow.com/a/8254129
+  background-color: #{$danger}19; // 19 = 10% opacity, via https://stackoverflow.com/a/8254129
+}
+
+div.callout-tip.callout {
+  border-left-color: #{$success}7F; // 7F = 50% opacity, via https://stackoverflow.com/a/8254129
+  background-color: #{$success}19; // 19 = 10% opacity, via https://stackoverflow.com/a/8254129
 }

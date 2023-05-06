@@ -55,8 +55,8 @@ format:
       # Can't yet enable this because it causes "On this page" to appear on index.html
       # even if I set its post-level `toc: false`
       # toc: true
-      toc-expand: true
       title-block-categories: false
+      toc-depth: 5
 
 comments:
   giscus: 
