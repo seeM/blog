@@ -2,15 +2,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.14">
+<meta name="generator" content="quarto-1.4.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
 <meta name="dcterms.date" content="2023-04-20">
-<meta name="description" content="Leverage open-source AI to create a simple yet powerful semantic search engine.">
+<meta name="description" content="Leverage open-source AI to create a powerful vector search engine with ease.">
 
-<title>How to build your own semantic search engine</title>
+<title>How to build your own vector search engine</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -103,15 +103,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
 
 
-<meta property="og:title" content="How to build your own semantic search engine">
-<meta property="og:description" content="Leverage open-source AI to create a simple yet powerful semantic search engine.">
-<meta property="og:image" content="https://wasimlorgat.com/posts/images/semantic-search.png">
+<meta property="og:title" content="How to build your own vector search engine">
+<meta property="og:description" content="Leverage open-source AI to create a powerful vector search engine with ease.">
+<meta property="og:image" content="https://wasimlorgat.com/posts/images/vector-search.png">
 <meta property="og:site-name" content="Wasim Lorgat">
 <meta property="og:image:height" content="900">
 <meta property="og:image:width" content="1600">
-<meta name="twitter:title" content="How to build your own semantic search engine">
-<meta name="twitter:description" content="Leverage open-source AI to create a simple yet powerful semantic search engine.">
-<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/semantic-search.png">
+<meta name="twitter:title" content="How to build your own vector search engine">
+<meta name="twitter:description" content="Leverage open-source AI to create a powerful vector search engine with ease.">
+<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/vector-search.png">
 <meta name="twitter:creator" content="@wasimlorgat">
 <meta name="twitter:site" content="@wasimlorgat">
 <meta name="twitter:image-height" content="900">
@@ -187,38 +187,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
   <li><a href="#part-1-background" id="toc-part-1-background" class="nav-link active" data-scroll-target="#part-1-background">Part 1: Background</a>
-  <ul class="collapse">
-  <li><a href="#why-do-we-need-semantic-search" id="toc-why-do-we-need-semantic-search" class="nav-link" data-scroll-target="#why-do-we-need-semantic-search">Why do we need semantic search?</a></li>
+  <ul>
+  <li><a href="#why-do-we-need-vector-search" id="toc-why-do-we-need-vector-search" class="nav-link" data-scroll-target="#why-do-we-need-vector-search">Why do we need vector search?</a></li>
   <li><a href="#whats-clip" id="toc-whats-clip" class="nav-link" data-scroll-target="#whats-clip">What’s CLIP?</a></li>
   <li><a href="#convirt-the-little-known-medical-roots-of-clip" id="toc-convirt-the-little-known-medical-roots-of-clip" class="nav-link" data-scroll-target="#convirt-the-little-known-medical-roots-of-clip">ConVIRT: The little-known medical roots of CLIP</a></li>
   </ul></li>
   <li><a href="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset" id="toc-part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset" class="nav-link" data-scroll-target="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a CLIP search engine for the Oxford Pets dataset</a>
-  <ul class="collapse">
+  <ul>
   <li><a href="#the-oxford-pets-dataset" id="toc-the-oxford-pets-dataset" class="nav-link" data-scroll-target="#the-oxford-pets-dataset">The Oxford Pets dataset</a></li>
   <li><a href="#using-clip-for-zero-shot-classification" id="toc-using-clip-for-zero-shot-classification" class="nav-link" data-scroll-target="#using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</a></li>
-  <li><a href="#using-clip-for-image-retrieval" id="toc-using-clip-for-image-retrieval" class="nav-link" data-scroll-target="#using-clip-for-image-retrieval">Using CLIP for image retrieval</a></li>
+  <li><a href="#using-clip-for-text-to-image-search" id="toc-using-clip-for-text-to-image-search" class="nav-link" data-scroll-target="#using-clip-for-text-to-image-search">Using CLIP for text-to-image search</a></li>
+  </ul></li>
+  <li><a href="#part-3-tips-for-deploying-your-search-engine" id="toc-part-3-tips-for-deploying-your-search-engine" class="nav-link" data-scroll-target="#part-3-tips-for-deploying-your-search-engine">Part 3: Tips for deploying your search engine</a>
+  <ul>
+  <li><a href="#how-meepo-works" id="toc-how-meepo-works" class="nav-link" data-scroll-target="#how-meepo-works">How Meepo works</a>
+  <ul>
+  <li><a href="#tech-stack" id="toc-tech-stack" class="nav-link" data-scroll-target="#tech-stack">Tech stack</a></li>
+  <li><a href="#infrastructure" id="toc-infrastructure" class="nav-link" data-scroll-target="#infrastructure">Infrastructure</a></li>
+  </ul></li>
+  <li><a href="#choosing-boring-tech" id="toc-choosing-boring-tech" class="nav-link" data-scroll-target="#choosing-boring-tech">Choosing boring tech</a>
+  <ul>
+  <li><a href="#boring-tech-is-old-because-it-works" id="toc-boring-tech-is-old-because-it-works" class="nav-link" data-scroll-target="#boring-tech-is-old-because-it-works">Boring tech is old, because it works</a></li>
+  <li><a href="#try-learning-new-process-instead-of-new-tech" id="toc-try-learning-new-process-instead-of-new-tech" class="nav-link" data-scroll-target="#try-learning-new-process-instead-of-new-tech">Try learning new process instead of new tech</a></li>
+  <li><a href="#deviating-from-what-works" id="toc-deviating-from-what-works" class="nav-link" data-scroll-target="#deviating-from-what-works">Deviating from what works</a></li>
+  </ul></li>
+  <li><a href="#being-a-responsible-digital-citizen" id="toc-being-a-responsible-digital-citizen" class="nav-link" data-scroll-target="#being-a-responsible-digital-citizen">Being a responsible digital citizen</a></li>
   </ul></li>
   <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your turn</a></li>
-  <li><a href="#thanks" id="toc-thanks" class="nav-link" data-scroll-target="#thanks">Thanks</a></li>
   </ul>
-<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/seem/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/seem/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb" class="toc-action">View source</a></p><p><a href="https://github.com/seem/blog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/seem/blog/blob/main/posts/how-to-build-your-own-vector-search-engine.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/seem/blog/blob/main/posts/how-to-build-your-own-vector-search-engine.ipynb" class="toc-action">View source</a></p><p><a href="https://github.com/seem/blog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
     </div>
 <!-- main -->
 <main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">How to build your own semantic search engine</h1>
+<h1 class="title">How to build your own vector search engine</h1>
   </div>
 
 <div>
   <div class="description">
-    Leverage open-source AI to create a simple yet powerful semantic search engine.
+    Leverage open-source AI to create a powerful vector search engine with ease.
   </div>
 </div>
 
@@ -245,39 +259,40 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<p><img src="images/semantic-search.png" class="img-fluid"></p>
-<p>I built a semantic search engine named <a href="https://meepo.shop">Meepo</a> for a local (South African 🇿🇦) eCommerce store. Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure – along with a touch of good planning – the entire process took me just one week, and it costs me a mere $30 per month to host.</p>
+<p><img src="images/vector-search.png" class="preview-image img-fluid"></p>
+<p>I built a vector search engine named <a href="https://meepo.shop">Meepo</a> for a local (South African 🇿🇦) eCommerce store. Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure – along with a touch of good planning – the entire process took me just one week, and it costs me a mere $30 per month to host.</p>
 <p>Honestly, it blows my mind that this is possible. Decades of hard work by some of the brightest minds have enabled us to create and distribute incredible AI-powered products from almost anywhere in the world.</p>
-<p><strong>In this post, I show you how to build your own semantic search engine.</strong></p>
-<p>By the end of the post you’ll be able to search through a dataset of pet images for queries as obscure as “a fluffy pink cat on a tv” – and it’ll work! We’ll get there in two parts:</p>
+<p><strong>In this post, I show you how to build your own vector search engine.</strong></p>
+<p>By the end of the post you’ll be able to search through a dataset of pet images for queries as obscure as “a fluffy pink cat on a tv” – and it’ll work! You’ll also have a concrete idea of how to structure and deploy your own search engine.</p>
+<p>We’ll get there in three parts:</p>
 <ul>
-<li><strong><a href="#part-1-background">Part 1: Background</a>.</strong> We discuss why you might need semantic search over regular search, how the underlying technique works, and its little-known roots in the medical domain.</li>
-<li><strong><a href="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a search engine for the Oxford Pets dataset</a>.</strong> We build our own CLIP-based semantic search engine from scratch. We use a dataset with a good size and complexity to demonstrate the power of CLIP without slowing down iteration. However, I urge you to try it out on your own dataset too!</li>
+<li><strong><a href="#part-1-background">Part 1: Background</a>.</strong> We discuss why you might need vector search over regular search, how the underlying technology works, and its little-known roots in the medical domain.</li>
+<li><strong><a href="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a search engine for the Oxford Pets dataset</a>.</strong> We build the core of our own vector search engine from scratch. We use a dataset with a good size and complexity to demonstrate the power of the technique without slowing down iteration. However, I urge you to try it out on your own dataset too!</li>
+<li><strong><a href="#part-3-tips-for-deploying-your-search-engine">Part 3: Tips for deploying your search engine</a>.</strong> I share how Meepo is architected and deployed, as well as a few tips that you might find helpful to ship your search engine quickly and cheaply.</li>
 </ul>
 <section id="part-1-background" class="level2 page-columns page-full">
 <h2 class="anchored" data-anchor-id="part-1-background">Part 1: Background</h2>
-<section id="why-do-we-need-semantic-search" class="level3">
-<h3 class="anchored" data-anchor-id="why-do-we-need-semantic-search">Why do we need semantic search?</h3>
-<p>I built Meepo out of frustration with existing search engines. I needed a fork, so naturally I tried to search “fork” on my favourite online store… but the result contained only 4 items – none of which resemble a fork at all!</p>
+<section id="why-do-we-need-vector-search" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-need-vector-search">Why do we need vector search?</h3>
+<p>I built Meepo out of frustration with existing search engines. I needed a fork, so naturally I tried to search for “fork” on my favourite online store, but the result contained only 4 items – none of which resemble a fork at all!</p>
 <p><img src="images/normal-fork.png" class="img-fluid"></p>
-<p>It turns out, you have to search “cutlery” instead, because that’s how the items happen to be tagged in the store’s catalogue.</p>
+<p>It turns out, I had to search “cutlery” instead, because that’s how the items happen to be tagged in the store’s catalogue.</p>
 <p>On the other hand, here are the first few results with Meepo. So many forks!</p>
-<p><img src="images/semantic-fork.png" class="img-fluid"></p>
-<p>Not only can you find forks, you can also use colors, textures, patterns, and more!</p>
+<p><img src="images/vector-fork.png" class="img-fluid"></p>
+<p><strong>Why the difference?</strong></p>
+<p>Whereas conventional search engines work by matching the text in your query with labels attached to each image, modern semantic search engines leverage neural networks for a deeper understanding of what’s represented by the pixels in the image and the text in their labels.</p>
+<p>This means that queries like “fork” work, regardless of how each item is labelled. It also means that you can get far more creative with your queries, including colors, textures, patterns, and more!</p>
 <p>For example, here is the top search result for “fluffy striped salmon pillow”:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/fluffy-striped-salmon-pillow.png" class="img-fluid figure-img" width="200"></p>
 </figure>
 </div>
-<p>Incredible! And even more incredible is how easy it was to build thanks to a powerful and open-source technology: contrastive language-image pretraining.</p>
-<!-- TODO: Keep?
-
-Now I'm not claiming that semantic search is a silver bullet. If you're searching for a very specific item, say by brand or model, conventional search is likely to get you to the right answer quicker. But when we're shopping for clothing we often have a much more vague idea of what we're looking for. It turns out that semantic search is a great fit for this! For example, we can use queries like "james bond wedding suit" or "wednesday addams halloween costume" and find great candidates. -->
+<p>Incredible! And even more incredible is how easy it is to build your own such vector search engine thanks to a powerful and open-source technology: Contrastive Language-Image Pretraining (CLIP).</p>
 </section>
 <section id="whats-clip" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="whats-clip">What’s CLIP?</h3>
-<div class="page-columns page-full"><p>Contrastive Language-Image Pretraining (CLIP) is a technique for training neural networks that beat the state-of-the-art zero-shot performance on a variety of tasks using mixed image and text data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> By “zero-shot” we mean that the model was not trained on any examples from a given dataset.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;Fast forward two years and CLIP has been dethroned several times. Most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>, which builds on top of off-the-shelf models instead of training from scratch.</p></li></div></div>
+<div class="page-columns page-full"><p>Contrastive Language-Image Pretraining (CLIP) is a technique for training neural networks with state-of-the-art zero-shot performance on a variety of tasks using mixed image and text data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> By “zero-shot” we mean that the model was not trained on any examples from a given dataset.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;While CLIP has been dethroned several times in the last two years (most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>), it is still notable for introducing a step change improvement in the power of zero-shot multimodal techniques.</p></li></div></div>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clip-training.png" class="img-fluid figure-img" width="600"></p>
@@ -285,28 +300,28 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 </figure>
 </div>
 <p>The idea is to pretrain a neural network to predict the most relevant text snippet given an image and vice versa.</p>
-<p><strong>But the trick is to use a <em>contrastive</em> rather than predictive objective.</strong></p>
+<p><strong>But the trick is to use a <em>contrastive</em> rather than a predictive objective.</strong></p>
 <p>What does that mean?</p>
 <p>A predictive objective takes an input image and tries to predict its corresponding text snippet.</p>
-<div class="page-columns page-full"><p>On the other hand, a contrastive objective predicts a vector<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a> for each image and another vector for each text snippet; these vectors are called <em>embeddings</em>. It does so in such a way that corresponding image and text vectors are more <em>similar</em> (according to some chosen similarity function) and non-corresponding image and text vectors are less similar.</p><div class="no-row-height column-margin column-container"><li id="fn2"><p><sup>2</sup>&nbsp;<em>Vectors</em> are well-studied mathematical objects, however, it’s often sufficient to think of a vector as a list of numbers.</p></li></div></div>
+<p>On the other hand, a contrastive objective predicts a vector for each image and another vector for each text snippet; these vectors are called <em>embeddings</em>. It does so in such a way that corresponding image and text vectors are more <em>similar</em> (according to some chosen similarity function) and non-corresponding image and text vectors are less similar.</p>
 <p>OpenAI found that a contrastive objective reached the same zero-shot ImageNet accuracy as the predictive objective while using 4x fewer training examples!</p>
 </section>
 <section id="convirt-the-little-known-medical-roots-of-clip" class="level3">
 <h3 class="anchored" data-anchor-id="convirt-the-little-known-medical-roots-of-clip">ConVIRT: The little-known medical roots of CLIP</h3>
-<p>A little-known fact is that CLIP is a scaled up version of another technique called ConVIRT <a href="https://arxiv.org/abs/2010.00747">(Zhang et al.&nbsp;2020)</a>, which demonstrated the approach on 217k medical image-text pairs (~2000x fewer than CLIP).</p>
+<p>Interestingly, the technique described above was originally introduced as ConVIRT <a href="https://arxiv.org/abs/2010.00747">(Zhang et al.&nbsp;2020)</a>, which demonstrated the approach on 217k medical image-text pairs (~2000x fewer than CLIP).</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/meepo-convirt-examples.png" class="img-fluid figure-img" width="400"></p>
 <figcaption class="figure-caption">X-ray images with naturally occurring paired descriptions from doctor’s reports. Source: Figure 1 of Zhang et al., 2020</figcaption>
 </figure>
 </div>
-<p>Despite being acknowledged in the CLIP paper, I hadn’t heard of ConVIRT until I read the CLIP paper myself:</p>
+<p>Despite being acknowledged in the <a href="https://arxiv.org/abs/2103.00020">CLIP paper</a>, I hadn’t heard of ConVIRT until I read the CLIP paper myself:</p>
 <blockquote class="blockquote">
-<p><strong>[…] we create a new dataset of 400 million (image, text) pairs and demonstrate that a simplified version of ConVIRT trained from scratch, which we call CLIP, for Contrastive Language-image Pre-training, is an efficient method of learning from natural language supervision.</strong></p>
+<p><strong>[…] we create a new dataset of 400 million (image, text) pairs and demonstrate that <span class="hl-yellow">a simplified version of ConVIRT trained from scratch, which we call CLIP</span>, for Contrastive Language-image Pre-training, is an efficient method of learning from natural language supervision.</strong></p>
 </blockquote>
 <p>As with most machine learning innovations, <a href="https://vicki.substack.com/p/neural-nets-are-just-people-all-the">it all starts with data</a>. High-quality annotations of medical images are expensive to make.</p>
 <p><strong>ConVIRT’s key insight was to mine doctor’s reports <em>in their natural language format</em> for image-text pairs.</strong></p>
-<p>OpenAI’s later contribution was largely an engineering effort. They scaled ConVIRT up to a dataset 2000x larger – 400 million examples in total! This is of course a mighty task which I don’t mean to understate either.</p>
+<p>OpenAI’s later contribution was largely an engineering effort. They scaled ConVIRT up to a 2000x larger dataset—400 million examples in total! Of course, that itself is a mighty task.</p>
 <p>Now that we have some background on CLIP and its impressive zero-shot capabilities, how do we actually use it to create a semantic search engine like Meepo?</p>
 </section>
 </section>
@@ -314,47 +329,52 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 <h2 class="anchored" data-anchor-id="part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a CLIP search engine for the Oxford Pets dataset</h2>
 <p>In this section, we’ll build our own CLIP-based semantic search engine on the Oxford Pets dataset.</p>
 <p>I chose the Oxford Pets dataset since it’s a good size and complexity to demonstrate the power of CLIP, but I urge you to try this out on your own dataset too.</p>
-<p>We’ll do this in two parts. First, we’ll use CLIP as a convenient zero-shot classifier, and then we’ll show how search requires even fewer steps. By the end of the section you will be able to search for queries as obscure as “a fluffy pink cat on a tv” – and it’ll work!</p>
+<p>We’ll do this in two steps:</p>
+<ul>
+<li>First, we’ll use CLIP as a convenient zero-shot classifier.</li>
+<li>Then we’ll show how to use the same underlying functions for text-to-image search.</li>
+</ul>
+<p>By the end of the section you will be able to search for queries as obscure as “a fluffy pink cat on a tv” – and it’ll work!</p>
 <section id="the-oxford-pets-dataset" class="level3">
 <h3 class="anchored" data-anchor-id="the-oxford-pets-dataset">The Oxford Pets dataset</h3>
 <p>First install these required libraries:</p>
 <ul>
-<li><a href="https://huggingface.co/docs/datasets/index">HuggingFace Datasets</a>: easily access and share datasets for a variety of machine learning tasks</li>
+<li><a href="https://huggingface.co/docs/datasets/index">HuggingFace Datasets</a>: easily access and share datasets for a variety of machine learning tasks.</li>
 <li><a href="https://huggingface.co/docs/transformers/index">HuggingFace Transformers</a>: easily download, train, and use state-of-the-art pretrained neural networks.</li>
 </ul>
-<div class="cell">
+<div id="9b63e71e" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install datasets transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then load the <a href="https://huggingface.co/datasets/pcuenq/oxford-pets">Oxford Pets</a> dataset – thanks to <a href="https://twitter.com/pcuenq">Pedro Cuenqa</a> for uploading it:</p>
-<div class="cell">
+<div id="5836b0e4" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> load_dataset(<span class="st">"pcuenq/oxford-pets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>One of the most important rules of machine learning is to always look at the data. This is quite easy with images, since we can just show the image.</p>
 <p>Let’s define a helper function to show thumbnails of an image:</p>
-<div class="cell">
+<div id="ddfa65b5" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> thumbnail(image, scale<span class="op">=</span><span class="dv">3</span>):</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> image.resize(np.array(image.size)<span class="op">//</span>scale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s an example of a cat:</p>
-<div class="cell">
+<div id="c7a5e0e6" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cat_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">15</span>]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cat_image <span class="op">=</span> cat_row[<span class="st">'image'</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>thumbnail(cat_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 <p>… and here’s an example of a dog:</p>
-<div class="cell">
+<div id="aba2e5af" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dog_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">10</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dog_image <span class="op">=</span> dog_row[<span class="st">'image'</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>thumbnail(dog_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
 </div>
 </div>
 </section>
@@ -362,14 +382,14 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 <h3 class="anchored" data-anchor-id="using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</h3>
 <p>Now that we have a dataset, we can load the CLIP processor and model. The concept of having a separate <em>processor</em> and <em>model</em> is central to the HuggingFace Transformers library, since it allows us to use 174 state-of-the-art models (as of writing this article) with a very similar API.</p>
 <p>Note that it might take a minute to download the pretrained weights:</p>
-<div class="cell">
+<div id="e16641de" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> CLIPProcessor, CLIPModel</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>processor <span class="op">=</span> CLIPProcessor.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> CLIPModel.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>CLIPProcessor</code> prepares the inputs for the <code>CLIPModel</code> which can then be used to obtain embedding vectors. Let’s create a function to embed an image by first passing it through the processor and then into the model:</p>
-<div class="cell">
+<div id="4279de40" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_image(images):</span>
@@ -378,7 +398,7 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_image_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Test that it works:</p>
-<div class="cell">
+<div id="3aa69621" class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>images <span class="op">=</span> [cat_image, dog_image]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>image_embs <span class="op">=</span> embed_image(images)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>image_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -387,12 +407,12 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 </div>
 </div>
 <p>You can also pass text to the <code>CLIPProcessor</code>. Let’s create a similar function to embed text inputs:</p>
-<div class="cell">
+<div id="ba2b888e" class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_text(text):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> processor(text<span class="op">=</span>text, return_tensors<span class="op">=</span><span class="st">"pt"</span>, padding<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_text_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="ef989e56" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>text_embs <span class="op">=</span> embed_text([<span class="ss">f"a photo of a </span><span class="sc">{</span>cls<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> cls <span class="kw">in</span> [<span class="st">"cat"</span>, <span class="st">"dog"</span>]])</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>text_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -401,11 +421,11 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 </div>
 <p>We can now use embeddings for zero-shot classification by using text inputs that represent the different classes, and then calculating the <em>cosine similarity</em> between image embeddings and text embeddings.</p>
 <p>Cosine similarity is calculated by taking the dot product of normalized vectors:</p>
-<div class="cell">
+<div id="b54a14a7" class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normalize(a): <span class="cf">return</span> a <span class="op">/</span> a.norm(dim<span class="op">=-</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cosine_sim(a, b): <span class="cf">return</span> normalize(a) <span class="op">@</span> normalize(b).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="ff186e5d" class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cosine_sim(image_embs, text_embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor([[0.2639, 0.2127],
@@ -414,11 +434,11 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 </div>
 <p>Note how the similarity between the cat image and the text “a photo of a cat” (0.2639) is higher than the similarity between the cat image and the text “a photo of a dog” (0.2127), and similarly for the dog image in the next row of the tensor.</p>
 <p>We can convert these similarities to probabilities by using the model’s <code>logit_scale</code> parameter followed by the <code>softmax</code> method:</p>
-<div class="cell">
+<div id="a18a6958" class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> logits(a, b): <span class="cf">return</span> model.logit_scale.exp() <span class="op">*</span> cosine_sim(a, b)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> probs(a, b): <span class="cf">return</span> logits(a, b).softmax(dim<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="0e0396db" class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>probs(text_embs, image_embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor([[0.9940, 0.0027],
@@ -427,7 +447,7 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 </div>
 <p>We see a probability of 0.994 that the image of a cat is in fact a cat, and a probability of 0.997 that the image of a dog is in fact a dog. Pretty good!</p>
 <p>Since this is a zero-shot classifier, we can very easily generalize it to arbitrary classes! Let’s make a convenient wrapper to do exactly that:</p>
-<div class="cell">
+<div id="363d3ef8" class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify(image, classes, template<span class="op">=</span><span class="st">"a photo of a </span><span class="sc">{}</span><span class="st">"</span>):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    image_embs <span class="op">=</span> embed_image(image)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    text_embs <span class="op">=</span> embed_text([template.<span class="bu">format</span>(o) <span class="cf">for</span> o <span class="kw">in</span> classes])</span>
@@ -435,7 +455,7 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 </div>
 <p>To use this, simply pass in a list of classes. You can also customize the <code>template</code>, which can improve the classification accuracy.</p>
 <p>Here’s how we can classify the breed of a cat:</p>
-<div class="cell">
+<div id="4aea6aff" class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cat_breeds <span class="op">=</span> <span class="bu">sorted</span>({row[<span class="st">"label"</span>] <span class="cf">for</span> row <span class="kw">in</span> dataset[<span class="st">"train"</span>] <span class="cf">if</span> <span class="kw">not</span> row[<span class="st">"dog"</span>]})</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> classify(cat_image, cat_breeds, <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st"> cat"</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -454,7 +474,7 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
         [7.8781e-05]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
 </div>
 </div>
-<div class="cell">
+<div id="41ED0033-6570-4F42-A0D8-97BB21DD74DD" class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> torch.argmax(scores)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>cat_breeds[idx], scores[idx].item()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -462,7 +482,7 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 </div>
 </div>
 <p>… and here’s how we can classify the color of any animal:</p>
-<div class="cell">
+<div id="e457d936" class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>classes <span class="op">=</span> [<span class="st">"black"</span>, <span class="st">"white"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"yellow"</span>, <span class="st">"blue"</span>, <span class="st">"brown"</span>, <span class="st">"orange"</span>, <span class="st">"pink"</span>, <span class="st">"purple"</span>, <span class="st">"grey"</span>]</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> classify(cat_image, classes, <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st"> animal"</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> torch.argmax(scores)</span>
@@ -473,38 +493,38 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 </div>
 <p>It works – and it’s super convenient too!</p>
 </section>
-<section id="using-clip-for-image-retrieval" class="level3">
-<h3 class="anchored" data-anchor-id="using-clip-for-image-retrieval">Using CLIP for image retrieval</h3>
+<section id="using-clip-for-text-to-image-search" class="level3">
+<h3 class="anchored" data-anchor-id="using-clip-for-text-to-image-search">Using CLIP for text-to-image search</h3>
 <p>Using CLIP for search is not too different from using it for zero-shot classification. In fact, search is even simpler! We don’t need to calculate probabilities since we ultimately only care about the order of items:</p>
-<div class="cell">
+<div id="65888292" class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search(image_embs, query_embs):</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    sims <span class="op">=</span> cosine_sim(image_embs, query_embs).flatten()</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> sims.argsort(descending<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> indices, sims[indices]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="30E00922-FA29-481A-B0A6-3A363B0BA41D" class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>indices, sims <span class="op">=</span> search(image_embs, embed_text(<span class="st">"a photo of a cat"</span>))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>indices, sims</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(tensor([0, 1]), tensor([0.2639, 0.1962]))</code></pre>
 </div>
 </div>
-<div class="cell">
+<div id="2bf0ad46" class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> indices: display(thumbnail(images[i]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-23-output-2.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-23-output-2.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Let’s try that with a bigger dataset and some more interesting queries:</p>
 <p>Let’s embed all of the images. Since this took quite a while on my laptop (19 minutes), it’s convenient to cache the result to disk so that we don’t slow down iteration in our notebook:</p>
-<div class="cell">
+<div id="894b2f24" class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm.notebook <span class="im">import</span> tqdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="192d7de5" class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>all_image_embs_path <span class="op">=</span> Path(<span class="st">"oxford_pets_embeddings.npy"</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> all_image_embs_path.exists():</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    all_image_embs <span class="op">=</span> torch.tensor(np.load(all_image_embs_path))</span>
@@ -512,76 +532,177 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    all_image_embs <span class="op">=</span> [embed_image(row[<span class="st">'image'</span>]) <span class="cf">for</span> row <span class="kw">in</span> tqdm(dataset[<span class="st">'train'</span>])]</span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    np.save(all_image_embs_path, embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="e29922ff" class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>all_image_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>torch.Size([7390, 512])</code></pre>
 </div>
 </div>
-<div class="cell">
+<div id="cf611ac2" class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search_and_display(image_embs, query_embs, k<span class="op">=</span><span class="dv">3</span>):</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    indices, _ <span class="op">=</span> search(image_embs, query_embs)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> indices[:k]:</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        image <span class="op">=</span> dataset[<span class="st">"train"</span>][i.item()][<span class="st">"image"</span>]</span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        display(thumbnail(image))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell">
+<div id="bf2ca868" class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_text(<span class="st">"a photo of a white puppey on the grass"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-28-output-2.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-28-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-28-output-3.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-28-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 <p>Amazing! I wonder how obscure we can get?</p>
-<div class="cell">
+<div id="7D0912E0-9255-44FA-9120-4AADEA703426" class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_text(<span class="st">"a photo of a fluffy pink cat on a tv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-29-output-2.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-29-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-29-output-3.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-29-output-3.png" class="img-fluid"></p>
 </div>
 </div>
 <p>It always surprises me how well this works! 🤯</p>
 <p>And once again, it’s super flexible. For example, all we need to change in order to use an image query is to pass the image’s embeddings instead of text embeddings!</p>
 <p>Let’s find the most similar images to our fluffy white persian cat from earlier:</p>
-<div class="cell">
+<div id="772F80F2-E221-4FEF-B115-FF45BFBA9EC4" class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_image(cat_image))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-30-output-1.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-30-output-1.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-30-output-2.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-30-output-2.png" class="img-fluid"></p>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="how-to-build-your-own-semantic-search-engine_files/figure-html/cell-30-output-3.png" class="img-fluid"></p>
+<p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-30-output-3.png" class="img-fluid"></p>
 </div>
 </div>
+<p>Now that we have a working CLIP-based vector search engine, how do we share it with the world?</p>
+</section>
+</section>
+<section id="part-3-tips-for-deploying-your-search-engine" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-tips-for-deploying-your-search-engine">Part 3: Tips for deploying your search engine</h2>
+<p>In this section, I’ll share a few tips that you might find helpful in deploying your own search engine based on my experience with Meepo.</p>
+<section id="how-meepo-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-meepo-works">How Meepo works</h3>
+<p>Meepo (as with most machine learning applications) consists of the following two sub-systems:</p>
+<ol type="1">
+<li><strong>Data pipeline:</strong> A set of scripts responsible for maintaining the data that powers the search engine. This includes scraping, running images through CLIP, and maintaining the data storage components (detailed further below).</li>
+<li><strong>Web app:</strong> A simple search form in front of a CLIP-based search engine (as described in <a href="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">part 2</a>). The app reads from the application database and vector search index (written to by the data pipeline), and renders HTML/CSS to the user.</li>
+</ol>
+<p><img src="images/vector-search-engine.png" class="img-fluid"></p>
+<p>Data storage consists of two components that are updated by the data pipeline and then read from by the web app:</p>
+<ol type="1">
+<li><strong>Application database:</strong> A typical relational database that contains all of the products in the search catalogue, along with associated metadata.</li>
+<li><strong>Vector search index:</strong> An index for fast approximate nearest neighbour vector search. I used <a href="https://github.com/facebookresearch/faiss">faiss</a>, although there are other options like <a href="https://github.com/nmslib/hnswlib">hnswlib</a>, as well as more full-featured vector search databases like <a href="https://milvus.io/">Milvus</a>, <a href="https://www.pinecone.io/">Pinecone</a>, <a href="https://qdrant.tech/">Qdrant</a>, and <a href="https://weaviate.io/">Weaviate</a>.</li>
+</ol>
+<section id="tech-stack" class="level4">
+<h4 class="anchored" data-anchor-id="tech-stack">Tech stack</h4>
+<p>As for the specific tech choices, here’s the full stack powering Meepo:</p>
+<ul>
+<li><a href="#whats-clip">Contrastive language-image pretraining</a>: the deep learning method powering Meepo’s search.</li>
+<li><a href="https://github.com/facebookresearch/faiss">Faiss</a>: a fast approximate nearest neighbour vector search index.</li>
+<li><a href="https://docs.conda.io/en/latest/">Conda</a>: a Python package management system.</li>
+<li><a href="http://nbdev.fast.ai/">nbdev</a>: a platform for developing software using <a href="https://jupyter.org/">Jupyter</a> notebooks.</li>
+<li><a href="https://tailwindcss.com/">Tailwind CSS</a>: a simpler CSS framework.</li>
+<li><a href="https://daisyui.com/">DaisyUI</a>: a component library built on Tailwind CSS.</li>
+<li><a href="https://www.sqlite.org/">SQLite</a>: a light but powerful database engine.</li>
+<li><a href="https://www.djangoproject.com/">Django</a>: a battle-tested Python web framework.</li>
+<li><a href="">Gunicorn</a>: a Python HTTP server that lets us serve our Django application.</li>
+<li><a href="https://www.nginx.com/">Nginx</a>: a powerful and customizeable web server.</li>
+<li><a href="https://cron.com/">Cron</a>: a job scheduler built into Unix operating systems.</li>
+<li><a href="https://www.linode.com/">Linode</a>: a cloud hosting provider.</li>
+</ul>
+</section>
+<section id="infrastructure" class="level4">
+<h4 class="anchored" data-anchor-id="infrastructure">Infrastructure</h4>
+<p>I developed and tested an MVP locally on a small subset of data. Once I was happy with that, I deployed it to a Linode 4 GB Shared CPU VPS (2 CPUs, 4GB RAM, 80GB storage) costing $24 per month, and subscribed to Linode’s backup service for an additional $5 per month.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why use a VPS instead of a modern platform as a service option?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most people underestimate how much traffic you can serve from a single low cost VPS!</p>
+<p><a href="https://twitter.com/levelsio">Pieter Levels</a>, a well-known solopreneur, ran more than 40 of his websites serving over 250 million requests per month <a href="https://twitter.com/levelsio/status/1641728236617887744">from a single VPS</a>.</p>
+<p><a href="https://memex.marginalia.nu/">Marginalia</a>, an indie search engine that focuses on non-commercial content, casually handled the front page of Hackernews <a href="https://news.ycombinator.com/item?id=35614187">with a single server worth ~$5k of commercial hardware</a> in their living room.</p>
+<p>My good friend <a href="https://twitter.com/ashtonshudson">Ashton Hudson</a> took the same approach with <a href="https://www.servaltracker.com/">Serval</a>, a price tracker for South Africa’s largest online store, which serves X requests per month and stores Y time series data points on <a href="https://twitter.com/ashtonshudson/status/1609621491481460737">low cost servers costing ~$45 per month</a>.</p>
+</div>
+</div>
+<p>I totally overestimated how much effort it would take to setup a VPS. It wasn’t that bad and took a few hours in the end. Here’s how I went about it. Note that these steps only need to be carried out once per server:</p>
+<ol type="1">
+<li><strong>Rent a VPS:</strong> There are plenty of options available. I chose Linode for no particular reason.</li>
+<li><strong>Setup your VPS:</strong> This includes updating packages, setting the timezone and hostname, creating a limited user, and tightening SSH settings. I followed <a href="https://www.linode.com/docs/products/compute/compute-instances/guides/set-up-and-secure/">this Linode guide</a>.</li>
+<li><strong>Setup nginx:</strong> I followed <a href="https://realpython.com/django-nginx-gunicorn">this Real Python guide</a>.</li>
+</ol>
+<p>Once your server is setup, you’ll need to follow a few more setups for your app (and each future app you create):</p>
+<ol type="1">
+<li><strong>Setup Gunicorn:</strong> I followed <a href="https://realpython.com/django-nginx-gunicorn">the same Real Python guide</a> from above.</li>
+<li><strong>Setup your domain name:</strong> Buy a domain name and configure your VPS to use it. I searched for the cheapest name containing “meepo” and was lucky to score <a href="https://meepo.shop">meepo.shop</a> at $2!</li>
+<li><strong>Deploy your web app:</strong> I followed <a href="https://docs.djangoproject.com/en/4.2/howto/deployment/">Django’s official deployment guide</a>.</li>
+<li><strong>Deploy your pipeline:</strong> I kept it simple and added a <a href="https://man7.org/linux/man-pages/man5/crontab.5.html">crontab</a> entry to a single shell script.</li>
+</ol>
+</section>
+</section>
+<section id="choosing-boring-tech" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-boring-tech">Choosing boring tech</h3>
+<p>You might have noticed that I chose a “boring” tech stack. I believe that <a href="https://boringtechnology.club/">boring tech</a> is a key part of what allowed me to ship Meepo so quickly. Let me explain.</p>
+<section id="boring-tech-is-old-because-it-works" class="level4">
+<h4 class="anchored" data-anchor-id="boring-tech-is-old-because-it-works">Boring tech is old, because it works</h4>
+<p>It’s been around for decades. If that’s the case, and it’s still widely used, then <em>it probably works</em>! It might not be the most elegant solution, but it gets the job done. Software that’s been maintained for a long time is software that’s been hardened against many thousands of obscure edge-cases that users like you and I no longer have to worry about.</p>
+<p>For example, Meepo is a Django application, and Django is 20 years old. That’s 20 years of incremental improvements and bug fixes resulting in a truly robust piece of software.</p>
+</section>
+<section id="try-learning-new-process-instead-of-new-tech" class="level4">
+<h4 class="anchored" data-anchor-id="try-learning-new-process-instead-of-new-tech">Try learning new process instead of new tech</h4>
+<p>Developers typically enjoy learning new tools. That’s a good thing, but it also means that we’re biased to choosing new tools even when they aren’t necessarily improvements over the status quo.</p>
+<p>Instead of focusing on learning a new tool, try to focus on mastering tools you already know, and developing excellent decision-making skills on top of those tools with a ruthless focus on shipping quickly.</p>
+<p>For me, this meant using Django instead of something like FastAPI, and using a simple Linux VPS instead of a more modern platform as a service option. But this is different for everyone and depends on each person’s individual experience.</p>
+</section>
+<section id="deviating-from-what-works" class="level4">
+<h4 class="anchored" data-anchor-id="deviating-from-what-works">Deviating from what works</h4>
+<p>Of course, absolute rules are rarely a good idea in any domain as complex as software. There are definitely cases where less boring tech can be a good idea – I try to have a very specific reason before deviating from my favorite boring tools.</p>
+<p>For example, I developed Meepo entirely in Jupyter notebooks. It sounds crazy, I know! But there’s something about <a href="https://nbdev.fast.ai/">notebook-driven development</a> that I can’t quite shake. It makes programming feel like a game. There’s constant feedback, very quick iteration cycles, and everything is within reach: code, rich docs, and tests all in one place. In fact, the second part of this post was based on the same notebooks that run Meepo.</p>
+</section>
+</section>
+<section id="being-a-responsible-digital-citizen" class="level3">
+<h3 class="anchored" data-anchor-id="being-a-responsible-digital-citizen">Being a responsible digital citizen</h3>
+<p>If I’m scraping a website, I’m most likely not the website’s intended audience, so I try very hard not to negatively impact the user experience of their intended audience.</p>
+<p>Legal concerns around web scraping are pretty vague. However, as long as you provide value to the underlying service, they probably won’t mind you scraping them. For example, nobody cares that Google scrapes their sites because they provide traffic via search. Similarly, fashion stores that Meepo scrapes probably won’t mind the extra traffic it brings them.</p>
+<p>Here are some more detailed tips for scraping responsibly:</p>
+<ul>
+<li>Check how big the viewership of the website is. I would personally be hesitant to scrape a small website and would probably prefer to email the owner directly.</li>
+<li>Identify yourself with contact information via the user agent header – don’t try to fake being a human! A simple pattern you can use is&nbsp;<code>your.website.com/x.y (your@email.com)</code>&nbsp;where&nbsp;<code>x.y</code>&nbsp;is your scraper’s version number.</li>
+<li>Be considerate about their resource usage, especially since you aren’t their intended audience.</li>
+<li>Do the bulk of your requests during off-peak times depending on the local timezone of their audience.</li>
+<li>Sleep between requests as much as you possibly can. Add small random amounts as well to reduce the likelihood of overlapping with other scheduled scrapers and bots, thus reducing peak load.</li>
+<li>Use compression when scraping plain text or JSON to minimise their outgoing traffic. It doesn’t work nearly as well for images so it’s probably best to not compress them to avoid extra CPU usage on their servers.</li>
+</ul>
 </section>
 </section>
 <section id="your-turn" class="level2">
 <h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
-<p>Now it’s your turn. Dive into <a href="https://github.com/seeM/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb">the accompanying notebook</a> for this post and give it a try with your own dataset!</p>
-<p><strong>If you found this enjoyable, consider giving it a thumbs up below, commenting, and following me <a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span> on Twitter</a>. The positive feedback really helps me get a sense of what readers find valuable!</strong></p>
-</section>
-<section id="thanks" class="level2">
-<h2 class="anchored" data-anchor-id="thanks">Thanks</h2>
-<p>Many thanks to <a href="https://kurianbenoy.com/">Kurian Benoy</a> for his kind and thoughtful comments on early versions of this post.</p>
+<p>Now it’s your turn. Dive into <a href="https://github.com/seeM/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb">the accompanying notebook</a> for this post, give it a try with your own dataset, deploy the result, and share what you create!</p>
+<p><strong>If you found this enjoyable, consider giving it a thumbs up below, commenting, and following me at <a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span> on Twitter</a>. The positive feedback really helps me get a sense of what readers find valuable!</strong></p>
+<hr>
+<p><em>Many thanks to <a href="https://kurianbenoy.com/">Kurian Benoy</a>, <a href="https://www.fast.ai/">Jeremy Howard</a>, <a href="https://twitter.com/pcuenq">Pedro Cuenca</a>, and <a href="https://forbo7.github.io/">Salman Naqvi</a>, for their kind and thoughtful comments on various versions of this post.</em></p>
 
 
 </section>
 <aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
 <hr>
 <ol>
-
 
 </ol>
 </aside>
@@ -615,6 +736,9 @@ Now I'm not claiming that semantic search is a silver bullet. If you're searchin
           }
       }
   }
+</script>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state":{},"version_major":2,"version_minor":0}
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -875,6 +999,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="seem/blog" data-repo-id="R_kgDOIBWk3A" data-category="Announcements" data-category-id="DIC_kwDOIBWk3M4CSSa6" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
 </div> <!-- /content -->
 
 

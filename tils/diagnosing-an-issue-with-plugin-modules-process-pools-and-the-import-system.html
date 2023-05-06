@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.14">
+<meta name="generator" content="quarto-1.4.37">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -176,7 +176,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        <nav id="TOC" role="doc-toc" class="toc-active" data-toc-expanded="99">
+        <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
    
   <ul>
@@ -243,20 +243,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="processpoolexecutors-reuse-processes" class="level2">
 <h2 class="anchored" data-anchor-id="processpoolexecutors-reuse-processes"><code>ProcessPoolExecutor</code>s reuse processes</h2>
 <p>Perhaps we should know this simply from the name, but I didn’t, so we’ll figure it out with a tiny experiment. Start by creating a pool with 2 <code>max_workers</code>:</p>
-<div class="cell">
+<div id="de16d633" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> concurrent.futures <span class="im">import</span> ProcessPoolExecutor</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>pool <span class="op">=</span> ProcessPoolExecutor(max_workers<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There aren’t any processes in the pool yet:</p>
-<div class="cell">
+<div id="5aefa6f4" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pool._processes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>{}</code></pre>
 </div>
 </div>
 <p>Submit a task: the function <code>os.getpid</code>, which will return the process ID of the worker that runs it. Since there are no processes in the pool, <code>submit</code> will start a new worker process, and have it execute the task. <code>ProcessPoolExecutor.submit</code> returns a <code>Future</code> object, and <code>Future.result</code> returns the task’s return value:</p>
-<div class="cell">
+<div id="83042bc6" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>future <span class="op">=</span> pool.submit(os.getpid)</span>
@@ -266,14 +266,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>No matter how many times you manually rerun the above cell, it will aways be executed on the same process. Notice that the process is now also available in the pool:</p>
-<div class="cell">
+<div id="2289c195" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>pool._processes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>{45907: &lt;SpawnProcess name='SpawnProcess-1' pid=45907 parent=45899 started&gt;}</code></pre>
 </div>
 </div>
 <p>If we submit another task:</p>
-<div class="cell">
+<div id="baeed3e4" class="cell">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>future <span class="op">=</span> pool.submit(os.getpid)</span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>future.result()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -282,7 +282,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>…it’s still executed on the same process.</p>
 <p>Let’s try executing two processes at the same time:</p>
-<div class="cell">
+<div id="c75ca42a" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>futures <span class="op">=</span> [pool.submit(os.getpid) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>)]</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>[o.result() <span class="cf">for</span> o <span class="kw">in</span> futures]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -290,7 +290,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Weird. They’re both executed on the same process…</p>
-<div class="cell">
+<div id="3cdb6137" class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>pool._processes</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>{45907: &lt;SpawnProcess name='SpawnProcess-1' pid=45907 parent=45899 started&gt;,
@@ -299,7 +299,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>It looks like another process was started! I haven’t confirmed this, but I suspect that when we submitted two futures, the pool determined that it needed more workers, so it started another. However, the first worker’s task ended before the second worker started up, so the first worker processed both.</p>
 <p>Since we instantiated the pool with 2 <code>max_workers</code>, these two processes will execute all tasks, no matter how many we submit:</p>
-<div class="cell">
+<div id="d9729925" class="cell">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>futures <span class="op">=</span> [pool.submit(os.getpid) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10</span>)]</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>[o.result() <span class="cf">for</span> o <span class="kw">in</span> futures]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -307,14 +307,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Shutdown the pool to free up any resources:</p>
-<div class="cell">
+<div id="a58381d9" class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>pool.shutdown()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="fastai-callbacks-register-themselves-on-import" class="level2">
 <h2 class="anchored" data-anchor-id="fastai-callbacks-register-themselves-on-import">fastai callbacks register themselves on import</h2>
 <p>This one is easy to demonstrate. <code>defaults</code> has no <code>callbacks</code> attribute to start with:</p>
-<div class="cell">
+<div id="41907eba" class="cell">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastcore.basics <span class="im">import</span> defaults</span>
 <span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>defaults</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -323,7 +323,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><code>defaults.callbacks</code> is populated after importing <code>ProgressCallback</code>:</p>
-<div class="cell">
+<div id="cd08aee9" class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> fastai.callback.progress <span class="im">import</span> ProgressCallback</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>defaults</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -343,19 +343,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="changes-to-imported-modules-persist-across-ipython-interactiveshells" class="level2">
 <h2 class="anchored" data-anchor-id="changes-to-imported-modules-persist-across-ipython-interactiveshells">Changes to imported modules persist across IPython <code>InteractiveShell</code>s</h2>
 <p>Why is any of the above a problem? Didn’t we say that <code>nbprocess_test</code> creates a separate shell for each notebook? Yes it does, but it turns out that changes to imported modules persist across shells.</p>
-<div class="cell">
+<div id="d698070b" class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> execnb.shell <span class="im">import</span> CaptureShell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>First make sure that <code>CaptureShell</code> doesn’t have a <code>foo</code> attribute - this will make sense in a second:</p>
-<div class="cell">
+<div id="8fb74dfa" class="cell">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="cf">assert</span> <span class="kw">not</span> <span class="bu">hasattr</span>(CaptureShell, <span class="st">'foo'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Now add the <code>foo</code> attribute:</p>
-<div class="cell">
+<div id="3067eb49" class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>CaptureShell.foo <span class="op">=</span> <span class="st">'bar'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>We can see <code>foo</code> inside a <code>CaptureShell</code>:</p>
-<div class="cell">
+<div id="c9bd3709" class="cell">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>shell <span class="op">=</span> CaptureShell()</span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>shell.run(<span class="st">'from execnb.shell import CaptureShell; CaptureShell.foo'</span>)</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>shell.result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -364,7 +364,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>This happens because when we first imported from the <code>execnb.shell</code> module it was cached in <code>sys.modules</code>:</p>
-<div class="cell">
+<div id="9f2ec767" class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sys</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>sys.modules[<span class="st">'execnb.shell'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -373,14 +373,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>In fact, <code>sys.modules['execnb.shell'].CaptureShell</code> is another name for <code>CaptureShell</code>:</p>
-<div class="cell">
+<div id="f4299eeb" class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>sys.modules[<span class="st">'execnb.shell'</span>].CaptureShell <span class="kw">is</span> CaptureShell</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>True</code></pre>
 </div>
 </div>
 <p>Python caches imports to speed up consecutive imports from the same modules. <code>InteractiveShell</code> (and its sub-classes) have the same <code>sys.modules</code> which causes this behaviour:</p>
-<div class="cell">
+<div id="5c203ac0" class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>shell <span class="op">=</span> CaptureShell()</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>shell.run(<span class="st">"import sys; sys.modules['execnb.shell'].CaptureShell.foo"</span>)</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>shell.result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -389,13 +389,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p><code>exec</code> with empty <code>globals</code> and <code>locals</code> uses the same <code>sys.modules</code> too so it doesn’t avoid the issue:</p>
-<div class="cell">
+<div id="0297cddf" class="cell">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(<span class="st">"import sys; print('execnb.shell' in sys.modules)"</span>, {}, {})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>True</code></pre>
 </div>
 </div>
-<div class="cell">
+<div id="3c8af7e9" class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="bu">exec</span>(<span class="st">"from execnb.shell import CaptureShell; print(CaptureShell.foo)"</span>, {}, {})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>bar</code></pre>
@@ -701,6 +701,8 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 </script>
 <script src="https://giscus.app/client.js" data-repo="seem/blog" data-repo-id="R_kgDOIBWk3A" data-category="Announcements" data-category-id="DIC_kwDOIBWk3M4CSSa6" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
 </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
 </div> <!-- /content -->
 
 

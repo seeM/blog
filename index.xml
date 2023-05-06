@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/index.html</link>
 <atom:link href="https://wasimlorgat.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent posts on wasimlorgat.com</description>
-<generator>quarto-1.4.14</generator>
+<generator>quarto-1.4.37</generator>
 <lastBuildDate>Thu, 12 Jan 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>How to build your own minimal Jupyter frontend</title>
@@ -42,7 +42,7 @@ font-style: inherit;">jupyter</span> server</span></code></pre></div>
     Or copy and paste one of these URLs:
         http://localhost:8889/?token=72b22f0cee26baaa6aed492b6fed5a010d57bd6c0e1adcce
      or http://127.0.0.1:8889/?token=72b22f0cee26baaa6aed492b6fed5a010d57bd6c0e1adcce</code></pre>
-<div class="cell" data-execution_count="1">
+<div id="0d703673" class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># NB: Update this based on your terminal output</span></span>
@@ -56,14 +56,14 @@ font-style: inherit;">'http://localhost:8889/?token=e78ceb3114cb10d50f64485b18e3
 <section id="authenticating" class="level2">
 <h2 class="anchored" data-anchor-id="authenticating">Authenticating</h2>
 <p>First, we’ll do a quick check that there is a server at the defined <code>url</code>. We need to get the URL without the <code>token</code> query parameter:</p>
-<div class="cell" data-execution_count="2">
+<div id="ffc380eb" class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> urllib.parse <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> urlparse</span></code></pre></div>
 </div>
-<div class="cell" data-execution_count="3">
+<div id="206b48a1" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> urlparse(url_with_token)._replace(query<span class="op" style="color: #5E5E5E;
@@ -77,12 +77,12 @@ font-style: inherit;">None</span>).geturl()</span>
 </div>
 </div>
 <p>Now we can make the request:</p>
-<div class="cell" data-execution_count="4">
+<div id="60a5019c" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> requests</span></code></pre></div>
 </div>
-<div class="cell" data-execution_count="5">
+<div id="49d240b4" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">requests.get(url)</span></code></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>&lt;Response [200]&gt;</code></pre>
@@ -90,7 +90,7 @@ font-style: inherit;">import</span> requests</span></code></pre></div>
 </div>
 <p>A 200 response means that the server processed the request successfully.</p>
 <p>Next we need to authenticate. What happens if we try to make a request to an endpoint that requires authentication, for example <code>GET /api/contents</code>?</p>
-<div class="cell" data-execution_count="6">
+<div id="d363c9dd" class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">requests.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -102,7 +102,7 @@ font-style: inherit;">'api/contents'</span>)</span></code></pre></div>
 </div>
 <p>It fails with <code>403 Forbidden</code>.</p>
 <p>If we include our token in the <code>Authorization</code> header:</p>
-<div class="cell" data-execution_count="7">
+<div id="47341bcd" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">token <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> urlparse(url_with_token).query.split(<span class="st" style="color: #20794D;
@@ -138,7 +138,7 @@ font-style: inherit;">=</span>headers)</span></code></pre></div>
 </div>
 <p>… it works!</p>
 <p>Let’s create a <code>requests.Session</code> so we don’t have to keep specifying the header:</p>
-<div class="cell" data-execution_count="8">
+<div id="c800292c" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">session <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> requests.Session()</span>
@@ -152,7 +152,7 @@ font-style: inherit;">=</span> requests.Session()</span>
 <section id="list-the-contents-of-a-directory" class="level3">
 <h3 class="anchored" data-anchor-id="list-the-contents-of-a-directory">List the contents of a directory</h3>
 <p><code>GET /api/contents/&lt;path&gt;</code> returns the contents of the file or directory at <code>path</code>. You can think of it as <code>ls</code> for Jupyter Server:</p>
-<div class="cell" data-execution_count="10">
+<div id="372abec1" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -176,7 +176,7 @@ font-style: inherit;">'api/contents'</span>).json()</span></code></pre></div>
 <section id="create-an-empty-notebook" class="level3">
 <h3 class="anchored" data-anchor-id="create-an-empty-notebook">Create an empty notebook</h3>
 <p><code>POST /api/contents/&lt;path&gt;</code> creates an empty file in the directory at <code>path</code>. You can specify the <code>type</code> of the file in the request body:</p>
-<div class="cell" data-execution_count="11">
+<div id="48a05bd9" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">session.post(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -194,7 +194,7 @@ font-style: inherit;">'notebook'</span>})</span></code></pre></div>
 </div>
 <p>The 201 status code means that the request succeeded and a resource was created.</p>
 <p>Let’s confirm that the file exists with <code>GET /api/contents</code>:</p>
-<div class="cell" data-execution_count="12">
+<div id="64d4f91c" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -224,7 +224,7 @@ font-style: inherit;">'api/contents'</span>).json()</span></code></pre></div>
 </div>
 <p>The response is a nested dict. The root dict refers to the root directory as before, however, <code>content</code> now contains the newly created notebook named <code>Untitled.ipynb</code>.</p>
 <p>We can get the contents of this file using the same method but referring to the file’s path i.e.&nbsp;<code>GET /api/contents/&lt;path&gt;</code>:</p>
-<div class="cell" data-execution_count="13">
+<div id="ade22939" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">data <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> session.get(url <span class="op" style="color: #5E5E5E;
@@ -247,7 +247,7 @@ font-style: inherit;">'api/contents/Untitled.ipynb'</span>).json()</span>
 </div>
 </div>
 <p>We’re probably most interested in <code>content</code>, which contains the JSON content of the notebook:</p>
-<div class="cell" data-execution_count="14">
+<div id="04591521" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1">data[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'content'</span>]</span></code></pre></div>
@@ -260,7 +260,7 @@ font-style: inherit;">'content'</span>]</span></code></pre></div>
 <section id="rename-a-notebook" class="level3">
 <h3 class="anchored" data-anchor-id="rename-a-notebook">Rename a notebook</h3>
 <p>Our newly created file is still named <code>Untitled.ipynb</code>. Let’s rename it to <code>sum.ipynb</code> with <code>PATCH /api/contents/&lt;path&gt;</code>:</p>
-<div class="cell" data-execution_count="15">
+<div id="4d7a78d2" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1">session.patch(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -286,7 +286,7 @@ font-style: inherit;">'sum.ipynb'</span>}).json()</span></code></pre></div>
 </div>
 </div>
 <p>Confirm that it’s been renamed. <code>Untitled.ipynb</code> no longer exists:</p>
-<div class="cell" data-execution_count="16">
+<div id="a7bd2873" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -297,7 +297,7 @@ font-style: inherit;">'api/contents/Untitled.ipynb'</span>).json()</span></code>
 </div>
 </div>
 <p>… but <code>sum.ipynb</code> does:</p>
-<div class="cell" data-execution_count="17">
+<div id="8dd1d341" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -333,7 +333,7 @@ Note
 <section id="update-a-notebooks-contents" class="level3">
 <h3 class="anchored" data-anchor-id="update-a-notebooks-contents">Update a notebook’s contents</h3>
 <p>Create a cell and append it to existing contents:</p>
-<div class="cell" data-execution_count="18">
+<div id="b038cde2" class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">cell <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
@@ -384,7 +384,7 @@ background-color: null;
 font-style: inherit;">'cells'</span>].append(cell)</span></code></pre></div>
 </div>
 <p>Update the notebook’s contents using <code>PUT /api/contents/&lt;path&gt;</code>:</p>
-<div class="cell" data-execution_count="19">
+<div id="49a22866" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1">session.put(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -405,7 +405,7 @@ font-style: inherit;">'notebook'</span>})</span></code></pre></div>
 </div>
 </div>
 <p>Confirm that the notebook’s been updated. Note that <code>last_modified</code> and <code>content</code> have both updated:</p>
-<div class="cell" data-execution_count="20">
+<div id="0d9911bc" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -441,7 +441,7 @@ font-style: inherit;">'api/contents/sum.ipynb'</span>).json()</span></code></pre
 <section id="start-a-session" class="level3">
 <h3 class="anchored" data-anchor-id="start-a-session">Start a session</h3>
 <p>List open sessions with <code>GET /api/sessions</code>:</p>
-<div class="cell" data-execution_count="21">
+<div id="738af04b" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -452,7 +452,7 @@ font-style: inherit;">'api/sessions'</span>).json()</span></code></pre></div>
 </div>
 </div>
 <p>First we need to choose a kernel specification. Here are the available options on my computer – yours will likely differ:</p>
-<div class="cell" data-execution_count="22">
+<div id="857b450d" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -489,7 +489,7 @@ font-style: inherit;">'api/kernelspecs'</span>).json()</span></code></pre></div>
 </div>
 </div>
 <p>Create a new session with <code>POST /api/sessions</code> with the <code>python3</code> kernelspec:</p>
-<div class="cell" data-execution_count="23">
+<div id="87ddef62" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1">data <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> session.post(url <span class="op" style="color: #5E5E5E;
@@ -532,7 +532,7 @@ font-style: inherit;">'notebook'</span>}).json()</span>
 </div>
 </div>
 <p>Now that a session exists, we can connect to a websocket. We’ll need the <code>kernel_id</code> and <code>session_id</code> to do that, so let’s store them for the next step:</p>
-<div class="cell" data-execution_count="24">
+<div id="7cf01323" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb42" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1">kernel_id <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> data[<span class="st" style="color: #20794D;
@@ -550,7 +550,7 @@ font-style: inherit;">'id'</span>]</span></code></pre></div>
 <section id="communicate-over-websockets" class="level3">
 <h3 class="anchored" data-anchor-id="communicate-over-websockets">Communicate over WebSockets</h3>
 <p>First, let’s craft a message to request an execution – you can try changing the value of the <code>code</code> variable below to execute something else:</p>
-<div class="cell" data-execution_count="25">
+<div id="52ef9b84" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb43" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> uuid</span>
@@ -599,7 +599,7 @@ font-style: inherit;">'parent_header'</span>:{}}</span></code></pre></div>
 </div>
 <p>Now we can send the message to the server and receive all responses.</p>
 <p>We’ll use the <a href="https://websocket-client.readthedocs.io/">websocket-client</a> library. You might also want to consider the <a href="https://websockets.readthedocs.io/en/stable/">websockets</a> library which is asynchronous.</p>
-<div class="cell" data-execution_count="26">
+<div id="6e9954fc" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> json</span>
@@ -755,7 +755,7 @@ Receiving execute_reply
 <section id="close-the-session" class="level3">
 <h3 class="anchored" data-anchor-id="close-the-session">Close the session</h3>
 <p>Since we’re done with the session, we can close it via <code>DELETE /api/sessions/&lt;session_id&gt;</code>:</p>
-<div class="cell" data-execution_count="27">
+<div id="8993bbcf" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1">session.delete(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="ss" style="color: #20794D;
@@ -775,7 +775,7 @@ font-style: inherit;">'</span>)</span></code></pre></div>
 <section id="shutdown-the-server" class="level3">
 <h3 class="anchored" data-anchor-id="shutdown-the-server">Shutdown the server</h3>
 <p>Finally, shutdown the server via <code>POST /api/shutdown</code>.</p>
-<div class="cell" data-execution_count="28">
+<div id="ec857b53" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1">session.post(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
@@ -786,7 +786,7 @@ font-style: inherit;">'api/shutdown'</span>)</span></code></pre></div>
 </div>
 </div>
 <p>… and confirm that it’s been shutdown correctly:</p>
-<div class="cell" data-execution_count="29">
+<div id="15534d8d" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><span class="cf" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">try</span>: session.get(url)</span>
@@ -951,7 +951,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 </figure>
 </div>
 <p>You should now be able to write Dyalog directly in your notebook! Try it out:</p>
-<div class="cell">
+<div id="756784ba" class="cell">
 <pre class="apl cell-code"><code>1 2 3 - 4 5 6</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">¯3 ¯3 ¯3
@@ -989,7 +989,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 </div>
 <p>A good way to learn new concepts in APL (and in general) is to look at an example, try to predict what it’ll do before you run it, then run it and compare with your prediction. APL documentation is filled with examples which makes this approach even more powerful. The documentation will often include multiple examples as separate elements of an array.</p>
 <p>For example, you should read the example for <a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus%20Sign.htm">negate</a>:</p>
-<div class="cell">
+<div id="d3eed468" class="cell">
 <pre class="apl cell-code"><code>- 3.2 ¯7 0</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">¯3.2 7 0
@@ -997,21 +997,21 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 </div>
 </div>
 <p>as three examples:</p>
-<div class="cell">
+<div id="80432a06" class="cell">
 <pre class="apl cell-code"><code>- 3.2</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">¯3.2
 </span>
 </div>
 </div>
-<div class="cell">
+<div id="b7104b05" class="cell">
 <pre class="apl cell-code"><code>- ¯7</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">7
 </span>
 </div>
 </div>
-<div class="cell">
+<div id="4acfbbea" class="cell">
 <pre class="apl cell-code"><code>- 0</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">0
