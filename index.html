@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.37">
+<meta name="generator" content="quarto-1.4.80">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -209,7 +209,7 @@ Hi, I’m Wasim
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="tutorial" data-listing-date-sort="1673481600000" data-listing-file-modified-sort="1683380175497" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="0" data-categories="tutorial" data-listing-date-sort="1673481600000" data-listing-file-modified-sort="1684583925193" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
 <div class="thumbnail">
 <p><a href="./posts/how-to-build-your-own-minimal-jupyter-frontend.html"> <p class="card-img-top"><img src="posts/images/jupiter.png"  class="thumbnail-image card-img"/></p> </a></p>
 </div>
@@ -241,7 +241,7 @@ Jan 12, 2023
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="1" data-categories="talk" data-listing-date-sort="1666483200000" data-listing-file-modified-sort="1683380175577" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="quarto-post image-right" data-index="1" data-categories="talk" data-listing-date-sort="1666483200000" data-listing-file-modified-sort="1684583925297" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
 <div class="thumbnail">
 <p><a href="./posts/math-of-diffusion.html"> <img src="./posts/images/math-of-diffusion.png" class="thumbnail-image"> </a></p>
 </div>
@@ -305,7 +305,7 @@ Sep 19, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="3" data-categories="blog" data-listing-date-sort="1656979200000" data-listing-file-modified-sort="1683380175497" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="3" data-categories="blog" data-listing-date-sort="1656979200000" data-listing-file-modified-sort="1684583925193" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
 <div class="thumbnail">
 <p><a href="./posts/fastai-array-programming-day-1.html"> <p class="card-img-top"><img src="posts/images/juggling.svg"  class="thumbnail-image card-img"/></p> </a></p>
 </div>
@@ -337,7 +337,7 @@ Jul 5, 2022
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="4" data-categories="tutorial" data-listing-date-sort="1609286400000" data-listing-file-modified-sort="1683380175497" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="26">
+<div class="quarto-post image-right" data-index="4" data-categories="tutorial" data-listing-date-sort="1609286400000" data-listing-file-modified-sort="1684583925193" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="26">
 <div class="thumbnail">
 <p><a href="./posts/editor.html"> <p class="card-img-top"><img src="posts/images/editor.svg"  class="thumbnail-image card-img"/></p> </a></p>
 </div>
@@ -369,7 +369,7 @@ Dec 30, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="5" data-categories="blog" data-listing-date-sort="1596390489000" data-listing-file-modified-sort="1683380175497" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="quarto-post image-right" data-index="5" data-categories="blog" data-listing-date-sort="1596390489000" data-listing-file-modified-sort="1684583925193" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
 <div class="thumbnail">
 <p><a href="./posts/doing-important-work.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
 </div>
@@ -401,7 +401,7 @@ Aug 2, 2020
 </a>
 </div>
 </div>
-<div class="quarto-post image-right" data-index="6" data-categories="talk" data-listing-date-sort="1521244800000" data-listing-file-modified-sort="1683380175497" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
+<div class="quarto-post image-right" data-index="6" data-categories="talk" data-listing-date-sort="1521244800000" data-listing-file-modified-sort="1684583925193" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
 <div class="thumbnail">
 <p><a href="./posts/code-neq-idea.html"> <img src="./posts/images/leci-nest-pas-une-pipe.png" class="thumbnail-image"> </a></p>
 </div>
@@ -583,19 +583,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children.length > 2) {
-          for (let i = 0; i < 2; i++) {
-            container.appendChild(note.children[i].cloneNode(true));
+      if (note !== null) {
+        if (id.startsWith('sec-')) {
+          // Special case sections, only their first couple elements
+          const container = document.createElement("div");
+          if (note.children && note.children.length > 2) {
+            for (let i = 0; i < 2; i++) {
+              container.appendChild(note.children[i].cloneNode(true));
+            }
+            return container.innerHTML
+          } else {
+            return note.innerHTML;
           }
-          return container.innerHTML
         } else {
           return note.innerHTML;
         }
       } else {
-        return note.innerHTML;
+        return "";
       }
     });
   }

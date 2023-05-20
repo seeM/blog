@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.37">
+<meta name="generator" content="quarto-1.4.80">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -210,14 +210,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </header>
 
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
-<p>This notebook doesn’t render correctly until I figure out how to tell Quarto to echo code cells as is without parsing directives.</p>
+<div class="callout-title-container flex-fill">
+
 </div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This notebook doesn’t render correctly until I figure out how to tell Quarto to echo code cells as is without parsing directives.</p>
 </div>
 </div>
 <p>This notebook defines and exports a lightweight command line tool that updates union annotations in notebooks from the fastai tuple style (<code>x:(int,str)</code>) to the Python 3.10 union operator (<code>x:int|str</code>), using the <a href="https://docs.python.org/3/library/ast.html"><code>ast</code></a> standard library, and developed with <a href="https://github.com/fastai/nbdev"><code>nbdev</code></a>.</p>
@@ -483,19 +486,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children.length > 2) {
-          for (let i = 0; i < 2; i++) {
-            container.appendChild(note.children[i].cloneNode(true));
+      if (note !== null) {
+        if (id.startsWith('sec-')) {
+          // Special case sections, only their first couple elements
+          const container = document.createElement("div");
+          if (note.children && note.children.length > 2) {
+            for (let i = 0; i < 2; i++) {
+              container.appendChild(note.children[i].cloneNode(true));
+            }
+            return container.innerHTML
+          } else {
+            return note.innerHTML;
           }
-          return container.innerHTML
         } else {
           return note.innerHTML;
         }
       } else {
-        return note.innerHTML;
+        return "";
       }
     });
   }

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.37">
+<meta name="generator" content="quarto-1.4.80">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -238,14 +238,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 <p><img src="images/editor.svg" class="preview-image img-fluid"></p>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
-<p>This article was featured in <a href="https://pythonbytes.fm/episodes/show/221/pattern-matching-and-accepting-change-in-python-with-brett-cannon">Episode 221 of the PythonBytes podcast</a> by Michael Kennedy and Brian Okken.</p>
+<div class="callout-title-container flex-fill">
+
 </div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This article was featured in <a href="https://pythonbytes.fm/episodes/show/221/pattern-matching-and-accepting-change-in-python-with-brett-cannon">Episode 221 of the PythonBytes podcast</a> by Michael Kennedy and Brian Okken.</p>
 </div>
 </div>
 <p>We’re going to build a command line text editor from scratch in Python. If you’d like to learn the most out of this, I’d recommend to code along. When we encounter problems, I’ll try to state them first before suggesting a solution. I encourage you to pause and give yourself about fifteen minutes to try to solve it first. If you’re still stuck, move along and compare the solution with your own approach. It’s also totally fine if you simply read through at your leisure.</p>
@@ -966,19 +969,23 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      if (id.startsWith('sec-')) {
-        // Special case sections, only their first couple elements
-        const container = document.createElement("div");
-        if (note.children.length > 2) {
-          for (let i = 0; i < 2; i++) {
-            container.appendChild(note.children[i].cloneNode(true));
+      if (note !== null) {
+        if (id.startsWith('sec-')) {
+          // Special case sections, only their first couple elements
+          const container = document.createElement("div");
+          if (note.children && note.children.length > 2) {
+            for (let i = 0; i < 2; i++) {
+              container.appendChild(note.children[i].cloneNode(true));
+            }
+            return container.innerHTML
+          } else {
+            return note.innerHTML;
           }
-          return container.innerHTML
         } else {
           return note.innerHTML;
         }
       } else {
-        return note.innerHTML;
+        return "";
       }
     });
   }
