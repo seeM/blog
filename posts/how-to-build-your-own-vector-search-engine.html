@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Wasim Lorgat">
-<meta name="dcterms.date" content="2023-04-20">
+<meta name="dcterms.date" content="2023-05-20">
 <meta name="description" content="Leverage open-source AI to create a powerful vector search engine with ease.">
 
 <title>How to build your own vector search engine</title>
@@ -212,8 +212,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#choosing-boring-tech" id="toc-choosing-boring-tech" class="nav-link" data-scroll-target="#choosing-boring-tech">Choosing boring tech</a>
   <ul>
-  <li><a href="#boring-tech-is-old-because-it-works" id="toc-boring-tech-is-old-because-it-works" class="nav-link" data-scroll-target="#boring-tech-is-old-because-it-works">Boring tech is old, because it works</a></li>
-  <li><a href="#try-learning-new-process-instead-of-new-tech" id="toc-try-learning-new-process-instead-of-new-tech" class="nav-link" data-scroll-target="#try-learning-new-process-instead-of-new-tech">Try learning new process instead of new tech</a></li>
+  <li><a href="#its-boring-because-it-works" id="toc-its-boring-because-it-works" class="nav-link" data-scroll-target="#its-boring-because-it-works">It’s boring because it works</a></li>
+  <li><a href="#innovate-on-your-process-not-only-your-tech" id="toc-innovate-on-your-process-not-only-your-tech" class="nav-link" data-scroll-target="#innovate-on-your-process-not-only-your-tech">Innovate on your process, not only your tech</a></li>
   <li><a href="#deviating-from-what-works" id="toc-deviating-from-what-works" class="nav-link" data-scroll-target="#deviating-from-what-works">Deviating from what works</a></li>
   </ul></li>
   <li><a href="#being-a-responsible-digital-citizen" id="toc-being-a-responsible-digital-citizen" class="nav-link" data-scroll-target="#being-a-responsible-digital-citizen">Being a responsible digital citizen</a></li>
@@ -249,7 +249,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">April 20, 2023</p>
+      <p class="date">May 20, 2023</p>
     </div>
   </div>
   
@@ -292,7 +292,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="whats-clip" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="whats-clip">What’s CLIP?</h3>
-<div class="page-columns page-full"><p>Contrastive Language-Image Pretraining (CLIP) is a technique for training neural networks with state-of-the-art zero-shot performance on a variety of tasks using mixed image and text data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> By “zero-shot” we mean that the model was not trained on any examples from a given dataset.</p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;While CLIP has been dethroned several times in the last two years (most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>), it is still notable for introducing a step change improvement in the power of zero-shot multimodal techniques.</p></li></div></div>
+<div class="page-columns page-full"><p>Contrastive Language-Image Pretraining (CLIP) is a technique for training neural networks with state-of-the-art zero-shot performance on a variety of tasks using mixed image and text data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;While CLIP has been dethroned several times in the last two years (most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>), it is still notable for introducing a step change improvement in the power of zero-shot multimodal techniques.</p></li></div></div>
+<p>Zero-shot learning refers to a machine learning approach where a model is trained on one dataset and then tested on a completely different dataset. For instance, CLIP was trained on a broad dataset of captioned images from the web. However, in the next section we will apply it to a dataset featuring only cats and dogs. Meepo similarly applies CLIP to images of homeware and fashion items.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="images/clip-training.png" class="img-fluid figure-img" width="600"></p>
@@ -342,25 +343,25 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><a href="https://huggingface.co/docs/datasets/index">HuggingFace Datasets</a>: easily access and share datasets for a variety of machine learning tasks.</li>
 <li><a href="https://huggingface.co/docs/transformers/index">HuggingFace Transformers</a>: easily download, train, and use state-of-the-art pretrained neural networks.</li>
 </ul>
-<div id="9b63e71e" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="9b63e71e" class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install datasets transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then load the <a href="https://huggingface.co/datasets/pcuenq/oxford-pets">Oxford Pets</a> dataset – thanks to <a href="https://twitter.com/pcuenq">Pedro Cuenqa</a> for uploading it:</p>
-<div id="5836b0e4" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="5836b0e4" class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> load_dataset(<span class="st">"pcuenq/oxford-pets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>One of the most important rules of machine learning is to always look at the data. This is quite easy with images, since we can just show the image.</p>
 <p>Let’s define a helper function to show thumbnails of an image:</p>
-<div id="ddfa65b5" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="ddfa65b5" class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> thumbnail(image, scale<span class="op">=</span><span class="dv">3</span>):</span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> image.resize(np.array(image.size)<span class="op">//</span>scale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Here’s an example of a cat:</p>
-<div id="c7a5e0e6" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="c7a5e0e6" class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cat_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">15</span>]</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cat_image <span class="op">=</span> cat_row[<span class="st">'image'</span>]</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>thumbnail(cat_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -369,7 +370,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>… and here’s an example of a dog:</p>
-<div id="aba2e5af" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="aba2e5af" class="cell">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dog_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">10</span>]</span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dog_image <span class="op">=</span> dog_row[<span class="st">'image'</span>]</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>thumbnail(dog_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -382,14 +383,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h3 class="anchored" data-anchor-id="using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</h3>
 <p>Now that we have a dataset, we can load the CLIP processor and model. The concept of having a separate <em>processor</em> and <em>model</em> is central to the HuggingFace Transformers library, since it allows us to use 174 state-of-the-art models (as of writing this article) with a very similar API.</p>
 <p>Note that it might take a minute to download the pretrained weights:</p>
-<div id="e16641de" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="e16641de" class="cell">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> CLIPProcessor, CLIPModel</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>processor <span class="op">=</span> CLIPProcessor.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> CLIPModel.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The <code>CLIPProcessor</code> prepares the inputs for the <code>CLIPModel</code> which can then be used to obtain embedding vectors. Let’s create a function to embed an image by first passing it through the processor and then into the model:</p>
-<div id="4279de40" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="4279de40" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_image(images):</span>
@@ -398,7 +399,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_image_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Test that it works:</p>
-<div id="3aa69621" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="3aa69621" class="cell">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>images <span class="op">=</span> [cat_image, dog_image]</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>image_embs <span class="op">=</span> embed_image(images)</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>image_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -407,12 +408,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>You can also pass text to the <code>CLIPProcessor</code>. Let’s create a similar function to embed text inputs:</p>
-<div id="ba2b888e" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="ba2b888e" class="cell">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_text(text):</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> processor(text<span class="op">=</span>text, return_tensors<span class="op">=</span><span class="st">"pt"</span>, padding<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_text_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ef989e56" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="ef989e56" class="cell">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>text_embs <span class="op">=</span> embed_text([<span class="ss">f"a photo of a </span><span class="sc">{</span>cls<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> cls <span class="kw">in</span> [<span class="st">"cat"</span>, <span class="st">"dog"</span>]])</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>text_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -421,11 +422,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We can now use embeddings for zero-shot classification by using text inputs that represent the different classes, and then calculating the <em>cosine similarity</em> between image embeddings and text embeddings.</p>
 <p>Cosine similarity is calculated by taking the dot product of normalized vectors:</p>
-<div id="b54a14a7" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="b54a14a7" class="cell">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normalize(a): <span class="cf">return</span> a <span class="op">/</span> a.norm(dim<span class="op">=-</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cosine_sim(a, b): <span class="cf">return</span> normalize(a) <span class="op">@</span> normalize(b).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ff186e5d" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="ff186e5d" class="cell">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cosine_sim(image_embs, text_embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor([[0.2639, 0.2127],
@@ -434,11 +435,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Note how the similarity between the cat image and the text “a photo of a cat” (0.2639) is higher than the similarity between the cat image and the text “a photo of a dog” (0.2127), and similarly for the dog image in the next row of the tensor.</p>
 <p>We can convert these similarities to probabilities by using the model’s <code>logit_scale</code> parameter followed by the <code>softmax</code> method:</p>
-<div id="a18a6958" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="a18a6958" class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> logits(a, b): <span class="cf">return</span> model.logit_scale.exp() <span class="op">*</span> cosine_sim(a, b)</span>
 <span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> probs(a, b): <span class="cf">return</span> logits(a, b).softmax(dim<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="0e0396db" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="0e0396db" class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>probs(text_embs, image_embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor([[0.9940, 0.0027],
@@ -447,7 +448,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>We see a probability of 0.994 that the image of a cat is in fact a cat, and a probability of 0.997 that the image of a dog is in fact a dog. Pretty good!</p>
 <p>Since this is a zero-shot classifier, we can very easily generalize it to arbitrary classes! Let’s make a convenient wrapper to do exactly that:</p>
-<div id="363d3ef8" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="363d3ef8" class="cell">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify(image, classes, template<span class="op">=</span><span class="st">"a photo of a </span><span class="sc">{}</span><span class="st">"</span>):</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    image_embs <span class="op">=</span> embed_image(image)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    text_embs <span class="op">=</span> embed_text([template.<span class="bu">format</span>(o) <span class="cf">for</span> o <span class="kw">in</span> classes])</span>
@@ -455,7 +456,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>To use this, simply pass in a list of classes. You can also customize the <code>template</code>, which can improve the classification accuracy.</p>
 <p>Here’s how we can classify the breed of a cat:</p>
-<div id="4aea6aff" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="4aea6aff" class="cell">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cat_breeds <span class="op">=</span> <span class="bu">sorted</span>({row[<span class="st">"label"</span>] <span class="cf">for</span> row <span class="kw">in</span> dataset[<span class="st">"train"</span>] <span class="cf">if</span> <span class="kw">not</span> row[<span class="st">"dog"</span>]})</span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> classify(cat_image, cat_breeds, <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st"> cat"</span>)</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -474,7 +475,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
         [7.8781e-05]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
 </div>
 </div>
-<div id="41ED0033-6570-4F42-A0D8-97BB21DD74DD" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="41ED0033-6570-4F42-A0D8-97BB21DD74DD" class="cell">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> torch.argmax(scores)</span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>cat_breeds[idx], scores[idx].item()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
@@ -482,7 +483,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>… and here’s how we can classify the color of any animal:</p>
-<div id="e457d936" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="e457d936" class="cell">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>classes <span class="op">=</span> [<span class="st">"black"</span>, <span class="st">"white"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"yellow"</span>, <span class="st">"blue"</span>, <span class="st">"brown"</span>, <span class="st">"orange"</span>, <span class="st">"pink"</span>, <span class="st">"purple"</span>, <span class="st">"grey"</span>]</span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> classify(cat_image, classes, <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st"> animal"</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> torch.argmax(scores)</span>
@@ -496,20 +497,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="using-clip-for-text-to-image-search" class="level3">
 <h3 class="anchored" data-anchor-id="using-clip-for-text-to-image-search">Using CLIP for text-to-image search</h3>
 <p>Using CLIP for search is not too different from using it for zero-shot classification. In fact, search is even simpler! We don’t need to calculate probabilities since we ultimately only care about the order of items:</p>
-<div id="65888292" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="65888292" class="cell">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search(image_embs, query_embs):</span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    sims <span class="op">=</span> cosine_sim(image_embs, query_embs).flatten()</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> sims.argsort(descending<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> indices, sims[indices]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="30E00922-FA29-481A-B0A6-3A363B0BA41D" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="30E00922-FA29-481A-B0A6-3A363B0BA41D" class="cell">
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>indices, sims <span class="op">=</span> search(image_embs, embed_text(<span class="st">"a photo of a cat"</span>))</span>
 <span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>indices, sims</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>(tensor([0, 1]), tensor([0.2639, 0.1962]))</code></pre>
 </div>
 </div>
-<div id="2bf0ad46" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="2bf0ad46" class="cell">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> indices: display(thumbnail(images[i]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
@@ -520,11 +521,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p>Let’s try that with a bigger dataset and some more interesting queries:</p>
 <p>Let’s embed all of the images. Since this took quite a while on my laptop (19 minutes), it’s convenient to cache the result to disk so that we don’t slow down iteration in our notebook:</p>
-<div id="894b2f24" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="894b2f24" class="cell">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm.notebook <span class="im">import</span> tqdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="192d7de5" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="192d7de5" class="cell">
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>all_image_embs_path <span class="op">=</span> Path(<span class="st">"oxford_pets_embeddings.npy"</span>)</span>
 <span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> all_image_embs_path.exists():</span>
 <span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    all_image_embs <span class="op">=</span> torch.tensor(np.load(all_image_embs_path))</span>
@@ -532,20 +533,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    all_image_embs <span class="op">=</span> [embed_image(row[<span class="st">'image'</span>]) <span class="cf">for</span> row <span class="kw">in</span> tqdm(dataset[<span class="st">'train'</span>])]</span>
 <span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    np.save(all_image_embs_path, embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e29922ff" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="e29922ff" class="cell">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>all_image_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>torch.Size([7390, 512])</code></pre>
 </div>
 </div>
-<div id="cf611ac2" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="cf611ac2" class="cell">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search_and_display(image_embs, query_embs, k<span class="op">=</span><span class="dv">3</span>):</span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    indices, _ <span class="op">=</span> search(image_embs, query_embs)</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> indices[:k]:</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        image <span class="op">=</span> dataset[<span class="st">"train"</span>][i.item()][<span class="st">"image"</span>]</span>
 <span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        display(thumbnail(image))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="bf2ca868" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="bf2ca868" class="cell">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_text(<span class="st">"a photo of a white puppey on the grass"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
@@ -558,7 +559,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <p>Amazing! I wonder how obscure we can get?</p>
-<div id="7D0912E0-9255-44FA-9120-4AADEA703426" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="7D0912E0-9255-44FA-9120-4AADEA703426" class="cell">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_text(<span class="st">"a photo of a fluffy pink cat on a tv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
@@ -573,7 +574,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>It always surprises me how well this works! 🤯</p>
 <p>And once again, it’s super flexible. For example, all we need to change in order to use an image query is to pass the image’s embeddings instead of text embeddings!</p>
 <p>Let’s find the most similar images to our fluffy white persian cat from earlier:</p>
-<div id="772F80F2-E221-4FEF-B115-FF45BFBA9EC4" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
+<div id="772F80F2-E221-4FEF-B115-FF45BFBA9EC4" class="cell">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_image(cat_image))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <p><img src="how-to-build-your-own-vector-search-engine_files/figure-html/cell-30-output-1.png" class="img-fluid"></p>
@@ -638,7 +639,7 @@ Why use a Virtual Private Server(VPS) instead of a modern platform as a service 
 <p>Most people underestimate how much traffic you can serve from a single low cost VPS!</p>
 <p><a href="https://twitter.com/levelsio">Pieter Levels</a>, a well-known solopreneur, ran more than 40 of his websites serving over 250 million requests per month <a href="https://twitter.com/levelsio/status/1641728236617887744">from a single VPS</a>.</p>
 <p><a href="https://memex.marginalia.nu/">Marginalia</a>, an indie search engine that focuses on non-commercial content, casually handled the front page of Hackernews <a href="https://news.ycombinator.com/item?id=35614187">with a single server worth ~$5k of commercial hardware</a> in their living room.</p>
-<p>My good friend <a href="https://twitter.com/ashtonshudson">Ashton Hudson</a> took the same approach with <a href="https://www.servaltracker.com/">Serval</a>, a price tracker for South Africa’s largest online store, which serves X requests per month and stores Y time series data points on <a href="https://twitter.com/ashtonshudson/status/1609621491481460737">low cost servers costing ~$45 per month</a>.</p>
+<p>My good friend <a href="https://twitter.com/ashtonshudson">Ashton Hudson</a> took the same approach with <a href="https://www.servaltracker.com/">Serval</a>, a price tracker for South Africa’s largest online store, which serves 3000 daily active users and stores 7 million time series data points on <a href="https://twitter.com/ashtonshudson/status/1609621491481460737">low cost servers at a total of ~$45 per month</a>.</p>
 </div>
 </div>
 <p>I totally overestimated how much effort it would take to setup a VPS. It wasn’t that bad and took a few hours in the end. Here’s how I went about it. Note that these steps only need to be carried out once per server:</p>
@@ -659,15 +660,15 @@ Why use a Virtual Private Server(VPS) instead of a modern platform as a service 
 <section id="choosing-boring-tech" class="level3">
 <h3 class="anchored" data-anchor-id="choosing-boring-tech">Choosing boring tech</h3>
 <p>You might have noticed that I chose a “boring” tech stack. I believe that <a href="https://boringtechnology.club/">boring tech</a> is a key part of what allowed me to ship Meepo so quickly. Let me explain.</p>
-<section id="boring-tech-is-old-because-it-works" class="level4">
-<h4 class="anchored" data-anchor-id="boring-tech-is-old-because-it-works">Boring tech is old, because it works</h4>
+<section id="its-boring-because-it-works" class="level4">
+<h4 class="anchored" data-anchor-id="its-boring-because-it-works">It’s boring because it works</h4>
 <p>It’s been around for decades. If that’s the case, and it’s still widely used, then <em>it probably works</em>! It might not be the most elegant solution, but it gets the job done. Software that’s been maintained for a long time is software that’s been hardened against many thousands of obscure edge-cases that users like you and I no longer have to worry about.</p>
 <p>For example, Meepo is a Django application, and Django is 20 years old. That’s 20 years of incremental improvements and bug fixes resulting in a truly robust piece of software.</p>
 </section>
-<section id="try-learning-new-process-instead-of-new-tech" class="level4">
-<h4 class="anchored" data-anchor-id="try-learning-new-process-instead-of-new-tech">Try learning new process instead of new tech</h4>
+<section id="innovate-on-your-process-not-only-your-tech" class="level4">
+<h4 class="anchored" data-anchor-id="innovate-on-your-process-not-only-your-tech">Innovate on your process, not only your tech</h4>
 <p>Developers typically enjoy learning new tools. That’s a good thing, but it also means that we’re biased to choosing new tools even when they aren’t necessarily improvements over the status quo.</p>
-<p>Instead of focusing on learning a new tool, try to focus on mastering tools you already know, and developing excellent decision-making skills on top of those tools with a ruthless focus on shipping quickly.</p>
+<p>Instead of focusing on learning a new tool, try focusing on mastering tools you already know, and developing excellent decision-making skills on top of those tools with a ruthless focus on shipping quickly.</p>
 <p>For me, this meant using Django instead of something like FastAPI, and using a simple Linux VPS instead of a more modern platform as a service option. But this is different for everyone and depends on each person’s individual experience.</p>
 </section>
 <section id="deviating-from-what-works" class="level4">

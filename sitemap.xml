@@ -2,90 +2,94 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://wasimlorgat.com/tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html</loc>
-    <lastmod>2023-05-20T11:59:03.209Z</lastmod>
+    <lastmod>2023-05-20T12:32:22.023Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/callbacks-vs-async-await.html</loc>
-    <lastmod>2023-05-20T11:59:03.725Z</lastmod>
+    <lastmod>2023-05-20T12:32:22.407Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html</loc>
-    <lastmod>2023-05-20T11:59:04.221Z</lastmod>
+    <lastmod>2023-05-20T12:32:22.759Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/setting-up-tils-in-pelican.html</loc>
-    <lastmod>2023-05-20T11:59:04.713Z</lastmod>
+    <lastmod>2023-05-20T12:32:23.111Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/compiling-python-to-c-using-setuptools-and-cython.html</loc>
-    <lastmod>2023-05-20T11:59:05.157Z</lastmod>
+    <lastmod>2023-05-20T12:32:23.440Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/using-pelican-as-a-library.html</loc>
-    <lastmod>2023-05-20T11:59:06.073Z</lastmod>
+    <lastmod>2023-05-20T12:32:24.076Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/index.html</loc>
-    <lastmod>2023-05-20T11:59:07.249Z</lastmod>
+    <lastmod>2023-05-20T12:32:24.916Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</loc>
-    <lastmod>2023-05-20T11:59:08.181Z</lastmod>
+    <lastmod>2023-05-20T12:32:25.588Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html</loc>
-    <lastmod>2023-05-20T11:59:08.793Z</lastmod>
+    <lastmod>2023-05-20T12:32:26.016Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/how-to-create-an-ai-profile-picture-from-scratch.html</loc>
-    <lastmod>2023-05-20T11:59:09.329Z</lastmod>
+    <lastmod>2023-05-20T12:32:26.396Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/how-to-use-nstableview-in-swiftui.html</loc>
-    <lastmod>2023-05-20T11:59:09.881Z</lastmod>
+    <lastmod>2023-05-20T12:32:26.792Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/update-fastai-union-annotations-using-ast.html</loc>
-    <lastmod>2023-05-20T11:59:10.449Z</lastmod>
+    <lastmod>2023-05-20T12:32:27.176Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/create-and-execute-cells-inside-a-jupyter-notebook.html</loc>
-    <lastmod>2023-05-20T11:59:10.921Z</lastmod>
+    <lastmod>2023-05-20T12:32:27.508Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</loc>
-    <lastmod>2023-05-20T11:59:11.449Z</lastmod>
+    <lastmod>2023-05-20T12:32:27.892Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/index.html</loc>
-    <lastmod>2023-05-20T11:59:12.209Z</lastmod>
+    <lastmod>2023-05-20T12:32:28.444Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/projects.html</loc>
-    <lastmod>2023-05-20T11:59:12.745Z</lastmod>
+    <lastmod>2023-05-20T12:32:28.812Z</lastmod>
+  </url>
+  <url>
+    <loc>https://wasimlorgat.com/posts/how-to-build-your-own-vector-search-engine.html</loc>
+    <lastmod>2023-05-20T12:32:30.540Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/doing-important-work.html</loc>
-    <lastmod>2023-05-20T11:59:15.621Z</lastmod>
+    <lastmod>2023-05-20T12:32:30.856Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/code-neq-idea.html</loc>
-    <lastmod>2023-05-20T11:59:16.681Z</lastmod>
+    <lastmod>2023-05-20T12:32:31.596Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/how-to-build-your-own-minimal-jupyter-frontend.html</loc>
-    <lastmod>2023-05-20T11:59:18.213Z</lastmod>
+    <lastmod>2023-05-20T12:32:32.708Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/math-of-diffusion.html</loc>
-    <lastmod>2023-05-20T11:59:20.469Z</lastmod>
+    <lastmod>2023-05-20T12:32:34.388Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/fastai-array-programming-day-1.html</loc>
-    <lastmod>2023-05-20T11:59:21.429Z</lastmod>
+    <lastmod>2023-05-20T12:32:35.080Z</lastmod>
   </url>
   <url>
     <loc>https://wasimlorgat.com/posts/editor.html</loc>
-    <lastmod>2023-05-20T11:59:22.709Z</lastmod>
+    <lastmod>2023-05-20T12:32:36.012Z</lastmod>
   </url>
 </urlset>

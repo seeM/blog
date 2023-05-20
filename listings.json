@@ -20,6 +20,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/how-to-build-your-own-vector-search-engine.html",
       "/posts/how-to-build-your-own-minimal-jupyter-frontend.html",
       "/posts/math-of-diffusion.html",
       "/posts/fastai-array-programming-day-1.html",
