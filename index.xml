@@ -18,7 +18,7 @@
 
 
 
-<p>I attended <a href="https://www.jupytercon.com/">JupyterCon 2023</a> in Paris last week. On Thursday, <a href="https://hamel.dev/">Hamel Husain</a>, myself, and <a href="https://www.linkedin.com/in/jjallaire">J. J. Allaire</a> (as a teaching assistant) presented a two and a half hour tutorial on Writing, Documenting, Testing, and Distributing Python Packages with <a href="https://nbdev.fast.ai/">nbdev</a> and <a href="https://quarto.org/">Quarto</a>.</p>
+<p>I attended <a href="https://www.jupytercon.com/">JupyterCon 2023</a> in Paris two weeks ago. On Thursday, <a href="https://hamel.dev/">Hamel Husain</a>, myself, and <a href="https://www.linkedin.com/in/jjallaire">J. J. Allaire</a> (as a teaching assistant) presented a two and a half hour tutorial on Writing, Documenting, Testing, and Distributing Python Packages with <a href="https://nbdev.fast.ai/">nbdev</a> and <a href="https://quarto.org/">Quarto</a>.</p>
 <p>I think it went well! The room was full and attendees engaged with great questions.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -35,7 +35,7 @@
 <li><p>I can’t live without the wonderful <a href="https://github.com/quarto-dev/quarto/tree/main/apps/jupyterlab"><code>jupyterlab-quarto</code></a>. It renders Quarto markdown including frontmatter, callouts, and fenced divs which greatly improves the authoring experience.</p></li>
 <li><p>There is interesting work being done on LLM-related extensions like <a href="https://github.com/jupyterlab/jupyter-ai"><code>jupyter-ai</code></a> which adds an LLM chat interface to the sidebar.</p></li>
 </ul></li>
-<li><p>Lab 4.0.0 was released! It comes with significantly better performance among a ton of other improvements. Most notably for me is a built-in implementation of classic’s <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/collapsible_headings/readme.html">collapsible headings</a> extension (including the keyboard shortcuts). However, it is worth noting that extensions will need to migrate to version 4 and I’m not sure what this process will look like!</p></li>
+<li><p><a href="https://github.com/jupyterlab/jupyterlab/releases/tag/v4.0.0">Lab 4.0.0 was released!</a> It comes with significantly better performance among a ton of other improvements. Most notably for me is a built-in implementation of classic’s <a href="https://jupyter-contrib-nbextensions.readthedocs.io/en/latest/nbextensions/collapsible_headings/readme.html">collapsible headings</a> extension (including the keyboard shortcuts). However, it is worth noting that extensions will need to migrate to version 4 and I’m not sure what this process will look like!</p></li>
 </ul>
 <p>You can also find an outline of the tutorial as well as the slides for Hamel’s opening section at the tutorial website: <a href="https://fastai.github.io/jupytercon-2023" class="uri">https://fastai.github.io/jupytercon-2023</a>.</p>
 <p>By the way, we wrote the tutorial site using Quarto too! Here is the underlying repo: <a href="https://github.com/fastai/jupytercon-2023" class="uri">https://github.com/fastai/jupytercon-2023</a>.</p>
