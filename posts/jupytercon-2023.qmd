@@ -1,14 +1,14 @@
 ---
-title: Write, Document, Test and Distribute Python Packages With Jupyter & Quarto
+title: Write, document, test and distribute Python packages with Jupyter & Quarto
 date: 2023-05-22
 categories: [talk]
 ---
 
-I attended [JupyterCon 2023](https://www.jupytercon.com/) in Paris last week. On Thursday, [Hamel Husain](https://hamel.dev/), myself, and J. J. Allaire (as teaching assistant) presented a two and a half hour tutorial on Writing, Documenting, Testing, and Distributing Python Packages with [nbdev](https://nbdev.fast.ai/) and [Quarto](https://quarto.org/).
+I attended [JupyterCon 2023](https://www.jupytercon.com/) in Paris last week. On Thursday, [Hamel Husain](https://hamel.dev/), myself, and [J. J. Allaire](https://www.linkedin.com/in/jjallaire) (as a teaching assistant) presented a two and a half hour tutorial on Writing, Documenting, Testing, and Distributing Python Packages with [nbdev](https://nbdev.fast.ai/) and [Quarto](https://quarto.org/).
 
 I think it went well! The room was full and attendees engaged with great questions.
 
-![](images/jupytercon-2023-tutorial.png){fig-align="center"}
+![Screenshot of the [tutorial website](https://fastai.github.io/jupytercon-2023/) [taken with `shot-scraper`](/tils/using-shot-scraper.ipynb).](images/jupytercon-2023-tutorial.png){.shadow-sm .border fig-align="center" .preview-image}
 
 Hamel opened by describing the roots of nbdev's programming paradigm: a combination of *literate programming* ([introduced by Donald Knuth](https://en.wikipedia.org/wiki/Literate_programming)) and *exploratory programming* ([beautifully demonstrated by Bret Victor](https://www.youtube.com/watch?v=PUv66718DII)) made possible by [Jupyter](https://jupyter.org/) notebooks. He then took us through both basic and advanced usage of Quarto -- the publishing platform that powers nbdev's documentation generation.
 
