@@ -3,9 +3,10 @@ title: TILs
 listing:
   contents: .
   sort: "date desc"
-  type: table
+  type: default
   categories: true
-  fields: [date, title]
+  fields: [categories, title, date, description]
+  date-format: YYYY-MM-DD
   sort-ui: false
   filter-ui: false
   feed: true
@@ -13,9 +14,7 @@ author: ''
 comments: false
 description: Recent TILs on wasimlorgat.com
 title-block-style: none
+css: index.css
 ---
 
-I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks.
-TILs (today I learneds) are my attempt at documenting and sharing my day-to-day learnings in case they might help others.
-The focus on learning also feels less daunting than writing blog posts.
-
+I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks. TILs (today I learneds) are my attempt at documenting and sharing my day-to-day learnings in case they might help others. The focus on learning also feels less daunting than writing blog posts.

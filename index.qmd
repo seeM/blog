@@ -7,14 +7,19 @@ listing:
   feed: true
   filter-ui: false
   sort-ui: false
+  date-format: YYYY-MM-DD
 comments: false
 description: Recent posts on wasimlorgat.com
 pagetitle: Wasim Lorgat
 ---
 
-<h1 style="margin-bottom: 2rem !important">Hi, I'm Wasim</h1>
+<h1 style="margin-bottom: 2rem !important">
 
-::: {.me}
+Hi, I'm Wasim
+
+</h1>
+
+::: me
 ![](images/me.jpeg)
 :::
 
@@ -30,7 +35,7 @@ Previously, I held technical leadership positions in South African AI startups i
 
 One of my biggest motivations for sharing online is to connect with interesting people from across the world.
 
-Email me at [mwlorgat@gmail.com](mailto:mwlorgat@gmail.com){data-analytics='"Consulting: Click"'} or DM me on [Twitter](https://twitter.com/wasimlorgat) or [LinkedIn](https://www.linkedin.com/in/wasim-lorgat/) if you'd like to chat!
+Email me at [mwlorgat\@gmail.com](mailto:mwlorgat@gmail.com){data-analytics="\"Consulting: Click\""} or DM me on [Twitter](https://twitter.com/wasimlorgat) or [LinkedIn](https://www.linkedin.com/in/wasim-lorgat/) if you'd like to chat!
 
 ## Recent posts
 
