@@ -332,3 +332,8 @@ div.callout-tip.callout {
   border-left-color: #{$success}7F; // 7F = 50% opacity, via https://stackoverflow.com/a/8254129
   background-color: #{$success}19; // 19 = 10% opacity, via https://stackoverflow.com/a/8254129
 }
+
+// Make listings metadata fit content
+div.quarto-post .metadata {
+  flex-basis: auto;
+}
