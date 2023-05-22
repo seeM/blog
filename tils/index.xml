@@ -10,7 +10,264 @@
 <atom:link href="https://wasimlorgat.com/tils/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent TILs on wasimlorgat.com</description>
 <generator>quarto-1.4.80</generator>
-<lastBuildDate>Mon, 06 Mar 2023 00:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 22 May 2023 00:00:00 GMT</lastBuildDate>
+<item>
+  <title>Using shot-scraper to automate screenshots for my writing</title>
+  <link>https://wasimlorgat.com/tils/using-shot-scraper.html</link>
+  <description><![CDATA[ 
+
+
+
+<p>I’m trying out <a href="https://simonwillison.net/">Simon Willison’s</a> <a href="https://github.com/simonw/shot-scraper">shot-scraper</a> to include a screenshot of the <a href="https://fastai.github.io/jupytercon-2023/">website</a> for our JupyterCon 2023 tutorial in my <a href="../posts/jupytercon-2023.html">blog post</a>.</p>
+<p>First install the <code>shot-scraper</code> command line tool:</p>
+<div id="cell-3" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>pip3 install shot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>scraper</span></code></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Collecting shot-scraper
+  Downloading shot_scraper-1.2-py3-none-any.whl (15 kB)
+Collecting click
+  Downloading click-8.1.3-py3-none-any.whl (96 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.6/96.6 kB 3.7 MB/s eta 0:00:00
+Requirement already satisfied: PyYAML in /opt/homebrew/lib/python3.11/site-packages (from shot-scraper) (6.0)
+Collecting playwright
+  Downloading playwright-1.33.0-py3-none-macosx_11_0_arm64.whl (31.2 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 31.2/31.2 MB 5.5 MB/s eta 0:00:0000:0100:01
+Collecting click-default-group
+  Downloading click-default-group-1.2.2.tar.gz (3.3 kB)
+  Preparing metadata (setup.py) ... done
+Collecting greenlet==2.0.1
+  Downloading greenlet-2.0.1-cp311-cp311-macosx_10_9_universal2.whl (259 kB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 259.4/259.4 kB 5.3 MB/s eta 0:00:00a 0:00:01
+Collecting pyee==9.0.4
+  Downloading pyee-9.0.4-py2.py3-none-any.whl (14 kB)
+Requirement already satisfied: typing-extensions in /opt/homebrew/lib/python3.11/site-packages (from pyee==9.0.4-&gt;playwright-&gt;shot-scraper) (4.5.0)
+Building wheels for collected packages: click-default-group
+  Building wheel for click-default-group (setup.py) ... done
+  Created wheel for click-default-group: filename=click_default_group-1.2.2-py3-none-any.whl size=3383 sha256=816707e9974b43b6f04f2e646cf851f2e041f0c7cc25fcb67612fb4d72973d4f
+  Stored in directory: /Users/seem/Library/Caches/pip/wheels/69/9a/ed/1979767796ee1379d161a35fea9745a788476be12fb2ac664a
+Successfully built click-default-group
+Installing collected packages: pyee, greenlet, click, playwright, click-default-group, shot-scraper
+Successfully installed click-8.1.3 click-default-group-1.2.2 greenlet-2.0.1 playwright-1.33.0 pyee-9.0.4 shot-scraper-1.2
+
+[notice] A new release of pip is available: 23.0.1 -&gt; 23.1.2
+[notice] To update, run: python3.11 -m pip install --upgrade pip</code></pre>
+</div>
+</div>
+<p>Then install the underlying browser used by <code>shot-scraper</code>:</p>
+<div id="cell-5" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>scraper install</span></code></pre></div>
+</div>
+<p>We can now take a screenshot of any website!</p>
+<div id="cell-7" class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>scraper https:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">//</span>fastai.github.io<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>jupytercon<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>output ..<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>posts<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>images<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>jupytercon<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>tutorial.png <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>width <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1600</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>height <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">900</span></span></code></pre></div>
+</div>
+<p>Here’s the image:</p>
+<div id="cell-9" class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display" data-execution_count="36">
+<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>I want a resolution of 1600x900 but the font size is too small here. Halving the width and height and doubling the device scale factor with the <code>--retina</code> flag should fix this:</p>
+<div id="cell-11" class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>scraper https:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">//</span>fastai.github.io<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>jupytercon<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>output ..<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>posts<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>images<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>jupytercon<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>tutorial.png <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>width <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">800</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>height <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">450</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>retina</span></code></pre></div>
+</div>
+<div id="cell-12" class="cell" data-execution_count="38">
+<div class="cell-output cell-output-display" data-execution_count="38">
+<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Finally, I want to exclude the nav bar. We can use a CSS selector for that:</p>
+<div id="cell-14" class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>scraper https:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">//</span>fastai.github.io<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>jupytercon<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>output ..<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>posts<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>images<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>jupytercon<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>tutorial.png <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>selector <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'#quarto-content'</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>width <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">800</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>height <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">450</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>retina</span></code></pre></div>
+</div>
+<div id="cell-15" class="cell" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="40">
+<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Ah, it doesn’t seem like <code>--selector</code> works together with <code>--width</code> and <code>--height</code>. Another way to do this might be by hiding the navbar by executing <code>--javascript</code> code:</p>
+<div id="cell-17" class="cell" data-execution_count="44">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>scraper https:<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">//</span>fastai.github.io<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>jupytercon<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>output ..<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>posts<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>images<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span>jupytercon<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2023</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>tutorial.png <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>width <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">800</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>height <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">450</span> <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>retina <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">--</span>javascript <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"document.querySelector('#quarto-header').style.display = 'none'"</span></span></code></pre></div>
+</div>
+<div id="cell-18" class="cell" data-execution_count="45">
+<div class="cell-output cell-output-display" data-execution_count="45">
+<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Perfect! I’m chuffed with how easy this was. I typed this out exactly as I used it, and everything worked first time with zero errors. I think it would’ve been neat if I could use <code>--width</code> and <code>--height</code> to crop the image after a <code>--selector</code> is applied, but in the end I could get what I wanted using a single line of <code>--javascript</code>.</p>
+
+
+
+ ]]></description>
+  <guid>https://wasimlorgat.com/tils/using-shot-scraper.html</guid>
+  <pubDate>Mon, 22 May 2023 00:00:00 GMT</pubDate>
+</item>
 <item>
   <title>How to create your own AI avatar using HuggingFace Diffusers and Dreambooth</title>
   <link>https://wasimlorgat.com/tils/how-to-create-an-ai-profile-picture-from-scratch.html</link>

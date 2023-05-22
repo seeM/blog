@@ -2,6 +2,7 @@
   {
     "listing": "/tils/index.html",
     "items": [
+      "/tils/using-shot-scraper.html",
       "/tils/how-to-create-an-ai-profile-picture-from-scratch.html",
       "/tils/callbacks-vs-async-await.html",
       "/tils/how-to-use-nstableview-in-swiftui.html",
@@ -20,6 +21,7 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/jupytercon-2023.html",
       "/posts/how-to-build-your-own-vector-search-engine.html",
       "/posts/how-to-build-your-own-minimal-jupyter-frontend.html",
       "/posts/math-of-diffusion.html",

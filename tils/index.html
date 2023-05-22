@@ -73,9 +73,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
+      valueNames: ['listing-categories','listing-title','listing-date','listing-description',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -176,7 +176,7 @@ ul.task-list li input[type="checkbox"] {
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(13)</span></div><div class="category" data-category="artificial intelligence">artificial intelligence <span class="quarto-category-count">(2)</span></div><div class="category" data-category="notebooks">notebooks <span class="quarto-category-count">(4)</span></div><div class="category" data-category="pelican">pelican <span class="quarto-category-count">(2)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(3)</span></div><div class="category" data-category="swift">swift <span class="quarto-category-count">(1)</span></div><div class="category" data-category="terminal">terminal <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(14)</span></div><div class="category" data-category="artificial intelligence">artificial intelligence <span class="quarto-category-count">(2)</span></div><div class="category" data-category="notebooks">notebooks <span class="quarto-category-count">(4)</span></div><div class="category" data-category="pelican">pelican <span class="quarto-category-count">(2)</span></div><div class="category" data-category="python">python <span class="quarto-category-count">(3)</span></div><div class="category" data-category="swift">swift <span class="quarto-category-count">(1)</span></div><div class="category" data-category="terminal">terminal <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
@@ -191,125 +191,409 @@ ul.task-list li input[type="checkbox"] {
 
 
 
-<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
-<table class="quarto-listing-table table">
-<thead>
-<tr>
-<th>
-Date
-</th>
-<th>
-Title
-</th>
-</tr>
-</thead>
-<tbody class="list">
-<tr data-index="0" data-categories="artificial intelligence" data-listing-date-sort="1678060800000" data-listing-file-modified-sort="1684585914831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-title-sort="How to create your own AI avatar using HuggingFace Diffusers and Dreambooth" data-listing-filename-sort="how-to-create-an-ai-profile-picture-from-scratch.qmd">
-<td>
-<span class="listing-date">Mar 6, 2023</span>
-</td>
-<td>
-<a href="../tils/how-to-create-an-ai-profile-picture-from-scratch.html" class="title listing-title">How to create your own AI avatar using HuggingFace Diffusers and Dreambooth</a>
-</td>
-</tr>
-<tr data-index="1" data-categories="" data-listing-date-sort="1676246400000" data-listing-file-modified-sort="1684585914831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-title-sort="Callbacks vs async/await" data-listing-filename-sort="callbacks-vs-async-await.ipynb">
-<td>
-<span class="listing-date">Feb 13, 2023</span>
-</td>
-<td>
-<a href="../tils/callbacks-vs-async-await.html" class="title listing-title">Callbacks vs async/await</a>
-</td>
-</tr>
-<tr data-index="2" data-categories="swift" data-listing-date-sort="1674604800000" data-listing-file-modified-sort="1684585914831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8" data-listing-title-sort="How to use NSTableView in SwiftUI" data-listing-filename-sort="how-to-use-nstableview-in-swiftui.qmd">
-<td>
-<span class="listing-date">Jan 25, 2023</span>
-</td>
-<td>
-<a href="../tils/how-to-use-nstableview-in-swiftui.html" class="title listing-title">How to use NSTableView in SwiftUI</a>
-</td>
-</tr>
-<tr data-index="3" data-categories="artificial intelligence" data-listing-date-sort="1674432000000" data-listing-file-modified-sort="1684585914831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-title-sort="How to setup a GPU notebook server on Google Cloud Platform (GCP)" data-listing-filename-sort="how-to-setup-a-gpu-instance-on-google-cloud-platform.qmd">
-<td>
-<span class="listing-date">Jan 23, 2023</span>
-</td>
-<td>
-<a href="../tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html" class="title listing-title">How to setup a GPU notebook server on Google Cloud Platform (GCP)</a>
-</td>
-</tr>
-<tr data-index="4" data-categories="terminal" data-listing-date-sort="1671062400000" data-listing-file-modified-sort="1684585914831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="How to share terminal demos as razor-sharp animated SVG" data-listing-filename-sort="how-to-share-terminal-demos-as-razor-sharp-animated-svg.qmd">
-<td>
-<span class="listing-date">Dec 15, 2022</span>
-</td>
-<td>
-<a href="../tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html" class="title listing-title">How to share terminal demos as razor-sharp animated SVG</a>
-</td>
-</tr>
-<tr data-index="5" data-categories="python" data-listing-date-sort="1657411200000" data-listing-file-modified-sort="1684585914831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-title-sort="Diagnosing an issue with plugin modules, process pools, and the import system" data-listing-filename-sort="diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.ipynb">
-<td>
-<span class="listing-date">Jul 10, 2022</span>
-</td>
-<td>
-<a href="../tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html" class="title listing-title">Diagnosing an issue with plugin modules, process pools, and the import system</a>
-</td>
-</tr>
-<tr data-index="6" data-categories="notebooks,python" data-listing-date-sort="1657238400000" data-listing-file-modified-sort="1684585914839" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="Update fastai union annotations using ast" data-listing-filename-sort="update-fastai-union-annotations-using-ast.ipynb">
-<td>
-<span class="listing-date">Jul 8, 2022</span>
-</td>
-<td>
-<a href="../tils/update-fastai-union-annotations-using-ast.html" class="title listing-title">Update fastai union annotations using ast</a>
-</td>
-</tr>
-<tr data-index="7" data-categories="python" data-listing-date-sort="1656892800000" data-listing-file-modified-sort="1684585914831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-title-sort="Compiling Python to C using setuptools and Cython" data-listing-filename-sort="compiling-python-to-c-using-setuptools-and-cython.ipynb">
-<td>
-<span class="listing-date">Jul 4, 2022</span>
-</td>
-<td>
-<a href="../tils/compiling-python-to-c-using-setuptools-and-cython.html" class="title listing-title">Compiling Python to C using setuptools and Cython</a>
-</td>
-</tr>
-<tr data-index="8" data-categories="notebooks" data-listing-date-sort="1655942400000" data-listing-file-modified-sort="1684585914831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="Creating a minimal custom Jupyter widget" data-listing-filename-sort="creating-a-minimal-custom-jupyter-widget.ipynb">
-<td>
-<span class="listing-date">Jun 23, 2022</span>
-</td>
-<td>
-<a href="../tils/creating-a-minimal-custom-jupyter-widget.html" class="title listing-title">Creating a minimal custom Jupyter widget</a>
-</td>
-</tr>
-<tr data-index="9" data-categories="notebooks" data-listing-date-sort="1655942400000" data-listing-file-modified-sort="1684585914839" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-title-sort="Point and click directory navigation inside a Jupyter notebook" data-listing-filename-sort="point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb">
-<td>
-<span class="listing-date">Jun 23, 2022</span>
-</td>
-<td>
-<a href="../tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html" class="title listing-title">Point and click directory navigation inside a Jupyter notebook</a>
-</td>
-</tr>
-<tr data-index="10" data-categories="notebooks" data-listing-date-sort="1655856000000" data-listing-file-modified-sort="1684585914831" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1" data-listing-title-sort="Create and execute cells inside a Jupyter notebook" data-listing-filename-sort="create-and-execute-cells-inside-a-jupyter-notebook.ipynb">
-<td>
-<span class="listing-date">Jun 22, 2022</span>
-</td>
-<td>
-<a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html" class="title listing-title">Create and execute cells inside a Jupyter notebook</a>
-</td>
-</tr>
-<tr data-index="11" data-categories="pelican" data-listing-date-sort="1655769600000" data-listing-file-modified-sort="1684585914839" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-title-sort="Setting up TILs in Pelican" data-listing-filename-sort="setting-up-tils-in-pelican.ipynb">
-<td>
-<span class="listing-date">Jun 21, 2022</span>
-</td>
-<td>
-<a href="../tils/setting-up-tils-in-pelican.html" class="title listing-title">Setting up TILs in Pelican</a>
-</td>
-</tr>
-<tr data-index="12" data-categories="pelican" data-listing-date-sort="1655683200000" data-listing-file-modified-sort="1684585914839" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4" data-listing-title-sort="Using Pelican as a library" data-listing-filename-sort="using-pelican-as-a-library.ipynb">
-<td>
-<span class="listing-date">Jun 20, 2022</span>
-</td>
-<td>
-<a href="../tils/using-pelican-as-a-library.html" class="title listing-title">Using Pelican as a library</a>
-</td>
-</tr>
-</tbody>
-</table>
+<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
+<div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-date-sort="1684713600000" data-listing-file-modified-sort="1684750435926" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="body">
+<a href="../tils/using-shot-scraper.html">
+<h3 class="no-anchor listing-title">
+Using shot-scraper to automate screenshots for my writing
+</h3>
+<div class="listing-subtitle">
+
+</div>
+<div class="listing-description">
+I’m trying out Simon Willison’s shot-scraper to include a screenshot of the website for our JupyterCon 2023 tutorial in my blog post.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/using-shot-scraper.html">
+<div class="listing-date">
+2023-05-22
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="artificial intelligence" data-listing-date-sort="1678060800000" data-listing-file-modified-sort="1684750435890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="body">
+<a href="../tils/how-to-create-an-ai-profile-picture-from-scratch.html">
+<h3 class="no-anchor listing-title">
+How to create your own AI avatar using HuggingFace Diffusers and Dreambooth
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('artificial intelligence'); return false;">
+artificial intelligence
+</div>
+</div>
+<a href="../tils/how-to-create-an-ai-profile-picture-from-scratch.html">
+<div class="listing-description">
+I’m super impressed with the quality of Dreambooth using HuggingFace Diffusers 🚀 — with only 14 images of myself! These four images are created by Stable Diffusion using…<sup></sup>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/how-to-create-an-ai-profile-picture-from-scratch.html">
+<div class="listing-date">
+2023-03-06
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="" data-listing-date-sort="1676246400000" data-listing-file-modified-sort="1684750435890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="body">
+<a href="../tils/callbacks-vs-async-await.html">
+<h3 class="no-anchor listing-title">
+Callbacks vs async/await
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+
+</div>
+<a href="../tils/callbacks-vs-async-await.html">
+<div class="listing-description">
+<p>A quick demonstration of callbacks vs async/await</p>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/callbacks-vs-async-await.html">
+<div class="listing-date">
+2023-02-13
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="swift" data-listing-date-sort="1674604800000" data-listing-file-modified-sort="1684750435890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
+<div class="body">
+<a href="../tils/how-to-use-nstableview-in-swiftui.html">
+<h3 class="no-anchor listing-title">
+How to use NSTableView in SwiftUI
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('swift'); return false;">
+swift
+</div>
+</div>
+<a href="../tils/how-to-use-nstableview-in-swiftui.html">
+<div class="listing-description">
+I recently started learning macOS development using SwiftUI as part of my latest project: building a macOS Jupyter frontend. While I’m loving Swift (the language) and…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/how-to-use-nstableview-in-swiftui.html">
+<div class="listing-date">
+2023-01-25
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="artificial intelligence" data-listing-date-sort="1674432000000" data-listing-file-modified-sort="1684750435890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="body">
+<a href="../tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html">
+<h3 class="no-anchor listing-title">
+How to setup a GPU notebook server on Google Cloud Platform (GCP)
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('artificial intelligence'); return false;">
+artificial intelligence
+</div>
+</div>
+<a href="../tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html">
+<div class="listing-description">
+GCP is my current preferred cloud provider for GPU servers. I compared prices last year and found that GCP was the cheapest for lower-end GPUs. The notebook servers offered…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/how-to-setup-a-gpu-instance-on-google-cloud-platform.html">
+<div class="listing-date">
+2023-01-23
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="terminal" data-listing-date-sort="1671062400000" data-listing-file-modified-sort="1684750435890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="body">
+<a href="../tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html">
+<h3 class="no-anchor listing-title">
+How to share terminal demos as razor-sharp animated SVG
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('terminal'); return false;">
+terminal
+</div>
+</div>
+<a href="../tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html">
+<div class="listing-description">
+Install asciinema and svg-term-cli.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/how-to-share-terminal-demos-as-razor-sharp-animated-svg.html">
+<div class="listing-date">
+2022-12-15
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="python" data-listing-date-sort="1657411200000" data-listing-file-modified-sort="1684750435890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="body">
+<a href="../tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html">
+<h3 class="no-anchor listing-title">
+Diagnosing an issue with plugin modules, process pools, and the import system
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
+python
+</div>
+</div>
+<a href="../tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html">
+<div class="listing-description">
+This is a walkthrough of the rather surprising mechanics underlying a failing test that brings together plugin modules (that register themselves on import), process pools…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html">
+<div class="listing-date">
+2022-07-10
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="notebooks,python" data-listing-date-sort="1657238400000" data-listing-file-modified-sort="1684750435898" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="body">
+<a href="../tils/update-fastai-union-annotations-using-ast.html">
+<h3 class="no-anchor listing-title">
+Update fastai union annotations using ast
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('notebooks'); return false;">
+notebooks
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
+python
+</div>
+</div>
+<a href="../tils/update-fastai-union-annotations-using-ast.html">
+<div class="listing-description">
+This notebook doesn’t render correctly until I figure out how to tell Quarto to echo code cells as is without parsing directives.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/update-fastai-union-annotations-using-ast.html">
+<div class="listing-date">
+2022-07-08
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="python" data-listing-date-sort="1656892800000" data-listing-file-modified-sort="1684750435890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="body">
+<a href="../tils/compiling-python-to-c-using-setuptools-and-cython.html">
+<h3 class="no-anchor listing-title">
+Compiling Python to C using setuptools and Cython
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('python'); return false;">
+python
+</div>
+</div>
+<a href="../tils/compiling-python-to-c-using-setuptools-and-cython.html">
+<div class="listing-description">
+<code>plum</code><sup>1</sup> compiles an ordinary Python file into an extension module (in C) using Cython and <code>setuptools</code>’ Cython integration. It’s the first time I’ve encountered this, so here’s…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/compiling-python-to-c-using-setuptools-and-cython.html">
+<div class="listing-date">
+2022-07-04
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="notebooks" data-listing-date-sort="1655942400000" data-listing-file-modified-sort="1684750435890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="body">
+<a href="../tils/creating-a-minimal-custom-jupyter-widget.html">
+<h3 class="no-anchor listing-title">
+Creating a minimal custom Jupyter widget
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('notebooks'); return false;">
+notebooks
+</div>
+</div>
+<a href="../tils/creating-a-minimal-custom-jupyter-widget.html">
+<div class="listing-description">
+I couldn’t find a super minimal example of implementing a custom Jupyter widget, so here it is. This is based on Pierre Marion’s <em>Binder Repo for Hello World Jupyter Widget</em>.
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/creating-a-minimal-custom-jupyter-widget.html">
+<div class="listing-date">
+2022-06-23
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-categories="notebooks" data-listing-date-sort="1655942400000" data-listing-file-modified-sort="1684750435898" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="body">
+<a href="../tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html">
+<h3 class="no-anchor listing-title">
+Point and click directory navigation inside a Jupyter notebook
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('notebooks'); return false;">
+notebooks
+</div>
+</div>
+<a href="../tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html">
+<div class="listing-description">
+Here’s a tiny demo of a point-and-click navigation interface with rich output powered by Jupyter notebooks and ipywidgets! I originally mentioned the idea in a previous TIL.…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html">
+<div class="listing-date">
+2022-06-23
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-categories="notebooks" data-listing-date-sort="1655856000000" data-listing-file-modified-sort="1684750435890" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="1">
+<div class="body">
+<a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">
+<h3 class="no-anchor listing-title">
+Create and execute cells inside a Jupyter notebook
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('notebooks'); return false;">
+notebooks
+</div>
+</div>
+<a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">
+<div class="listing-description">
+I’ve been thinking a lot about unique Jupyter notebook interactions. A pattern that keeps coming up in my head is to click on the output of one cell to create a new cell…<code></code><code></code><code></code>
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">
+<div class="listing-date">
+2022-06-22
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-categories="pelican" data-listing-date-sort="1655769600000" data-listing-file-modified-sort="1684750435898" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="body">
+<a href="../tils/setting-up-tils-in-pelican.html">
+<h3 class="no-anchor listing-title">
+Setting up TILs in Pelican
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('pelican'); return false;">
+pelican
+</div>
+</div>
+<a href="../tils/setting-up-tils-in-pelican.html">
+<div class="listing-description">
+Inspired by Simon Willison, I started writing TILs (today I learned). I find it incredibly helpful to write as I code, but most of that writing has never left my private…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/setting-up-tils-in-pelican.html">
+<div class="listing-date">
+2022-06-21
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="13" data-categories="pelican" data-listing-date-sort="1655683200000" data-listing-file-modified-sort="1684750435898" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="body">
+<a href="../tils/using-pelican-as-a-library.html">
+<h3 class="no-anchor listing-title">
+Using Pelican as a library
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory('pelican'); return false;">
+pelican
+</div>
+</div>
+<a href="../tils/using-pelican-as-a-library.html">
+<div class="listing-description">
+In this post you’ll learn how to use Pelican (a Python static site generator) programmatically rather than through its command-line interface. This will give you a better…
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="../tils/using-pelican-as-a-library.html">
+<div class="listing-date">
+2022-06-20
+</div>
+</a>
+</div>
+</div>
+</div>
 <div class="listing-no-matching d-none">
 No matching items
 </div>
