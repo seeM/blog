@@ -1,5 +1,5 @@
 ---
-title: Write, document, test and distribute Python packages with Jupyter & Quarto
+title: Write, document, test and distribute Python packages with nbdev & Quarto
 date: 2023-05-22
 categories: [talk]
 ---
