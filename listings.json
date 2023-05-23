@@ -21,8 +21,8 @@
   {
     "listing": "/index.html",
     "items": [
+      "/posts/image-vector-search.html",
       "/posts/jupytercon-2023.html",
-      "/posts/how-to-build-your-own-vector-search-engine.html",
       "/posts/how-to-build-your-own-minimal-jupyter-frontend.html",
       "/posts/math-of-diffusion.html",
       "/posts/fastai-array-programming-day-1.html",

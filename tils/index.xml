@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/tils/index.html</link>
 <atom:link href="https://wasimlorgat.com/tils/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent TILs on wasimlorgat.com</description>
-<generator>quarto-1.4.80</generator>
+<generator>quarto-1.4.84</generator>
 <lastBuildDate>Mon, 22 May 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Using shot-scraper to automate screenshots for my writing</title>

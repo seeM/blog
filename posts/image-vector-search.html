@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.84">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Wasim Lorgat">
+<meta name="dcterms.date" content="2023-05-23">
+<meta name="description" content="I built an image vector search engine for an eCommerce store in just one week costing only $30 per month to host. In this post, I explain how you can do the same.">
+
+<title>Building a cost-effective image vector search engine with CLIP</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+<script src="https://unpkg.com/@jupyter-widgets/html-manager@*/dist/embed-amd.js" crossorigin="anonymous"></script>
+
+
+<meta property="og:title" content="Building a cost-effective image vector search engine with CLIP">
+<meta property="og:description" content="I built an image vector search engine for an eCommerce store in just one week costing only $30 per month to host. In this post, I explain how you can do the same.">
+<meta property="og:image" content="https://wasimlorgat.com/posts/images/vector-search.png">
+<meta property="og:site-name" content="Wasim Lorgat">
+<meta property="og:image:height" content="900">
+<meta property="og:image:width" content="1600">
+<meta name="twitter:title" content="Building a cost-effective image vector search engine with CLIP">
+<meta name="twitter:description" content="I built an image vector search engine for an eCommerce store in just one week costing only $30 per month to host. In this post, I explain how you can do the same.">
+<meta name="twitter:image" content="https://wasimlorgat.com/posts/images/vector-search.png">
+<meta name="twitter:creator" content="@wasimlorgat">
+<meta name="twitter:site" content="@wasimlorgat">
+<meta name="twitter:image-height" content="900">
+<meta name="twitter:image-width" content="1600">
+<meta name="twitter:card" content="summary_large_image">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Wasim Lorgat</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html" rel="" target="">
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html" rel="" target="">
+ <span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tils/index.html" rel="" target="">
+ <span class="menu-text">TILs</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://twitter.com/wasimlorgat" rel="" target=""><i class="bi bi-twitter" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/seem" rel="" target=""><i class="bi bi-github" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://linkedin.com/in/wasim-lorgat" rel="" target=""><i class="bi bi-linkedin" role="img">
+</i> 
+ <span class="menu-text"></span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tils/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+</i> 
+ <span class="menu-text">TILs</span></a>
+  </li>  
+</ul>
+            <div class="quarto-navbar-tools">
+</div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#part-1-background" id="toc-part-1-background" class="nav-link active" data-scroll-target="#part-1-background">Part 1: Background</a>
+  <ul>
+  <li><a href="#why-do-we-need-vector-search" id="toc-why-do-we-need-vector-search" class="nav-link" data-scroll-target="#why-do-we-need-vector-search">Why do we need vector search?</a></li>
+  <li><a href="#whats-clip" id="toc-whats-clip" class="nav-link" data-scroll-target="#whats-clip">What’s CLIP?</a></li>
+  <li><a href="#convirt-the-little-known-medical-roots-of-clip" id="toc-convirt-the-little-known-medical-roots-of-clip" class="nav-link" data-scroll-target="#convirt-the-little-known-medical-roots-of-clip">ConVIRT: The little-known medical roots of CLIP</a></li>
+  </ul></li>
+  <li><a href="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset" id="toc-part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset" class="nav-link" data-scroll-target="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a CLIP search engine for the Oxford Pets dataset</a>
+  <ul>
+  <li><a href="#the-oxford-pets-dataset" id="toc-the-oxford-pets-dataset" class="nav-link" data-scroll-target="#the-oxford-pets-dataset">The Oxford Pets dataset</a></li>
+  <li><a href="#using-clip-for-zero-shot-classification" id="toc-using-clip-for-zero-shot-classification" class="nav-link" data-scroll-target="#using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</a></li>
+  <li><a href="#using-clip-for-text-to-image-search" id="toc-using-clip-for-text-to-image-search" class="nav-link" data-scroll-target="#using-clip-for-text-to-image-search">Using CLIP for text-to-image search</a></li>
+  </ul></li>
+  <li><a href="#part-3-tips-for-deploying-your-search-engine" id="toc-part-3-tips-for-deploying-your-search-engine" class="nav-link" data-scroll-target="#part-3-tips-for-deploying-your-search-engine">Part 3: Tips for deploying your search engine</a>
+  <ul>
+  <li><a href="#how-meepo-works" id="toc-how-meepo-works" class="nav-link" data-scroll-target="#how-meepo-works">How Meepo works</a>
+  <ul>
+  <li><a href="#tech-stack" id="toc-tech-stack" class="nav-link" data-scroll-target="#tech-stack">Tech stack</a></li>
+  <li><a href="#infrastructure" id="toc-infrastructure" class="nav-link" data-scroll-target="#infrastructure">Infrastructure</a></li>
+  </ul></li>
+  <li><a href="#choosing-boring-tech" id="toc-choosing-boring-tech" class="nav-link" data-scroll-target="#choosing-boring-tech">Choosing boring tech</a>
+  <ul>
+  <li><a href="#its-boring-because-it-works" id="toc-its-boring-because-it-works" class="nav-link" data-scroll-target="#its-boring-because-it-works">It’s boring because it works</a></li>
+  <li><a href="#innovate-on-your-process-not-only-your-tech" id="toc-innovate-on-your-process-not-only-your-tech" class="nav-link" data-scroll-target="#innovate-on-your-process-not-only-your-tech">Innovate on your process, not only your tech</a></li>
+  <li><a href="#deviating-from-what-works" id="toc-deviating-from-what-works" class="nav-link" data-scroll-target="#deviating-from-what-works">Deviating from what works</a></li>
+  </ul></li>
+  <li><a href="#being-a-responsible-digital-citizen" id="toc-being-a-responsible-digital-citizen" class="nav-link" data-scroll-target="#being-a-responsible-digital-citizen">Being a responsible digital citizen</a></li>
+  </ul></li>
+  <li><a href="#your-turn" id="toc-your-turn" class="nav-link" data-scroll-target="#your-turn">Your turn</a></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.dev/seem/blog/blob/main/posts/image-vector-search.ipynb" class="toc-action">Edit this page</a></p><p><a href="https://github.com/seem/blog/blob/main/posts/image-vector-search.ipynb" class="toc-action">View source</a></p><p><a href="https://github.com/seem/blog/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content page-columns page-full" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Building a cost-effective image vector search engine with CLIP</h1>
+  </div>
+
+<div>
+  <div class="description">
+    I built an image vector search engine for an eCommerce store in just one week costing only $30 per month to host. In this post, I explain how you can do the same.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Wasim Lorgat </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">May 23, 2023</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+</header>
+
+<p><img src="images/vector-search.png" class="preview-image img-fluid"></p>
+<p>I built an image vector search engine named <a href="https://meepo.shop">Meepo</a> for a local (South African 🇿🇦) eCommerce store. Thanks to the power and availability of foundational neural networks, open-source software, and cloud infrastructure – along with a touch of good planning – the entire process took me just one week, and it costs me a mere $30 per month to host.</p>
+<p>Honestly, it blows my mind that this is possible. Decades of hard work by some of the brightest minds have enabled us to create and distribute incredible AI-powered products from almost anywhere in the world.</p>
+<p><strong>In this post, I show you how to build your own image vector search engine.</strong></p>
+<p>By the end of the post you’ll be able to search through a dataset of pet images for queries as obscure as “a fluffy pink cat on a tv” – and it’ll work! You’ll also have a concrete idea of how to structure and deploy your own search engine.</p>
+<p>We’ll get there in three parts:</p>
+<ul>
+<li><strong><a href="#part-1-background">Part 1: Background</a>.</strong> We discuss why you might need vector search over regular search, how the underlying technology works, and its little-known roots in the medical domain.</li>
+<li><strong><a href="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a search engine for the Oxford Pets dataset</a>.</strong> We build the core of our own vector search engine from scratch. We use a dataset with a good size and complexity to demonstrate the power of the technique without slowing down iteration. However, I urge you to try it out on your own dataset too!</li>
+<li><strong><a href="#part-3-tips-for-deploying-your-search-engine">Part 3: Tips for deploying your search engine</a>.</strong> I share how Meepo is architected and deployed, as well as a few tips that you might find helpful to ship your search engine quickly and cheaply.</li>
+</ul>
+<section id="part-1-background" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="part-1-background">Part 1: Background</h2>
+<section id="why-do-we-need-vector-search" class="level3">
+<h3 class="anchored" data-anchor-id="why-do-we-need-vector-search">Why do we need vector search?</h3>
+<p>I built Meepo out of frustration with existing search engines. I needed a fork, so naturally I tried to search for “fork” on my favourite online store, but the result contained only 4 items – none of which resemble a fork at all!</p>
+<p><img src="images/normal-fork.png" class="img-fluid"></p>
+<p>It turns out, I had to search “cutlery” instead, because that’s how the items happen to be tagged in the store’s catalogue.</p>
+<p>On the other hand, here are the first few results with Meepo. So many forks!</p>
+<p><img src="images/vector-fork.png" class="img-fluid"></p>
+<p><strong>Why the difference?</strong></p>
+<p>Whereas conventional search engines work by matching the text in your query with labels attached to each image, modern semantic search engines leverage neural networks for a deeper understanding of what’s represented by the pixels in the image and the text in their labels.</p>
+<p>This means that queries like “fork” work, regardless of how each item is labelled. It also means that you can get far more creative with your queries, including colors, textures, patterns, and more!</p>
+<p>For example, here is the top search result for “fluffy striped salmon pillow”:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/fluffy-striped-salmon-pillow.png" class="img-fluid figure-img" width="200"></p>
+</figure>
+</div>
+<p>Incredible! And even more incredible is how easy it is to build your own such vector search engine thanks to a powerful and open-source technology: Contrastive Language-Image Pretraining (CLIP).</p>
+</section>
+<section id="whats-clip" class="level3 page-columns page-full">
+<h3 class="anchored" data-anchor-id="whats-clip">What’s CLIP?</h3>
+<div class="page-columns page-full"><p>Contrastive Language-Image Pretraining (CLIP) is a technique for training neural networks with state-of-the-art zero-shot performance on a variety of tasks using mixed image and text data.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;While CLIP has been dethroned several times in the last two years (most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>), it is still notable for introducing a step change improvement in the power of zero-shot multimodal techniques.</p></li></div></div>
+<p>Zero-shot learning refers to a machine learning approach where a model is trained on one dataset and then tested on a completely different dataset. For instance, CLIP was trained on a broad dataset of captioned images from the web. However, in the next section we will apply it to a dataset featuring only cats and dogs. Meepo similarly applies CLIP to images of homeware and fashion items.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clip-training.png" class="img-fluid figure-img" width="600"></p>
+<figcaption class="figure-caption">A visualization of the contrastive language-image pretraining approach. Source: <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a> by OpenAI.</figcaption>
+</figure>
+</div>
+<p>The idea is to pretrain a neural network to predict the most relevant text snippet given an image and vice versa.</p>
+<p><strong>But the trick is to use a <em>contrastive</em> rather than a predictive objective.</strong></p>
+<p>What does that mean?</p>
+<p>A predictive objective takes an input image and tries to predict its corresponding text snippet.</p>
+<p>On the other hand, a contrastive objective predicts a vector for each image and another vector for each text snippet; these vectors are called <em>embeddings</em>. It does so in such a way that corresponding image and text vectors are more <em>similar</em> (according to some chosen similarity function) and non-corresponding image and text vectors are less similar.</p>
+<p>OpenAI found that a contrastive objective reached the same zero-shot ImageNet accuracy as the predictive objective while using 4x fewer training examples!</p>
+</section>
+<section id="convirt-the-little-known-medical-roots-of-clip" class="level3">
+<h3 class="anchored" data-anchor-id="convirt-the-little-known-medical-roots-of-clip">ConVIRT: The little-known medical roots of CLIP</h3>
+<p>Interestingly, the technique described above was originally introduced as ConVIRT <a href="https://arxiv.org/abs/2010.00747">(Zhang et al.&nbsp;2020)</a>, which demonstrated the approach on 217k medical image-text pairs (~2000x fewer than CLIP).</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/meepo-convirt-examples.png" class="img-fluid figure-img" width="400"></p>
+<figcaption class="figure-caption">X-ray images with naturally occurring paired descriptions from doctor’s reports. Source: Figure 1 of Zhang et al., 2020</figcaption>
+</figure>
+</div>
+<p>Despite being acknowledged in the <a href="https://arxiv.org/abs/2103.00020">CLIP paper</a>, I hadn’t heard of ConVIRT until I read the CLIP paper myself:</p>
+<blockquote class="blockquote">
+<p><strong>[…] we create a new dataset of 400 million (image, text) pairs and demonstrate that <span class="hl-yellow">a simplified version of ConVIRT trained from scratch, which we call CLIP</span>, for Contrastive Language-image Pre-training, is an efficient method of learning from natural language supervision.</strong></p>
+</blockquote>
+<p>As with most machine learning innovations, <a href="https://vicki.substack.com/p/neural-nets-are-just-people-all-the">it all starts with data</a>. High-quality annotations of medical images are expensive to make.</p>
+<p><strong>ConVIRT’s key insight was to mine doctor’s reports <em>in their natural language format</em> for image-text pairs.</strong></p>
+<p>OpenAI’s later contribution was largely an engineering effort. They scaled ConVIRT up to a 2000x larger dataset—400 million examples in total! Of course, that itself is a mighty task.</p>
+<p>Now that we have some background on CLIP and its impressive zero-shot capabilities, how do we actually use it to create a semantic search engine like Meepo?</p>
+</section>
+</section>
+<section id="part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset" class="level2">
+<h2 class="anchored" data-anchor-id="part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">Part 2: Let’s build a CLIP search engine for the Oxford Pets dataset</h2>
+<p>In this section, we’ll build our own CLIP-based semantic search engine on the Oxford Pets dataset.</p>
+<p>I chose the Oxford Pets dataset since it’s a good size and complexity to demonstrate the power of CLIP, but I urge you to try this out on your own dataset too.</p>
+<p>We’ll do this in two steps:</p>
+<ul>
+<li>First, we’ll use CLIP as a convenient zero-shot classifier.</li>
+<li>Then we’ll show how to use the same underlying functions for text-to-image search.</li>
+</ul>
+<p>By the end of the section you will be able to search for queries as obscure as “a fluffy pink cat on a tv” – and it’ll work!</p>
+<section id="the-oxford-pets-dataset" class="level3">
+<h3 class="anchored" data-anchor-id="the-oxford-pets-dataset">The Oxford Pets dataset</h3>
+<p>First install these required libraries:</p>
+<ul>
+<li><a href="https://huggingface.co/docs/datasets/index">HuggingFace Datasets</a>: easily access and share datasets for a variety of machine learning tasks.</li>
+<li><a href="https://huggingface.co/docs/transformers/index">HuggingFace Transformers</a>: easily download, train, and use state-of-the-art pretrained neural networks.</li>
+</ul>
+<div id="9b63e71e" class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>pip install datasets transformers</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then load the <a href="https://huggingface.co/datasets/pcuenq/oxford-pets">Oxford Pets</a> dataset – thanks to <a href="https://twitter.com/pcuenq">Pedro Cuenqa</a> for uploading it:</p>
+<div id="5836b0e4" class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datasets <span class="im">import</span> load_dataset</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>dataset <span class="op">=</span> load_dataset(<span class="st">"pcuenq/oxford-pets"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>One of the most important rules of machine learning is to always look at the data. This is quite easy with images, since we can just show the image.</p>
+<p>Let’s define a helper function to show thumbnails of an image:</p>
+<div id="ddfa65b5" class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> thumbnail(image, scale<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> image.resize(np.array(image.size)<span class="op">//</span>scale)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Here’s an example of a cat:</p>
+<div id="c7a5e0e6" class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>cat_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">15</span>]</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>cat_image <span class="op">=</span> cat_row[<span class="st">'image'</span>]</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>thumbnail(cat_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>… and here’s an example of a dog:</p>
+<div id="aba2e5af" class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>dog_row <span class="op">=</span> dataset[<span class="st">'train'</span>][<span class="dv">10</span>]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>dog_image <span class="op">=</span> dog_row[<span class="st">'image'</span>]</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>thumbnail(dog_image)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+</section>
+<section id="using-clip-for-zero-shot-classification" class="level3">
+<h3 class="anchored" data-anchor-id="using-clip-for-zero-shot-classification">Using CLIP for zero-shot classification</h3>
+<p>Now that we have a dataset, we can load the CLIP processor and model. The concept of having a separate <em>processor</em> and <em>model</em> is central to the HuggingFace Transformers library, since it allows us to use 174 state-of-the-art models (as of writing this article) with a very similar API.</p>
+<p>Note that it might take a minute to download the pretrained weights:</p>
+<div id="e16641de" class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> transformers <span class="im">import</span> CLIPProcessor, CLIPModel</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>processor <span class="op">=</span> CLIPProcessor.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> CLIPModel.from_pretrained(<span class="st">"openai/clip-vit-base-patch32"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The <code>CLIPProcessor</code> prepares the inputs for the <code>CLIPModel</code> which can then be used to obtain embedding vectors. Let’s create a function to embed an image by first passing it through the processor and then into the model:</p>
+<div id="4279de40" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_image(images):</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> <span class="bu">isinstance</span>(images, <span class="bu">list</span>): images <span class="op">=</span> [images]</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> processor(images<span class="op">=</span>images, return_tensors<span class="op">=</span><span class="st">"pt"</span>, padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_image_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Test that it works:</p>
+<div id="3aa69621" class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>images <span class="op">=</span> [cat_image, dog_image]</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>image_embs <span class="op">=</span> embed_image(images)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>image_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>torch.Size([2, 512])</code></pre>
+</div>
+</div>
+<p>You can also pass text to the <code>CLIPProcessor</code>. Let’s create a similar function to embed text inputs:</p>
+<div id="ba2b888e" class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> embed_text(text):</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    inputs <span class="op">=</span> processor(text<span class="op">=</span>text, return_tensors<span class="op">=</span><span class="st">"pt"</span>, padding<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> torch.no_grad(): <span class="cf">return</span> model.get_text_features(<span class="op">**</span>inputs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ef989e56" class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>text_embs <span class="op">=</span> embed_text([<span class="ss">f"a photo of a </span><span class="sc">{</span>cls<span class="sc">}</span><span class="ss">"</span> <span class="cf">for</span> cls <span class="kw">in</span> [<span class="st">"cat"</span>, <span class="st">"dog"</span>]])</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>text_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>torch.Size([2, 512])</code></pre>
+</div>
+</div>
+<p>We can now use embeddings for zero-shot classification by using text inputs that represent the different classes, and then calculating the <em>cosine similarity</em> between image embeddings and text embeddings.</p>
+<p>Cosine similarity is calculated by taking the dot product of normalized vectors:</p>
+<div id="b54a14a7" class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> normalize(a): <span class="cf">return</span> a <span class="op">/</span> a.norm(dim<span class="op">=-</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> cosine_sim(a, b): <span class="cf">return</span> normalize(a) <span class="op">@</span> normalize(b).T</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ff186e5d" class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>cosine_sim(image_embs, text_embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>tensor([[0.2639, 0.2127],
+        [0.1962, 0.2553]])</code></pre>
+</div>
+</div>
+<p>Note how the similarity between the cat image and the text “a photo of a cat” (0.2639) is higher than the similarity between the cat image and the text “a photo of a dog” (0.2127), and similarly for the dog image in the next row of the tensor.</p>
+<p>We can convert these similarities to probabilities by using the model’s <code>logit_scale</code> parameter followed by the <code>softmax</code> method:</p>
+<div id="a18a6958" class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> logits(a, b): <span class="cf">return</span> model.logit_scale.exp() <span class="op">*</span> cosine_sim(a, b)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> probs(a, b): <span class="cf">return</span> logits(a, b).softmax(dim<span class="op">=</span><span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="0e0396db" class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>probs(text_embs, image_embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>tensor([[0.9940, 0.0027],
+        [0.0060, 0.9973]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<p>We see a probability of 0.994 that the image of a cat is in fact a cat, and a probability of 0.997 that the image of a dog is in fact a dog. Pretty good!</p>
+<p>Since this is a zero-shot classifier, we can very easily generalize it to arbitrary classes! Let’s make a convenient wrapper to do exactly that:</p>
+<div id="363d3ef8" class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classify(image, classes, template<span class="op">=</span><span class="st">"a photo of a </span><span class="sc">{}</span><span class="st">"</span>):</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    image_embs <span class="op">=</span> embed_image(image)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    text_embs <span class="op">=</span> embed_text([template.<span class="bu">format</span>(o) <span class="cf">for</span> o <span class="kw">in</span> classes])</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> probs(text_embs, image_embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>To use this, simply pass in a list of classes. You can also customize the <code>template</code>, which can improve the classification accuracy.</p>
+<p>Here’s how we can classify the breed of a cat:</p>
+<div id="4aea6aff" class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>cat_breeds <span class="op">=</span> <span class="bu">sorted</span>({row[<span class="st">"label"</span>] <span class="cf">for</span> row <span class="kw">in</span> dataset[<span class="st">"train"</span>] <span class="cf">if</span> <span class="kw">not</span> row[<span class="st">"dog"</span>]})</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> classify(cat_image, cat_breeds, <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st"> cat"</span>)</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>tensor([[1.2116e-05],
+        [5.4131e-06],
+        [4.6950e-02],
+        [1.9504e-06],
+        [2.1754e-02],
+        [1.7998e-04],
+        [9.0918e-04],
+        [9.1228e-01],
+        [1.7194e-02],
+        [4.6431e-05],
+        [5.8636e-04],
+        [7.8781e-05]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
+</div>
+</div>
+<div id="41ED0033-6570-4F42-A0D8-97BB21DD74DD" class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> torch.argmax(scores)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>cat_breeds[idx], scores[idx].item()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>('Persian', 0.9122824668884277)</code></pre>
+</div>
+</div>
+<p>… and here’s how we can classify the color of any animal:</p>
+<div id="e457d936" class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>classes <span class="op">=</span> [<span class="st">"black"</span>, <span class="st">"white"</span>, <span class="st">"red"</span>, <span class="st">"green"</span>, <span class="st">"yellow"</span>, <span class="st">"blue"</span>, <span class="st">"brown"</span>, <span class="st">"orange"</span>, <span class="st">"pink"</span>, <span class="st">"purple"</span>, <span class="st">"grey"</span>]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> classify(cat_image, classes, <span class="st">"a photo of a </span><span class="sc">{}</span><span class="st"> animal"</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>idx <span class="op">=</span> torch.argmax(scores)</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>classes[idx], scores[idx].item()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>('white', 0.8672362565994263)</code></pre>
+</div>
+</div>
+<p>It works – and it’s super convenient too!</p>
+</section>
+<section id="using-clip-for-text-to-image-search" class="level3">
+<h3 class="anchored" data-anchor-id="using-clip-for-text-to-image-search">Using CLIP for text-to-image search</h3>
+<p>Using CLIP for search is not too different from using it for zero-shot classification. In fact, search is even simpler! We don’t need to calculate probabilities since we ultimately only care about the order of items:</p>
+<div id="65888292" class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search(image_embs, query_embs):</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    sims <span class="op">=</span> cosine_sim(image_embs, query_embs).flatten()</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    indices <span class="op">=</span> sims.argsort(descending<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> indices, sims[indices]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="30E00922-FA29-481A-B0A6-3A363B0BA41D" class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>indices, sims <span class="op">=</span> search(image_embs, embed_text(<span class="st">"a photo of a cat"</span>))</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>indices, sims</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>(tensor([0, 1]), tensor([0.2639, 0.1962]))</code></pre>
+</div>
+</div>
+<div id="2bf0ad46" class="cell">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> indices: display(thumbnail(images[i]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-23-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Let’s try that with a bigger dataset and some more interesting queries:</p>
+<p>Let’s embed all of the images. Since this took quite a while on my laptop (19 minutes), it’s convenient to cache the result to disk so that we don’t slow down iteration in our notebook:</p>
+<div id="894b2f24" class="cell">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> tqdm.notebook <span class="im">import</span> tqdm</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="192d7de5" class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>all_image_embs_path <span class="op">=</span> Path(<span class="st">"oxford_pets_embeddings.npy"</span>)</span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> all_image_embs_path.exists():</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    all_image_embs <span class="op">=</span> torch.tensor(np.load(all_image_embs_path))</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="cf">else</span>:</span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>    all_image_embs <span class="op">=</span> [embed_image(row[<span class="st">'image'</span>]) <span class="cf">for</span> row <span class="kw">in</span> tqdm(dataset[<span class="st">'train'</span>])]</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    np.save(all_image_embs_path, embs)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e29922ff" class="cell">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>all_image_embs.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>torch.Size([7390, 512])</code></pre>
+</div>
+</div>
+<div id="cf611ac2" class="cell">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> search_and_display(image_embs, query_embs, k<span class="op">=</span><span class="dv">3</span>):</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>    indices, _ <span class="op">=</span> search(image_embs, query_embs)</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> indices[:k]:</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>        image <span class="op">=</span> dataset[<span class="st">"train"</span>][i.item()][<span class="st">"image"</span>]</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>        display(thumbnail(image))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="bf2ca868" class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_text(<span class="st">"a photo of a white puppey on the grass"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-28-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-28-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Amazing! I wonder how obscure we can get?</p>
+<div id="7D0912E0-9255-44FA-9120-4AADEA703426" class="cell">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_text(<span class="st">"a photo of a fluffy pink cat on a tv"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-29-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-29-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+<p>It always surprises me how well this works! 🤯</p>
+<p>And once again, it’s super flexible. For example, all we need to change in order to use an image query is to pass the image’s embeddings instead of text embeddings!</p>
+<p>Let’s find the most similar images to our fluffy white persian cat from earlier:</p>
+<div id="772F80F2-E221-4FEF-B115-FF45BFBA9EC4" class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>search_and_display(all_image_embs, embed_image(cat_image))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-30-output-1.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-30-output-2.png" class="img-fluid"></p>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="image-vector-search_files/figure-html/cell-30-output-3.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Now that we have a working CLIP-based vector search engine, how do we share it with the world?</p>
+</section>
+</section>
+<section id="part-3-tips-for-deploying-your-search-engine" class="level2">
+<h2 class="anchored" data-anchor-id="part-3-tips-for-deploying-your-search-engine">Part 3: Tips for deploying your search engine</h2>
+<p>In this section, I’ll share a few tips that you might find helpful in deploying your own search engine based on my experience with Meepo.</p>
+<section id="how-meepo-works" class="level3">
+<h3 class="anchored" data-anchor-id="how-meepo-works">How Meepo works</h3>
+<p>Meepo consists of the following two sub-systems:</p>
+<ol type="1">
+<li><strong>Data pipeline:</strong> A set of scripts responsible for maintaining the data that powers the search engine. This includes scraping, running images through CLIP, and maintaining the data storage components (detailed further below).</li>
+<li><strong>Web app:</strong> A simple search form in front of a CLIP-based search engine (as described in <a href="#part-2-lets-build-a-clip-search-engine-for-the-oxford-pets-dataset">part 2</a>). The app reads from the application database and vector search index (written to by the data pipeline), and renders HTML/CSS to the user.</li>
+</ol>
+<p><img src="images/vector-search-engine.png" class="img-fluid"></p>
+<p>Data storage consists of two components that are updated by the data pipeline and then read from by the web app:</p>
+<ol type="1">
+<li><strong>Application database:</strong> A typical relational database that contains all of the products in the search catalogue, along with associated metadata.</li>
+<li><strong>Vector search index:</strong> An index for fast approximate nearest neighbour vector search. I used <a href="https://github.com/facebookresearch/faiss">faiss</a>, although there are other options like <a href="https://github.com/nmslib/hnswlib">hnswlib</a>, as well as more full-featured vector search databases like <a href="https://milvus.io/">Milvus</a>, <a href="https://www.pinecone.io/">Pinecone</a>, <a href="https://qdrant.tech/">Qdrant</a>, and <a href="https://weaviate.io/">Weaviate</a>.</li>
+</ol>
+<section id="tech-stack" class="level4">
+<h4 class="anchored" data-anchor-id="tech-stack">Tech stack</h4>
+<p>As for the specific tech choices, here’s the full stack powering Meepo:</p>
+<ul>
+<li><a href="#whats-clip">Contrastive language-image pretraining</a>: the deep learning method powering Meepo’s search.</li>
+<li><a href="https://github.com/facebookresearch/faiss">Faiss</a>: a fast approximate nearest neighbour vector search index.</li>
+<li><a href="https://docs.conda.io/en/latest/">Conda</a>: a Python package management system.</li>
+<li><a href="http://nbdev.fast.ai/">nbdev</a>: a platform for developing software using <a href="https://jupyter.org/">Jupyter</a> notebooks.</li>
+<li><a href="https://tailwindcss.com/">Tailwind CSS</a>: a simpler CSS framework.</li>
+<li><a href="https://daisyui.com/">DaisyUI</a>: a component library built on Tailwind CSS.</li>
+<li><a href="https://www.sqlite.org/">SQLite</a>: a light but powerful database engine.</li>
+<li><a href="https://www.djangoproject.com/">Django</a>: a battle-tested Python web framework.</li>
+<li><a href="">Gunicorn</a>: a Python HTTP server that lets us serve our Django application.</li>
+<li><a href="https://www.nginx.com/">Nginx</a>: a powerful and customizeable web server.</li>
+<li><a href="https://cron.com/">Cron</a>: a job scheduler built into Unix operating systems.</li>
+<li><a href="https://www.linode.com/">Linode</a>: a cloud hosting provider.</li>
+</ul>
+</section>
+<section id="infrastructure" class="level4">
+<h4 class="anchored" data-anchor-id="infrastructure">Infrastructure</h4>
+<p>I developed and tested an MVP locally on a small subset of data. Once I was happy with that, I deployed it to a Linode 4 GB Shared CPU VPS (2 CPUs, 4GB RAM, 80GB storage) costing $24 per month, and subscribed to Linode’s backup service for an additional $5 per month.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Why use a Virtual Private Server(VPS) instead of a modern platform as a service option?
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>Most people underestimate how much traffic you can serve from a single low cost VPS!</p>
+<p><a href="https://twitter.com/levelsio">Pieter Levels</a>, a well-known solopreneur, ran more than 40 of his websites serving over 250 million requests per month <a href="https://twitter.com/levelsio/status/1641728236617887744">from a single VPS</a>.</p>
+<p><a href="https://memex.marginalia.nu/">Marginalia</a>, an indie search engine that focuses on non-commercial content, casually handled the front page of Hackernews <a href="https://news.ycombinator.com/item?id=35614187">with a single server worth ~$5k of commercial hardware</a> in their living room.</p>
+<p>My good friend <a href="https://twitter.com/ashtonshudson">Ashton Hudson</a> took the same approach with <a href="https://www.servaltracker.com/">Serval</a>, a price tracker for South Africa’s largest online store, which serves 3000 daily active users and stores 7 million time series data points on <a href="https://twitter.com/ashtonshudson/status/1609621491481460737">low cost servers at a total of ~$45 per month</a>.</p>
+</div>
+</div>
+<p>I totally overestimated how much effort it would take to setup a VPS. It wasn’t that bad and took a few hours in the end. Here’s how I went about it. Note that these steps only need to be carried out once per server:</p>
+<ol type="1">
+<li><strong>Rent a VPS:</strong> There are plenty of options available. I chose Linode for no particular reason.</li>
+<li><strong>Setup your VPS:</strong> This includes updating packages, setting the timezone and hostname, creating a limited user, and tightening SSH settings. I followed <a href="https://www.linode.com/docs/products/compute/compute-instances/guides/set-up-and-secure/">this Linode guide</a>.</li>
+<li><strong>Setup nginx:</strong> I followed <a href="https://realpython.com/django-nginx-gunicorn">this Real Python guide</a>.</li>
+</ol>
+<p>Once your server is setup, you’ll need to follow a few more setups for your app (and each future app you create):</p>
+<ol type="1">
+<li><strong>Setup Gunicorn:</strong> I followed <a href="https://realpython.com/django-nginx-gunicorn">the same Real Python guide</a> from above.</li>
+<li><strong>Setup your domain name:</strong> Buy a domain name and configure your VPS to use it. I searched for the cheapest name containing “meepo” and was lucky to score <a href="https://meepo.shop">meepo.shop</a> at $2!</li>
+<li><strong>Deploy your web app:</strong> I followed <a href="https://docs.djangoproject.com/en/4.2/howto/deployment/">Django’s official deployment guide</a>.</li>
+<li><strong>Deploy your pipeline:</strong> I kept it simple and added a <a href="https://man7.org/linux/man-pages/man5/crontab.5.html">crontab</a> entry to a single shell script.</li>
+</ol>
+</section>
+</section>
+<section id="choosing-boring-tech" class="level3">
+<h3 class="anchored" data-anchor-id="choosing-boring-tech">Choosing boring tech</h3>
+<p>You might have noticed that I chose a “boring” tech stack. I believe that <a href="https://boringtechnology.club/">boring tech</a> is a key part of what allowed me to ship Meepo so quickly. Let me explain.</p>
+<section id="its-boring-because-it-works" class="level4">
+<h4 class="anchored" data-anchor-id="its-boring-because-it-works">It’s boring because it works</h4>
+<p>It’s been around for decades. If that’s the case, and it’s still widely used, then <em>it probably works</em>! It might not be the most elegant solution, but it gets the job done. Software that’s been maintained for a long time is software that’s been hardened against many thousands of obscure edge-cases that users like you and I no longer have to worry about.</p>
+<p>For example, Meepo is a Django application, and Django is 20 years old. That’s 20 years of incremental improvements and bug fixes resulting in a truly robust piece of software.</p>
+</section>
+<section id="innovate-on-your-process-not-only-your-tech" class="level4">
+<h4 class="anchored" data-anchor-id="innovate-on-your-process-not-only-your-tech">Innovate on your process, not only your tech</h4>
+<p>Developers typically enjoy learning new tools. That’s a good thing, but it also means that we’re biased to choosing new tools even when they aren’t necessarily improvements over the status quo.</p>
+<p>Instead of focusing on learning a new tool, try focusing on mastering tools you already know, and developing excellent decision-making skills on top of those tools with a ruthless focus on shipping quickly.</p>
+<p>For me, this meant using Django instead of something like FastAPI, and using a simple Linux VPS instead of a more modern platform as a service option. But this is different for everyone and depends on each person’s individual experience.</p>
+</section>
+<section id="deviating-from-what-works" class="level4">
+<h4 class="anchored" data-anchor-id="deviating-from-what-works">Deviating from what works</h4>
+<p>Of course, absolute rules are rarely a good idea in any domain as complex as software. There are definitely cases where less boring tech can be a good idea – I try to have a very specific reason before deviating from my favorite boring tools.</p>
+<p>For example, I developed Meepo entirely in Jupyter notebooks. It sounds crazy, I know! But there’s something about <a href="https://nbdev.fast.ai/">notebook-driven development</a> that I can’t quite shake. It makes programming feel like a game. There’s constant feedback, very quick iteration cycles, and everything is within reach: code, rich docs, and tests all in one place. In fact, the second part of this post was based on the same notebooks that run Meepo.</p>
+</section>
+</section>
+<section id="being-a-responsible-digital-citizen" class="level3">
+<h3 class="anchored" data-anchor-id="being-a-responsible-digital-citizen">Being a responsible digital citizen</h3>
+<p>If I’m scraping a website, I’m most likely not the website’s intended audience, so I try very hard not to negatively impact the user experience of their intended audience.</p>
+<p>Legal concerns around web scraping are pretty vague. However, as long as you provide value to the underlying service, they probably won’t mind you scraping them. For example, nobody cares that Google scrapes their sites because they provide traffic via search. Similarly, fashion stores that Meepo scrapes probably won’t mind the extra traffic it brings them.</p>
+<p>Here are some more detailed tips for scraping responsibly:</p>
+<ul>
+<li>Check how big the viewership of the website is. I would personally be hesitant to scrape a small website and would probably prefer to email the owner directly.</li>
+<li>Identify yourself with contact information via the user agent header – don’t try to fake being a human! A simple pattern you can use is&nbsp;<code>your.website.com/x.y (your@email.com)</code>&nbsp;where&nbsp;<code>x.y</code>&nbsp;is your scraper’s version number.</li>
+<li>Be considerate about their resource usage, especially since you aren’t their intended audience.</li>
+<li>Do the bulk of your requests during off-peak times depending on the local timezone of their audience.</li>
+<li>Sleep between requests as much as you possibly can. Add small random amounts as well to reduce the likelihood of overlapping with other scheduled scrapers and bots, thus reducing peak load.</li>
+<li>Use compression when scraping plain text or JSON to minimise their outgoing traffic. It doesn’t work nearly as well for images so it’s probably best to not compress them to avoid extra CPU usage on their servers.</li>
+</ul>
+</section>
+</section>
+<section id="your-turn" class="level2">
+<h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
+<p>Now it’s your turn. Dive into <a href="https://github.com/seeM/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb">the accompanying notebook</a> for this post, give it a try with your own dataset, deploy the result, and share what you create!</p>
+<p><strong>If you found this enjoyable, consider giving it a thumbs up below, commenting, and following me at <a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span> on Twitter</a>. The positive feedback really helps me get a sense of what readers find valuable!</strong></p>
+<hr>
+<p><em>Many thanks to <a href="https://kurianbenoy.com/">Kurian Benoy</a>, <a href="https://www.fast.ai/">Jeremy Howard</a>, <a href="https://twitter.com/pcuenq">Pedro Cuenca</a>, and <a href="https://forbo7.github.io/">Salman Naqvi</a>, for their kind and thoughtful comments on various versions of this post.</em></p>
+
+
+</section>
+<aside id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+
+</ol>
+</aside>
+
+</main> <!-- /main -->
+<script>
+  let links = document.querySelectorAll("a[data-analytics]");
+  for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', handleLinkEvent);
+      links[i].addEventListener('auxclick', handleLinkEvent);
+  }
+
+  function handleLinkEvent(event) {
+      var link = event.target;
+      var middle = event.type == "auxclick" && event.which == 2;
+      var click = event.type == "click";
+      while (link && (typeof link.tagName == 'undefined' || link.tagName.toLowerCase() != 'a' || !link.href)) {
+          link = link.parentNode;
+      }
+      if (middle || click) {
+          let attributes = link.getAttribute('data-analytics').split(/,(.+)/);
+          let events = [JSON.parse(attributes[0]), JSON.parse(attributes[1] || '{}')];
+          plausible(...events);
+      }
+      if (!link.target) {
+          if (!(event.ctrlKey || event.metaKey || event.shiftKey) && click) {
+              setTimeout(function () {
+                  location.href = link.href;
+              }, 150);
+              event.preventDefault();
+          }
+      }
+  }
+</script>
+<script type="application/vnd.jupyter.widget-state+json">
+{"state":{},"version_major":2,"version_minor":0}
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, function() {
+      let href = xref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note !== null) {
+        if (id.startsWith('sec-')) {
+          // Special case sections, only their first couple elements
+          const container = document.createElement("div");
+          if (note.children && note.children.length > 2) {
+            for (let i = 0; i < 2; i++) {
+              container.appendChild(note.children[i].cloneNode(true));
+            }
+            return container.innerHTML
+          } else {
+            return note.innerHTML;
+          }
+        } else {
+          return note.innerHTML;
+        }
+      } else {
+        return "";
+      }
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<script src="https://giscus.app/client.js" data-repo="seem/blog" data-repo-id="R_kgDOIBWk3A" data-category="Announcements" data-category-id="DIC_kwDOIBWk3M4CSSa6" data-mapping="pathname" data-reactions-enabled="1" data-emit-metadata="0" data-input-position="top" data-theme="light" data-lang="en" crossorigin="anonymous" data-loading="lazy" async="">
+</script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+</div> <!-- /content -->
+
+
+
+</body></html>
