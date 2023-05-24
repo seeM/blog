@@ -771,7 +771,7 @@ Why use a Virtual Private Server(VPS) instead of a modern platform as a service 
 </section>
 <section id="your-turn" class="level2">
 <h2 class="anchored" data-anchor-id="your-turn">Your turn</h2>
-<p>Now it’s your turn. Dive into <a href="https://github.com/seeM/blog/blob/main/posts/how-to-build-your-own-semantic-search-engine.ipynb">the accompanying notebook</a> for this post, give it a try with your own dataset, deploy the result, and share what you create!</p>
+<p>Now it’s your turn. Dive into <a href="https://github.com/seeM/blog/blob/main/posts/image-vector-search.ipynb">the accompanying notebook</a> for this post, give it a try with your own dataset, deploy the result, and share what you create!</p>
 <p><strong>If you found this enjoyable, consider giving it a thumbs up below, commenting, and following me at <a href="https://twitter.com/wasimlorgat"><span class="citation" data-cites="wasimlorgat">@wasimlorgat</span> on Twitter</a>. The positive feedback really helps me get a sense of what readers find valuable!</strong></p>
 <hr>
 <p><em>Many thanks to <a href="https://kurianbenoy.com/">Kurian Benoy</a>, <a href="https://www.fast.ai/">Jeremy Howard</a>, <a href="https://twitter.com/pcuenq">Pedro Cuenca</a>, and <a href="https://forbo7.github.io/">Salman Naqvi</a>, for their kind and thoughtful comments on various versions of this post.</em></p>
