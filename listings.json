@@ -1,5 +1,18 @@
 [
   {
+    "listing": "/index.html",
+    "items": [
+      "/posts/image-vector-search.html",
+      "/posts/jupytercon-2023.html",
+      "/posts/how-to-build-your-own-minimal-jupyter-frontend.html",
+      "/posts/math-of-diffusion.html",
+      "/posts/fastai-array-programming-day-1.html",
+      "/posts/editor.html",
+      "/posts/doing-important-work.html",
+      "/posts/code-neq-idea.html"
+    ]
+  },
+  {
     "listing": "/tils/index.html",
     "items": [
       "/tils/using-shot-scraper.html",
@@ -16,19 +29,6 @@
       "/tils/create-and-execute-cells-inside-a-jupyter-notebook.html",
       "/tils/setting-up-tils-in-pelican.html",
       "/tils/using-pelican-as-a-library.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
-      "/posts/image-vector-search.html",
-      "/posts/jupytercon-2023.html",
-      "/posts/how-to-build-your-own-minimal-jupyter-frontend.html",
-      "/posts/math-of-diffusion.html",
-      "/posts/fastai-array-programming-day-1.html",
-      "/posts/editor.html",
-      "/posts/doing-important-work.html",
-      "/posts/code-neq-idea.html"
     ]
   }
 ]

@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/index.html</link>
 <atom:link href="https://wasimlorgat.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent posts on wasimlorgat.com</description>
-<generator>quarto-1.4.87</generator>
+<generator>quarto-1.4.104</generator>
 <lastBuildDate>Tue, 23 May 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Building a cost-effective image vector search engine with CLIP</title>
@@ -577,7 +577,7 @@ background-color: null;
 font-style: inherit;">else</span>:</span>
 <span id="cb31-5">    all_image_embs <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> [embed_image(row[<span class="st" style="color: #20794D;
+font-style: inherit;">=</span> torch.cat([embed_image(row[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'image'</span>]) <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -585,8 +585,8 @@ font-style: inherit;">for</span> row <span class="kw" style="color: #003B4F;
 background-color: null;
 font-style: inherit;">in</span> tqdm(dataset[<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'train'</span>])]</span>
-<span id="cb31-6">    np.save(all_image_embs_path, embs)</span></code></pre></div>
+font-style: inherit;">'train'</span>])])</span>
+<span id="cb31-6">    np.save(all_image_embs_path, np.array(all_image_embs))</span></code></pre></div>
 </div>
 <div id="e29922ff" class="cell">
 <div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1">all_image_embs.shape</span></code></pre></div>
@@ -1144,7 +1144,7 @@ font-style: inherit;">'api/contents/sum.ipynb'</span>).json()</span></code></pre
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-
+Note
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -1657,7 +1657,7 @@ font-style: inherit;">'Server has been successfully shutdown!'</span>)</span></c
 
 
 <p>Check out Lesson 9B: Math of Diffusion of fast.ai’s <a href="https://www.fast.ai/posts/part2-2022.html">Practical Deep Learning for Coders Part 2, 2022</a> from the wonderful <a href="https://twitter.com/iScienceLuvr">Tanishq</a> and myself if you want to understand the math of diffusion but feel intimidated by the jargon. You’ll learn about the key equations underpinning diffusion models, with no prerequisites beyond high school math.</p>
-<p></p><div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mYpjmM7O-30" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div><p></p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mYpjmM7O-30" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <section id="what-youll-learn" class="level2">
 <h2 class="anchored" data-anchor-id="what-youll-learn">What you’ll learn</h2>
 <p>We walk through the math of diffusion models from the ground up, explaining the insights underlying the key equations in the work of <span class="citation" data-cites="sohl-dickstein_deep_2015">Sohl-Dickstein et al. (2015)</span> that originally discovered diffusion models.</p>
@@ -1802,7 +1802,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <section id="a-top-down-learning-plan" class="level2">
 <h2 class="anchored" data-anchor-id="a-top-down-learning-plan">A top-down learning plan</h2>
 <p>Most tutorials teach APL bottom-up; they go really deep into one topic. FastAI instead strives for top-down teaching. Therefore, we’ll try the approach of learning all of the glyphs first, as simply and quickly as we can. This has the added benefit that the documentation will become useable, since one glyph’s documentation often contains examples that use other glyphs.</p>
-<p>You can find a table of all of the gylphs <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language Elements.htm?TocPath=Language%20Reference%20Guide%7CSymbols%7C_____1">here</a>:</p>
+<p>You can find a table of all of the gylphs <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">here</a>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/ec994b95-1-image.png" class="img-fluid figure-img"></p>
@@ -1810,7 +1810,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 </figure>
 </div>
 <p>A good way to learn new concepts in APL (and in general) is to look at an example, try to predict what it’ll do before you run it, then run it and compare with your prediction. APL documentation is filled with examples which makes this approach even more powerful. The documentation will often include multiple examples as separate elements of an array.</p>
-<p>For example, you should read the example for <a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus Sign.htm">negate</a>:</p>
+<p>For example, you should read the example for <a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus%20Sign.htm">negate</a>:</p>
 <div id="d3eed468" class="cell">
 <pre class="apl cell-code"><code>- 3.2 ¯7 0</code></pre>
 <div class="cell-output cell-output-display">
@@ -1842,7 +1842,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 </div>
 <p>We then went on to learn about the following. My notes are sparse at this point - I highly recommend you check out the video instead!</p>
 <ul>
-<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus Sign.htm">Minus sign</a>; its monadic (negate) and dyadic (minus; subtract) forms.
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus%20Sign.htm">Minus sign</a>; its monadic (negate) and dyadic (minus; subtract) forms.
 <ul>
 <li>We also use operator names when reading APL expressions. For example, <code>¯2</code> reads “negate 2”.</li>
 </ul></li>
@@ -1850,12 +1850,12 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <ul>
 <li>In APL you create an array (like a vector in math and a tensor in deep learning) by adding spaces between elements.</li>
 </ul></li>
-<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Functions.htm?TocPath=Programming%20Reference%20Guide%7CIntroduction%7C_____5">Functions</a>; monadic versus dyadic functions.
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Functions.htm?TocPath=Programming%2520Reference%2520Guide%257CIntroduction%257C_____5">Functions</a>; monadic versus dyadic functions.
 <ul>
 <li>Each glyph has two forms: monadic and dyadic. This isn’t the same as “monads” in Haskell - it simply means a function that takes one argument. In APL you don’t write functions like <code>f(x,y,z)</code>. You either write them as <code>f x</code> if there’s one argument (monadic), or <code>x f y</code> if there are two (dyadic).</li>
 </ul></li>
-<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Plus Sign.htm">Plus sign</a>; its monadic (conjugate) and dyadic (plus) forms.</li>
-<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Complex Numbers.htm?TocPath=Programming%20Reference%20Guide%7CIntroduction%7C_____12">Complex numbers</a> - we needed to know about complex numbers to understand conjugate.</li>
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Plus%20Sign.htm">Plus sign</a>; its monadic (conjugate) and dyadic (plus) forms.</li>
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Complex%20Numbers.htm?TocPath=Programming%2520Reference%2520Guide%257CIntroduction%257C_____12">Complex numbers</a> - we needed to know about complex numbers to understand conjugate.</li>
 </ul>
 </section>
 <section id="qa" class="level2">
@@ -3956,7 +3956,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 
 
 
-<p></p><div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/o8-IuUMG2T8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div><p></p>
+<div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/o8-IuUMG2T8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p><em>(The original title and description of the talk changed between the pitch and final version, hence the differences.)</em></p>
 <p>This is a lightning talk I gave at the satRday 2018 conference. In it, I share an epiphany I had about programming and how it relates to people and our ideas, after programming for most of my life and discovering higher-level languages like Python and R. The talk won best student lightning talk, which included a copy of the beautiful <a href="https://r4ds.hadley.nz/">R for Data Science</a> signed by Hadley Wickham himself!</p>
 <p>Fast forward 4 years, and this realisation doesn’t feel as profound as it once did, but that’s okay. I believe the world would be a little better if everyone shared their personal learnings and experiences. Please <a href="mailto:mwlorgat@gmail.com">let me know</a> of yours!</p>

@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/tils/index.html</link>
 <atom:link href="https://wasimlorgat.com/tils/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent TILs on wasimlorgat.com</description>
-<generator>quarto-1.4.87</generator>
+<generator>quarto-1.4.104</generator>
 <lastBuildDate>Mon, 22 May 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Using shot-scraper to automate screenshots for my writing</title>
@@ -2395,7 +2395,7 @@ define('hello', ["@jupyter-widgets/base"], function(widgets) {
 <ul>
 <li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
 <li><a href="https://blog.jupyter.org/authoring-custom-jupyter-widgets-2884a462e724">Authoring Custom Jupyter Widgets: A Hands-On Guide</a></li>
-<li><a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget Custom.html">ipywidgets Official Documentation: Building a Custom Widget - Email widget</a></li>
+<li><a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Custom.html">ipywidgets Official Documentation: Building a Custom Widget - Email widget</a></li>
 <li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
 <li><a href="https://jakevdp.github.io/blog/2013/06/01/ipython-notebook-javascript-python-communication/">IPython Notebook: Javascript/Python Bi-directional Communication</a>. I think this may have been the birth of ipywidgets!</li>
 </ul>

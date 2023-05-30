@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.87">
+<meta name="generator" content="quarto-1.4.104">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -59,7 +59,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
@@ -284,7 +285,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="a-top-down-learning-plan" class="level2">
 <h2 class="anchored" data-anchor-id="a-top-down-learning-plan">A top-down learning plan</h2>
 <p>Most tutorials teach APL bottom-up; they go really deep into one topic. FastAI instead strives for top-down teaching. Therefore, we’ll try the approach of learning all of the glyphs first, as simply and quickly as we can. This has the added benefit that the documentation will become useable, since one glyph’s documentation often contains examples that use other glyphs.</p>
-<p>You can find a table of all of the gylphs <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language Elements.htm?TocPath=Language%20Reference%20Guide%7CSymbols%7C_____1">here</a>:</p>
+<p>You can find a table of all of the gylphs <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">here</a>:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="fastai-array-programming-day-1_files/figure-html/ec994b95-1-image.png" class="img-fluid figure-img"></p>
@@ -292,7 +293,7 @@ ul.task-list li input[type="checkbox"] {
 </figure>
 </div>
 <p>A good way to learn new concepts in APL (and in general) is to look at an example, try to predict what it’ll do before you run it, then run it and compare with your prediction. APL documentation is filled with examples which makes this approach even more powerful. The documentation will often include multiple examples as separate elements of an array.</p>
-<p>For example, you should read the example for <a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus Sign.htm">negate</a>:</p>
+<p>For example, you should read the example for <a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus%20Sign.htm">negate</a>:</p>
 <div id="d3eed468" class="cell">
 <pre class="apl cell-code"><code>- 3.2 ¯7 0</code></pre>
 <div class="cell-output cell-output-display">
@@ -324,7 +325,7 @@ ul.task-list li input[type="checkbox"] {
 </div>
 <p>We then went on to learn about the following. My notes are sparse at this point - I highly recommend you check out the video instead!</p>
 <ul>
-<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus Sign.htm">Minus sign</a>; its monadic (negate) and dyadic (minus; subtract) forms.
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus%20Sign.htm">Minus sign</a>; its monadic (negate) and dyadic (minus; subtract) forms.
 <ul>
 <li>We also use operator names when reading APL expressions. For example, <code>¯2</code> reads “negate 2”.</li>
 </ul></li>
@@ -332,12 +333,12 @@ ul.task-list li input[type="checkbox"] {
 <ul>
 <li>In APL you create an array (like a vector in math and a tensor in deep learning) by adding spaces between elements.</li>
 </ul></li>
-<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Functions.htm?TocPath=Programming%20Reference%20Guide%7CIntroduction%7C_____5">Functions</a>; monadic versus dyadic functions.
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Functions.htm?TocPath=Programming%2520Reference%2520Guide%257CIntroduction%257C_____5">Functions</a>; monadic versus dyadic functions.
 <ul>
 <li>Each glyph has two forms: monadic and dyadic. This isn’t the same as “monads” in Haskell - it simply means a function that takes one argument. In APL you don’t write functions like <code>f(x,y,z)</code>. You either write them as <code>f x</code> if there’s one argument (monadic), or <code>x f y</code> if there are two (dyadic).</li>
 </ul></li>
-<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Plus Sign.htm">Plus sign</a>; its monadic (conjugate) and dyadic (plus) forms.</li>
-<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Complex Numbers.htm?TocPath=Programming%20Reference%20Guide%7CIntroduction%7C_____12">Complex numbers</a> - we needed to know about complex numbers to understand conjugate.</li>
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Plus%20Sign.htm">Plus sign</a>; its monadic (conjugate) and dyadic (plus) forms.</li>
+<li><a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Complex%20Numbers.htm?TocPath=Programming%2520Reference%2520Guide%257CIntroduction%257C_____12">Complex numbers</a> - we needed to know about complex numbers to understand conjugate.</li>
 </ul>
 </section>
 <section id="qa" class="level2">
@@ -592,6 +593,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");

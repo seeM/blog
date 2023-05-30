@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.87">
+<meta name="generator" content="quarto-1.4.104">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -57,7 +57,8 @@ ul.task-list li input[type="checkbox"] {
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
     "search-detached-cancel-button-title": "Cancel",
-    "search-submit-button-title": "Submit"
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
   }
 }</script>
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
@@ -234,7 +235,7 @@ ul.task-list li input[type="checkbox"] {
 <section id="section-1" class="level2">
 <h2 class="anchored" data-anchor-id="section-1">2021</h2>
 <section id="easyequities-browser-extension" class="level3">
-<h3 class="anchored" data-anchor-id="easyequities-browser-extension"><a href="https://twitter.com/search?q=from:wasimlorgat ee OR extension&amp;src=typed_query&amp;f=top">EasyEquities browser extension</a></h3>
+<h3 class="anchored" data-anchor-id="easyequities-browser-extension"><a href="https://twitter.com/search?q=from%3Awasimlorgat%20ee%20OR%20extension&amp;src=typed_query&amp;f=top">EasyEquities browser extension</a></h3>
 <p>A browser extension for the EasyEquities investment platform built with TypeScript, React, React Router, and Mock Service Worker (to develop against a mocked version of their API).</p>
 <p>This started with frustration that EasyEquities didn’t provide a single view of my holdings across all of my investment accounts, nor of my time-weighted returns. I made good progress but stopped building this since there’s no public EasyEquities API, and sending handcrafted requests to the internal API of my investment platform seems like a bad idea!</p>
 </section>
@@ -551,6 +552,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
             }
             div.style.top = top - 2 + "px";
             div.style.height = height + 4 + "px";
+            div.style.left = 0;
             let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
             if (gutterDiv === null) {
               gutterDiv = window.document.createElement("div");
