@@ -6,15 +6,16 @@
       version="2.0">
 <channel>
 <title>Wasim Lorgat</title>
-<link>https://wasimlorgat.com/tils/index.html</link>
+<link>https://wasimlorgat.com/tils/</link>
 <atom:link href="https://wasimlorgat.com/tils/index.xml" rel="self" type="application/rss+xml"/>
-<description>Recent TILs on wasimlorgat.com</description>
-<generator>quarto-1.4.104</generator>
+<description>Recent notes on wasimlorgat.com</description>
+<generator>quarto-1.7.2</generator>
 <lastBuildDate>Mon, 22 May 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Using shot-scraper to automate screenshots for my writing</title>
   <link>https://wasimlorgat.com/tils/using-shot-scraper.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -108,7 +109,11 @@ font-style: inherit;">900</span></span></code></pre></div>
 <p>Here’s the image:</p>
 <div id="cell-9" class="cell" data-execution_count="36">
 <div class="cell-output cell-output-display" data-execution_count="36">
-<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-5-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-5-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>I want a resolution of 1600x900 but the font size is too small here. Halving the width and height and doubling the device scale factor with the <code>--retina</code> flag should fix this:</p>
@@ -155,7 +160,11 @@ font-style: inherit;">--</span>retina</span></code></pre></div>
 </div>
 <div id="cell-12" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display" data-execution_count="38">
-<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Finally, I want to exclude the nav bar. We can use a CSS selector for that:</p>
@@ -206,7 +215,11 @@ font-style: inherit;">--</span>retina</span></code></pre></div>
 </div>
 <div id="cell-15" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display" data-execution_count="40">
-<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-9-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-9-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Ah, it doesn’t seem like <code>--selector</code> works together with <code>--width</code> and <code>--height</code>. Another way to do this might be by hiding the navbar by executing <code>--javascript</code> code:</p>
@@ -257,7 +270,11 @@ font-style: inherit;">"document.querySelector('#quarto-header').style.display = 
 </div>
 <div id="cell-18" class="cell" data-execution_count="45">
 <div class="cell-output cell-output-display" data-execution_count="45">
-<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-11-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/tils/using-shot-scraper_files/figure-html/cell-11-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Perfect! I’m chuffed with how easy this was. I typed this out exactly as I used it, and everything worked first time with zero errors. I think it would’ve been neat if I could use <code>--width</code> and <code>--height</code> to crop the image after a <code>--selector</code> is applied, but in the end I could get what I wanted using a single line of <code>--javascript</code>.</p>
@@ -275,11 +292,12 @@ font-style: inherit;">"document.querySelector('#quarto-header').style.display = 
 
 
 
+
 <p>I’m super impressed with the quality of Dreambooth using <a href="https://huggingface.co/docs/diffusers/training/dreambooth">HuggingFace Diffusers</a> 🚀 — with only 14 images of myself! These four images are created by Stable Diffusion using the same fine-tuned model with different prompts:<sup>1</sup></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/tils/images/dreambooth.png" class="img-fluid figure-img" width="600"></p>
-<figcaption class="figure-caption">Four AI-generated pictures of me.</figcaption>
+<figcaption>Four AI-generated pictures of me.</figcaption>
 </figure>
 </div>
 <p>Here are a few details that made the difference for me:</p>
@@ -316,8 +334,10 @@ I'm super impressed with the quality of Dreambooth with <a href="https://twitter
 <script async="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
-<aside id="footnotes" class="footnotes footnotes-end-of-document">
-<hr>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
 <ol>
 <li id="fn1"><p>Here are the exact prompts I used for each of the above images:</p>
 <ul>
@@ -328,9 +348,7 @@ I'm super impressed with the quality of Dreambooth with <a href="https://twitter
 </ul>
 ↩︎</li>
 </ol>
-</aside>
-
- ]]></description>
+</section></div> ]]></description>
   <category>artificial intelligence</category>
   <guid>https://wasimlorgat.com/tils/how-to-create-an-ai-profile-picture-from-scratch.html</guid>
   <pubDate>Mon, 06 Mar 2023 00:00:00 GMT</pubDate>
@@ -340,6 +358,7 @@ I'm super impressed with the quality of Dreambooth with <a href="https://twitter
   <title>Callbacks vs async/await</title>
   <link>https://wasimlorgat.com/tils/callbacks-vs-async-await.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -398,12 +417,14 @@ font-style: inherit;">True</span>)</span>
 <div id="329b0fd4" class="cell">
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> request_open_ai(prompt):</span>
 <span id="cb3-2">    time.sleep(<span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.5</span>)</span>
 <span id="cb3-3">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Here's a summary of your text."</span></span></code></pre></div>
@@ -411,6 +432,7 @@ font-style: inherit;">"Here's a summary of your text."</span></span></code></pre
 <div id="9ed19ad9" class="cell">
 <div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> update_output(text):</span>
 <span id="cb4-2">    output.value <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -419,6 +441,7 @@ font-style: inherit;">=</span> text</span></code></pre></div>
 <div id="3852d547" class="cell">
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> on_click(button):</span>
 <span id="cb5-2">    text <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -443,6 +466,7 @@ font-style: inherit;">input</span>,)).run()</span></code></pre></div>
 <div id="70ee4c97" class="cell">
 <div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> request_open_ai(prompt, on_completion):</span>
 <span id="cb8-2">    time.sleep(<span class="fl" style="color: #AD0000;
 background-color: null;
@@ -454,6 +478,7 @@ font-style: inherit;">"Here's a summary of your text."</span>)</span></code></pr
 <div id="367d7e89" class="cell">
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> on_click(button):</span>
 <span id="cb9-2">    Thread(target<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -510,14 +535,17 @@ font-style: inherit;">import</span> asyncio</span></code></pre></div>
 <div id="0aa9c776" class="cell">
 <div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">async</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> request_open_ai(prompt):</span>
 <span id="cb12-2">    time.sleep(<span class="fl" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0.5</span>)</span>
 <span id="cb12-3">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"Here's a summary of your text."</span></span></code></pre></div>
@@ -525,13 +553,16 @@ font-style: inherit;">"Here's a summary of your text."</span></span></code></pre
 <div id="9f52a088" class="cell">
 <div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">async</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> on_click(button):</span>
 <span id="cb13-2">    text <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">await</span> request_open_ai(input_.value)</span>
 <span id="cb13-3">    update_output(text)</span></code></pre></div>
 </div>
@@ -540,6 +571,7 @@ font-style: inherit;">await</span> request_open_ai(input_.value)</span>
 <div id="0821929b" class="cell">
 <div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> on_click_sync(button):</span>
 <span id="cb14-2">    coroutine <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -598,6 +630,7 @@ font-style: inherit;">True</span>)</span>
 
 
 
+
 <p>I recently started learning macOS development using SwiftUI as part of my latest project: <a href="https://twitter.com/wasimlorgat/status/1611615676220817415">building a macOS Jupyter frontend</a>. While I’m loving Swift (the language) and SwiftUI (the UI framework), it’s sometimes extremely difficult to find out information that feels like it should be readily available.</p>
 <p>The latest such case is how to use an <code>NSTableView</code> in SwiftUI. SwiftUI’s new <code>List</code> is great for iOS and multiplatform apps, but doesn’t seem to be designed for desktop-specific apps which can do with much more information-dense UIs.</p>
 <p>SwiftUI has the newer <code>Table</code> too, but it’s also quite limited at this stage. For example, I don’t think it’s possible to make an entire row clickable.</p>
@@ -605,12 +638,14 @@ font-style: inherit;">True</span>)</span>
 <p>… So here’s a snippet you can copy paste.<sup>1</sup> Keep reading below if you’d like to see how it works step-by-step.</p>
 <div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">import</span> <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">SwiftUI</span></span>
 <span id="cb1-2"></span>
 <span id="cb1-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">struct</span> TableView<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
@@ -620,6 +655,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb1-4">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> Coordinator<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
@@ -637,6 +673,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb1-5">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">let</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
@@ -659,6 +696,7 @@ font-style: inherit;">]</span></span>
 <span id="cb1-6"></span>
 <span id="cb1-7">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">numberOfRows</span><span class="op" style="color: #5E5E5E;
@@ -687,6 +725,7 @@ font-style: inherit;">}</span></span>
 <span id="cb1-10"></span>
 <span id="cb1-11">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">tableView</span><span class="op" style="color: #5E5E5E;
@@ -742,6 +781,7 @@ font-style: inherit;">}</span></span>
 <span id="cb1-15"></span>
 <span id="cb1-16">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">makeCoordinator</span><span class="op" style="color: #5E5E5E;
@@ -760,6 +800,7 @@ font-style: inherit;">}</span></span>
 <span id="cb1-19"></span>
 <span id="cb1-20">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">makeNSView</span><span class="op" style="color: #5E5E5E;
@@ -779,6 +820,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb1-21">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">let</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">tableView</span> <span class="op" style="color: #5E5E5E;
@@ -809,6 +851,7 @@ background-color: null;
 font-style: inherit;">())</span></span>
 <span id="cb1-25">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> tableView</span>
 <span id="cb1-26">    <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -816,6 +859,7 @@ font-style: inherit;">}</span></span>
 <span id="cb1-27"></span>
 <span id="cb1-28">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">updateNSView</span><span class="op" style="color: #5E5E5E;
@@ -855,6 +899,7 @@ font-style: inherit;">}</span></span></code></pre></div>
 <p>In <code>makeNSView</code>, create the <code>NSTableView</code> with a single column, and leave <code>updateNSView</code> blank for now:</p>
 <div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb2-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">struct</span> TableView<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
@@ -864,6 +909,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb2-2">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">makeNSView</span><span class="op" style="color: #5E5E5E;
@@ -883,6 +929,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb2-3">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">let</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">tableView</span> <span class="op" style="color: #5E5E5E;
@@ -899,6 +946,7 @@ background-color: null;
 font-style: inherit;">())</span></span>
 <span id="cb2-5">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> tableView</span>
 <span id="cb2-6">    <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -906,6 +954,7 @@ font-style: inherit;">}</span></span>
 <span id="cb2-7"></span>
 <span id="cb2-8">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">updateNSView</span><span class="op" style="color: #5E5E5E;
@@ -948,6 +997,7 @@ font-style: inherit;">}</span></span></code></pre></div>
 <p>Implement <code>makeCoordinator</code>, returning an instance of <code>Coordinator</code>, then link it to the table view in <code>makeNSView</code>:</p>
 <div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">struct</span> TableView<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
@@ -957,6 +1007,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb3-2">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> Coordinator<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
@@ -978,6 +1029,7 @@ font-style: inherit;">}</span></span>
 <span id="cb3-4"></span>
 <span id="cb3-5">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">makeCoordinator</span><span class="op" style="color: #5E5E5E;
@@ -996,6 +1048,7 @@ font-style: inherit;">}</span></span>
 <span id="cb3-8"></span>
 <span id="cb3-9">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">makeNSView</span><span class="op" style="color: #5E5E5E;
@@ -1015,6 +1068,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb3-10">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">let</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">tableView</span> <span class="op" style="color: #5E5E5E;
@@ -1045,6 +1099,7 @@ background-color: null;
 font-style: inherit;">())</span></span>
 <span id="cb3-14">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> tableView</span>
 <span id="cb3-15">    <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -1052,6 +1107,7 @@ font-style: inherit;">}</span></span>
 <span id="cb3-16"></span>
 <span id="cb3-17">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">updateNSView</span><span class="op" style="color: #5E5E5E;
@@ -1091,6 +1147,7 @@ font-style: inherit;">}</span></span></code></pre></div>
 <p>Implement <code>NSTableViewDataSource</code>’s <code>numberOfRows</code> and <code>NSTableViewDelegate</code>’s <code>tableView(tableView:viewFor:row)</code>. The former returns the length of our array. The latter returns an <code>NSTextField</code> created from the corresponding row of data.</p>
 <div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb4-1">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> Coordinator<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">:</span> <span class="dt" style="color: #AD0000;
@@ -1108,6 +1165,7 @@ background-color: null;
 font-style: inherit;">{</span></span>
 <span id="cb4-2">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">let</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">data</span> <span class="op" style="color: #5E5E5E;
@@ -1130,6 +1188,7 @@ font-style: inherit;">]</span></span>
 <span id="cb4-3"></span>
 <span id="cb4-4">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">numberOfRows</span><span class="op" style="color: #5E5E5E;
@@ -1158,6 +1217,7 @@ font-style: inherit;">}</span></span>
 <span id="cb4-7"></span>
 <span id="cb4-8">        <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">func</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">tableView</span><span class="op" style="color: #5E5E5E;
@@ -1289,14 +1349,14 @@ struct TableView: NSViewRepresentable { # <1>
 -->
 
 
-<aside id="footnotes" class="footnotes footnotes-end-of-document">
-<hr>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
 <ol>
 <li id="fn1"><p>Many thanks to Alex Grebenyuk whose <a href="https://kean.blog/post/not-list">article</a> and <a href="https://github.com/kean/PulsePro">repo</a> I heavily referenced to figure this out.↩︎</p></li>
 </ol>
-</aside>
-
- ]]></description>
+</section></div> ]]></description>
   <category>swift</category>
   <guid>https://wasimlorgat.com/tils/how-to-use-nstableview-in-swiftui.html</guid>
   <pubDate>Wed, 25 Jan 2023 00:00:00 GMT</pubDate>
@@ -1308,12 +1368,13 @@ struct TableView: NSViewRepresentable { # <1>
 
 
 
+
 <p>GCP is my current preferred cloud provider for GPU servers. I <a href="https://twitter.com/wasimlorgat/status/1524301276179312644?s=20">compared prices last year</a> and found that GCP was the cheapest for lower-end GPUs. The notebook servers offered Vertex AI are very easy to setup. They come with PyTorch and NVIDIA/CUDA drivers already configured. I also prefer options that give me full control over the instance via an SSH connection from my terminal, which this does.</p>
 <p>Depending on when you’re reading this, these instructions may no longer be valid. Please <a href="mailto:mwlorgat@gmail.com">let me know</a> if that’s the case!</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/tils/images/cloud-gpu-prices.jpeg" class="border shadow-sm img-fluid figure-img"></p>
-<figcaption class="figure-caption">Cloud GPU prices as of May 2022 (<a href="https://twitter.com/wasimlorgat/status/1524301276179312644">via</a>).</figcaption>
+<figcaption>Cloud GPU prices as of May 2022 (<a href="https://twitter.com/wasimlorgat/status/1524301276179312644">via</a>).</figcaption>
 </figure>
 </div>
 <section id="setup-a-gcp-account" class="level2">
@@ -1364,6 +1425,7 @@ Shutdown your server when you’re done working
 
 
 
+
 <ol type="1">
 <li><p>Install <a href="https://github.com/asciinema/asciinema">asciinema</a> and <a href="https://github.com/marionebl/svg-term-cli">svg-term-cli</a>.</p></li>
 <li><p>Record with asciinema:</p>
@@ -1411,6 +1473,7 @@ font-style: inherit;">--no-optimize</span></span></code></pre></div>
 
 
 
+
 <p>This is a walkthrough of the rather surprising mechanics underlying a failing test that brings together plugin modules (that register themselves on import), process pools, and Python’s import system.</p>
 <section id="what-went-wrong" class="level2">
 <h2 class="anchored" data-anchor-id="what-went-wrong">What went wrong</h2>
@@ -1422,6 +1485,7 @@ background-color: null;
 font-style: inherit;">r"\[\d, \d+.\d+, \d+.\d+, \d+.\d+, '\d\d:\d\d'\]"</span></span>
 <span id="cb1-2">test_stdout(<span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">lambda</span>: learn.fit(<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>), pat, regex<span class="op" style="color: #5E5E5E;
@@ -1507,8 +1571,10 @@ font-style: inherit;">=</span> pool.submit(os.getpid)</span>
 background-color: null;
 font-style: inherit;">=</span> [pool.submit(os.getpid) <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> _ <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
@@ -1516,8 +1582,10 @@ background-color: null;
 font-style: inherit;">2</span>)]</span>
 <span id="cb11-2">[o.result() <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> futures]</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>[45907, 45907]</code></pre>
@@ -1538,8 +1606,10 @@ font-style: inherit;">in</span> futures]</span></code></pre></div>
 background-color: null;
 font-style: inherit;">=</span> [pool.submit(os.getpid) <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> _ <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">range</span>(<span class="dv" style="color: #AD0000;
@@ -1547,8 +1617,10 @@ background-color: null;
 font-style: inherit;">10</span>)]</span>
 <span id="cb15-2">[o.result() <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> futures]</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>[45907, 45907, 45907, 45907, 45907, 45907, 45907, 45907, 45907, 45907]</code></pre>
@@ -1610,8 +1682,10 @@ font-style: inherit;">import</span> CaptureShell</span></code></pre></div>
 <div id="8fb74dfa" class="cell">
 <div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">assert</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">not</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">hasattr</span>(CaptureShell, <span class="st" style="color: #20794D;
@@ -1658,6 +1732,7 @@ font-style: inherit;">'execnb.shell'</span>]</span></code></pre></div>
 background-color: null;
 font-style: inherit;">'execnb.shell'</span>].CaptureShell <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">is</span> CaptureShell</span></code></pre></div>
 <div class="cell-output cell-output-display">
 <pre><code>True</code></pre>
@@ -1732,17 +1807,15 @@ font-style: inherit;">'nbs/nb_with_failing_test.ipynb'</span>)</span></code></pr
 
 
 
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-body-container">
 <p>This notebook doesn’t render correctly until I figure out how to tell Quarto to echo code cells as is without parsing directives.</p>
+</div>
 </div>
 </div>
 <p>This notebook defines and exports a lightweight command line tool that updates union annotations in notebooks from the fastai tuple style (<code>x:(int,str)</code>) to the Python 3.10 union operator (<code>x:int|str</code>), using the <a href="https://docs.python.org/3/library/ast.html"><code>ast</code></a> standard library, and developed with <a href="https://github.com/fastai/nbdev"><code>nbdev</code></a>.</p>
@@ -1769,6 +1842,7 @@ font-style: inherit;">import</span> test_eq</span></code></pre></div>
 <p>::: {#2e20197a .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
 <div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> tuple2bitor(annot):</span>
 <span id="cb3-2">    <span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -1780,8 +1854,10 @@ background-color: null;
 font-style: inherit;">0</span>]</span>
 <span id="cb3-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> right <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> annot.dims[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span>:]: bitor <span class="op" style="color: #5E5E5E;
@@ -1795,12 +1871,15 @@ background-color: null;
 font-style: inherit;">=</span>ast.BitOr())</span>
 <span id="cb3-5">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> bitor</span>
 <span id="cb3-6"></span>
 <span id="cb3-7"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> tuple2bitorstr(annot): <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> ast.unparse(tuple2bitor(annot)).replace(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">' '</span>, <span class="st" style="color: #20794D;
@@ -1816,8 +1895,10 @@ font-style: inherit;">id</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>o) <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> (<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'int'</span>,<span class="st" style="color: #20794D;
@@ -1835,6 +1916,7 @@ font-style: inherit;">'int|str|float'</span>)</span></code></pre></div>
 <p>::: {#938e7d41 .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
 <div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> split_parts(source, node):</span>
 <span id="cb5-2">    <span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -1850,6 +1932,7 @@ background-color: null;
 font-style: inherit;">'</span>)</span>
 <span id="cb5-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">assert</span> node.lineno <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> node.end_lineno, <span class="st" style="color: #20794D;
@@ -1870,6 +1953,7 @@ background-color: null;
 font-style: inherit;">=</span> node.col_offset, node.end_col_offset</span>
 <span id="cb5-8">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'</span><span class="ch" style="color: #20794D;
@@ -1950,6 +2034,7 @@ font-style: inherit;">): pass'</span>))</span></code></pre></div>
 <p>::: {#97788e4e .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
 <div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> replace_node(source, node, repl):</span>
 <span id="cb7-2">    <span class="co" style="color: #5E5E5E;
 background-color: null;
@@ -1959,6 +2044,7 @@ background-color: null;
 font-style: inherit;">=</span> split_parts(source, node)</span>
 <span id="cb7-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> parts[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>] <span class="op" style="color: #5E5E5E;
@@ -1993,12 +2079,14 @@ font-style: inherit;">): pass'</span>)</span></code></pre></div>
 <p>::: {#373ffcf2 .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
 <div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> fix_tuple_annots(source):</span>
 <span id="cb9-2">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">"Convert all fastai tuple style union annotations in `source` to py310 union operator"</span></span>
 <span id="cb9-3">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
@@ -2007,16 +2095,20 @@ background-color: null;
 font-style: inherit;">=</span> ast.parse(source)</span>
 <span id="cb9-5">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">try</span>: a <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">next</span>(o.annotation <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> ast.walk(n) <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">isinstance</span>(<span class="bu" style="color: null;
@@ -2028,10 +2120,12 @@ background-color: null;
 font-style: inherit;">None</span>),ast.Tuple))</span>
 <span id="cb9-6">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">except</span> <span class="pp" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">StopIteration</span>: <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> source</span>
 <span id="cb9-7">        source <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2135,26 +2229,32 @@ font-style: inherit;">'''</span>)</span></code></pre></div>
 <p>::: {#4d7c66ca .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
 <div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> fix_nb_tuple_annots(nb):</span>
 <span id="cb11-2">    <span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">"Convert all fastai tuple style union annotations in `nb` to py310 union operator"</span></span>
 <span id="cb11-3">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> cell <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> nb.cells:</span>
 <span id="cb11-4">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">try</span>: cell.source <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> fix_tuple_annots(cell.source)</span>
 <span id="cb11-5">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">except</span> <span class="pp" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">SyntaxError</span>: <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">pass</span></span></code></pre></div>
 <p>:::</p>
 <p>::: {#a230fa3b .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
@@ -2178,6 +2278,7 @@ background-color: null;
 font-style: inherit;">@call_parse</span></span>
 <span id="cb12-5"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> main(fname:<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">str</span>): <span class="co" style="color: #5E5E5E;
@@ -2188,8 +2289,10 @@ background-color: null;
 font-style: inherit;">"Convert all fastai tuple style union annotations in `nb_path` to py310 union operators"</span></span>
 <span id="cb12-7">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> f <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> globtastic(fname, file_glob<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
@@ -2221,6 +2324,7 @@ font-style: inherit;">=</span> read_nb(f)</span>
 
 
 
+
 <p><a href="https://github.com/wesselb/plum/blob/master/setup.py"><code>plum</code></a><sup>1</sup> compiles an ordinary Python file into an extension module (in C) using <a href="https://cython.org/">Cython</a> and <a href="https://setuptools.pypa.io/"><code>setuptools</code></a>’ Cython integration. It’s the first time I’ve encountered this, so here’s a high-level description of how it works.</p>
 <p>In <code>setup.py</code>, pass the <code>ext_modules</code> arg to <code>setup</code>, wrapping an <code>Extension</code> that points to the module you want to compile:</p>
 <p>```python hl_lines=‘9’ from setuptools import setup, Extension</p>
@@ -2244,22 +2348,495 @@ requires = [
 
 
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document">
-<hr>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
 <ol>
 <li id="fn1"><p><code>plum</code> is a really cool library that brings <a href="https://docs.julialang.org/en/v1/manual/methods/">Julia-style typed multiple dispatch</a> to Python!↩︎</p></li>
 </ol>
-</aside>
-
- ]]></description>
+</section></div> ]]></description>
   <category>python</category>
   <guid>https://wasimlorgat.com/tils/compiling-python-to-c-using-setuptools-and-cython.html</guid>
   <pubDate>Mon, 04 Jul 2022 00:00:00 GMT</pubDate>
 </item>
 <item>
+  <title>Point and click directory navigation inside a Jupyter notebook</title>
+  <link>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>Here’s a tiny demo of a point-and-click navigation interface with rich output powered by Jupyter notebooks and ipywidgets! I originally mentioned the idea in <a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">a previous TIL</a>. I also <a href="https://twitter.com/wasimlorgat/status/1539605620130603008">tweeted about it</a> which is the best place to leave any comments or questions if you’d like.</p>
+<section id="tldr" class="level2">
+<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
+<p>If all you need is a copy-pastable code snippet, here you go. Read on for a more in-depth description.</p>
+<div id="d1642696" class="cell">
+<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> base64 <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> b64encode</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> functools <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> partial</span>
+<span id="cb1-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> IPython.display <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> Javascript, display</span>
+<span id="cb1-4"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> ipywidgets <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> Box, Button, Layout</span>
+<span id="cb1-5"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> pathlib <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> Path</span>
+<span id="cb1-6"></span>
+<span id="cb1-7"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> create_code_cell(code):</span>
+<span id="cb1-8">    encoded_code <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> b64encode(code.encode()).decode()</span>
+<span id="cb1-9">    display(Javascript(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"""</span></span>
+<span id="cb1-10"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        var code = IPython.notebook.insert_cell_below('code');</span></span>
+<span id="cb1-11"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        code.set_text(atob("</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>encoded_code<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"));</span></span>
+<span id="cb1-12"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        code.execute();</span></span>
+<span id="cb1-13"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        code.focus_cell()"""</span>))</span>
+<span id="cb1-14"></span>
+<span id="cb1-15"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> on_click_dir(path, button): create_code_cell(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"ls('</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>path<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">')"</span>)</span>
+<span id="cb1-16"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> on_click_file(path, button): create_code_cell(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Path('</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>path<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">')"</span>)</span>
+<span id="cb1-17"></span>
+<span id="cb1-18"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> ls(root<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>Path()):</span>
+<span id="cb1-19">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">isinstance</span>(root, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>): root <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Path(root).expanduser()</span>
+<span id="cb1-20">    paths <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">sorted</span>(root.iterdir())</span>
+<span id="cb1-21">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> paths: <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span></span>
+<span id="cb1-22">    button_layout <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Layout(width<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'fit-content'</span>)</span>
+<span id="cb1-23">    buttons <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> []</span>
+<span id="cb1-24">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> path <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> paths:</span>
+<span id="cb1-25">        button <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Button(description<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(path.relative_to(root)), layout<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>button_layout)</span>
+<span id="cb1-26">        button.on_click(partial(on_click_dir <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> path.is_dir() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> on_click_file, path))</span>
+<span id="cb1-27">        buttons.append(button)</span>
+<span id="cb1-28">    box_layout <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Layout(overflow<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'scroll hidden'</span>, height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'500px'</span>, display<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'flex'</span>,</span>
+<span id="cb1-29">                        flex_flow<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'column wrap'</span>, align_content<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'flex-start'</span>)</span>
+<span id="cb1-30">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> Box(buttons, layout<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>box_layout)</span></code></pre></div>
+</div>
+</section>
+<section id="minimal-implementation" class="level2">
+<h2 class="anchored" data-anchor-id="minimal-implementation">Minimal implementation</h2>
+<p>We start by defining a function to create and execute a code cell below the focused cell (see <a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">my previous TIL</a> if you’d like more detail on this part):</p>
+<div id="585a1a8a" class="cell">
+<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> create_code_cell(code):</span>
+<span id="cb2-2">    encoded_code <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> b64encode(code.encode()).decode()</span>
+<span id="cb2-3">    display(Javascript(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"""</span></span>
+<span id="cb2-4"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        var code = IPython.notebook.insert_cell_below('code');</span></span>
+<span id="cb2-5"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        code.set_text(atob("</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>encoded_code<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"));</span></span>
+<span id="cb2-6"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        code.execute();</span></span>
+<span id="cb2-7"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">        code.focus_cell()</span></span>
+<span id="cb2-8"><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">    """</span>))</span></code></pre></div>
+</div>
+<p>We’re going to be using button widgets, which expect an on-click callback, so let’s define those next. The callback is expected to be a function accepting a single argument, <code>button</code>, to which the button object itself is passed - although we won’t be using it. We need to know the path that was clicked on as well, so we’ll have to <code>partial</code> that in later:</p>
+<div id="e57714b3" class="cell">
+<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> on_click_dir(path, button): create_code_cell(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"ls('</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>path<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">')"</span>)</span>
+<span id="cb3-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> on_click_file(path, button): create_code_cell(<span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f"Path('</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>path<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">')"</span>)</span></code></pre></div>
+</div>
+<p>Test if it works:</p>
+<div id="5e70bd3b" class="cell">
+<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">on_click_file(Path(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb'</span>), <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/javascript">
+
+        var code = IPython.notebook.insert_cell_below('code');
+        code.set_text(atob("UGF0aCgncG9pbnQtYW5kLWNsaWNrLWRpcmVjdG9yeS1uYXZpZ2F0aW9uLWluc2lkZS1hLWp1cHl0ZXItbm90ZWJvb2suaXB5bmInKQ=="));
+        code.execute();
+        code.focus_cell()
+    
+</script>
+</div>
+</div>
+<div id="eb304102" class="cell">
+<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">Path(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb'</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<pre><code>PosixPath('point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb')</code></pre>
+</div>
+</div>
+<p>Neat! The cell above this was created by calling <code>on_click_file</code>.</p>
+<p>Finally, we implement a straightforward minimal <code>ls</code> function using <code>Button</code> widgets for <code>Path</code>s, and wrapping those in a <code>VBox</code> widget:</p>
+<div id="428247d4" class="cell">
+<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> ipywidgets <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> VBox</span>
+<span id="cb7-2"></span>
+<span id="cb7-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> ls(root<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>Path()):</span>
+<span id="cb7-4">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">isinstance</span>(root, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>): root <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Path(root).expanduser()</span>
+<span id="cb7-5">    paths <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">sorted</span>(root.iterdir())</span>
+<span id="cb7-6">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> paths: <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span></span>
+<span id="cb7-7">    buttons <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> []</span>
+<span id="cb7-8">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> path <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> paths:</span>
+<span id="cb7-9">        button <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Button(description<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(path))</span>
+<span id="cb7-10">        button.on_click(partial(on_click_dir <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> path.is_dir() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> on_click_file, path))</span>
+<span id="cb7-11">        buttons.append(button)</span>
+<span id="cb7-12">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> VBox(buttons)</span></code></pre></div>
+</div>
+</section>
+<section id="improved-styling" class="level2">
+<h2 class="anchored" data-anchor-id="improved-styling">Improved styling</h2>
+<p>I don’t like how the implementation above is styled, so here is another with a few purely stylistic improvements:</p>
+<div id="29a177c1" class="cell">
+<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> ls(root<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>Path()):</span>
+<span id="cb8-2">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">isinstance</span>(root, <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>): root <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Path(root).expanduser()</span>
+<span id="cb8-3">    paths <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">sorted</span>(root.iterdir())</span>
+<span id="cb8-4">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> paths: <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span></span>
+<span id="cb8-5">    button_layout <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Layout(width<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'fit-content'</span>)</span>
+<span id="cb8-6">    buttons <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> []</span>
+<span id="cb8-7">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">for</span> path <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">in</span> paths:</span>
+<span id="cb8-8">        button <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Button(description<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(path.relative_to(root)), layout<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>button_layout)</span>
+<span id="cb8-9">        button.on_click(partial(on_click_dir <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> path.is_dir() <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">else</span> on_click_file, path))</span>
+<span id="cb8-10">        buttons.append(button)</span>
+<span id="cb8-11">    box_layout <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Layout(overflow<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'scroll hidden'</span>, height<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'500px'</span>, display<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'flex'</span>,</span>
+<span id="cb8-12">                        flex_flow<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'column wrap'</span>, align_content<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'flex-start'</span>)</span>
+<span id="cb8-13">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> Box(buttons, layout<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>box_layout)</span></code></pre></div>
+</div>
+<div id="2c1adb10" class="cell">
+<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">ls(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'~/code/fastai'</span>)</span></code></pre></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"169fb41e3a56421dba0169a52f8d35f4","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<p>Unfortunately, my current blog setup doesn’t support widgets, but you should be able to run this locally. You can also check out the <a href="https://twitter.com/wasimlorgat/status/1539605620130603008">demo video in my tweet</a>.</p>
+<p>If you pay close attention to the demo video, you’ll notice that it’s still styled slightly differently to what we’ve built here. Some styles can’t be changed through ipywidget’s <code>style</code> interface, so that was achieved by manually writing CSS with the <code>%%html</code> magic command followed by a <code>&lt;style&gt;...&lt;/style&gt;</code> tag, and then assigning a class to the buttons and boxes using their <code>add_class</code> method. I also implemented a custom widget with a small <code>render</code> JavaScript function that resized the output grid until it fit the width of the screen.</p>
+<p>I’m really excited with how this turned out! And it was far simpler than I’d expected. I’ll definitely be exploring the point-and-click navigation pattern more. I’m thinking about trying it out for exploring documentation about Python objects.</p>
+
+
+</section>
+
+ ]]></description>
+  <category>notebooks</category>
+  <guid>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</guid>
+  <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>Creating a minimal custom Jupyter widget</title>
   <link>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -2279,6 +2856,7 @@ font-style: inherit;">import</span> Unicode, validate</span>
 <span id="cb1-4"></span>
 <span id="cb1-5"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> HelloWidget(widgets.DOMWidget):</span>
 <span id="cb1-6">    _view_name <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2352,6 +2930,7 @@ font-style: inherit;">;</span></span>
 <span id="cb2-12"></span>
 <span id="cb2-13">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> {</span>
 <span id="cb2-14">        HelloView : HelloView</span>
 <span id="cb2-15">    }<span class="op" style="color: #5E5E5E;
@@ -2409,444 +2988,10 @@ define('hello', ["@jupyter-widgets/base"], function(widgets) {
   <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Point and click directory navigation inside a Jupyter notebook</title>
-  <link>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</link>
-  <description><![CDATA[ 
-
-
-
-<p>Here’s a tiny demo of a point-and-click navigation interface with rich output powered by Jupyter notebooks and ipywidgets! I originally mentioned the idea in <a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">a previous TIL</a>. I also <a href="https://twitter.com/wasimlorgat/status/1539605620130603008">tweeted about it</a> which is the best place to leave any comments or questions if you’d like.</p>
-<section id="tldr" class="level2">
-<h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
-<p>If all you need is a copy-pastable code snippet, here you go. Read on for a more in-depth description.</p>
-<div id="d1642696" class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> base64 <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> b64encode</span>
-<span id="cb1-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> functools <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> partial</span>
-<span id="cb1-3"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> IPython.display <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> Javascript, display</span>
-<span id="cb1-4"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> ipywidgets <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> Box, Button, Layout</span>
-<span id="cb1-5"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> pathlib <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> Path</span>
-<span id="cb1-6"></span>
-<span id="cb1-7"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> create_code_cell(code):</span>
-<span id="cb1-8">    encoded_code <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> b64encode(code.encode()).decode()</span>
-<span id="cb1-9">    display(Javascript(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"""</span></span>
-<span id="cb1-10"><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">        var code = IPython.notebook.insert_cell_below('code');</span></span>
-<span id="cb1-11"><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">        code.set_text(atob("</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>encoded_code<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"));</span></span>
-<span id="cb1-12"><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">        code.execute();</span></span>
-<span id="cb1-13"><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">        code.focus_cell()"""</span>))</span>
-<span id="cb1-14"></span>
-<span id="cb1-15"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> on_click_dir(path, button): create_code_cell(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"ls('</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>path<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">')"</span>)</span>
-<span id="cb1-16"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> on_click_file(path, button): create_code_cell(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"Path('</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>path<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">')"</span>)</span>
-<span id="cb1-17"></span>
-<span id="cb1-18"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> ls(root<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>Path()):</span>
-<span id="cb1-19">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">isinstance</span>(root, <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">str</span>): root <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Path(root).expanduser()</span>
-<span id="cb1-20">    paths <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">sorted</span>(root.iterdir())</span>
-<span id="cb1-21">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">not</span> paths: <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">return</span></span>
-<span id="cb1-22">    button_layout <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Layout(width<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'fit-content'</span>)</span>
-<span id="cb1-23">    buttons <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> []</span>
-<span id="cb1-24">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">for</span> path <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">in</span> paths:</span>
-<span id="cb1-25">        button <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Button(description<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">str</span>(path.relative_to(root)), layout<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>button_layout)</span>
-<span id="cb1-26">        button.on_click(partial(on_click_dir <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> path.is_dir() <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">else</span> on_click_file, path))</span>
-<span id="cb1-27">        buttons.append(button)</span>
-<span id="cb1-28">    box_layout <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Layout(overflow<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'scroll hidden'</span>, height<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'500px'</span>, display<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'flex'</span>,</span>
-<span id="cb1-29">                        flex_flow<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'column wrap'</span>, align_content<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'flex-start'</span>)</span>
-<span id="cb1-30">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">return</span> Box(buttons, layout<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>box_layout)</span></code></pre></div>
-</div>
-</section>
-<section id="minimal-implementation" class="level2">
-<h2 class="anchored" data-anchor-id="minimal-implementation">Minimal implementation</h2>
-<p>We start by defining a function to create and execute a code cell below the focused cell (see <a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">my previous TIL</a> if you’d like more detail on this part):</p>
-<div id="585a1a8a" class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> create_code_cell(code):</span>
-<span id="cb2-2">    encoded_code <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> b64encode(code.encode()).decode()</span>
-<span id="cb2-3">    display(Javascript(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"""</span></span>
-<span id="cb2-4"><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">        var code = IPython.notebook.insert_cell_below('code');</span></span>
-<span id="cb2-5"><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">        code.set_text(atob("</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>encoded_code<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"));</span></span>
-<span id="cb2-6"><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">        code.execute();</span></span>
-<span id="cb2-7"><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">        code.focus_cell()</span></span>
-<span id="cb2-8"><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">    """</span>))</span></code></pre></div>
-</div>
-<p>We’re going to be using button widgets, which expect an on-click callback, so let’s define those next. The callback is expected to be a function accepting a single argument, <code>button</code>, to which the button object itself is passed - although we won’t be using it. We need to know the path that was clicked on as well, so we’ll have to <code>partial</code> that in later:</p>
-<div id="e57714b3" class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> on_click_dir(path, button): create_code_cell(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"ls('</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>path<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">')"</span>)</span>
-<span id="cb3-2"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> on_click_file(path, button): create_code_cell(<span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">f"Path('</span><span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">{</span>path<span class="sc" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">}</span><span class="ss" style="color: #20794D;
-background-color: null;
-font-style: inherit;">')"</span>)</span></code></pre></div>
-</div>
-<p>Test if it works:</p>
-<div id="5e70bd3b" class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">on_click_file(Path(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb'</span>), <span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">None</span>)</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/javascript">
-
-        var code = IPython.notebook.insert_cell_below('code');
-        code.set_text(atob("UGF0aCgncG9pbnQtYW5kLWNsaWNrLWRpcmVjdG9yeS1uYXZpZ2F0aW9uLWluc2lkZS1hLWp1cHl0ZXItbm90ZWJvb2suaXB5bmInKQ=="));
-        code.execute();
-        code.focus_cell()
-    
-</script>
-</div>
-</div>
-<div id="eb304102" class="cell">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">Path(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb'</span>)</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<pre><code>PosixPath('point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb')</code></pre>
-</div>
-</div>
-<p>Neat! The cell above this was created by calling <code>on_click_file</code>.</p>
-<p>Finally, we implement a straightforward minimal <code>ls</code> function using <code>Button</code> widgets for <code>Path</code>s, and wrapping those in a <code>VBox</code> widget:</p>
-<div id="428247d4" class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> ipywidgets <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> VBox</span>
-<span id="cb7-2"></span>
-<span id="cb7-3"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> ls(root<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>Path()):</span>
-<span id="cb7-4">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">isinstance</span>(root, <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">str</span>): root <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Path(root).expanduser()</span>
-<span id="cb7-5">    paths <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">sorted</span>(root.iterdir())</span>
-<span id="cb7-6">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">not</span> paths: <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">return</span></span>
-<span id="cb7-7">    buttons <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> []</span>
-<span id="cb7-8">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">for</span> path <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">in</span> paths:</span>
-<span id="cb7-9">        button <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Button(description<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">str</span>(path))</span>
-<span id="cb7-10">        button.on_click(partial(on_click_dir <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> path.is_dir() <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">else</span> on_click_file, path))</span>
-<span id="cb7-11">        buttons.append(button)</span>
-<span id="cb7-12">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">return</span> VBox(buttons)</span></code></pre></div>
-</div>
-</section>
-<section id="improved-styling" class="level2">
-<h2 class="anchored" data-anchor-id="improved-styling">Improved styling</h2>
-<p>I don’t like how the implementation above is styled, so here is another with a few purely stylistic improvements:</p>
-<div id="29a177c1" class="cell">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">def</span> ls(root<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>Path()):</span>
-<span id="cb8-2">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">isinstance</span>(root, <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">str</span>): root <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Path(root).expanduser()</span>
-<span id="cb8-3">    paths <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> <span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">sorted</span>(root.iterdir())</span>
-<span id="cb8-4">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">not</span> paths: <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">return</span></span>
-<span id="cb8-5">    button_layout <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Layout(width<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'fit-content'</span>)</span>
-<span id="cb8-6">    buttons <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> []</span>
-<span id="cb8-7">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">for</span> path <span class="kw" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">in</span> paths:</span>
-<span id="cb8-8">        button <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Button(description<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="bu" style="color: null;
-background-color: null;
-font-style: inherit;">str</span>(path.relative_to(root)), layout<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>button_layout)</span>
-<span id="cb8-9">        button.on_click(partial(on_click_dir <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">if</span> path.is_dir() <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">else</span> on_click_file, path))</span>
-<span id="cb8-10">        buttons.append(button)</span>
-<span id="cb8-11">    box_layout <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Layout(overflow<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'scroll hidden'</span>, height<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'500px'</span>, display<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'flex'</span>,</span>
-<span id="cb8-12">                        flex_flow<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'column wrap'</span>, align_content<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'flex-start'</span>)</span>
-<span id="cb8-13">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-style: inherit;">return</span> Box(buttons, layout<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span>box_layout)</span></code></pre></div>
-</div>
-<div id="2c1adb10" class="cell">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">ls(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'~/code/fastai'</span>)</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"169fb41e3a56421dba0169a52f8d35f4","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-</div>
-<p>Unfortunately, my current blog setup doesn’t support widgets, but you should be able to run this locally. You can also check out the <a href="https://twitter.com/wasimlorgat/status/1539605620130603008">demo video in my tweet</a>.</p>
-<p>If you pay close attention to the demo video, you’ll notice that it’s still styled slightly differently to what we’ve built here. Some styles can’t be changed through ipywidget’s <code>style</code> interface, so that was achieved by manually writing CSS with the <code>%%html</code> magic command followed by a <code>&lt;style&gt;...&lt;/style&gt;</code> tag, and then assigning a class to the buttons and boxes using their <code>add_class</code> method. I also implemented a custom widget with a small <code>render</code> JavaScript function that resized the output grid until it fit the width of the screen.</p>
-<p>I’m really excited with how this turned out! And it was far simpler than I’d expected. I’ll definitely be exploring the point-and-click navigation pattern more. I’m thinking about trying it out for exploring documentation about Python objects.</p>
-
-
-</section>
-
- ]]></description>
-  <category>notebooks</category>
-  <guid>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</guid>
-  <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
-</item>
-<item>
   <title>Create and execute cells inside a Jupyter notebook</title>
   <link>https://wasimlorgat.com/tils/create-and-execute-cells-inside-a-jupyter-notebook.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -2882,6 +3027,7 @@ font-style: inherit;">import</span> Button</span>
 <span id="cb1-4"></span>
 <span id="cb1-5"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> create_code_cell():</span>
 <span id="cb1-6">    code <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2937,7 +3083,7 @@ font-style: inherit;">'Hello world!'</span>)</span></code></pre></div>
 <p>I didn’t know that there was a neat JavaScript API inside Jupyter notebooks, but it does make sense that it exists. It’s also really useful to browse the API using your browser’s console via auto-complete on the <code>IPython</code> object:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/tils/images/ipython-javascript-api.png" class="rounded border shadow-sm preview-image img-fluid figure-img" alt="Browser console with code: IPython.notebook" width="500"></p>
+<p><img src="https://wasimlorgat.com/tils/images/ipython-javascript-api.png" class="rounded border shadow-sm preview-image img-fluid quarto-figure quarto-figure-center figure-img" alt="Browser console with code: IPython.notebook" width="500"></p>
 </figure>
 </div>
 
@@ -2955,6 +3101,7 @@ font-style: inherit;">'Hello world!'</span>)</span></code></pre></div>
 
 
 
+
 <p>Inspired by <a href="https://til.simonwillison.net/">Simon Willison</a>, I started writing <a href="../tils/">TILs</a> (today I learned). I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks. TILs are my attempt at documenting and sharing my day-to-day learnings in case they might help others. The focus on learning also feels less daunting than writing blog posts.</p>
 <p>I wanted to support TILs on my blog as a separate set of posts with their own listing page. Thanks to <a href="https://docs.getpelican.com/en">Pelican’s</a> incredible flexibility, this was quite easy!</p>
 <p>Following these steps requires using a custom theme. I personally use a custom theme (forked from the builtin <em>simple</em> theme) precisely so that I can easily make these sorts of customisations.</p>
@@ -2966,16 +3113,21 @@ font-style: inherit;">'Hello world!'</span>)</span></code></pre></div>
 background-color: null;
 font-style: inherit;">%</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> article <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> dates <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'til'</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">not</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> article.tags<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|</span>default([]) <span class="op" style="color: #5E5E5E;
@@ -3004,14 +3156,18 @@ font-style: inherit;">''</span></span></code></pre></div>
 background-color: null;
 font-style: inherit;">%</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> article <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> dates <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'til'</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> article.tags<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">|</span>default([]) <span class="op" style="color: #5E5E5E;
@@ -3028,19 +3184,27 @@ font-style: inherit;">'posts/index'</span>, <span class="st" style="color: #2079
 background-color: null;
 font-style: inherit;">'tils/index'</span>]</span></code></pre></div>
 <p>You probably also want to link to the listing from your nav bar. For my theme, that’s done by adding a line to the <code>&lt;nav&gt;</code> tag in my <code>base.html</code> template:</p>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb6-1"><span class="kw" style="color: #003B4F;
+<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb6-1"><span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">&lt;a</span> <span class="er" style="color: #AD0000;
+font-style: inherit;">&lt;</span><span class="kw" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">href</span><span class="ot" style="color: #003B4F;
+font-weight: bold;
+font-style: inherit;">a</span><span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;"> href</span><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"{{ SITEURL }}/tils/"</span><span class="kw" style="color: #003B4F;
+font-style: inherit;">"{{ SITEURL }}/tils/"</span><span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">&gt;</span>TILs<span class="kw" style="color: #003B4F;
+font-style: inherit;">&gt;</span>TILs<span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">&lt;/a&gt;</span></span></code></pre></div>
+font-style: inherit;">&lt;/</span><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">a</span><span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">&gt;</span></span></code></pre></div>
 </section>
 <section id="hack-article-urls" class="level2">
 <h2 class="anchored" data-anchor-id="hack-article-urls">Hack article URLs</h2>
@@ -3048,11 +3212,13 @@ font-style: inherit;">&lt;/a&gt;</span></span></code></pre></div>
 <p>Simply include the following in your <code>pelicanconf.py</code>:</p>
 <div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> ArticleUrl(<span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">str</span>):</span>
 <span id="cb7-2">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">format</span>(<span class="va" style="color: #111111;
@@ -3063,16 +3229,20 @@ font-style: inherit;">=</span>[],<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">**</span>kwargs): <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> (<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'tils/'</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'til'</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> tags <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'posts/'</span>) <span class="op" style="color: #5E5E5E;
@@ -3126,6 +3296,7 @@ font-style: inherit;">+    server.watch('{}/templates/**/*.html'.format(theme_pa
   <title>Using Pelican as a library</title>
   <link>https://wasimlorgat.com/tils/using-pelican-as-a-library.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -3219,6 +3390,7 @@ font-style: inherit;">## Welcome</span></span>
 <span id="cb5-10"></span>
 <span id="cb5-11">Hello <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">and</span> welcome to our markdown blog post<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!</span></span></code></pre></div>
@@ -3304,8 +3476,10 @@ font-style: inherit;">=</span> [<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span>(Path(o) <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> settings[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'THEME_TEMPLATES_OVERRIDES'</span>]),</span>
@@ -3405,6 +3579,7 @@ font-style: inherit;">import</span> re</span>
 <span id="cb16-2"></span>
 <span id="cb16-3"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">with</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">open</span>(output_dir<span class="op" style="color: #5E5E5E;

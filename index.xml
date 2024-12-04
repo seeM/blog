@@ -6,15 +6,16 @@
       version="2.0">
 <channel>
 <title>Wasim Lorgat</title>
-<link>https://wasimlorgat.com/index.html</link>
+<link>https://wasimlorgat.com/</link>
 <atom:link href="https://wasimlorgat.com/index.xml" rel="self" type="application/rss+xml"/>
-<description>Recent posts on wasimlorgat.com</description>
-<generator>quarto-1.4.104</generator>
+<description>A collection of technical blogs and talks on software engineering and machine learning.</description>
+<generator>quarto-1.7.2</generator>
 <lastBuildDate>Tue, 23 May 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Building a cost-effective image vector search engine with CLIP</title>
   <link>https://wasimlorgat.com/posts/image-vector-search.html</link>
   <description><![CDATA[ 
+
 
 
 
@@ -44,19 +45,19 @@
 <p>For example, here is the top search result for “fluffy striped salmon pillow”:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/fluffy-striped-salmon-pillow.png" class="img-fluid figure-img" width="200"></p>
+<p><img src="https://wasimlorgat.com/posts/images/fluffy-striped-salmon-pillow.png" class="img-fluid quarto-figure quarto-figure-center figure-img" width="200"></p>
 </figure>
 </div>
 <p>Incredible! And even more incredible is how easy it is to build your own such vector search engine thanks to a powerful and open-source technology: Contrastive Language-Image Pretraining (CLIP).</p>
 </section>
 <section id="whats-clip" class="level3 page-columns page-full">
 <h3 class="anchored" data-anchor-id="whats-clip">What’s CLIP?</h3>
-<div class="page-columns page-full"><p>Contrastive Language-Image Pretraining (CLIP) is a technique for training neural networks with state-of-the-art zero-shot performance on a variety of tasks using mixed image and text data.<sup>1</sup></p><div class="no-row-height column-margin column-container"><li id="fn1"><p><sup>1</sup>&nbsp;While CLIP has been dethroned several times in the last two years (most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>), it is still notable for introducing a step change improvement in the power of zero-shot multimodal techniques.</p></li></div></div>
-<p>Zero-shot learning refers to a machine learning approach where a model is trained on one dataset and then tested on a completely different dataset. For instance, CLIP was trained on a broad dataset of captioned images from the web. However, in the next section we will apply it to a dataset featuring only cats and dogs. Meepo similarly applies CLIP to images of homeware and fashion items.</p>
+<p>Contrastive Language-Image Pretraining (CLIP) is a technique for training neural networks with state-of-the-art zero-shot performance on a variety of tasks using mixed image and text data.<sup>1</sup></p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;While CLIP has been dethroned several times in the last two years (most recently by <a href="http://arxiv.org/abs/2301.12597">BLIP-2</a>), it is still notable for introducing a step change improvement in the power of zero-shot multimodal techniques.</p></div></div><p>Zero-shot learning refers to a machine learning approach where a model is trained on one dataset and then tested on a completely different dataset. For instance, CLIP was trained on a broad dataset of captioned images from the web. However, in the next section we will apply it to a dataset featuring only cats and dogs. Meepo similarly applies CLIP to images of homeware and fashion items.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/images/clip-training.png" class="img-fluid figure-img" width="600"></p>
-<figcaption class="figure-caption">A visualization of the contrastive language-image pretraining approach. Source: <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a> by OpenAI.</figcaption>
+<figcaption>A visualization of the contrastive language-image pretraining approach. Source: <a href="https://openai.com/blog/clip/">CLIP: Connecting Text and Images</a> by OpenAI.</figcaption>
 </figure>
 </div>
 <p>The idea is to pretrain a neural network to predict the most relevant text snippet given an image and vice versa.</p>
@@ -72,7 +73,7 @@
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/images/meepo-convirt-examples.png" class="img-fluid figure-img" width="400"></p>
-<figcaption class="figure-caption">X-ray images with naturally occurring paired descriptions from doctor’s reports. Source: Figure 1 of Zhang et al., 2020</figcaption>
+<figcaption>X-ray images with naturally occurring paired descriptions from doctor’s reports. Source: Figure 1 of Zhang et al., 2020</figcaption>
 </figure>
 </div>
 <p>Despite being acknowledged in the <a href="https://arxiv.org/abs/2103.00020">CLIP paper</a>, I hadn’t heard of ConVIRT until I read the CLIP paper myself:</p>
@@ -132,6 +133,7 @@ font-style: inherit;">as</span> np</span>
 <span id="cb3-2"></span>
 <span id="cb3-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> thumbnail(image, scale<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
@@ -139,6 +141,7 @@ background-color: null;
 font-style: inherit;">3</span>):</span>
 <span id="cb3-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> image.resize(np.array(image.size)<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">//</span>scale)</span></code></pre></div>
@@ -159,7 +162,11 @@ background-color: null;
 font-style: inherit;">'image'</span>]</span>
 <span id="cb4-3">thumbnail(cat_image)</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-6-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-6-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>… and here’s an example of a dog:</p>
@@ -178,7 +185,11 @@ background-color: null;
 font-style: inherit;">'image'</span>]</span>
 <span id="cb5-3">thumbnail(dog_image)</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-7-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-7-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 </section>
@@ -212,11 +223,14 @@ font-style: inherit;">import</span> torch</span>
 <span id="cb7-2"></span>
 <span id="cb7-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> embed_image(images):</span>
 <span id="cb7-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">not</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">isinstance</span>(images, <span class="bu" style="color: null;
@@ -239,8 +253,10 @@ background-color: null;
 font-style: inherit;">True</span>)</span>
 <span id="cb7-6">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">with</span> torch.no_grad(): <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> model.get_image_features(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">**</span>inputs)</span></code></pre></div>
@@ -262,6 +278,7 @@ font-style: inherit;">=</span> embed_image(images)</span>
 <div id="ba2b888e" class="cell">
 <div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> embed_text(text):</span>
 <span id="cb10-2">    inputs <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -278,8 +295,10 @@ background-color: null;
 font-style: inherit;">True</span>)</span>
 <span id="cb10-3">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">with</span> torch.no_grad(): <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> model.get_text_features(<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">**</span>inputs)</span></code></pre></div>
@@ -297,8 +316,10 @@ font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> cls <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> [<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"cat"</span>, <span class="st" style="color: #20794D;
@@ -314,8 +335,10 @@ font-style: inherit;">"dog"</span>]])</span>
 <div id="b54a14a7" class="cell">
 <div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> normalize(a): <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> a <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span> a.norm(dim<span class="op" style="color: #5E5E5E;
@@ -329,8 +352,10 @@ background-color: null;
 font-style: inherit;">True</span>)</span>
 <span id="cb13-2"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> cosine_sim(a, b): <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> normalize(a) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">@</span> normalize(b).T</span></code></pre></div>
@@ -347,15 +372,19 @@ font-style: inherit;">@</span> normalize(b).T</span></code></pre></div>
 <div id="a18a6958" class="cell">
 <div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> logits(a, b): <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> model.logit_scale.exp() <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">*</span> cosine_sim(a, b)</span>
 <span id="cb16-2"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> probs(a, b): <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> logits(a, b).softmax(dim<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
@@ -374,6 +403,7 @@ font-style: inherit;">0</span>)</span></code></pre></div>
 <div id="363d3ef8" class="cell">
 <div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> classify(image, classes, template<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="st" style="color: #20794D;
@@ -392,11 +422,14 @@ font-style: inherit;">=</span> embed_text([template.<span class="bu" style="colo
 background-color: null;
 font-style: inherit;">format</span>(o) <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> classes])</span>
 <span id="cb19-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> probs(text_embs, image_embs)</span></code></pre></div>
 </div>
 <p>To use this, simply pass in a list of classes. You can also customize the <code>template</code>, which can improve the classification accuracy.</p>
@@ -410,14 +443,18 @@ font-style: inherit;">sorted</span>({row[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"label"</span>] <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> row <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> dataset[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"train"</span>] <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">not</span> row[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"dog"</span>]})</span>
@@ -507,6 +544,7 @@ font-style: inherit;">=</span> torch.argmax(scores)</span>
 <div id="65888292" class="cell">
 <div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> search(image_embs, query_embs):</span>
 <span id="cb26-2">    sims <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -520,6 +558,7 @@ background-color: null;
 font-style: inherit;">True</span>)</span>
 <span id="cb26-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> indices, sims[indices]</span></code></pre></div>
 </div>
 <div id="30E00922-FA29-481A-B0A6-3A363B0BA41D" class="cell">
@@ -536,14 +575,24 @@ font-style: inherit;">"a photo of a cat"</span>))</span>
 <div id="2bf0ad46" class="cell">
 <div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> indices: display(thumbnail(images[i]))</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-23-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-23-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-23-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-23-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Let’s try that with a bigger dataset and some more interesting queries:</p>
@@ -568,12 +617,14 @@ background-color: null;
 font-style: inherit;">"oxford_pets_embeddings.npy"</span>)</span>
 <span id="cb31-2"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> all_image_embs_path.exists():</span>
 <span id="cb31-3">    all_image_embs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> torch.tensor(np.load(all_image_embs_path))</span>
 <span id="cb31-4"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span>:</span>
 <span id="cb31-5">    all_image_embs <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -581,8 +632,10 @@ font-style: inherit;">=</span> torch.cat([embed_image(row[<span class="st" style
 background-color: null;
 font-style: inherit;">'image'</span>]) <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> row <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> tqdm(dataset[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'train'</span>])])</span>
@@ -597,6 +650,7 @@ font-style: inherit;">'train'</span>])])</span>
 <div id="cf611ac2" class="cell">
 <div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> search_and_display(image_embs, query_embs, k<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
@@ -607,8 +661,10 @@ background-color: null;
 font-style: inherit;">=</span> search(image_embs, query_embs)</span>
 <span id="cb34-3">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> indices[:k]:</span>
 <span id="cb34-4">        image <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -624,13 +680,25 @@ font-style: inherit;">"image"</span>]</span>
 background-color: null;
 font-style: inherit;">"a photo of a white puppey on the grass"</span>))</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-28-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-28-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-28-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-28-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-28-output-3.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-28-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Amazing! I wonder how obscure we can get?</p>
@@ -639,13 +707,25 @@ font-style: inherit;">"a photo of a white puppey on the grass"</span>))</span></
 background-color: null;
 font-style: inherit;">"a photo of a fluffy pink cat on a tv"</span>))</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-29-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-29-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-29-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-29-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-29-output-3.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-29-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>It always surprises me how well this works! 🤯</p>
@@ -654,13 +734,25 @@ font-style: inherit;">"a photo of a fluffy pink cat on a tv"</span>))</span></co
 <div id="772F80F2-E221-4FEF-B115-FF45BFBA9EC4" class="cell">
 <div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1">search_and_display(all_image_embs, embed_image(cat_image))</span></code></pre></div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-30-output-1.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-30-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-30-output-2.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-30-output-2.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 <div class="cell-output cell-output-display">
-<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-30-output-3.png" class="img-fluid"></p>
+<div>
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/image-vector-search_files/figure-html/cell-30-output-3.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
 </div>
 </div>
 <p>Now that we have a working CLIP-based vector search engine, how do we share it with the world?</p>
@@ -778,12 +870,7 @@ Why use a Virtual Private Server(VPS) instead of a modern platform as a service 
 
 
 </section>
-<aside id="footnotes" class="footnotes footnotes-end-of-document">
-<hr>
-<ol>
 
-</ol>
-</aside>
 
  ]]></description>
   <category>tutorial</category>
@@ -797,12 +884,13 @@ Why use a Virtual Private Server(VPS) instead of a modern platform as a service 
 
 
 
+
 <p>I attended <a href="https://www.jupytercon.com/">JupyterCon 2023</a> in Paris two weeks ago. On Thursday, <a href="https://hamel.dev/">Hamel Husain</a>, myself, and <a href="https://www.linkedin.com/in/jjallaire">J. J. Allaire</a> (as a teaching assistant) presented a two and a half hour tutorial on Writing, Documenting, Testing, and Distributing Python Packages with <a href="https://nbdev.fast.ai/">nbdev</a> and <a href="https://quarto.org/">Quarto</a>.</p>
 <p>I think it went well! The room was full and attendees engaged with great questions.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/images/jupytercon-2023-tutorial.png" class="shadow-sm border preview-image img-fluid figure-img"></p>
-<figcaption class="figure-caption">Screenshot of the <a href="https://fastai.github.io/jupytercon-2023/">tutorial website</a> <a href="../tils/using-shot-scraper.html">taken with <code>shot-scraper</code></a>.</figcaption>
+<figcaption>Screenshot of the <a href="https://fastai.github.io/jupytercon-2023/">tutorial website</a> <a href="../tils/using-shot-scraper.html">taken with <code>shot-scraper</code></a>.</figcaption>
 </figure>
 </div>
 <p>Hamel opened by describing the roots of nbdev’s programming paradigm: a combination of <em>literate programming</em> (<a href="https://en.wikipedia.org/wiki/Literate_programming">introduced by Donald Knuth</a>) and <em>exploratory programming</em> (<a href="https://www.youtube.com/watch?v=PUv66718DII">beautifully demonstrated by Bret Victor</a>) made possible by <a href="https://jupyter.org/">Jupyter</a> notebooks. He then took us through both basic and advanced usage of Quarto – the publishing platform that powers nbdev’s documentation generation.</p>
@@ -822,7 +910,7 @@ Why use a Virtual Private Server(VPS) instead of a modern platform as a service 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/images/david-hamel-wasim-jupytercon-2023.jpeg" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption"><a href="https://twitter.com/davidbrochart">David Brochart</a>, <a href="https://hamel.dev/">Hamel Husain</a>, and myself pictured in front of the <a href="https://philharmoniedeparis.fr/en">Philharmonie de Paris</a> a short walk away from the JupyterCon 2023 conference hall.</figcaption>
+<figcaption><a href="https://twitter.com/davidbrochart">David Brochart</a>, <a href="https://hamel.dev/">Hamel Husain</a>, and myself pictured in front of the <a href="https://philharmoniedeparis.fr/en">Philharmonie de Paris</a> a short walk away from the JupyterCon 2023 conference hall.</figcaption>
 </figure>
 </div>
 
@@ -840,10 +928,11 @@ Why use a Virtual Private Server(VPS) instead of a modern platform as a service 
 
 
 
+
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/images/jupiter.png" class="preview-image rounded img-fluid figure-img"></p>
-<figcaption class="figure-caption">Photo by <a href="https://unsplash.com/@planetvolumes?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Planet Volumes</a> on <a href="https://unsplash.com/photos/awYEQyYdHVE?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption>
+<figcaption>Photo by <a href="https://unsplash.com/@planetvolumes?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Planet Volumes</a> on <a href="https://unsplash.com/photos/awYEQyYdHVE?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></figcaption>
 </figure>
 </div>
 <p>This blog post (and the <a href="https://github.com/seeM/blog/blob/main/posts/jupyter-server-a-whirlwind-tour.ipynb">source notebook</a>) is an executable playground for understanding how to communicate with Jupyter Servers. You can think of it as a barebones Jupyter frontend, since we’ll be implementing the full lifecycle including creating a new notebook, writing and executing code cells, and shutting down the server.</p>
@@ -1438,21 +1527,26 @@ font-style: inherit;">import</span> create_connection, WebSocketTimeoutException
 <span id="cb44-4"></span>
 <span id="cb44-5"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> recv_all(conn):</span>
 <span id="cb44-6">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
 <span id="cb44-7">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">try</span>: msg <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> json.loads(conn.recv())</span>
 <span id="cb44-8">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">except</span> WebSocketTimeoutException: <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">break</span></span>
 <span id="cb44-9">        <span class="bu" style="color: null;
 background-color: null;
@@ -1505,6 +1599,7 @@ font-style: inherit;">'</span></span>
 <span id="cb44-13"></span>
 <span id="cb44-14"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">with</span> closing(create_connection(ws_url, header<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>headers, timeout<span class="op" style="color: #5E5E5E;
@@ -1611,9 +1706,11 @@ font-style: inherit;">'api/shutdown'</span>)</span></code></pre></div>
 <div id="15534d8d" class="cell" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">try</span>: session.get(url)</span>
 <span id="cb50-2"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">except</span> requests.exceptions.<span class="pp" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">ConnectionError</span>: <span class="bu" style="color: null;
@@ -1656,6 +1753,7 @@ font-style: inherit;">'Server has been successfully shutdown!'</span>)</span></c
 
 
 
+
 <p>Check out Lesson 9B: Math of Diffusion of fast.ai’s <a href="https://www.fast.ai/posts/part2-2022.html">Practical Deep Learning for Coders Part 2, 2022</a> from the wonderful <a href="https://twitter.com/iScienceLuvr">Tanishq</a> and myself if you want to understand the math of diffusion but feel intimidated by the jargon. You’ll learn about the key equations underpinning diffusion models, with no prerequisites beyond high school math.</p>
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/mYpjmM7O-30" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <section id="what-youll-learn" class="level2">
@@ -1670,7 +1768,7 @@ font-style: inherit;">'Server has been successfully shutdown!'</span>)</span></c
 <p>Here’s what <a href="https://twitter.com/strickvl">Alex</a>, a student of the course, had to say about the lesson:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/strickvl-on-math-of-diffusion.png" class="rounded border shadow-sm img-fluid figure-img" alt="@strickvl (Alex Strick van Linschoten) posts: Just here to say thank you to @ilovescience and @seem for the 9B lecture that dropped this morning. My first reaction on seeing something with the title &quot;the math of diffusion&quot; was to assume that 'oh, that's just something for all the smart people who have PhDs in mathematics on the course, and it'll probably be completely incomprehensible', but of course it's not that at all! I'm not all the way through, but so far I'm just really grateful how you both take things slowly and don't make any assumptions as to the background of your viewers. So thank you!" width="500"></p>
+<p><img src="https://wasimlorgat.com/posts/images/strickvl-on-math-of-diffusion.png" class="rounded border shadow-sm img-fluid quarto-figure quarto-figure-center figure-img" alt="@strickvl (Alex Strick van Linschoten) posts: Just here to say thank you to @ilovescience and @seem for the 9B lecture that dropped this morning. My first reaction on seeing something with the title &quot;the math of diffusion&quot; was to assume that 'oh, that's just something for all the smart people who have PhDs in mathematics on the course, and it'll probably be completely incomprehensible', but of course it's not that at all! I'm not all the way through, but so far I'm just really grateful how you both take things slowly and don't make any assumptions as to the background of your viewers. So thank you!" width="500"></p>
 </figure>
 </div>
 <p>You definitely don’t need a PhD! In fact, the lesson came about because I felt the same way as Alex. I was frustrated at how difficult I found it to understand the math in diffusion papers.</p>
@@ -1680,7 +1778,7 @@ font-style: inherit;">'Server has been successfully shutdown!'</span>)</span></c
 <p>Thanks to nudges from <a href="https://twitter.com/jeremyphoward">Jeremy</a>, we went from an informal conversation, to a talk at the <a href="https://fast.ai">fast.ai</a> unconference, to a recorded lesson – in a span of 4 days! Jeremy was kind enough to let us use his equipment and record at the <a href="https://fast.ai">fast.ai</a> HQ.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/recording-math-of-diffusion.png" class="rounded img-fluid figure-img" alt="Jeremy and Wasim behind a desk recording lesson 9b &quot;math of diffusion&quot;. Blurred background." width="500"></p>
+<p><img src="https://wasimlorgat.com/posts/images/recording-math-of-diffusion.png" class="rounded img-fluid quarto-figure quarto-figure-center figure-img" alt="Jeremy and Wasim behind a desk recording lesson 9b &quot;math of diffusion&quot;. Blurred background." width="500"></p>
 </figure>
 </div>
 </section>
@@ -1699,7 +1797,7 @@ I got a special surprise for you all…<br><br>We just released the first 5.5 ho
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
 <div id="ref-ho_denoising_2020" class="csl-entry">
 Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. <span>“Denoising Diffusion Probabilistic Models.”</span> <span>arXiv</span>. <a href="http://arxiv.org/abs/2006.11239">http://arxiv.org/abs/2006.11239</a>.
 </div>
@@ -1728,11 +1826,12 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 
 
 
+
 <p>Here are my notes for day 1 of the FastAI array programming study group run by Jeremy Howard. Check out <a href="https://forums.fast.ai/t/apl-array-programming/97188">the official thread on the FastAI forum</a> for up-to-date info. Any mistakes are mine - please <a href="https://twitter.com/wasimlorgat">let me know</a> if you spot one.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/images/juggling.svg" class="img-fluid figure-img" width="200"></p>
-<figcaption class="figure-caption">Diagram in a juggling notation, via Wikipedia</figcaption>
+<figcaption>Diagram in a juggling notation (<a href="https://en.wikipedia.org/wiki/Juggling_notation">via Wikipedia</a>).</figcaption>
 </figure>
 </div>
 <section id="why-learn-apl" class="level2">
@@ -1769,7 +1868,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/42b866ad-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Create a Dyalog notebook in Jupyter by clicking <i>New</i> then <i>Dyalog APL</i>.|Create a Dyalog notebook in Jupyter by clicking New then Dyalog APL.</figcaption>
+<figcaption>Create a Dyalog notebook in Jupyter by clicking <i>New</i> then <i>Dyalog APL</i>.|Create a Dyalog notebook in Jupyter by clicking New then Dyalog APL.</figcaption>
 </figure>
 </div>
 <p>You should now be able to write Dyalog directly in your notebook! Try it out:</p>
@@ -1787,14 +1886,14 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/c44c1ebf-2-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">The APL langauge bar: a horizontal list of APL gylphs.</figcaption>
+<figcaption>The APL langauge bar: a horizontal list of APL gylphs.</figcaption>
 </figure>
 </div>
 <p>Hovering on a glyph shows a its name and keyboard shortucts:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/c44c1ebf-1-image-2.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Hovering on the minus sign glyph shows ‘negate minus’.</figcaption>
+<figcaption>Hovering on the minus sign glyph shows ‘negate minus’.</figcaption>
 </figure>
 </div>
 </section>
@@ -1806,7 +1905,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
 <p><img src="https://wasimlorgat.com/posts/fastai-array-programming-day-1_files/figure-html/ec994b95-1-image.png" class="img-fluid figure-img"></p>
-<figcaption class="figure-caption">Tables of APL glyphs: primitive functions, and primitive operators, via <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">Dyalog docs</a>.</figcaption>
+<figcaption>Tables of APL glyphs: primitive functions, and primitive operators, via <a href="https://help.dyalog.com/latest/index.htm#Language/Introduction/Language%20Elements.htm?TocPath=Language%2520Reference%2520Guide%257CSymbols%257C_____1">Dyalog docs</a>.</figcaption>
 </figure>
 </div>
 <p>A good way to learn new concepts in APL (and in general) is to look at an example, try to predict what it’ll do before you run it, then run it and compare with your prediction. APL documentation is filled with examples which makes this approach even more powerful. The documentation will often include multiple examples as separate elements of an array.</p>
@@ -1880,18 +1979,16 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 
 
 
+
 <p><img src="https://wasimlorgat.com/posts/images/editor.svg" class="preview-image img-fluid"></p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center">
+<div class="callout callout-style-simple callout-note">
+<div class="callout-body d-flex">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-title-container flex-fill">
-
-</div>
-</div>
-<div class="callout-body-container callout-body">
+<div class="callout-body-container">
 <p>This article was featured in <a href="https://pythonbytes.fm/episodes/show/221/pattern-matching-and-accepting-change-in-python-with-brett-cannon">Episode 221 of the PythonBytes podcast</a> by Michael Kennedy and Brian Okken.</p>
+</div>
 </div>
 </div>
 <p>We’re going to build a command line text editor from scratch in Python. If you’d like to learn the most out of this, I’d recommend to code along. When we encounter problems, I’ll try to state them first before suggesting a solution. I encourage you to pause and give yourself about fifteen minutes to try to solve it first. If you’re still stuck, move along and compare the solution with your own approach. It’s also totally fine if you simply read through at your leisure.</p>
@@ -1909,9 +2006,11 @@ font-style: inherit;">import</span> curses</span>
 <span id="cb1-3"></span>
 <span id="cb1-4"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> main(stdscr):</span>
 <span id="cb1-5">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
@@ -1922,6 +2021,7 @@ font-style: inherit;">=</span> stdscr.getkey()</span>
 <span id="cb1-8"></span>
 <span id="cb1-9"><span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">__name__</span> <span class="op" style="color: #5E5E5E;
@@ -1947,9 +2047,11 @@ font-style: inherit;">import</span> sys</span>
 <span id="cb2-4"></span>
 <span id="cb2-5"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> main(stdscr):</span>
 <span id="cb2-6">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
@@ -1958,6 +2060,7 @@ background-color: null;
 font-style: inherit;">=</span> stdscr.getkey()</span>
 <span id="cb2-8">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -1989,6 +2092,7 @@ font-style: inherit;"># ...</span></span>
 <span id="cb4-4"></span>
 <span id="cb4-5"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> main(stdscr):</span>
 <span id="cb4-6">    parser <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2002,6 +2106,7 @@ font-style: inherit;">=</span> parser.parse_args()</span>
 <span id="cb4-9"></span>
 <span id="cb4-10">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">with</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">open</span>(args.filename) <span class="im" style="color: #00769E;
@@ -2015,14 +2120,17 @@ font-style: inherit;">=</span> f.readlines()</span>
 <span id="cb4-12"></span>
 <span id="cb4-13">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
 <span id="cb4-14">        stdscr.erase()</span>
 <span id="cb4-15">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> row, line <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">enumerate</span>(<span class="bu" style="color: null;
@@ -2037,6 +2145,7 @@ background-color: null;
 font-style: inherit;">=</span> stdscr.getkey()</span>
 <span id="cb4-19">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2069,9 +2178,11 @@ font-style: inherit;"># ...</span></span>
 <span id="cb7-2"></span>
 <span id="cb7-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> Window:</span>
 <span id="cb7-4">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
@@ -2106,14 +2217,17 @@ font-style: inherit;">1</span>)</span>
 <span id="cb7-11"></span>
 <span id="cb7-12">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
 <span id="cb7-13">        stdscr.erase()</span>
 <span id="cb7-14">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> row, line <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">enumerate</span>(<span class="bu" style="color: null;
@@ -2137,9 +2251,11 @@ font-style: inherit;"># ...</span></span>
 <span id="cb8-2"></span>
 <span id="cb8-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> Cursor:</span>
 <span id="cb8-4">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
@@ -2185,14 +2301,17 @@ font-style: inherit;">=</span> Cursor()</span>
 <span id="cb8-12"></span>
 <span id="cb8-13">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
 <span id="cb8-14">        stdscr.erase()</span>
 <span id="cb8-15">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> row, line <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">enumerate</span>(<span class="bu" style="color: null;
@@ -2215,6 +2334,7 @@ font-style: inherit;"># ... class Cursor:</span></span>
 <span id="cb9-2"></span>
 <span id="cb9-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> up(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
@@ -2228,6 +2348,7 @@ font-style: inherit;">1</span></span>
 <span id="cb9-5"></span>
 <span id="cb9-6">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> down(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
@@ -2241,6 +2362,7 @@ font-style: inherit;">1</span></span>
 <span id="cb9-8"></span>
 <span id="cb9-9">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> left(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
@@ -2254,6 +2376,7 @@ font-style: inherit;">1</span></span>
 <span id="cb9-11"></span>
 <span id="cb9-12">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> right(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
@@ -2274,6 +2397,7 @@ background-color: null;
 font-style: inherit;">=</span> stdscr.getkey()</span>
 <span id="cb9-18">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2284,6 +2408,7 @@ background-color: null;
 font-style: inherit;">0</span>)</span>
 <span id="cb9-20">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2292,6 +2417,7 @@ font-style: inherit;">"KEY_UP"</span>:</span>
 <span id="cb9-21">            cursor.up()</span>
 <span id="cb9-22">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2300,6 +2426,7 @@ font-style: inherit;">"KEY_DOWN"</span>:</span>
 <span id="cb9-23">            cursor.down()</span>
 <span id="cb9-24">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2308,6 +2435,7 @@ font-style: inherit;">"KEY_LEFT"</span>:</span>
 <span id="cb9-25">            cursor.left()</span>
 <span id="cb9-26">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2328,11 +2456,13 @@ font-style: inherit;"># ... class Cursor:</span></span>
 <span id="cb10-2"></span>
 <span id="cb10-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> up(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
 <span id="cb10-4">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -2350,6 +2480,7 @@ font-style: inherit;">1</span></span>
 <span id="cb10-6"></span>
 <span id="cb10-7">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> down(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -2357,6 +2488,7 @@ background-color: null;
 font-style: inherit;">buffer</span>):</span>
 <span id="cb10-8">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -2380,11 +2512,13 @@ font-style: inherit;">1</span></span>
 <span id="cb10-10"></span>
 <span id="cb10-11">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> left(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
 <span id="cb10-12">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.col <span class="op" style="color: #5E5E5E;
@@ -2402,6 +2536,7 @@ font-style: inherit;">1</span></span>
 <span id="cb10-14"></span>
 <span id="cb10-15">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> right(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -2409,6 +2544,7 @@ background-color: null;
 font-style: inherit;">buffer</span>):</span>
 <span id="cb10-16">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.col <span class="op" style="color: #5E5E5E;
@@ -2437,6 +2573,7 @@ background-color: null;
 font-style: inherit;">=</span> stdscr.getkey()</span>
 <span id="cb10-22">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2447,6 +2584,7 @@ background-color: null;
 font-style: inherit;">0</span>)</span>
 <span id="cb10-24">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2455,6 +2593,7 @@ font-style: inherit;">"KEY_UP"</span>:</span>
 <span id="cb10-25">            cursor.up()</span>
 <span id="cb10-26">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2465,6 +2604,7 @@ background-color: null;
 font-style: inherit;">buffer</span>)</span>
 <span id="cb10-28">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2473,6 +2613,7 @@ font-style: inherit;">"KEY_LEFT"</span>:</span>
 <span id="cb10-29">            cursor.left()</span>
 <span id="cb10-30">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2493,6 +2634,7 @@ font-style: inherit;"># ... class Cursor:</span></span>
 <span id="cb11-2"></span>
 <span id="cb11-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> up(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -2500,6 +2642,7 @@ background-color: null;
 font-style: inherit;">buffer</span>):</span>
 <span id="cb11-4">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -2522,6 +2665,7 @@ font-style: inherit;">buffer</span>)</span>
 <span id="cb11-7"></span>
 <span id="cb11-8">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> down(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -2529,6 +2673,7 @@ background-color: null;
 font-style: inherit;">buffer</span>):</span>
 <span id="cb11-9">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -2557,6 +2702,7 @@ font-style: inherit;">buffer</span>)</span>
 <span id="cb11-12"></span>
 <span id="cb11-13">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> _clamp_col(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -2587,6 +2733,7 @@ background-color: null;
 font-style: inherit;">=</span> stdscr.getkey()</span>
 <span id="cb11-19">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2597,6 +2744,7 @@ background-color: null;
 font-style: inherit;">0</span>)</span>
 <span id="cb11-21">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2621,9 +2769,11 @@ font-style: inherit;"># ...</span></span>
 <span id="cb12-2"></span>
 <span id="cb12-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> Cursor:</span>
 <span id="cb12-4">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
@@ -2657,12 +2807,15 @@ font-style: inherit;">self</span>._col_hint <span class="op" style="color: #5E5E
 background-color: null;
 font-style: inherit;">=</span> col <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> col_hint <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">is</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span> <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span> col_hint</span>
 <span id="cb12-8"></span>
 <span id="cb12-9">    <span class="at" style="color: #657422;
@@ -2670,11 +2823,13 @@ background-color: null;
 font-style: inherit;">@property</span></span>
 <span id="cb12-10">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> col(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
 <span id="cb12-11">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>._col</span>
@@ -2684,6 +2839,7 @@ background-color: null;
 font-style: inherit;">@col.setter</span></span>
 <span id="cb12-14">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> col(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, col):</span>
@@ -2704,6 +2860,7 @@ font-style: inherit;"># ...</span></span>
 <span id="cb12-19"></span>
 <span id="cb12-20">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> _clamp_col(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -2737,6 +2894,7 @@ font-style: inherit;"># ... class Cursor:</span></span>
 <span id="cb13-2"></span>
 <span id="cb13-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> left(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -2744,6 +2902,7 @@ background-color: null;
 font-style: inherit;">buffer</span>):</span>
 <span id="cb13-4">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.col <span class="op" style="color: #5E5E5E;
@@ -2760,6 +2919,7 @@ background-color: null;
 font-style: inherit;">1</span></span>
 <span id="cb13-6">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -2788,6 +2948,7 @@ font-style: inherit;">self</span>.row])</span>
 <span id="cb13-9"></span>
 <span id="cb13-10">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> right(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -2795,6 +2956,7 @@ background-color: null;
 font-style: inherit;">buffer</span>):</span>
 <span id="cb13-11">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.col <span class="op" style="color: #5E5E5E;
@@ -2815,6 +2977,7 @@ background-color: null;
 font-style: inherit;">1</span></span>
 <span id="cb13-13">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -2849,6 +3012,7 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb13-18"></span>
 <span id="cb13-19">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -2874,10 +3038,12 @@ font-style: inherit;"># ...</span></span>
 <span id="cb14-2"></span>
 <span id="cb14-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> Window:</span>
 <span id="cb14-4"></span>
 <span id="cb14-5">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
@@ -2917,11 +3083,13 @@ background-color: null;
 font-style: inherit;">@property</span></span>
 <span id="cb14-12">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> bottom(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
 <span id="cb14-13">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -2936,11 +3104,13 @@ font-style: inherit;">1</span></span>
 <span id="cb14-14"></span>
 <span id="cb14-15">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> up(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, cursor):</span>
 <span id="cb14-16">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> cursor.row <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="va" style="color: #111111;
@@ -2951,6 +3121,7 @@ font-style: inherit;">-</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">and</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -2968,6 +3139,7 @@ font-style: inherit;">1</span></span>
 <span id="cb14-18"></span>
 <span id="cb14-19">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> down(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -2975,6 +3147,7 @@ background-color: null;
 font-style: inherit;">buffer</span>, cursor):</span>
 <span id="cb14-20">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> cursor.row <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="va" style="color: #111111;
@@ -2985,6 +3158,7 @@ font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">and</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.bottom <span class="op" style="color: #5E5E5E;
@@ -3012,14 +3186,17 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb14-24"></span>
 <span id="cb14-25">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
 <span id="cb14-26">        stdscr.erase()</span>
 <span id="cb14-27">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> row, line <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">enumerate</span>(<span class="bu" style="color: null;
@@ -3037,6 +3214,7 @@ background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb14-32">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3046,6 +3224,7 @@ font-style: inherit;">"KEY_UP"</span>:</span>
 <span id="cb14-34">            window.up(cursor)</span>
 <span id="cb14-35">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3059,6 +3238,7 @@ background-color: null;
 font-style: inherit;">buffer</span>, cursor)</span>
 <span id="cb14-38">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3068,6 +3248,7 @@ font-style: inherit;">"KEY_LEFT"</span>:</span>
 <span id="cb14-40">            window.up(cursor)</span>
 <span id="cb14-41">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3090,11 +3271,13 @@ font-style: inherit;"># ... class Window:</span></span>
 <span id="cb15-2"></span>
 <span id="cb15-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> translate(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, cursor):</span>
 <span id="cb15-4">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> cursor.row <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> <span class="va" style="color: #111111;
@@ -3111,14 +3294,17 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb15-7"></span>
 <span id="cb15-8">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
 <span id="cb15-9">        stdscr.erase()</span>
 <span id="cb15-10">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> row, line <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">enumerate</span>(<span class="bu" style="color: null;
@@ -3145,6 +3331,7 @@ font-style: inherit;"># ... class Window:</span></span>
 <span id="cb16-2"></span>
 <span id="cb16-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> horizontal_scroll(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, cursor, left_margin<span class="op" style="color: #5E5E5E;
@@ -3189,6 +3376,7 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb16-8"></span>
 <span id="cb16-9">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3199,6 +3387,7 @@ font-style: inherit;">"KEY_UP"</span>:</span>
 <span id="cb16-12">            window.horizontal_scroll(cursor)</span>
 <span id="cb16-13">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3213,6 +3402,7 @@ font-style: inherit;">buffer</span>, cursor)</span>
 <span id="cb16-16">            window.horizontal_scroll(cursor)</span>
 <span id="cb16-17">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3223,6 +3413,7 @@ font-style: inherit;">"KEY_LEFT"</span>:</span>
 <span id="cb16-20">            window.horizontal_scroll(cursor)</span>
 <span id="cb16-21">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3246,14 +3437,17 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb17-2"></span>
 <span id="cb17-3">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">while</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>:</span>
 <span id="cb17-4">        stdscr.erase()</span>
 <span id="cb17-5">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> row, line <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">enumerate</span>(<span class="bu" style="color: null;
@@ -3263,12 +3457,14 @@ background-color: null;
 font-style: inherit;">+</span> window.n_rows]):</span>
 <span id="cb17-6">            <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> row <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> cursor.row <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">-</span> window.row <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">and</span> window.col <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;</span> <span class="dv" style="color: #AD0000;
@@ -3287,6 +3483,7 @@ background-color: null;
 font-style: inherit;">1</span>:]</span>
 <span id="cb17-8">            <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">len</span>(line) <span class="op" style="color: #5E5E5E;
@@ -3324,9 +3521,11 @@ font-style: inherit;"># ...</span></span>
 <span id="cb18-2"></span>
 <span id="cb18-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">class</span> Buffer:</span>
 <span id="cb18-4">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
@@ -3340,6 +3539,7 @@ font-style: inherit;">=</span> lines</span>
 <span id="cb18-6"></span>
 <span id="cb18-7">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">__len__</span>(<span class="va" style="color: #111111;
@@ -3347,6 +3547,7 @@ background-color: null;
 font-style: inherit;">self</span>):</span>
 <span id="cb18-8">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">len</span>(<span class="va" style="color: #111111;
@@ -3355,6 +3556,7 @@ font-style: inherit;">self</span>.lines)</span>
 <span id="cb18-9"></span>
 <span id="cb18-10">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
 background-color: null;
 font-style: inherit;">__getitem__</span>(<span class="va" style="color: #111111;
@@ -3362,6 +3564,7 @@ background-color: null;
 font-style: inherit;">self</span>, index):</span>
 <span id="cb18-11">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.lines[index]</span>
@@ -3382,6 +3585,7 @@ font-style: inherit;">=</span> parser.parse_args()</span>
 <span id="cb18-18"></span>
 <span id="cb18-19">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">with</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">open</span>(args.filename) <span class="im" style="color: #00769E;
@@ -3407,11 +3611,13 @@ background-color: null;
 font-style: inherit;">@property</span></span>
 <span id="cb19-4">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> bottom(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>):</span>
 <span id="cb19-5">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">return</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">len</span>(<span class="va" style="color: #111111;
@@ -3428,6 +3634,7 @@ font-style: inherit;"># ... class Cursor:</span></span>
 <span id="cb19-8"></span>
 <span id="cb19-9">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> down(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -3435,6 +3642,7 @@ background-color: null;
 font-style: inherit;">buffer</span>):</span>
 <span id="cb19-10">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -3461,6 +3669,7 @@ font-style: inherit;"># ...</span></span>
 <span id="cb19-15"></span>
 <span id="cb19-16">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> right(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -3468,6 +3677,7 @@ background-color: null;
 font-style: inherit;">buffer</span>):</span>
 <span id="cb19-17">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.col <span class="op" style="color: #5E5E5E;
@@ -3488,6 +3698,7 @@ background-color: null;
 font-style: inherit;">1</span></span>
 <span id="cb19-19">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.row <span class="op" style="color: #5E5E5E;
@@ -3516,6 +3727,7 @@ font-style: inherit;"># ... class Window:</span></span>
 <span id="cb19-24"></span>
 <span id="cb19-25">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> down(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, <span class="bu" style="color: null;
@@ -3523,6 +3735,7 @@ background-color: null;
 font-style: inherit;">buffer</span>, cursor):</span>
 <span id="cb19-26">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> cursor.row <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="va" style="color: #111111;
@@ -3533,6 +3746,7 @@ font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">1</span> <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">and</span> <span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>.bottom <span class="op" style="color: #5E5E5E;
@@ -3564,6 +3778,7 @@ font-style: inherit;"># ... class Buffer:</span></span>
 <span id="cb20-2"></span>
 <span id="cb20-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> insert(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, cursor, string):</span>
@@ -3592,6 +3807,7 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb20-10"></span>
 <span id="cb20-11">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3605,6 +3821,7 @@ background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb20-14">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span>:</span>
 <span id="cb20-15">        <span class="bu" style="color: null;
 background-color: null;
@@ -3620,6 +3837,7 @@ font-style: inherit;"># ...</span></span>
 <span id="cb21-2"></span>
 <span id="cb21-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> right(window, <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">buffer</span>, cursor):</span>
@@ -3637,6 +3855,7 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb21-9"></span>
 <span id="cb21-10">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3650,14 +3869,17 @@ background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb21-13">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span>:</span>
 <span id="cb21-14">        <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">buffer</span>.insert(cursor, k)</span>
 <span id="cb21-15">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">for</span> _ <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> k:</span>
 <span id="cb21-16">            right(window, <span class="bu" style="color: null;
 background-color: null;
@@ -3677,6 +3899,7 @@ font-style: inherit;"># ... class Buffer:</span></span>
 <span id="cb22-2"></span>
 <span id="cb22-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> split(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, cursor):</span>
@@ -3705,6 +3928,7 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb22-10"></span>
 <span id="cb22-11">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
@@ -3735,6 +3959,7 @@ font-style: inherit;"># ... class Buffer:</span></span>
 <span id="cb23-2"></span>
 <span id="cb23-3">    <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> delete(<span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">self</span>, cursor):</span>
@@ -3743,6 +3968,7 @@ background-color: null;
 font-style: inherit;">=</span> cursor.row, cursor.col</span>
 <span id="cb23-5">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> (row, col) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> (<span class="va" style="color: #111111;
@@ -3759,6 +3985,7 @@ background-color: null;
 font-style: inherit;">self</span>.lines.pop(row)</span>
 <span id="cb23-7">            <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> col <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&lt;</span> <span class="bu" style="color: null;
@@ -3780,6 +4007,7 @@ background-color: null;
 font-style: inherit;">self</span>.lines.insert(row, new)</span>
 <span id="cb23-10">            <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">else</span>:</span>
 <span id="cb23-11">                <span class="bu" style="color: null;
 background-color: null;
@@ -3805,8 +4033,10 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb23-16"></span>
 <span id="cb23-17">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> (<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"KEY_DELETE"</span>, <span class="st" style="color: #20794D;
@@ -3832,6 +4062,7 @@ font-style: inherit;"># ...</span></span>
 <span id="cb24-2"></span>
 <span id="cb24-3"><span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">def</span> left(window, <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">buffer</span>, cursor):</span>
@@ -3847,8 +4078,10 @@ font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb24-9"></span>
 <span id="cb24-10">    <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">elif</span> k <span class="kw" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">in</span> (<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"KEY_BACKSPACE"</span>, <span class="st" style="color: #20794D;
@@ -3860,6 +4093,7 @@ background-color: null;
 font-style: inherit;">"</span>):</span>
 <span id="cb24-11">        <span class="cf" style="color: #003B4F;
 background-color: null;
+font-weight: bold;
 font-style: inherit;">if</span> (cursor.row, cursor.col) <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">&gt;</span> (<span class="dv" style="color: #AD0000;
@@ -3922,6 +4156,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 
 
 
+
 <p>I’ve been thinking a lot about what it means to Do Important Work, and there two quotes in particular that have stuck with me.</p>
 <p>The first is from Visa’s <a href="http://www.visakanv.com/blog/prestige/"><em>The Prestige Trap</em></a>. With his classic wit and charm, Visa breaks the problem down in the opening sentence:</p>
 <blockquote class="blockquote">
@@ -3956,6 +4191,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 
 
 
+
 <div class="quarto-video ratio ratio-16x9"><iframe data-external="1" src="https://www.youtube.com/embed/o8-IuUMG2T8" title="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></div>
 <p><em>(The original title and description of the talk changed between the pitch and final version, hence the differences.)</em></p>
 <p>This is a lightning talk I gave at the satRday 2018 conference. In it, I share an epiphany I had about programming and how it relates to people and our ideas, after programming for most of my life and discovering higher-level languages like Python and R. The talk won best student lightning talk, which included a copy of the beautiful <a href="https://r4ds.hadley.nz/">R for Data Science</a> signed by Hadley Wickham himself!</p>
@@ -3965,7 +4201,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 <h2 class="anchored" data-anchor-id="my-journey-from-game-maker-to-python">My journey from Game Maker to Python <img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-1.png" class="img-fluid"></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-1.png" class="img-fluid figure-img"></p>
+<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-1.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>Good morning everyone, my name is Wasim.</p>
@@ -3974,14 +4210,14 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 <p>It had a GUI, where you created game objects and programmed logic into them with buttons. It also had scripting capabilities. But I didn’t dare to delve into them.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-2.png" class="img-fluid figure-img"></p>
+<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-2.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>Eventually, a cousin of mine introduced me to a more powerful tool. A programming language called DarkBASIC, a form of the language, BASIC.</p>
 <p>It had a nice editor, a built-in command line interface. I think the 1 and 2 on the top right corresponded to tabs. And it allowed you to create 3D games.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-3.png" class="img-fluid figure-img"></p>
+<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-3.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>I then moved on to some of the more “real” programming languages. I dabbled in C++.</p>
@@ -3992,7 +4228,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 <h2 class="anchored" data-anchor-id="the-joy-of-high-level-languages">The joy of high-level languages <img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-4.png" class="img-fluid"></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-4.png" class="img-fluid figure-img"></p>
+<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-4.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>With Python, I learned about writing and reading beautiful code. If you haven’t already seen this poem, <a href="https://peps.python.org/pep-0020/">The Zen of Python</a>, by Tim Peters, you should check it out.</p>
@@ -4003,7 +4239,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 <h2 class="anchored" data-anchor-id="this-is-not-a-pipe">This is not a pipe <img src="https://wasimlorgat.com/posts/images/leci-nest-pas-une-pipe.png" class="img-fluid"></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/leci-nest-pas-une-pipe.png" class="preview-image img-fluid figure-img"></p>
+<p><img src="https://wasimlorgat.com/posts/images/leci-nest-pas-une-pipe.png" class="preview-image img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>More recently, I came across an even more interesting idea about how code <em>looks</em>.</p>
@@ -4018,7 +4254,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 <h2 class="anchored" data-anchor-id="this-is-not-an-idea">This is not an idea <img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-7.png" class="img-fluid"></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-7.png" class="img-fluid figure-img"></p>
+<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-7.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p><em>This</em> is a <em>representation</em> of an <em>idea</em>. The code is <em>not</em> the idea itself.</p>
@@ -4048,7 +4284,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 <h2 class="anchored" data-anchor-id="code-represents-the-ideas-of-people">Code represents the ideas of people <img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-6.png" class="img-fluid"></h2>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-6.png" class="img-fluid figure-img"></p>
+<p><img src="https://wasimlorgat.com/posts/images/code-represents-the-ideas-of-people-6.png" class="img-fluid quarto-figure quarto-figure-center figure-img"></p>
 </figure>
 </div>
 <p>Code represents the ideas of <em>people</em>. By considering the <em>people</em> who will use it, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose.</p>

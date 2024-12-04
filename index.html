@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.4.104">
+<meta name="generator" content="quarto-1.7.2">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-<meta name="author" content="Wasim Lorgat">
-<meta name="description" content="Recent posts on wasimlorgat.com">
+<meta name="author" content="">
+<meta name="description" content="A collection of technical blogs and talks on software engineering and machine learning.">
 
 <title>Wasim Lorgat</title>
 <style>
@@ -40,17 +40,23 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-b5f7554119bf71d72592b7584c7a43b5.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-0a073d5cf02b6fc66272473800d19622.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
   "collapse-after": 3,
   "panel-placement": "end",
   "type": "overlay",
-  "limit": 20,
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
   "language": {
     "search-no-results-text": "No results",
     "search-matching-documents-text": "matching documents",
@@ -59,6 +65,7 @@ ul.task-list li input[type="checkbox"] {
     "search-more-match-text": "more match in this document",
     "search-more-matches-text": "more matches in this document",
     "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
     "search-detached-cancel-button-title": "Cancel",
     "search-submit-button-title": "Submit",
     "search-label": "Search"
@@ -74,9 +81,9 @@ ul.task-list li input[type="checkbox"] {
     }
 
     const options = {
-      valueNames: ['listing-date','listing-title','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-file-modified-sort'] }],
+      valueNames: ['listing-date','listing-title',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] },{ data: ['listing-title-sort'] }],
       
-      searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -95,26 +102,46 @@ ul.task-list li input[type="checkbox"] {
   </script>
 <script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
 
-  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
 <link rel="alternate" type="application/rss+xml" title="Wasim Lorgat" href="index.xml" data-external="1"><meta property="og:title" content="Wasim Lorgat">
-<meta property="og:description" content="Recent posts on wasimlorgat.com">
-<meta property="og:image" content="https://wasimlorgat.com/images/me.jpeg">
-<meta property="og:site-name" content="Wasim Lorgat">
-<meta name="twitter:title" content="Wasim Lorgat">
-<meta name="twitter:description" content="Recent posts on wasimlorgat.com">
-<meta name="twitter:image" content="https://wasimlorgat.com/images/me.jpeg">
-<meta name="twitter:creator" content="@wasimlorgat">
-<meta name="twitter:site" content="@wasimlorgat">
-<meta name="twitter:card" content="summary_large_image">
+<meta property="og:description" content="A collection of technical blogs and talks on software engineering and machine learning.">
+<meta property="og:site_name" content="Wasim Lorgat">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-fixed fullcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
-    <nav class="navbar navbar-expand-lg navbar-dark ">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
     <a class="navbar-brand" href="./index.html">
@@ -122,53 +149,43 @@ ul.task-list li input[type="checkbox"] {
     </a>
   </div>
             <div id="quarto-search" class="" title="Search"></div>
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
   <span class="navbar-toggler-icon"></span>
 </button>
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" rel="" target="" aria-current="page">
- <span class="menu-text">Posts</span></a>
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
+<span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./projects.html" rel="" target="">
- <span class="menu-text">Projects</span></a>
+    <a class="nav-link" href="./projects.html"> 
+<span class="menu-text">Projects</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./tils/index.html" rel="" target="">
- <span class="menu-text">TILs</span></a>
+    <a class="nav-link" href="./tils/index.html"> 
+<span class="menu-text">Notes</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item compact">
-    <a class="nav-link" href="https://twitter.com/wasimlorgat" rel="" target=""><i class="bi bi-twitter" role="img">
+    <a class="nav-link" href="https://github.com/seem"> <i class="bi bi-github" role="img">
 </i> 
- <span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://github.com/seem" rel="" target=""><i class="bi bi-github" role="img">
-</i> 
- <span class="menu-text"></span></a>
-  </li>  
-  <li class="nav-item compact">
-    <a class="nav-link" href="https://linkedin.com/in/wasim-lorgat" rel="" target=""><i class="bi bi-linkedin" role="img">
-</i> 
- <span class="menu-text"></span></a>
+<span class="menu-text"></span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+    <a class="nav-link" href="./index.xml"> <i class="bi bi-rss" role="img">
 </i> 
- <span class="menu-text">Posts</span></a>
+<span class="menu-text">Posts</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./tils/index.xml" rel="" target=""><i class="bi bi-rss" role="img">
+    <a class="nav-link" href="./tils/index.xml"> <i class="bi bi-rss" role="img">
 </i> 
- <span class="menu-text">TILs</span></a>
+<span class="menu-text">TILs</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
-          <div class="quarto-navbar-tools">
+            <div class="quarto-navbar-tools">
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -177,328 +194,111 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category="">All <span class="quarto-category-count">(9)</span></div><div class="category" data-category="blog">blog <span class="quarto-category-count">(2)</span></div><div class="category" data-category="talk">talk <span class="quarto-category-count">(3)</span></div><div class="category" data-category="tutorial">tutorial <span class="quarto-category-count">(4)</span></div></div></div>
+    
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content" id="quarto-document-content"><header id="title-block-header" class="quarto-title-block"><h1 class="title display-7">Wasim Lorgat</h1></header>
+
+<header id="title-block-header">
+
+<p class="author"></p>
+
+</header>
 
 
-
-<h1 style="margin-bottom: 2rem !important">
-<p>Hi, I’m Wasim</p>
-</h1>
-<div class="me">
-<p><img src="images/me.jpeg" class="img-fluid"></p>
-</div>
-<p>I’m a software engineer and data scientist.</p>
-<p>This is where I share lessons learned during my projects, spanning <a href="https://nbdev.fast.ai/tutorials/best_practices.html">notebook-driven development</a>, <a href="./posts/math-of-diffusion.html">artificial intelligence</a> and <a href="./posts/editor.html">software design</a>.</p>
-<p>You might also be interested in <a href="./projects.html">my full list of side projects</a> and <a href="./tils/index.html">notes</a>.</p>
-<p>Previously, I held technical leadership positions in South African AI startups in manufacturing and agriculture. Before that, I was a professional DotA 2 player.</p>
-<section id="get-in-touch" class="level2">
-<h2 class="anchored" data-anchor-id="get-in-touch">Get in touch</h2>
-<p>One of my biggest motivations for sharing online is to connect with interesting people from across the world.</p>
-<p>Email me at <a href="mailto:mwlorgat@gmail.com" data-analytics="&quot;Consulting: Click&quot;">mwlorgat@gmail.com</a> or DM me on <a href="https://twitter.com/wasimlorgat">Twitter</a> or <a href="https://www.linkedin.com/in/wasim-lorgat/">LinkedIn</a> if you’d like to chat!</p>
-</section>
-<section id="recent-posts" class="level2">
-<h2 class="anchored" data-anchor-id="recent-posts">Recent posts</h2>
+<p>This is where I share technical blogs and talks on software engineering and machine learning.</p>
+<p>You can reach me at <a href="mailto:mwlorgat@gmail.com" data-analytics="&quot;Consulting: Click&quot;">mwlorgat@gmail.com</a> if you’d like to get in touch.</p>
 <p><a href="https://sigmoid.social/@seem" rel="me" style="display: none">Mastodon verification</a></p>
 
 
 
-</section>
 
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="tutorial" data-listing-date-sort="1684800000000" data-listing-file-modified-sort="1685439945592" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15">
-<div class="thumbnail">
-<p><a href="./posts/image-vector-search.html"> <p class="card-img-top"><img src="posts/images/vector-search.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/image-vector-search.html">
-<h3 class="no-anchor listing-title">
-Building a cost-effective image vector search engine with CLIP
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-</div>
-<a href="./posts/image-vector-search.html">
-<div class="listing-description">
-<p>I built an image vector search engine for an eCommerce store in just one week costing only $30 per month to host. In this post, I explain how you can do the same.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/image-vector-search.html">
-<div class="listing-date">
-2023-05-23
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="talk" data-listing-date-sort="1684713600000" data-listing-file-modified-sort="1685439945664" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/jupytercon-2023.html"> <p class="card-img-top"><img src="posts/images/jupytercon-2023-tutorial.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/jupytercon-2023.html">
-<h3 class="no-anchor listing-title">
-Write, document, test and distribute Python packages with nbdev &amp; Quarto
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('talk'); return false;">
-talk
-</div>
-</div>
-<a href="./posts/jupytercon-2023.html">
-<div class="listing-description">
-I attended JupyterCon 2023 in Paris two weeks ago. On Thursday, Hamel Husain, myself, and J. J. Allaire (as a teaching assistant) presented a two and a half hour tutorial on…
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/jupytercon-2023.html">
-<div class="listing-date">
-2023-05-22
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="tutorial" data-listing-date-sort="1673481600000" data-listing-file-modified-sort="1685439945588" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
-<div class="thumbnail">
-<p><a href="./posts/how-to-build-your-own-minimal-jupyter-frontend.html"> <p class="card-img-top"><img src="posts/images/jupiter.png"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/how-to-build-your-own-minimal-jupyter-frontend.html">
-<h3 class="no-anchor listing-title">
-How to build your own minimal Jupyter frontend
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-</div>
-<a href="./posts/how-to-build-your-own-minimal-jupyter-frontend.html">
-<div class="listing-description">
-<p>A step-by-step guide to interacting with Jupyter Server and creating your own Jupyter frontend.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/how-to-build-your-own-minimal-jupyter-frontend.html">
-<div class="listing-date">
-2023-01-12
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="talk" data-listing-date-sort="1666483200000" data-listing-file-modified-sort="1685439945664" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
-<div class="thumbnail">
-<p><a href="./posts/math-of-diffusion.html"> <img src="./posts/images/math-of-diffusion.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/math-of-diffusion.html">
-<h3 class="no-anchor listing-title">
-Understand the math of diffusion without a PhD
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('talk'); return false;">
-talk
-</div>
-</div>
-<a href="./posts/math-of-diffusion.html">
-<div class="listing-description">
-<p>Walk through the math of diffusion models from the ground up with no prerequisites beyond high school math.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/math-of-diffusion.html">
-<div class="listing-date">
-2022-10-23
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="4" data-categories="tutorial" data-listing-date-sort="1663545600000">
-<div class="thumbnail">
-<p><a href="https://nbdev.fast.ai/tutorials/best_practices.html"> <img src="posts/images/marie-curie-notebook.jpg" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="https://nbdev.fast.ai/tutorials/best_practices.html">
-<h3 class="no-anchor listing-title">
-How to write great Jupyter notebooks
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-</div>
-<a href="https://nbdev.fast.ai/tutorials/best_practices.html">
-<div class="listing-description">
-<p>How to write great notebooks – everything we know about writing great notebooks after years of working with nbdev.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="https://nbdev.fast.ai/tutorials/best_practices.html">
-<div class="listing-date">
-2022-09-19
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="5" data-categories="blog" data-listing-date-sort="1656979200000" data-listing-file-modified-sort="1685439945588" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
-<div class="thumbnail">
-<p><a href="./posts/fastai-array-programming-day-1.html"> <p class="card-img-top"><img src="posts/images/juggling.svg"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/fastai-array-programming-day-1.html">
-<h3 class="no-anchor listing-title">
-Notes from the fast.ai APL study group
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/fastai-array-programming-day-1.html">
-<div class="listing-description">
-<p>APL is a way to learn and teach math. It’s a beautiful and powerful notation that challenges you to think about programming in new ways.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/fastai-array-programming-day-1.html">
-<div class="listing-date">
-2022-07-05
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="6" data-categories="tutorial" data-listing-date-sort="1609286400000" data-listing-file-modified-sort="1685439945588" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="26">
-<div class="thumbnail">
-<p><a href="./posts/editor.html"> <p class="card-img-top"><img src="posts/images/editor.svg"  class="thumbnail-image card-img"/></p> </a></p>
-</div>
-<div class="body">
-<a href="./posts/editor.html">
-<h3 class="no-anchor listing-title">
-How to build a text editor with Python and curses
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('tutorial'); return false;">
-tutorial
-</div>
-</div>
-<a href="./posts/editor.html">
-<div class="listing-description">
-<p>Work through a series of fifteen incremental coding problems ending with a minimal command line text editor.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/editor.html">
-<div class="listing-date">
-2020-12-30
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="7" data-categories="blog" data-listing-date-sort="1596390489000" data-listing-file-modified-sort="1685439945588" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
-<div class="thumbnail">
-<p><a href="./posts/doing-important-work.html"> <div class="listing-item-img-placeholder card-img-top" >&nbsp;</div> </a></p>
-</div>
-<div class="body">
-<a href="./posts/doing-important-work.html">
-<h3 class="no-anchor listing-title">
-Doing important work
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('blog'); return false;">
-blog
-</div>
-</div>
-<a href="./posts/doing-important-work.html">
-<div class="listing-description">
-<p>Don’t try too hard to do important work.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/doing-important-work.html">
-<div class="listing-date">
-2020-08-02
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="8" data-categories="talk" data-listing-date-sort="1521244800000" data-listing-file-modified-sort="1685439945588" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5">
-<div class="thumbnail">
-<p><a href="./posts/code-neq-idea.html"> <img src="./posts/images/leci-nest-pas-une-pipe.png" class="thumbnail-image"> </a></p>
-</div>
-<div class="body">
-<a href="./posts/code-neq-idea.html">
-<h3 class="no-anchor listing-title">
-Code != idea
-</h3>
-<div class="listing-subtitle">
-
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory('talk'); return false;">
-talk
-</div>
-</div>
-<a href="./posts/code-neq-idea.html">
-<div class="listing-description">
-<p>Code is not an idea — it represents an idea. By considering the <em>people</em> who use our code, we minimize the cost of translating from obscure machine-friendly commands into beautiful prose, thus freeing our minds to focus on what’s really important: the ideas themselves.</p>
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./posts/code-neq-idea.html">
-<div class="listing-date">
-2018-03-17
-</div>
-</a>
-</div>
-</div>
-</div>
+<div class="quarto-listing quarto-listing-container-table" id="listing-listing">
+<table class="quarto-listing-table table">
+<thead>
+<tr>
+<th>
+Date
+</th>
+<th>
+Title
+</th>
+</tr>
+</thead>
+<tbody class="list">
+<tr data-index="0" data-categories="dHV0b3JpYWw=" data-listing-date-sort="1684800000000" data-listing-file-modified-sort="1733322596447" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15" data-listing-word-count-sort="2996" data-listing-title-sort="Building a cost-effective image vector search engine with CLIP" data-listing-filename-sort="image-vector-search.ipynb">
+<td>
+<span class="listing-date">5/23/23</span>
+</td>
+<td>
+<a href="./posts/image-vector-search.html" class="title listing-title">Building a cost-effective image vector search engine with CLIP</a>
+</td>
+</tr>
+<tr data-index="1" data-categories="dGFsaw==" data-listing-date-sort="1684713600000" data-listing-file-modified-sort="1733322596519" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="457" data-listing-title-sort="Write, document, test and distribute Python packages with nbdev &amp; Quarto" data-listing-filename-sort="jupytercon-2023.qmd">
+<td>
+<span class="listing-date">5/22/23</span>
+</td>
+<td>
+<a href="./posts/jupytercon-2023.html" class="title listing-title">Write, document, test and distribute Python packages with nbdev &amp; Quarto</a>
+</td>
+</tr>
+<tr data-index="2" data-categories="dHV0b3JpYWw=" data-listing-date-sort="1673481600000" data-listing-file-modified-sort="1733322596443" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="956" data-listing-title-sort="How to build your own minimal Jupyter frontend" data-listing-filename-sort="how-to-build-your-own-minimal-jupyter-frontend.ipynb">
+<td>
+<span class="listing-date">1/12/23</span>
+</td>
+<td>
+<a href="./posts/how-to-build-your-own-minimal-jupyter-frontend.html" class="title listing-title">How to build your own minimal Jupyter frontend</a>
+</td>
+</tr>
+<tr data-index="3" data-categories="dGFsaw==" data-listing-date-sort="1666483200000" data-listing-file-modified-sort="1733322596519" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3" data-listing-word-count-sort="485" data-listing-title-sort="Understand the math of diffusion without a PhD" data-listing-filename-sort="math-of-diffusion.qmd">
+<td>
+<span class="listing-date">10/23/22</span>
+</td>
+<td>
+<a href="./posts/math-of-diffusion.html" class="title listing-title">Understand the math of diffusion without a PhD</a>
+</td>
+</tr>
+<tr data-index="4" data-categories="dHV0b3JpYWw=" data-listing-date-sort="1663545600000" data-listing-title-sort="How to write great Jupyter notebooks">
+<td>
+<span class="listing-date">9/19/22</span>
+</td>
+<td>
+<a href="https://nbdev.fast.ai/tutorials/best_practices.html" class="title listing-title">How to write great Jupyter notebooks</a>
+</td>
+</tr>
+<tr data-index="5" data-categories="YmxvZw==" data-listing-date-sort="1656979200000" data-listing-file-modified-sort="1733322596443" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="972" data-listing-title-sort="Notes from the fast.ai APL study group" data-listing-filename-sort="fastai-array-programming-day-1.ipynb">
+<td>
+<span class="listing-date">7/5/22</span>
+</td>
+<td>
+<a href="./posts/fastai-array-programming-day-1.html" class="title listing-title">Notes from the fast.ai APL study group</a>
+</td>
+</tr>
+<tr data-index="6" data-categories="dHV0b3JpYWw=" data-listing-date-sort="1609286400000" data-listing-file-modified-sort="1733322596443" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="26" data-listing-word-count-sort="5150" data-listing-title-sort="How to build a text editor with Python and curses" data-listing-filename-sort="editor.qmd">
+<td>
+<span class="listing-date">12/30/20</span>
+</td>
+<td>
+<a href="./posts/editor.html" class="title listing-title">How to build a text editor with Python and curses</a>
+</td>
+</tr>
+<tr data-index="7" data-categories="YmxvZw==" data-listing-date-sort="1596390489000" data-listing-file-modified-sort="1733322596443" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2" data-listing-word-count-sort="385" data-listing-title-sort="Doing important work" data-listing-filename-sort="doing-important-work.qmd">
+<td>
+<span class="listing-date">8/2/20</span>
+</td>
+<td>
+<a href="./posts/doing-important-work.html" class="title listing-title">Doing important work</a>
+</td>
+</tr>
+<tr data-index="8" data-categories="dGFsaw==" data-listing-date-sort="1521244800000" data-listing-file-modified-sort="1733322596443" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="5" data-listing-word-count-sort="836" data-listing-title-sort="Code != idea" data-listing-filename-sort="code-neq-idea.qmd">
+<td>
+<span class="listing-date">3/17/18</span>
+</td>
+<td>
+<a href="./posts/code-neq-idea.html" class="title listing-title">Code != idea</a>
+</td>
+</tr>
+</tbody>
+</table>
 <div class="listing-no-matching d-none">
 No matching items
 </div>
@@ -567,18 +367,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
     return false;
   }
-  const clipboard = new window.ClipboardJS('.code-copy-button', {
-    text: function(trigger) {
-      const codeEl = trigger.previousElementSibling.cloneNode(true);
-      for (const childEl of codeEl.children) {
-        if (isCodeAnnotation(childEl)) {
-          childEl.remove();
-        }
-      }
-      return codeEl.innerText;
-    }
-  });
-  clipboard.on('success', function(e) {
+  const onCopySuccess = function(e) {
     // button target
     const button = e.trigger;
     // don't keep focus
@@ -610,7 +399,45 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }, 1000);
     // clear code selection
     e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
   });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp("https:\/\/wasimlorgat\.com");
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
   function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
     const config = {
       allowHTML: true,
@@ -645,24 +472,63 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       try { href = new URL(href).hash; } catch {}
       const id = href.replace(/^#\/?/, "");
       const note = window.document.getElementById(id);
-      return note.innerHTML;
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
     });
   }
   const xrefs = window.document.querySelectorAll('a.quarto-xref');
   const processXRef = (id, note) => {
-    if (id.startsWith('sec-')) {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
       // Special case sections, only their first couple elements
       const container = document.createElement("div");
       if (note.children && note.children.length > 2) {
-        for (let i = 0; i < 2; i++) {
-          container.appendChild(note.children[i].cloneNode(true));
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
         }
         return container.innerHTML
       } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
         return note.innerHTML;
       }
     } else {
-      return note.innerHTML;
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
     }
   }
   for (var i=0; i<xrefs.length; i++) {
@@ -671,28 +537,56 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       instance.disable();
       let url = xref.getAttribute('href');
       let hash = undefined; 
-      try { hash = new URL(url).hash; } catch {}
-      const id = hash.replace(/^#\/?/, "");
-      const note = window.document.getElementById(id);
-      if (note !== null) {
-        try {
-          const html = processXRef(id, note);
-          instance.setContent(html);
-        } finally {
-          instance.enable();
-          instance.show();
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
         }
       } else {
-        // See if we can fetch this
-        fetch(url.split('#')[0])
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
         .then(res => res.text())
         .then(html => {
           const parser = new DOMParser();
           const htmlDoc = parser.parseFromString(html, "text/html");
-          const note = htmlDoc.getElementById(id);
-          console.log(htmlDoc.body.innerHTML);
+          const note = htmlDoc.querySelector('main.content');
           if (note !== null) {
-            const html = processXRef(id, note);
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
             instance.setContent(html);
           } 
         }).finally(() => {
@@ -770,6 +664,32 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
         });
         selectedAnnoteEl = undefined;
       };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
       // Attach click handler to the DT
       const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
       for (const annoteDlNode of annoteDls) {
@@ -833,4 +753,5 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 
 
 
-<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/seem/blog/edit/main/index.qmd" class="toc-action">Edit this page</a></p><p><a href="https://github.com/seem/blog/blob/main/index.qmd" class="toc-action">View source</a></p><p><a href="https://github.com/seem/blog/issues/new" class="toc-action">Report an issue</a></p></div></div></div></div></footer></body></html>
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions"><ul><li><a href="https://github.com/seem/blog/edit/main/index.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/seem/blog/blob/main/index.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/seem/blog/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>
