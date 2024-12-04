@@ -10,9 +10,6 @@ project:
 
 website:
   open-graph: true
-  twitter-card:
-    creator: "@wasimlorgat"
-    site: "@wasimlorgat"
   title: "Wasim Lorgat"
   favicon: favicon.ico
   navbar:
@@ -23,12 +20,8 @@ website:
       - projects.qmd
       - tils/index.qmd
     right:
-      - icon: twitter
-        href: https://twitter.com/wasimlorgat
       - icon: github
         href: https://github.com/seem
-      - icon: linkedin
-        href: https://linkedin.com/in/wasim-lorgat
       - icon: rss
         text: Posts
         href: index.xml

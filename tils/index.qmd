@@ -1,19 +1,19 @@
 ---
-title: TILs
+title: Notes
 listing:
   contents: .
   sort: "date desc"
-  type: default
-  categories: true
-  fields: [categories, title, date, description]
-  date-format: YYYY-MM-DD
+  categories: false
+  type: table
+  fields: [date, title]
+  date-format: short
   sort-ui: false
   filter-ui: false
   feed: true
 author: ''
 comments: false
-description: Recent TILs on wasimlorgat.com
+description: Recent notes on wasimlorgat.com
 title-block-style: none
 ---
 
-I find it incredibly helpful to write as I code, but most of that writing has never left my private notebooks. TILs (today I learneds) are my attempt at documenting and sharing my day-to-day learnings in case they might help others. The focus on learning also feels less daunting than writing blog posts.
+This is where I document and share some of my day-to-day learnings.
