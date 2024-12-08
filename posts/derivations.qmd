@@ -3,7 +3,6 @@ title: Include derivations
 date: 2020-07-19 19:40
 description: "Please include code comments for other developers, provided they add more information than the code itself."
 categories: [software]
-draft: true
 ---
 
 > Include derivations! It’s perfectly fine to use clever techniques and definitions, such as `rleDecode = (uncurry replicate =<<)` for decoding run-length encoded lists of tuples, but in the comments, include the original giant definition which you progressively refined into a short diamond! Even better, add a test (like a QuickCheck property) where you demonstrate that the output from the two are the same. If you are optimizing, somewhere hold onto the slow ones which you know are correct. Derivations are brilliant documentation of your intent, they provide numerous alternate implementations which might work if the current one breaks, and they give the future Haskellers a view of how you were thinking.

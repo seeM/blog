@@ -3,7 +3,6 @@ title: Tools wishlist
 description: "Base requirements I want from my tools."
 date: 2020-08-10 15:10
 categories: [musing]
-draft: true
 ---
 
 I care a lot about the tools I use. You can see this by looking at how much
