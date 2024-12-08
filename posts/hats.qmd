@@ -3,7 +3,6 @@ title: Hats and productivity
 description: "The most productive individuals, teams, and organisations, create slack to invite serendipity."
 date: 2020-07-26 18:37
 categories: [musing]
-draft: true
 ---
 
 Sometimes I feel like pursuing depth. Scribbling through a difficult problem. Other times it's about breadth. Searching for existing solutions to my problem. Sometimes it's about people. Connecting with others, seeing what they're working on, what they're thinking about, and how we might help each other. Sometimes it's about planning, or otherwise separating coulds from shoulds.
