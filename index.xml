@@ -4150,6 +4150,43 @@ font-style: inherit;"># ...</span></span></code></pre></div>
   <pubDate>Wed, 30 Dec 2020 00:00:00 GMT</pubDate>
 </item>
 <item>
+  <title>Tools wishlist</title>
+  <link>https://wasimlorgat.com/posts/tools-wishlist.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>I care a lot about the tools I use. You can see this by looking at how much time I’ve spent on <a href="https://github.com/seem/dotfiles">my dotfiles</a>.<sup>1</sup> It’s not about being more “productive”. It’s about how it <em>feels</em> to use them. I just can’t help myself but tinker until it feels right.</p>
+<p>I also try my best to understand more generally what it is I’m getting from each tool in my toolbox. That gives me good grounds to cut through the hype when new tools come along. To that end, here is a list of requirements I currently hold for the tools I use (kind of) in decreasing order of importance:</p>
+<ol type="1">
+<li><p><strong>Data ownership and privacy.</strong> I must own my data. No one else must be able to touch my data without my express permission. Promises, unfortunately, aren’t good enough. I find it incredibly sad that this item rules out many otherwise amazing tools out there.</p></li>
+<li><p><strong>Speed.</strong> There should be minimal lag between action and outcome. The application should never hang unless for a very obviously long-running process. Even then, input and output shouldn’t freeze.</p></li>
+<li><p><strong>Fuzzy finding.</strong> Choosing from a set of commands should always be through an interface that allows me to incrementally narrow the set via fuzzy search. Fuzzy, at the very least, meaning that letters can be left out.</p>
+<p>Ideally, there’d be fuzzy finding all the way down to auto-completing single keywords. Though, weirdly enough, I’ve still not found an auto-completion system that satisfies my speed requirement. They all seem to introduce a sub-second input lag that grinds my gears. PyCharm does a great job, but doesn’t satisfy my other requirements.</p>
+<p>This is sort of a special case of a more general principle that if there’s a repeated action that the computer could guess with very high accuracy, it should do the work for me. For actions that I perform exceedingly often, I’d bind them to a simple keyboard shortcut. I like VIM’s modal editing because it gives me far more keys to bind.</p></li>
+<li><p><strong>No visual clutter.</strong> There must be an option to disable menu bars, tool bars, icons. Because I prefer keyboard-driven and I have fuzzy finding, I often don’t really need menus/toolbars. In cases where information lends itself well to a visual representation, I prefer it to appear as needed, or if persistent, for it to be compact. For example, a bar displaying open tabs could be a single line of text.</p></li>
+<li><p><strong>Keyboard-driven.</strong> I’m not against the mouse at all. I very happily use it all the time. But between emails, Slack messages, documentation, issue descriptions, code reviews, and good ol’ programming, my work involves tons of writing. And when I’m writing, if there’s even a single action that requires changing my hand position every few minutes, it becomes frustrating really quickly.</p>
+<p>Some of the applications I use aren’t fully keyboard-driven. I don’t really mind that when the primary mode of use isn’t typing. For example, creating presentations, managing tasks (I use <a href="https://culturedcode.com/things/">Things</a>), calendars, Slack and Twitter where I’m reading at least as much as I’m writing, and browsing the web.</p>
+<p>Ideally, I should also be able to reconfigure keyboard shortcuts arbitrarily, and for any action. Unfortunately many modern applications fall short here, but there are typically workarounds.</p>
+<p>This is a special case of keeping similar actions that occur in similar contexts “close”. If the context is that I’m already typing a bunch, actions should be a keyboard shortcut or fuzzy find away. If the context requires pointing and clicking, then mouse shortcuts, toolbars, and maybe even <a href="https://en.wikipedia.org/wiki/Pie_menu">pie menus</a> are better. For this reason, I’m also not really a fan of keyboard-driven tiling window managers.</p></li>
+<li><p><strong>Themes.</strong> I’m red-green colour-blind, and not all default colour schemes account for this. I’m also a picky about my colour schemes, fonts, and overall theme. I also like switching them up every now and then. Most tools allow this these days.</p></li>
+</ol>
+
+
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>Caution: They’re not always up-to-date, or easy to understand, and I’ve made no effort to ensure they work for anyone else.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>musing</category>
+  <guid>https://wasimlorgat.com/posts/tools-wishlist.html</guid>
+  <pubDate>Mon, 10 Aug 2020 15:10:00 GMT</pubDate>
+</item>
+<item>
   <title>Doing important work</title>
   <link>https://wasimlorgat.com/posts/doing-important-work.html</link>
   <description><![CDATA[ 
@@ -4183,6 +4220,107 @@ font-style: inherit;"># ...</span></span></code></pre></div>
   <category>blog</category>
   <guid>https://wasimlorgat.com/posts/doing-important-work.html</guid>
   <pubDate>Sun, 02 Aug 2020 17:48:09 GMT</pubDate>
+</item>
+<item>
+  <title>Hats and productivity</title>
+  <link>https://wasimlorgat.com/posts/hats.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>Sometimes I feel like pursuing depth. Scribbling through a difficult problem. Other times it’s about breadth. Searching for existing solutions to my problem. Sometimes it’s about people. Connecting with others, seeing what they’re working on, what they’re thinking about, and how we might help each other. Sometimes it’s about planning, or otherwise separating coulds from shoulds.</p>
+<p>All of these require a different hat, a different set of skills and tools, and there’s a cost to switching. But more subtle than that, there’s a cost to wearing the wrong hat at the wrong time. I understand that it’s unrealistic to expect absolute freedom here. In fact, I’m not sure that’s ideal. Too much freedom is itself a source of pressure. A vacuum. But somewhere in the middle, where there’s just enough pressure to push you forward, together with just enough room to wear the right hat, there’s a sweet spot.</p>
+<p>You might be wondering how anything would get done if we decided what work to do on a whim. I think this is one of the defining factors of a great team. A team with diversity in strengths, weaknesses, backgrounds, and more generally, modes of thought, is like a <a href="https://en.wikipedia.org/wiki/Polyphase_system">polyphase system</a>. It provides constant power transfer, despite its individual conductors peaking at different points in time, ultimately delivering more power than single-phase systems for the same voltage.</p>
+
+
+
+ ]]></description>
+  <category>musing</category>
+  <guid>https://wasimlorgat.com/posts/hats.html</guid>
+  <pubDate>Sun, 26 Jul 2020 18:37:00 GMT</pubDate>
+</item>
+<item>
+  <title>Include derivations</title>
+  <link>https://wasimlorgat.com/posts/derivations.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<blockquote class="blockquote">
+<p>Include derivations! It’s perfectly fine to use clever techniques and definitions, such as <code>rleDecode = (uncurry replicate =&lt;&lt;)</code> for decoding run-length encoded lists of tuples, but in the comments, include the original giant definition which you progressively refined into a short diamond! Even better, add a test (like a QuickCheck property) where you demonstrate that the output from the two are the same. If you are optimizing, somewhere hold onto the slow ones which you know are correct. Derivations are brilliant documentation of your intent, they provide numerous alternate implementations which might work if the current one breaks, and they give the future Haskellers a view of how you were thinking.</p>
+<p>— Gwern, <cite><a href="https://www.gwern.net/Resilient-Haskell-Software">Resilient Haskell Software</a></cite></p>
+</blockquote>
+<p>Include derivations! An idea I hadn’t seen before. In fact, an idea <em>counter to</em> what I’ve seen. It got me thinking about comments and documentation.</p>
+<section id="prefer-self-documenting-code-over-comments" class="level2">
+<h2 class="anchored" data-anchor-id="prefer-self-documenting-code-over-comments">Prefer self-documenting code over comments</h2>
+<p>I’m sure you’ve heard this advice before. I’ve heard it and even given it many times.</p>
+<p>The argument goes something like this: comments tend to become out of sync with the code they’re commenting. While your code is tested by its users and by your test suite, there’s nothing to ensure that comments remain correct.<sup>1</sup> It seems natural then that without any sticking force your comments become outdated.</p>
+<p>Yet I still find myself smiling when I come across well-commented code. Why the discrepency?</p>
+</section>
+<section id="developer--vs-user-oriented-comments" class="level2">
+<h2 class="anchored" data-anchor-id="developer--vs-user-oriented-comments">Developer- vs user-oriented comments</h2>
+<p>Any given program has at least two groups of people interacting with it: developers, who directly change and extend the underlying functionality; and users, who use that functionality.</p>
+<p>Developers and users benefit from different forms of documentation. Users typically don’t need to know the full extent of implementation details and the context in which decisions were made, instead they need to know the interface of the various components, how those components interact, and how to compose them to achieve a desired goal. Developers, on the other hand, need to know the implementation details in all their glory.</p>
+<p>For example, while users probably don’t need to know <em>why</em> a specific method was chosen to decode run-length encoded lists of tuples, this is absolutely the type of information a developer needs to make good decisions about how to further extend that functionality. In the same way users probably don’t need to know why the specific method was chosen, developers probably don’t need the function’s arguments redescribed to them each time. Self-documenting functions and argument names do just fine. I increasingly see inline comments and docstrings for the purpose of auto-generating user docs as redundant noise <em>while working with the code</em>. Perhaps a topic for a future post. Naturally, comments describing those arguments gradually fade away from our attention, and are left outdated.</p>
+<p>I view developer-oriented comments as distinctly different from user-oriented comments. Someone from the past is talking directly to me: warning me of a trap, describing a hard-to-find workaround, or lamenting why this “temporary hack” should be temporary. These feel like an extension of the code, thus I consider them less susceptible to becoming outdated.</p>
+</section>
+<section id="takeaway-everythings-hard-and-there-are-no-easy-answers" class="level2">
+<h2 class="anchored" data-anchor-id="takeaway-everythings-hard-and-there-are-no-easy-answers">Takeaway: everything’s hard and there are no easy answers</h2>
+<p>There are (almost) no absolutes. There are <em>guidelines</em>, and they serve you well as you’re learning the ropes. But as your expertise grows, you learn to see them as the fuzzy boundaries that they are.</p>
+<p>It makes sense though. As beginners, we aren’t primed for the nuance required to understand the reality in all of its complexity. But always remember that guidelines are only approximations and that reality is more complex.</p>
+
+
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>While there are options like Python’s <code>doctest</code>, it still doesn’t apply to prose.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <category>software</category>
+  <guid>https://wasimlorgat.com/posts/derivations.html</guid>
+  <pubDate>Sun, 19 Jul 2020 19:40:00 GMT</pubDate>
+</item>
+<item>
+  <title>Introducing pdlog</title>
+  <link>https://wasimlorgat.com/posts/pdlog.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>Most data problems <a href="https://vickiboykis.com/2017/03/20/should-you-replace-hadoop-with-your-laptop/">don’t need the horsepower of Spark or Hadoop</a>. If all of your data fits comfortably in memory, pandas may be a great fit. pandas is my goto for quickly building out production pipelines that are both efficient and easy to maintain.</p>
+<p>One issue I’ve run into is that pandas doesn’t natively log. Fortunately, it allows extending the dataframe API with <a href="https://pandas.pydata.org/pandas-docs/stable/development/extending.html#registering-custom-accessors">accessors</a>. We have since implemented an accessor for logging in the publicly avilable <a href="https://github.com/dataprophet/pdlog"><code>pdlog</code></a> package.</p>
+<p>To get started:</p>
+<ol type="1">
+<li><p>Install <code>pdlog</code>:</p>
+<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+background-color: null;
+font-style: inherit;">pip</span> install pdlog</span></code></pre></div></li>
+<li><p>Import <code>pdlog</code> in your application:</p>
+<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pdlog</span></code></pre></div></li>
+<li><p>Add <code>.log</code> before your method calls:</p>
+<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> df.log.dropna()</span></code></pre></div>
+<p>They’ll now log useful information about the operation, for example:</p>
+<pre class="output"><code>2020-05-26 20:55:30,049 INFO &lt;pdlog&gt; dropna: dropped 1 row (17%), 5 rows remaining</code></pre></li>
+</ol>
+<p>It works by registering a custom <code>LogAccessor</code> under the <code>.log</code> namespace on import. The accessor containes a collection of wrapper methods that log what they’re doing.</p>
+
+
+
+ ]]></description>
+  <category>software</category>
+  <guid>https://wasimlorgat.com/posts/pdlog.html</guid>
+  <pubDate>Fri, 29 May 2020 00:00:00 GMT</pubDate>
+  <media:content url="https://wasimlorgat.com/posts/images/pdlog.png" medium="image" type="image/png"/>
 </item>
 <item>
   <title>Code != idea</title>
