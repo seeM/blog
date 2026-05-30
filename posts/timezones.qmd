@@ -1,0 +1,313 @@
+---
+title: Working with time zones in Python, pandas, and Postgres
+date: 2020-09-18
+updated: 2026-05-30
+description: Practical advice for handling time zones in Python, pandas, and Postgres.
+---
+
+# Time zones
+
+::: {.callout-note}
+
+## Author’s note
+
+I originally wrote this in September 2020 for an internal company blog. I lightly edited and republished it in May 2026.
+
+The high-level advice still holds, but the Python ecosystem has moved on: for modern Python, prefer the standard library's `zoneinfo` module over `pytz` for new code. I have kept the `pytz` material as legacy context because it still appears in many older codebases.
+:::
+
+This post is a practical guide to working with time zones in data pipelines. It starts with recommendations and code examples for Python, pandas, and Postgres, then dives into some of the underlying details.
+
+## Best practices
+
+### Use IANA time zone names
+
+IANA time zones are usually specified by strings like `"Area/Location"`, for example `"Africa/Johannesburg"`. You may also see them called Olson time zones, `zoneinfo` time zones, or `tzdata` time zones. They are supported by pandas, Python's `datetime` objects via the standard library's [`zoneinfo`](https://docs.python.org/3/library/zoneinfo.html), and Postgres.
+
+Microsoft SQL Server uses Microsoft's own time zone names; the Unicode CLDR project maintains a [mapping between Windows and IANA time zones](https://github.com/unicode-org/cldr/blob/master/common/supplemental/windowsZones.xml).
+
+### Attach the source time zone to naive timestamps as early as possible
+
+_Naive_ timestamps do not carry time zone information, for example `datetime(2020, 9, 18, 12, 9)`. If you receive a naive timestamp from a system and you know the local time zone in which it was recorded, attach that time zone immediately.
+
+For example, if you are ingesting data from a manufacturing plant in Johannesburg and its data is not time zone-aware, your first step should be to attach `"Africa/Johannesburg"`.
+
+### Raise an exception when you can't reasonably attach a time zone
+
+If you receive a naive timestamp where you expected an aware timestamp, or where it is impossible to know which time zone should apply, raise an exception. Otherwise you will have to guess, and time zone guesses have a habit of turning into quiet data bugs.
+
+### Use UTC inside your application
+
+UTC is the safest internal representation for timestamps that refer to specific instants in time. It avoids much of the confusion caused by daylight saving time and local clock changes.
+
+If you also need to preserve the user's original local context, store the original time zone alongside the UTC timestamp.
+
+### Convert aware timestamps as late as possible
+
+Convert from UTC to a local time zone when presenting data to a user, exporting a report, or calling an external system that expects local time. For example, if you are presenting results to a client in Johannesburg, it can be confusing if timestamps are shown in UTC.
+
+### Be careful when stripping time zone information
+
+There is rarely a good reason to remove time zone information entirely. In most cases you should convert the timestamp's time zone instead.
+
+A useful way to remember the difference is this:
+
+- **Attach** a time zone when a timestamp is naive and you know which local clock produced it.
+- **Convert** a time zone when a timestamp is already aware and you want to represent the same instant somewhere else.
+
+## Gotchas
+
+### Attaching a time zone is not the same thing as converting one
+
+If you attach `"Africa/Johannesburg"` to `2020-09-18 12:09`, you are saying: “this timestamp was recorded at 12:09 in Johannesburg.” If you convert that aware timestamp to `"America/New_York"`, you are asking: “what was the New York local time at that same instant?”
+
+### Ambiguous and nonexistent local times are real
+
+During daylight saving time transitions, some local timestamps can be ambiguous, while others may not exist at all. pandas exposes options such as `ambiguous=` and `nonexistent=` in `tz_localize`. Python's `datetime` uses the `fold` attribute to distinguish repeated local times.
+
+### Legacy `pytz` code has a sharp edge
+
+Do not pass `pytz.timezone(...)` objects directly as the `tzinfo` argument to `datetime`. That will not have the desired effect. Use `localize` when working with `pytz`, or migrate new Python code to `zoneinfo`.
+
+### `psycopg2` time zones may not serialize cleanly to parquet
+
+You may encounter this error when serializing a pandas dataframe to parquet:
+
+```text
+ValueError: Unable to convert timezone `psycopg2.tz.FixedOffsetTimezone(offset=0, name=None)` to string
+```
+
+This is because `psycopg2` uses its own time zone object, which `pyarrow` may not know how to serialize. One fix is to convert the column to an IANA time zone before writing, for example with `tz_convert("UTC")` or another appropriate IANA time zone.
+
+### Postgres `AT TIME ZONE` changes behavior depending on the input type
+
+Applied to a `timestamp without time zone`, it interprets the naive timestamp in the specified time zone and returns a `timestamptz`. Applied to a `timestamptz`, it converts the instant to local clock time in the specified time zone and returns a `timestamp without time zone`.
+
+## Code snippets
+
+### Attaching a time zone to naive timestamp columns in pandas dataframes
+
+```python
+>>> from datetime import datetime
+>>> from zoneinfo import ZoneInfo
+>>> import pandas as pd
+>>>
+>>> # Create a dataframe with a naive timestamp column to test with.
+>>> dt = datetime(2020, 9, 18, 12, 9)
+>>> df = pd.DataFrame({"timestamp": [dt]})
+>>>
+>>> # Attach the source time zone.
+>>> df["timestamp"] = pd.to_datetime(df["timestamp"]).dt.tz_localize(
+...     ZoneInfo("Africa/Johannesburg")
+... )
+>>> df
+                  timestamp
+0 2020-09-18 12:09:00+02:00
+```
+
+You will often also see the time zone passed as a string:
+
+```python
+>>> df["timestamp"] = pd.to_datetime(df["timestamp"]).dt.tz_localize(
+...     "Africa/Johannesburg"
+... )
+```
+
+### Attaching a time zone to naive Python `datetime` objects
+
+```python
+>>> from datetime import datetime
+>>> from zoneinfo import ZoneInfo
+>>>
+>>> # Create a naive datetime to test with.
+>>> dt = datetime(2020, 9, 18, 12, 9)
+>>>
+>>> # Attach the source time zone. This does not convert the time.
+>>> aware_dt = dt.replace(tzinfo=ZoneInfo("Africa/Johannesburg"))
+>>> str(aware_dt)
+'2020-09-18 12:09:00+02:00'
+```
+
+If you are constructing the timestamp yourself, you can also pass the time zone in the constructor:
+
+```python
+>>> aware_dt = datetime(
+...     2020,
+...     9,
+...     18,
+...     12,
+...     9,
+...     tzinfo=ZoneInfo("Africa/Johannesburg"),
+... )
+>>> str(aware_dt)
+'2020-09-18 12:09:00+02:00'
+```
+
+For ambiguous local times, be explicit about `fold` when needed.
+
+### Attaching a time zone to naive timestamps in Postgres queries
+
+```sql
+SELECT
+    -- Create a naive timestamp to test with.
+    ('2020-09-18 12:09:00'::timestamp without time zone)
+    -- Interpret it as Johannesburg local time.
+    AT TIME ZONE 'Africa/Johannesburg';
+
+-- Result:
+-- +------------------------+
+-- | timezone               |
+-- |------------------------|
+-- | 2020-09-18 10:09:00+00 |
+-- +------------------------+
+```
+
+The result is `10:09 UTC` because Johannesburg was two hours ahead of UTC at that instant.
+
+### Raising an exception for invalid naive timestamps
+
+```python
+from datetime import datetime
+
+import pandas as pd
+
+
+def is_aware(dt: datetime) -> bool:
+    return dt.tzinfo is not None and dt.utcoffset() is not None
+
+
+def download_data(start: datetime, end: datetime) -> pd.DataFrame:
+    if not is_aware(start):
+        raise ValueError(
+            "Expected `start` to be timezone-aware, but got a naive datetime. "
+            "Attach the appropriate source timezone first."
+        )
+    if not is_aware(end):
+        raise ValueError(
+            "Expected `end` to be timezone-aware, but got a naive datetime. "
+            "Attach the appropriate source timezone first."
+        )
+
+    # ...
+```
+
+Checking `utcoffset()` as well as `tzinfo` handles edge cases where a `datetime` technically has a `tzinfo` object but still behaves as naive.
+
+### Converting aware timestamp columns in pandas dataframes
+
+```python
+>>> from datetime import datetime
+>>> from zoneinfo import ZoneInfo
+>>> import pandas as pd
+>>>
+>>> dt = datetime(2020, 9, 18, 12, 9, tzinfo=ZoneInfo("Africa/Johannesburg"))
+>>> df = pd.DataFrame({"timestamp": [dt]})
+>>>
+>>> # Convert the same instant to New York local time.
+>>> df["timestamp"] = df["timestamp"].dt.tz_convert(
+...     ZoneInfo("America/New_York")
+... )
+>>> df
+                  timestamp
+0 2020-09-18 06:09:00-04:00
+```
+
+### Converting aware Python `datetime` objects
+
+```python
+>>> from datetime import datetime
+>>> from zoneinfo import ZoneInfo
+>>>
+>>> dt = datetime(2020, 9, 18, 12, 9, tzinfo=ZoneInfo("Africa/Johannesburg"))
+>>>
+>>> new_dt = dt.astimezone(ZoneInfo("America/New_York"))
+>>> str(new_dt)
+'2020-09-18 06:09:00-04:00'
+```
+
+### Converting aware timestamps in Postgres queries
+
+Note that converting a `timestamptz` in Postgres returns a naive `timestamp` representing local clock time in the requested time zone.
+
+```sql
+SELECT
+    -- Create an aware timestamp by interpreting the naive timestamp as Johannesburg time.
+    (('2020-09-18 12:09:00'::timestamp without time zone)
+        AT TIME ZONE 'Africa/Johannesburg')
+    -- Convert the instant to New York local time.
+    AT TIME ZONE 'America/New_York';
+
+-- Result:
+-- +---------------------+
+-- | timezone            |
+-- |---------------------|
+-- | 2020-09-18 06:09:00 |
+-- +---------------------+
+```
+
+## The time zone landscape
+
+This section gives a brief overview of the time zone landscape and the Python tools you are likely to encounter.
+
+### The abstract base class `datetime.tzinfo`
+
+The Python standard library's `datetime` module provides the `tzinfo` abstract base class.[^abstract-base-class] You can think of `tzinfo` as the interface that time zone implementations must follow in order to work with `datetime` objects. You probably will not have to work directly with `tzinfo`, but it explains how libraries such as `zoneinfo`, `dateutil`, and `pytz` plug into Python's `datetime` model.
+
+[^abstract-base-class]: An abstract base class is a class that should not usually be instantiated directly, but instead should be subclassed by a user or library.
+
+### The standard library class `datetime.timezone`
+
+The `datetime` module also provides `datetime.timezone`, a concrete subclass of `tzinfo`. It is useful for UTC and fixed offsets from UTC, but it is not powerful enough to represent most real-world civil time zones.
+
+For example, daylight saving rules and UTC offsets can change over time for the same location. Representing that correctly requires a time zone implementation that can look up the right offset for a given date, not just a fixed offset.
+
+### The IANA Time Zone Database
+
+The IANA Time Zone Database stores historical and current time zone rules for representative locations around the world. It is the database behind names like `Africa/Johannesburg`, `Europe/London`, and `America/New_York`.
+
+The database goes by several names: IANA, Olson, `tz`, `tzdata`, and `zoneinfo`. The exact naming varies by ecosystem, but in day-to-day code you usually interact with it via strings in the `Area/Location` format.
+
+### `zoneinfo`
+
+Python 3.9 introduced `zoneinfo`, a standard library module that provides support for IANA time zones.
+
+For new Python code, this is usually the best default:
+
+```python
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+dt = datetime(2020, 9, 18, 12, 9, tzinfo=ZoneInfo("Africa/Johannesburg"))
+```
+
+On many systems, `zoneinfo` uses the system time zone database. If the system database is unavailable, it can use the first-party [`tzdata`](https://pypi.org/project/tzdata/) package from PyPI.
+
+### Legacy: `pytz`
+
+Before `zoneinfo`, many Python projects used `pytz` as the main interface to the IANA time zone database. You will still encounter it in older projects.
+
+The biggest `pytz` gotcha is that you should not do this:
+
+```python
+from datetime import datetime
+
+import pytz
+
+tz = pytz.timezone("Africa/Johannesburg")
+dt = datetime(2020, 1, 1, tzinfo=tz)  # Don't do this with pytz.
+```
+
+With `pytz`, use `localize` instead:
+
+```python
+from datetime import datetime
+
+import pytz
+
+tz = pytz.timezone("Africa/Johannesburg")
+dt = tz.localize(datetime(2020, 1, 1))
+```
+
+This is necessary because a `pytz` time zone contains a collection of historical offsets for a location. Calling `localize` lets `pytz` choose the correct offset for the particular `datetime`.
+
+If you are maintaining old code, this is worth remembering. If you are writing new code on modern Python, prefer `zoneinfo` unless you have a specific compatibility reason not to.
