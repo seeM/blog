@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.6">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Wasim Lorgat">
+<meta name="dcterms.date" content="2020-09-18">
+<meta name="description" content="Practical advice for handling time zones in Python, pandas, and Postgres.">
+
+<title>Working with time zones in Python, pandas, and Postgres – Wasim Lorgat</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../">
+<link href="../favicon.ico" rel="icon">
+<script src="../site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-f75b6103069db49ee0d40b58c3a28e95.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap-e2e1ca73c4bf218057e45371bf87a690.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script defer="" data-api="https://meepo.shop/api/event" data-domain="wasimlorgat.com" src="https://meepo.shop/js/script.outbound-links.js"></script>
+
+
+<meta property="og:title" content="Working with time zones in Python, pandas, and Postgres">
+<meta property="og:description" content="Practical advice for handling time zones in Python, pandas, and Postgres.">
+<meta property="og:site_name" content="Wasim Lorgat">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="../index.html">
+    <span class="navbar-title">Wasim Lorgat</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../index.html"> 
+<span class="menu-text">Posts</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../projects.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../tils/index.html"> 
+<span class="menu-text">Notes</span></a>
+  </li>  
+</ul>
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/seem"> <i class="bi bi-github" role="img">
+</i> 
+<span class="menu-text"></span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#time-zones" id="toc-time-zones" class="nav-link active" data-scroll-target="#time-zones">Time zones</a>
+  <ul class="collapse">
+  <li><a href="#best-practices" id="toc-best-practices" class="nav-link" data-scroll-target="#best-practices">Best practices</a>
+  <ul class="collapse">
+  <li><a href="#use-iana-time-zone-names" id="toc-use-iana-time-zone-names" class="nav-link" data-scroll-target="#use-iana-time-zone-names">Use IANA time zone names</a></li>
+  <li><a href="#attach-the-source-time-zone-to-naive-timestamps-as-early-as-possible" id="toc-attach-the-source-time-zone-to-naive-timestamps-as-early-as-possible" class="nav-link" data-scroll-target="#attach-the-source-time-zone-to-naive-timestamps-as-early-as-possible">Attach the source time zone to naive timestamps as early as possible</a></li>
+  <li><a href="#raise-an-exception-when-you-cant-reasonably-attach-a-time-zone" id="toc-raise-an-exception-when-you-cant-reasonably-attach-a-time-zone" class="nav-link" data-scroll-target="#raise-an-exception-when-you-cant-reasonably-attach-a-time-zone">Raise an exception when you can’t reasonably attach a time zone</a></li>
+  <li><a href="#use-utc-inside-your-application" id="toc-use-utc-inside-your-application" class="nav-link" data-scroll-target="#use-utc-inside-your-application">Use UTC inside your application</a></li>
+  <li><a href="#convert-aware-timestamps-as-late-as-possible" id="toc-convert-aware-timestamps-as-late-as-possible" class="nav-link" data-scroll-target="#convert-aware-timestamps-as-late-as-possible">Convert aware timestamps as late as possible</a></li>
+  <li><a href="#be-careful-when-stripping-time-zone-information" id="toc-be-careful-when-stripping-time-zone-information" class="nav-link" data-scroll-target="#be-careful-when-stripping-time-zone-information">Be careful when stripping time zone information</a></li>
+  </ul></li>
+  <li><a href="#gotchas" id="toc-gotchas" class="nav-link" data-scroll-target="#gotchas">Gotchas</a>
+  <ul class="collapse">
+  <li><a href="#attaching-a-time-zone-is-not-the-same-thing-as-converting-one" id="toc-attaching-a-time-zone-is-not-the-same-thing-as-converting-one" class="nav-link" data-scroll-target="#attaching-a-time-zone-is-not-the-same-thing-as-converting-one">Attaching a time zone is not the same thing as converting one</a></li>
+  <li><a href="#ambiguous-and-nonexistent-local-times-are-real" id="toc-ambiguous-and-nonexistent-local-times-are-real" class="nav-link" data-scroll-target="#ambiguous-and-nonexistent-local-times-are-real">Ambiguous and nonexistent local times are real</a></li>
+  <li><a href="#legacy-pytz-code-has-a-sharp-edge" id="toc-legacy-pytz-code-has-a-sharp-edge" class="nav-link" data-scroll-target="#legacy-pytz-code-has-a-sharp-edge">Legacy <code>pytz</code> code has a sharp edge</a></li>
+  <li><a href="#psycopg2-time-zones-may-not-serialize-cleanly-to-parquet" id="toc-psycopg2-time-zones-may-not-serialize-cleanly-to-parquet" class="nav-link" data-scroll-target="#psycopg2-time-zones-may-not-serialize-cleanly-to-parquet"><code>psycopg2</code> time zones may not serialize cleanly to parquet</a></li>
+  <li><a href="#postgres-at-time-zone-changes-behavior-depending-on-the-input-type" id="toc-postgres-at-time-zone-changes-behavior-depending-on-the-input-type" class="nav-link" data-scroll-target="#postgres-at-time-zone-changes-behavior-depending-on-the-input-type">Postgres <code>AT TIME ZONE</code> changes behavior depending on the input type</a></li>
+  </ul></li>
+  <li><a href="#code-snippets" id="toc-code-snippets" class="nav-link" data-scroll-target="#code-snippets">Code snippets</a>
+  <ul class="collapse">
+  <li><a href="#attaching-a-time-zone-to-naive-timestamp-columns-in-pandas-dataframes" id="toc-attaching-a-time-zone-to-naive-timestamp-columns-in-pandas-dataframes" class="nav-link" data-scroll-target="#attaching-a-time-zone-to-naive-timestamp-columns-in-pandas-dataframes">Attaching a time zone to naive timestamp columns in pandas dataframes</a></li>
+  <li><a href="#attaching-a-time-zone-to-naive-python-datetime-objects" id="toc-attaching-a-time-zone-to-naive-python-datetime-objects" class="nav-link" data-scroll-target="#attaching-a-time-zone-to-naive-python-datetime-objects">Attaching a time zone to naive Python <code>datetime</code> objects</a></li>
+  <li><a href="#attaching-a-time-zone-to-naive-timestamps-in-postgres-queries" id="toc-attaching-a-time-zone-to-naive-timestamps-in-postgres-queries" class="nav-link" data-scroll-target="#attaching-a-time-zone-to-naive-timestamps-in-postgres-queries">Attaching a time zone to naive timestamps in Postgres queries</a></li>
+  <li><a href="#raising-an-exception-for-invalid-naive-timestamps" id="toc-raising-an-exception-for-invalid-naive-timestamps" class="nav-link" data-scroll-target="#raising-an-exception-for-invalid-naive-timestamps">Raising an exception for invalid naive timestamps</a></li>
+  <li><a href="#converting-aware-timestamp-columns-in-pandas-dataframes" id="toc-converting-aware-timestamp-columns-in-pandas-dataframes" class="nav-link" data-scroll-target="#converting-aware-timestamp-columns-in-pandas-dataframes">Converting aware timestamp columns in pandas dataframes</a></li>
+  <li><a href="#converting-aware-python-datetime-objects" id="toc-converting-aware-python-datetime-objects" class="nav-link" data-scroll-target="#converting-aware-python-datetime-objects">Converting aware Python <code>datetime</code> objects</a></li>
+  <li><a href="#converting-aware-timestamps-in-postgres-queries" id="toc-converting-aware-timestamps-in-postgres-queries" class="nav-link" data-scroll-target="#converting-aware-timestamps-in-postgres-queries">Converting aware timestamps in Postgres queries</a></li>
+  </ul></li>
+  <li><a href="#the-time-zone-landscape" id="toc-the-time-zone-landscape" class="nav-link" data-scroll-target="#the-time-zone-landscape">The time zone landscape</a>
+  <ul class="collapse">
+  <li><a href="#the-abstract-base-class-datetime.tzinfo" id="toc-the-abstract-base-class-datetime.tzinfo" class="nav-link" data-scroll-target="#the-abstract-base-class-datetime.tzinfo">The abstract base class <code>datetime.tzinfo</code></a></li>
+  <li><a href="#the-standard-library-class-datetime.timezone" id="toc-the-standard-library-class-datetime.timezone" class="nav-link" data-scroll-target="#the-standard-library-class-datetime.timezone">The standard library class <code>datetime.timezone</code></a></li>
+  <li><a href="#the-iana-time-zone-database" id="toc-the-iana-time-zone-database" class="nav-link" data-scroll-target="#the-iana-time-zone-database">The IANA Time Zone Database</a></li>
+  <li><a href="#zoneinfo" id="toc-zoneinfo" class="nav-link" data-scroll-target="#zoneinfo"><code>zoneinfo</code></a></li>
+  <li><a href="#legacy-pytz" id="toc-legacy-pytz" class="nav-link" data-scroll-target="#legacy-pytz">Legacy: <code>pytz</code></a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><ul><li><a href="https://github.com/seem/blog/edit/main/posts/timezones.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/seem/blog/blob/main/posts/timezones.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/seem/blog/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Working with time zones in Python, pandas, and Postgres</h1>
+</div>
+
+<div>
+  <div class="description">
+    Practical advice for handling time zones in Python, pandas, and Postgres.
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Wasim Lorgat </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 18, 2020</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="time-zones" class="level1">
+<h1>Time zones</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Author’s note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I originally wrote this in September 2020 for an internal company blog. I lightly edited and republished it in May 2026.</p>
+<p>The high-level advice still holds, but the Python ecosystem has moved on: for modern Python, prefer the standard library’s <code>zoneinfo</code> module over <code>pytz</code> for new code. I have kept the <code>pytz</code> material as legacy context because it still appears in many older codebases.</p>
+</div>
+</div>
+<p>This post is a practical guide to working with time zones in data pipelines. It starts with recommendations and code examples for Python, pandas, and Postgres, then dives into some of the underlying details.</p>
+<section id="best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="best-practices">Best practices</h2>
+<section id="use-iana-time-zone-names" class="level3">
+<h3 class="anchored" data-anchor-id="use-iana-time-zone-names">Use IANA time zone names</h3>
+<p>IANA time zones are usually specified by strings like <code>"Area/Location"</code>, for example <code>"Africa/Johannesburg"</code>. You may also see them called Olson time zones, <code>zoneinfo</code> time zones, or <code>tzdata</code> time zones. They are supported by pandas, Python’s <code>datetime</code> objects via the standard library’s <a href="https://docs.python.org/3/library/zoneinfo.html"><code>zoneinfo</code></a>, and Postgres.</p>
+<p>Microsoft SQL Server uses Microsoft’s own time zone names; the Unicode CLDR project maintains a <a href="https://github.com/unicode-org/cldr/blob/master/common/supplemental/windowsZones.xml">mapping between Windows and IANA time zones</a>.</p>
+</section>
+<section id="attach-the-source-time-zone-to-naive-timestamps-as-early-as-possible" class="level3">
+<h3 class="anchored" data-anchor-id="attach-the-source-time-zone-to-naive-timestamps-as-early-as-possible">Attach the source time zone to naive timestamps as early as possible</h3>
+<p><em>Naive</em> timestamps do not carry time zone information, for example <code>datetime(2020, 9, 18, 12, 9)</code>. If you receive a naive timestamp from a system and you know the local time zone in which it was recorded, attach that time zone immediately.</p>
+<p>For example, if you are ingesting data from a manufacturing plant in Johannesburg and its data is not time zone-aware, your first step should be to attach <code>"Africa/Johannesburg"</code>.</p>
+</section>
+<section id="raise-an-exception-when-you-cant-reasonably-attach-a-time-zone" class="level3">
+<h3 class="anchored" data-anchor-id="raise-an-exception-when-you-cant-reasonably-attach-a-time-zone">Raise an exception when you can’t reasonably attach a time zone</h3>
+<p>If you receive a naive timestamp where you expected an aware timestamp, or where it is impossible to know which time zone should apply, raise an exception. Otherwise you will have to guess, and time zone guesses have a habit of turning into quiet data bugs.</p>
+</section>
+<section id="use-utc-inside-your-application" class="level3">
+<h3 class="anchored" data-anchor-id="use-utc-inside-your-application">Use UTC inside your application</h3>
+<p>UTC is the safest internal representation for timestamps that refer to specific instants in time. It avoids much of the confusion caused by daylight saving time and local clock changes.</p>
+<p>If you also need to preserve the user’s original local context, store the original time zone alongside the UTC timestamp.</p>
+</section>
+<section id="convert-aware-timestamps-as-late-as-possible" class="level3">
+<h3 class="anchored" data-anchor-id="convert-aware-timestamps-as-late-as-possible">Convert aware timestamps as late as possible</h3>
+<p>Convert from UTC to a local time zone when presenting data to a user, exporting a report, or calling an external system that expects local time. For example, if you are presenting results to a client in Johannesburg, it can be confusing if timestamps are shown in UTC.</p>
+</section>
+<section id="be-careful-when-stripping-time-zone-information" class="level3">
+<h3 class="anchored" data-anchor-id="be-careful-when-stripping-time-zone-information">Be careful when stripping time zone information</h3>
+<p>There is rarely a good reason to remove time zone information entirely. In most cases you should convert the timestamp’s time zone instead.</p>
+<p>A useful way to remember the difference is this:</p>
+<ul>
+<li><strong>Attach</strong> a time zone when a timestamp is naive and you know which local clock produced it.</li>
+<li><strong>Convert</strong> a time zone when a timestamp is already aware and you want to represent the same instant somewhere else.</li>
+</ul>
+</section>
+</section>
+<section id="gotchas" class="level2">
+<h2 class="anchored" data-anchor-id="gotchas">Gotchas</h2>
+<section id="attaching-a-time-zone-is-not-the-same-thing-as-converting-one" class="level3">
+<h3 class="anchored" data-anchor-id="attaching-a-time-zone-is-not-the-same-thing-as-converting-one">Attaching a time zone is not the same thing as converting one</h3>
+<p>If you attach <code>"Africa/Johannesburg"</code> to <code>2020-09-18 12:09</code>, you are saying: “this timestamp was recorded at 12:09 in Johannesburg.” If you convert that aware timestamp to <code>"America/New_York"</code>, you are asking: “what was the New York local time at that same instant?”</p>
+</section>
+<section id="ambiguous-and-nonexistent-local-times-are-real" class="level3">
+<h3 class="anchored" data-anchor-id="ambiguous-and-nonexistent-local-times-are-real">Ambiguous and nonexistent local times are real</h3>
+<p>During daylight saving time transitions, some local timestamps can be ambiguous, while others may not exist at all. pandas exposes options such as <code>ambiguous=</code> and <code>nonexistent=</code> in <code>tz_localize</code>. Python’s <code>datetime</code> uses the <code>fold</code> attribute to distinguish repeated local times.</p>
+</section>
+<section id="legacy-pytz-code-has-a-sharp-edge" class="level3">
+<h3 class="anchored" data-anchor-id="legacy-pytz-code-has-a-sharp-edge">Legacy <code>pytz</code> code has a sharp edge</h3>
+<p>Do not pass <code>pytz.timezone(...)</code> objects directly as the <code>tzinfo</code> argument to <code>datetime</code>. That will not have the desired effect. Use <code>localize</code> when working with <code>pytz</code>, or migrate new Python code to <code>zoneinfo</code>.</p>
+</section>
+<section id="psycopg2-time-zones-may-not-serialize-cleanly-to-parquet" class="level3">
+<h3 class="anchored" data-anchor-id="psycopg2-time-zones-may-not-serialize-cleanly-to-parquet"><code>psycopg2</code> time zones may not serialize cleanly to parquet</h3>
+<p>You may encounter this error when serializing a pandas dataframe to parquet:</p>
+<pre class="text"><code>ValueError: Unable to convert timezone `psycopg2.tz.FixedOffsetTimezone(offset=0, name=None)` to string</code></pre>
+<p>This is because <code>psycopg2</code> uses its own time zone object, which <code>pyarrow</code> may not know how to serialize. One fix is to convert the column to an IANA time zone before writing, for example with <code>tz_convert("UTC")</code> or another appropriate IANA time zone.</p>
+</section>
+<section id="postgres-at-time-zone-changes-behavior-depending-on-the-input-type" class="level3">
+<h3 class="anchored" data-anchor-id="postgres-at-time-zone-changes-behavior-depending-on-the-input-type">Postgres <code>AT TIME ZONE</code> changes behavior depending on the input type</h3>
+<p>Applied to a <code>timestamp without time zone</code>, it interprets the naive timestamp in the specified time zone and returns a <code>timestamptz</code>. Applied to a <code>timestamptz</code>, it converts the instant to local clock time in the specified time zone and returns a <code>timestamp without time zone</code>.</p>
+</section>
+</section>
+<section id="code-snippets" class="level2">
+<h2 class="anchored" data-anchor-id="code-snippets">Code snippets</h2>
+<section id="attaching-a-time-zone-to-naive-timestamp-columns-in-pandas-dataframes" class="level3">
+<h3 class="anchored" data-anchor-id="attaching-a-time-zone-to-naive-timestamp-columns-in-pandas-dataframes">Attaching a time zone to naive timestamp columns in pandas dataframes</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> zoneinfo <span class="im">import</span> ZoneInfo</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="co"># Create a dataframe with a naive timestamp column to test with.</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dt <span class="op">=</span> datetime(<span class="dv">2020</span>, <span class="dv">9</span>, <span class="dv">18</span>, <span class="dv">12</span>, <span class="dv">9</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> df <span class="op">=</span> pd.DataFrame({<span class="st">"timestamp"</span>: [dt]})</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="co"># Attach the source time zone.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> df[<span class="st">"timestamp"</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">"timestamp"</span>]).dt.tz_localize(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>...     ZoneInfo(<span class="st">"Africa/Johannesburg"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>... )</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> df</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                  timestamp</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="dv">2020</span><span class="op">-</span><span class="dv">0</span><span class="er">9</span><span class="op">-</span><span class="dv">18</span> <span class="dv">12</span>:<span class="dv">0</span><span class="er">9</span>:<span class="dv">00</span><span class="op">+</span><span class="dv">0</span><span class="er">2</span>:<span class="dv">00</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You will often also see the time zone passed as a string:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> df[<span class="st">"timestamp"</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">"timestamp"</span>]).dt.tz_localize(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>...     <span class="st">"Africa/Johannesburg"</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>... )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="attaching-a-time-zone-to-naive-python-datetime-objects" class="level3">
+<h3 class="anchored" data-anchor-id="attaching-a-time-zone-to-naive-python-datetime-objects">Attaching a time zone to naive Python <code>datetime</code> objects</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> zoneinfo <span class="im">import</span> ZoneInfo</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="co"># Create a naive datetime to test with.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dt <span class="op">=</span> datetime(<span class="dv">2020</span>, <span class="dv">9</span>, <span class="dv">18</span>, <span class="dv">12</span>, <span class="dv">9</span>)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="co"># Attach the source time zone. This does not convert the time.</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> aware_dt <span class="op">=</span> dt.replace(tzinfo<span class="op">=</span>ZoneInfo(<span class="st">"Africa/Johannesburg"</span>))</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">str</span>(aware_dt)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">'2020-09-18 12:09:00+02:00'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>If you are constructing the timestamp yourself, you can also pass the time zone in the constructor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> aware_dt <span class="op">=</span> datetime(</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>...     <span class="dv">2020</span>,</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>...     <span class="dv">9</span>,</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>...     <span class="dv">18</span>,</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>...     <span class="dv">12</span>,</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>...     <span class="dv">9</span>,</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>...     tzinfo<span class="op">=</span>ZoneInfo(<span class="st">"Africa/Johannesburg"</span>),</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>... )</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">str</span>(aware_dt)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">'2020-09-18 12:09:00+02:00'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>For ambiguous local times, be explicit about <code>fold</code> when needed.</p>
+</section>
+<section id="attaching-a-time-zone-to-naive-timestamps-in-postgres-queries" class="level3">
+<h3 class="anchored" data-anchor-id="attaching-a-time-zone-to-naive-timestamps-in-postgres-queries">Attaching a time zone to naive timestamps in Postgres queries</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Create a naive timestamp to test with.</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    (<span class="st">'2020-09-18 12:09:00'</span>:<span class="ch">:timestamp</span> <span class="kw">without</span> <span class="dt">time</span> <span class="dt">zone</span>)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Interpret it as Johannesburg local time.</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AT</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="st">'Africa/Johannesburg'</span>;</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co">-- Result:</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- +------------------------+</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- | timezone               |</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- |------------------------|</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- | 2020-09-18 10:09:00+00 |</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- +------------------------+</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The result is <code>10:09 UTC</code> because Johannesburg was two hours ahead of UTC at that instant.</p>
+</section>
+<section id="raising-an-exception-for-invalid-naive-timestamps" class="level3">
+<h3 class="anchored" data-anchor-id="raising-an-exception-for-invalid-naive-timestamps">Raising an exception for invalid naive timestamps</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> is_aware(dt: datetime) <span class="op">-&gt;</span> <span class="bu">bool</span>:</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dt.tzinfo <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span> <span class="kw">and</span> dt.utcoffset() <span class="kw">is</span> <span class="kw">not</span> <span class="va">None</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> download_data(start: datetime, end: datetime) <span class="op">-&gt;</span> pd.DataFrame:</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> is_aware(start):</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Expected `start` to be timezone-aware, but got a naive datetime. "</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Attach the appropriate source timezone first."</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> is_aware(end):</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">raise</span> <span class="pp">ValueError</span>(</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Expected `end` to be timezone-aware, but got a naive datetime. "</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>            <span class="st">"Attach the appropriate source timezone first."</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ...</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Checking <code>utcoffset()</code> as well as <code>tzinfo</code> handles edge cases where a <code>datetime</code> technically has a <code>tzinfo</code> object but still behaves as naive.</p>
+</section>
+<section id="converting-aware-timestamp-columns-in-pandas-dataframes" class="level3">
+<h3 class="anchored" data-anchor-id="converting-aware-timestamp-columns-in-pandas-dataframes">Converting aware timestamp columns in pandas dataframes</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> zoneinfo <span class="im">import</span> ZoneInfo</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dt <span class="op">=</span> datetime(<span class="dv">2020</span>, <span class="dv">9</span>, <span class="dv">18</span>, <span class="dv">12</span>, <span class="dv">9</span>, tzinfo<span class="op">=</span>ZoneInfo(<span class="st">"Africa/Johannesburg"</span>))</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> df <span class="op">=</span> pd.DataFrame({<span class="st">"timestamp"</span>: [dt]})</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="co"># Convert the same instant to New York local time.</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> df[<span class="st">"timestamp"</span>] <span class="op">=</span> df[<span class="st">"timestamp"</span>].dt.tz_convert(</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>...     ZoneInfo(<span class="st">"America/New_York"</span>)</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>... )</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> df</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                  timestamp</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span> <span class="dv">2020</span><span class="op">-</span><span class="dv">0</span><span class="er">9</span><span class="op">-</span><span class="dv">18</span> <span class="dv">0</span><span class="er">6</span>:<span class="dv">0</span><span class="er">9</span>:<span class="dv">00</span><span class="op">-</span><span class="dv">0</span><span class="er">4</span>:<span class="dv">00</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="converting-aware-python-datetime-objects" class="level3">
+<h3 class="anchored" data-anchor-id="converting-aware-python-datetime-objects">Converting aware Python <code>datetime</code> objects</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="im">from</span> zoneinfo <span class="im">import</span> ZoneInfo</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> dt <span class="op">=</span> datetime(<span class="dv">2020</span>, <span class="dv">9</span>, <span class="dv">18</span>, <span class="dv">12</span>, <span class="dv">9</span>, tzinfo<span class="op">=</span>ZoneInfo(<span class="st">"Africa/Johannesburg"</span>))</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> new_dt <span class="op">=</span> dt.astimezone(ZoneInfo(<span class="st">"America/New_York"</span>))</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="op">&gt;&gt;&gt;</span> <span class="bu">str</span>(new_dt)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">'2020-09-18 06:09:00-04:00'</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="converting-aware-timestamps-in-postgres-queries" class="level3">
+<h3 class="anchored" data-anchor-id="converting-aware-timestamps-in-postgres-queries">Converting aware timestamps in Postgres queries</h3>
+<p>Note that converting a <code>timestamptz</code> in Postgres returns a naive <code>timestamp</code> representing local clock time in the requested time zone.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Create an aware timestamp by interpreting the naive timestamp as Johannesburg time.</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    ((<span class="st">'2020-09-18 12:09:00'</span>:<span class="ch">:timestamp</span> <span class="kw">without</span> <span class="dt">time</span> <span class="dt">zone</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">AT</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="st">'Africa/Johannesburg'</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">-- Convert the instant to New York local time.</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">AT</span> <span class="dt">TIME</span> <span class="dt">ZONE</span> <span class="st">'America/New_York'</span>;</span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a><span class="co">-- Result:</span></span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a><span class="co">-- +---------------------+</span></span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a><span class="co">-- | timezone            |</span></span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a><span class="co">-- |---------------------|</span></span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- | 2020-09-18 06:09:00 |</span></span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- +---------------------+</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="the-time-zone-landscape" class="level2">
+<h2 class="anchored" data-anchor-id="the-time-zone-landscape">The time zone landscape</h2>
+<p>This section gives a brief overview of the time zone landscape and the Python tools you are likely to encounter.</p>
+<section id="the-abstract-base-class-datetime.tzinfo" class="level3">
+<h3 class="anchored" data-anchor-id="the-abstract-base-class-datetime.tzinfo">The abstract base class <code>datetime.tzinfo</code></h3>
+<p>The Python standard library’s <code>datetime</code> module provides the <code>tzinfo</code> abstract base class.<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> You can think of <code>tzinfo</code> as the interface that time zone implementations must follow in order to work with <code>datetime</code> objects. You probably will not have to work directly with <code>tzinfo</code>, but it explains how libraries such as <code>zoneinfo</code>, <code>dateutil</code>, and <code>pytz</code> plug into Python’s <code>datetime</code> model.</p>
+</section>
+<section id="the-standard-library-class-datetime.timezone" class="level3">
+<h3 class="anchored" data-anchor-id="the-standard-library-class-datetime.timezone">The standard library class <code>datetime.timezone</code></h3>
+<p>The <code>datetime</code> module also provides <code>datetime.timezone</code>, a concrete subclass of <code>tzinfo</code>. It is useful for UTC and fixed offsets from UTC, but it is not powerful enough to represent most real-world civil time zones.</p>
+<p>For example, daylight saving rules and UTC offsets can change over time for the same location. Representing that correctly requires a time zone implementation that can look up the right offset for a given date, not just a fixed offset.</p>
+</section>
+<section id="the-iana-time-zone-database" class="level3">
+<h3 class="anchored" data-anchor-id="the-iana-time-zone-database">The IANA Time Zone Database</h3>
+<p>The IANA Time Zone Database stores historical and current time zone rules for representative locations around the world. It is the database behind names like <code>Africa/Johannesburg</code>, <code>Europe/London</code>, and <code>America/New_York</code>.</p>
+<p>The database goes by several names: IANA, Olson, <code>tz</code>, <code>tzdata</code>, and <code>zoneinfo</code>. The exact naming varies by ecosystem, but in day-to-day code you usually interact with it via strings in the <code>Area/Location</code> format.</p>
+</section>
+<section id="zoneinfo" class="level3">
+<h3 class="anchored" data-anchor-id="zoneinfo"><code>zoneinfo</code></h3>
+<p>Python 3.9 introduced <code>zoneinfo</code>, a standard library module that provides support for IANA time zones.</p>
+<p>For new Python code, this is usually the best default:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> zoneinfo <span class="im">import</span> ZoneInfo</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> datetime(<span class="dv">2020</span>, <span class="dv">9</span>, <span class="dv">18</span>, <span class="dv">12</span>, <span class="dv">9</span>, tzinfo<span class="op">=</span>ZoneInfo(<span class="st">"Africa/Johannesburg"</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>On many systems, <code>zoneinfo</code> uses the system time zone database. If the system database is unavailable, it can use the first-party <a href="https://pypi.org/project/tzdata/"><code>tzdata</code></a> package from PyPI.</p>
+</section>
+<section id="legacy-pytz" class="level3">
+<h3 class="anchored" data-anchor-id="legacy-pytz">Legacy: <code>pytz</code></h3>
+<p>Before <code>zoneinfo</code>, many Python projects used <code>pytz</code> as the main interface to the IANA time zone database. You will still encounter it in older projects.</p>
+<p>The biggest <code>pytz</code> gotcha is that you should not do this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytz</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>tz <span class="op">=</span> pytz.timezone(<span class="st">"Africa/Johannesburg"</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> datetime(<span class="dv">2020</span>, <span class="dv">1</span>, <span class="dv">1</span>, tzinfo<span class="op">=</span>tz)  <span class="co"># Don't do this with pytz.</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>With <code>pytz</code>, use <code>localize</code> instead:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> datetime <span class="im">import</span> datetime</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pytz</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>tz <span class="op">=</span> pytz.timezone(<span class="st">"Africa/Johannesburg"</span>)</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>dt <span class="op">=</span> tz.localize(datetime(<span class="dv">2020</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>This is necessary because a <code>pytz</code> time zone contains a collection of historical offsets for a location. Calling <code>localize</code> lets <code>pytz</code> choose the correct offset for the particular <code>datetime</code>.</p>
+<p>If you are maintaining old code, this is worth remembering. If you are writing new code on modern Python, prefer <code>zoneinfo</code> unless you have a specific compatibility reason not to.</p>
+
+
+</section>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>An abstract base class is a class that should not usually be instantiated directly, but instead should be subclassed by a user or library.<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section></div></main> <!-- /main -->
+<script>
+  let links = document.querySelectorAll("a[data-analytics]");
+  for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', handleLinkEvent);
+      links[i].addEventListener('auxclick', handleLinkEvent);
+  }
+
+  function handleLinkEvent(event) {
+      var link = event.target;
+      var middle = event.type == "auxclick" && event.which == 2;
+      var click = event.type == "click";
+      while (link && (typeof link.tagName == 'undefined' || link.tagName.toLowerCase() != 'a' || !link.href)) {
+          link = link.parentNode;
+      }
+      if (middle || click) {
+          let attributes = link.getAttribute('data-analytics').split(/,(.+)/);
+          let events = [JSON.parse(attributes[0]), JSON.parse(attributes[1] || '{}')];
+          plausible(...events);
+      }
+      if (!link.target) {
+          if (!(event.ctrlKey || event.metaKey || event.shiftKey) && click) {
+              setTimeout(function () {
+                  location.href = link.href;
+              }, 150);
+              event.preventDefault();
+          }
+      }
+  }
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/wasimlorgat\.com");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<input type="hidden" id="giscus-base-theme" value="light">
+<input type="hidden" id="giscus-alt-theme" value="dark">
+<script>
+  function loadGiscus() {
+    // Function to get the theme based on body class
+    const getTheme = () => {
+      let baseTheme = document.getElementById('giscus-base-theme').value;
+      let altTheme = document.getElementById('giscus-alt-theme').value;
+      return document.body.classList.contains('quarto-dark') ? altTheme : baseTheme;
+    };
+    const script = document.createElement("script");
+    script.src = "https://giscus.app/client.js";
+    script.async = true;
+    script.dataset.repo = "seem/blog";
+    script.dataset.repoId = "R_kgDOIBWk3A";
+    script.dataset.category = "Announcements";
+    script.dataset.categoryId = "DIC_kwDOIBWk3M4CSSa6";
+    script.dataset.mapping = "pathname";
+    script.dataset.reactionsEnabled = "1";
+    script.dataset.emitMetadata = "0";
+    script.dataset.inputPosition = "top";
+    script.dataset.theme = getTheme();
+    script.dataset.lang = "en";
+    script.crossOrigin = "anonymous";
+    // Append the script to the desired div instead of at the end of the body
+    document.getElementById("quarto-content").appendChild(script);
+  }
+  loadGiscus();
+</script>
+</div> <!-- /content -->
+
+
+
+
+<footer class="footer"><div class="nav-footer"><div class="nav-footer-center"><div class="toc-actions d-sm-block d-md-none"><ul><li><a href="https://github.com/seem/blog/edit/main/posts/timezones.qmd" class="toc-action"><i class="bi bi-github"></i>Edit this page</a></li><li><a href="https://github.com/seem/blog/blob/main/posts/timezones.qmd" class="toc-action"><i class="bi empty"></i>View source</a></li><li><a href="https://github.com/seem/blog/issues/new" class="toc-action"><i class="bi empty"></i>Report an issue</a></li></ul></div></div></div></footer></body></html>

@@ -6210,6 +6210,833 @@ font-style: inherit;"># ...</span></span></code></pre></div></div>
   <pubDate>Wed, 30 Dec 2020 00:00:00 GMT</pubDate>
 </item>
 <item>
+  <title>Working with time zones in Python, pandas, and Postgres</title>
+  <link>https://wasimlorgat.com/posts/timezones.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<section id="time-zones" class="level1">
+<h1>Time zones</h1>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Author’s note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I originally wrote this in September 2020 for an internal company blog. I lightly edited and republished it in May 2026.</p>
+<p>The high-level advice still holds, but the Python ecosystem has moved on: for modern Python, prefer the standard library’s <code>zoneinfo</code> module over <code>pytz</code> for new code. I have kept the <code>pytz</code> material as legacy context because it still appears in many older codebases.</p>
+</div>
+</div>
+<p>This post is a practical guide to working with time zones in data pipelines. It starts with recommendations and code examples for Python, pandas, and Postgres, then dives into some of the underlying details.</p>
+<section id="best-practices" class="level2">
+<h2 class="anchored" data-anchor-id="best-practices">Best practices</h2>
+<section id="use-iana-time-zone-names" class="level3">
+<h3 class="anchored" data-anchor-id="use-iana-time-zone-names">Use IANA time zone names</h3>
+<p>IANA time zones are usually specified by strings like <code>"Area/Location"</code>, for example <code>"Africa/Johannesburg"</code>. You may also see them called Olson time zones, <code>zoneinfo</code> time zones, or <code>tzdata</code> time zones. They are supported by pandas, Python’s <code>datetime</code> objects via the standard library’s <a href="https://docs.python.org/3/library/zoneinfo.html"><code>zoneinfo</code></a>, and Postgres.</p>
+<p>Microsoft SQL Server uses Microsoft’s own time zone names; the Unicode CLDR project maintains a <a href="https://github.com/unicode-org/cldr/blob/master/common/supplemental/windowsZones.xml">mapping between Windows and IANA time zones</a>.</p>
+</section>
+<section id="attach-the-source-time-zone-to-naive-timestamps-as-early-as-possible" class="level3">
+<h3 class="anchored" data-anchor-id="attach-the-source-time-zone-to-naive-timestamps-as-early-as-possible">Attach the source time zone to naive timestamps as early as possible</h3>
+<p><em>Naive</em> timestamps do not carry time zone information, for example <code>datetime(2020, 9, 18, 12, 9)</code>. If you receive a naive timestamp from a system and you know the local time zone in which it was recorded, attach that time zone immediately.</p>
+<p>For example, if you are ingesting data from a manufacturing plant in Johannesburg and its data is not time zone-aware, your first step should be to attach <code>"Africa/Johannesburg"</code>.</p>
+</section>
+<section id="raise-an-exception-when-you-cant-reasonably-attach-a-time-zone" class="level3">
+<h3 class="anchored" data-anchor-id="raise-an-exception-when-you-cant-reasonably-attach-a-time-zone">Raise an exception when you can’t reasonably attach a time zone</h3>
+<p>If you receive a naive timestamp where you expected an aware timestamp, or where it is impossible to know which time zone should apply, raise an exception. Otherwise you will have to guess, and time zone guesses have a habit of turning into quiet data bugs.</p>
+</section>
+<section id="use-utc-inside-your-application" class="level3">
+<h3 class="anchored" data-anchor-id="use-utc-inside-your-application">Use UTC inside your application</h3>
+<p>UTC is the safest internal representation for timestamps that refer to specific instants in time. It avoids much of the confusion caused by daylight saving time and local clock changes.</p>
+<p>If you also need to preserve the user’s original local context, store the original time zone alongside the UTC timestamp.</p>
+</section>
+<section id="convert-aware-timestamps-as-late-as-possible" class="level3">
+<h3 class="anchored" data-anchor-id="convert-aware-timestamps-as-late-as-possible">Convert aware timestamps as late as possible</h3>
+<p>Convert from UTC to a local time zone when presenting data to a user, exporting a report, or calling an external system that expects local time. For example, if you are presenting results to a client in Johannesburg, it can be confusing if timestamps are shown in UTC.</p>
+</section>
+<section id="be-careful-when-stripping-time-zone-information" class="level3">
+<h3 class="anchored" data-anchor-id="be-careful-when-stripping-time-zone-information">Be careful when stripping time zone information</h3>
+<p>There is rarely a good reason to remove time zone information entirely. In most cases you should convert the timestamp’s time zone instead.</p>
+<p>A useful way to remember the difference is this:</p>
+<ul>
+<li><strong>Attach</strong> a time zone when a timestamp is naive and you know which local clock produced it.</li>
+<li><strong>Convert</strong> a time zone when a timestamp is already aware and you want to represent the same instant somewhere else.</li>
+</ul>
+</section>
+</section>
+<section id="gotchas" class="level2">
+<h2 class="anchored" data-anchor-id="gotchas">Gotchas</h2>
+<section id="attaching-a-time-zone-is-not-the-same-thing-as-converting-one" class="level3">
+<h3 class="anchored" data-anchor-id="attaching-a-time-zone-is-not-the-same-thing-as-converting-one">Attaching a time zone is not the same thing as converting one</h3>
+<p>If you attach <code>"Africa/Johannesburg"</code> to <code>2020-09-18 12:09</code>, you are saying: “this timestamp was recorded at 12:09 in Johannesburg.” If you convert that aware timestamp to <code>"America/New_York"</code>, you are asking: “what was the New York local time at that same instant?”</p>
+</section>
+<section id="ambiguous-and-nonexistent-local-times-are-real" class="level3">
+<h3 class="anchored" data-anchor-id="ambiguous-and-nonexistent-local-times-are-real">Ambiguous and nonexistent local times are real</h3>
+<p>During daylight saving time transitions, some local timestamps can be ambiguous, while others may not exist at all. pandas exposes options such as <code>ambiguous=</code> and <code>nonexistent=</code> in <code>tz_localize</code>. Python’s <code>datetime</code> uses the <code>fold</code> attribute to distinguish repeated local times.</p>
+</section>
+<section id="legacy-pytz-code-has-a-sharp-edge" class="level3">
+<h3 class="anchored" data-anchor-id="legacy-pytz-code-has-a-sharp-edge">Legacy <code>pytz</code> code has a sharp edge</h3>
+<p>Do not pass <code>pytz.timezone(...)</code> objects directly as the <code>tzinfo</code> argument to <code>datetime</code>. That will not have the desired effect. Use <code>localize</code> when working with <code>pytz</code>, or migrate new Python code to <code>zoneinfo</code>.</p>
+</section>
+<section id="psycopg2-time-zones-may-not-serialize-cleanly-to-parquet" class="level3">
+<h3 class="anchored" data-anchor-id="psycopg2-time-zones-may-not-serialize-cleanly-to-parquet"><code>psycopg2</code> time zones may not serialize cleanly to parquet</h3>
+<p>You may encounter this error when serializing a pandas dataframe to parquet:</p>
+<pre class="text"><code>ValueError: Unable to convert timezone `psycopg2.tz.FixedOffsetTimezone(offset=0, name=None)` to string</code></pre>
+<p>This is because <code>psycopg2</code> uses its own time zone object, which <code>pyarrow</code> may not know how to serialize. One fix is to convert the column to an IANA time zone before writing, for example with <code>tz_convert("UTC")</code> or another appropriate IANA time zone.</p>
+</section>
+<section id="postgres-at-time-zone-changes-behavior-depending-on-the-input-type" class="level3">
+<h3 class="anchored" data-anchor-id="postgres-at-time-zone-changes-behavior-depending-on-the-input-type">Postgres <code>AT TIME ZONE</code> changes behavior depending on the input type</h3>
+<p>Applied to a <code>timestamp without time zone</code>, it interprets the naive timestamp in the specified time zone and returns a <code>timestamptz</code>. Applied to a <code>timestamptz</code>, it converts the instant to local clock time in the specified time zone and returns a <code>timestamp without time zone</code>.</p>
+</section>
+</section>
+<section id="code-snippets" class="level2">
+<h2 class="anchored" data-anchor-id="code-snippets">Code snippets</h2>
+<section id="attaching-a-time-zone-to-naive-timestamp-columns-in-pandas-dataframes" class="level3">
+<h3 class="anchored" data-anchor-id="attaching-a-time-zone-to-naive-timestamp-columns-in-pandas-dataframes">Attaching a time zone to naive timestamp columns in pandas dataframes</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> datetime <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> datetime</span>
+<span id="cb2-2"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> zoneinfo <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> ZoneInfo</span>
+<span id="cb2-3"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> pd</span>
+<span id="cb2-4"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span></span>
+<span id="cb2-5"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Create a dataframe with a naive timestamp column to test with.</span></span>
+<span id="cb2-6"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> datetime(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">18</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>)</span>
+<span id="cb2-7"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.DataFrame({<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"timestamp"</span>: [dt]})</span>
+<span id="cb2-8"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span></span>
+<span id="cb2-9"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Attach the source time zone.</span></span>
+<span id="cb2-10"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"timestamp"</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.to_datetime(df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"timestamp"</span>]).dt.tz_localize(</span>
+<span id="cb2-11">...     ZoneInfo(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Africa/Johannesburg"</span>)</span>
+<span id="cb2-12">... )</span>
+<span id="cb2-13"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> df</span>
+<span id="cb2-14">                  timestamp</span>
+<span id="cb2-15"><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">18</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>:<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>:<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">00</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>:<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">00</span></span></code></pre></div></div>
+<p>You will often also see the time zone passed as a string:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"timestamp"</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.to_datetime(df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"timestamp"</span>]).dt.tz_localize(</span>
+<span id="cb3-2">...     <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Africa/Johannesburg"</span></span>
+<span id="cb3-3">... )</span></code></pre></div></div>
+</section>
+<section id="attaching-a-time-zone-to-naive-python-datetime-objects" class="level3">
+<h3 class="anchored" data-anchor-id="attaching-a-time-zone-to-naive-python-datetime-objects">Attaching a time zone to naive Python <code>datetime</code> objects</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> datetime <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> datetime</span>
+<span id="cb4-2"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> zoneinfo <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> ZoneInfo</span>
+<span id="cb4-3"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span></span>
+<span id="cb4-4"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Create a naive datetime to test with.</span></span>
+<span id="cb4-5"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> datetime(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">18</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>)</span>
+<span id="cb4-6"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span></span>
+<span id="cb4-7"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Attach the source time zone. This does not convert the time.</span></span>
+<span id="cb4-8"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> aware_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dt.replace(tzinfo<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ZoneInfo(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Africa/Johannesburg"</span>))</span>
+<span id="cb4-9"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(aware_dt)</span>
+<span id="cb4-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">'2020-09-18 12:09:00+02:00'</span></span></code></pre></div></div>
+<p>If you are constructing the timestamp yourself, you can also pass the time zone in the constructor:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> aware_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> datetime(</span>
+<span id="cb5-2">...     <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>,</span>
+<span id="cb5-3">...     <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>,</span>
+<span id="cb5-4">...     <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">18</span>,</span>
+<span id="cb5-5">...     <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>,</span>
+<span id="cb5-6">...     <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>,</span>
+<span id="cb5-7">...     tzinfo<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ZoneInfo(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Africa/Johannesburg"</span>),</span>
+<span id="cb5-8">... )</span>
+<span id="cb5-9"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(aware_dt)</span>
+<span id="cb5-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">'2020-09-18 12:09:00+02:00'</span></span></code></pre></div></div>
+<p>For ambiguous local times, be explicit about <code>fold</code> when needed.</p>
+</section>
+<section id="attaching-a-time-zone-to-naive-timestamps-in-postgres-queries" class="level3">
+<h3 class="anchored" data-anchor-id="attaching-a-time-zone-to-naive-timestamps-in-postgres-queries">Attaching a time zone to naive timestamps in Postgres queries</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb6-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">SELECT</span></span>
+<span id="cb6-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- Create a naive timestamp to test with.</span></span>
+<span id="cb6-3">    (<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'2020-09-18 12:09:00'</span>:<span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">:timestamp</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">without</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">time</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">zone</span>)</span>
+<span id="cb6-4">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- Interpret it as Johannesburg local time.</span></span>
+<span id="cb6-5">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AT</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">TIME</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">ZONE</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Africa/Johannesburg'</span>;</span>
+<span id="cb6-6"></span>
+<span id="cb6-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- Result:</span></span>
+<span id="cb6-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- +------------------------+</span></span>
+<span id="cb6-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- | timezone               |</span></span>
+<span id="cb6-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- |------------------------|</span></span>
+<span id="cb6-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- | 2020-09-18 10:09:00+00 |</span></span>
+<span id="cb6-12"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- +------------------------+</span></span></code></pre></div></div>
+<p>The result is <code>10:09 UTC</code> because Johannesburg was two hours ahead of UTC at that instant.</p>
+</section>
+<section id="raising-an-exception-for-invalid-naive-timestamps" class="level3">
+<h3 class="anchored" data-anchor-id="raising-an-exception-for-invalid-naive-timestamps">Raising an exception for invalid naive timestamps</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> datetime <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> datetime</span>
+<span id="cb7-2"></span>
+<span id="cb7-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> pd</span>
+<span id="cb7-4"></span>
+<span id="cb7-5"></span>
+<span id="cb7-6"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> is_aware(dt: datetime) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bool</span>:</span>
+<span id="cb7-7">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> dt.tzinfo <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">is</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">and</span> dt.utcoffset() <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">is</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span></span>
+<span id="cb7-8"></span>
+<span id="cb7-9"></span>
+<span id="cb7-10"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> download_data(start: datetime, end: datetime) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> pd.DataFrame:</span>
+<span id="cb7-11">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> is_aware(start):</span>
+<span id="cb7-12">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">raise</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">ValueError</span>(</span>
+<span id="cb7-13">            <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Expected `start` to be timezone-aware, but got a naive datetime. "</span></span>
+<span id="cb7-14">            <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Attach the appropriate source timezone first."</span></span>
+<span id="cb7-15">        )</span>
+<span id="cb7-16">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">if</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">not</span> is_aware(end):</span>
+<span id="cb7-17">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">raise</span> <span class="pp" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">ValueError</span>(</span>
+<span id="cb7-18">            <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Expected `end` to be timezone-aware, but got a naive datetime. "</span></span>
+<span id="cb7-19">            <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Attach the appropriate source timezone first."</span></span>
+<span id="cb7-20">        )</span>
+<span id="cb7-21"></span>
+<span id="cb7-22">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># ...</span></span></code></pre></div></div>
+<p>Checking <code>utcoffset()</code> as well as <code>tzinfo</code> handles edge cases where a <code>datetime</code> technically has a <code>tzinfo</code> object but still behaves as naive.</p>
+</section>
+<section id="converting-aware-timestamp-columns-in-pandas-dataframes" class="level3">
+<h3 class="anchored" data-anchor-id="converting-aware-timestamp-columns-in-pandas-dataframes">Converting aware timestamp columns in pandas dataframes</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> datetime <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> datetime</span>
+<span id="cb8-2"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> zoneinfo <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> ZoneInfo</span>
+<span id="cb8-3"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pandas <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> pd</span>
+<span id="cb8-4"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span></span>
+<span id="cb8-5"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> datetime(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">18</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, tzinfo<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ZoneInfo(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Africa/Johannesburg"</span>))</span>
+<span id="cb8-6"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> df <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pd.DataFrame({<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"timestamp"</span>: [dt]})</span>
+<span id="cb8-7"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span></span>
+<span id="cb8-8"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Convert the same instant to New York local time.</span></span>
+<span id="cb8-9"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"timestamp"</span>] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> df[<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"timestamp"</span>].dt.tz_convert(</span>
+<span id="cb8-10">...     ZoneInfo(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"America/New_York"</span>)</span>
+<span id="cb8-11">... )</span>
+<span id="cb8-12"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> df</span>
+<span id="cb8-13">                  timestamp</span>
+<span id="cb8-14"><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">18</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">6</span>:<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>:<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">00</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span><span class="er" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>:<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">00</span></span></code></pre></div></div>
+</section>
+<section id="converting-aware-python-datetime-objects" class="level3">
+<h3 class="anchored" data-anchor-id="converting-aware-python-datetime-objects">Converting aware Python <code>datetime</code> objects</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> datetime <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> datetime</span>
+<span id="cb9-2"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> zoneinfo <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> ZoneInfo</span>
+<span id="cb9-3"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span></span>
+<span id="cb9-4"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> datetime(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">18</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, tzinfo<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ZoneInfo(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Africa/Johannesburg"</span>))</span>
+<span id="cb9-5"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span></span>
+<span id="cb9-6"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> new_dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> dt.astimezone(ZoneInfo(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"America/New_York"</span>))</span>
+<span id="cb9-7"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">&gt;&gt;&gt;</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">str</span>(new_dt)</span>
+<span id="cb9-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">'2020-09-18 06:09:00-04:00'</span></span></code></pre></div></div>
+</section>
+<section id="converting-aware-timestamps-in-postgres-queries" class="level3">
+<h3 class="anchored" data-anchor-id="converting-aware-timestamps-in-postgres-queries">Converting aware timestamps in Postgres queries</h3>
+<p>Note that converting a <code>timestamptz</code> in Postgres returns a naive <code>timestamp</code> representing local clock time in the requested time zone.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">SELECT</span></span>
+<span id="cb10-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- Create an aware timestamp by interpreting the naive timestamp as Johannesburg time.</span></span>
+<span id="cb10-3">    ((<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'2020-09-18 12:09:00'</span>:<span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">:timestamp</span> <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">without</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">time</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">zone</span>)</span>
+<span id="cb10-4">        <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AT</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">TIME</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">ZONE</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Africa/Johannesburg'</span>)</span>
+<span id="cb10-5">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- Convert the instant to New York local time.</span></span>
+<span id="cb10-6">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">AT</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">TIME</span> <span class="dt" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">ZONE</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'America/New_York'</span>;</span>
+<span id="cb10-7"></span>
+<span id="cb10-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- Result:</span></span>
+<span id="cb10-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- +---------------------+</span></span>
+<span id="cb10-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- | timezone            |</span></span>
+<span id="cb10-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- |---------------------|</span></span>
+<span id="cb10-12"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- | 2020-09-18 06:09:00 |</span></span>
+<span id="cb10-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-- +---------------------+</span></span></code></pre></div></div>
+</section>
+</section>
+<section id="the-time-zone-landscape" class="level2">
+<h2 class="anchored" data-anchor-id="the-time-zone-landscape">The time zone landscape</h2>
+<p>This section gives a brief overview of the time zone landscape and the Python tools you are likely to encounter.</p>
+<section id="the-abstract-base-class-datetime.tzinfo" class="level3">
+<h3 class="anchored" data-anchor-id="the-abstract-base-class-datetime.tzinfo">The abstract base class <code>datetime.tzinfo</code></h3>
+<p>The Python standard library’s <code>datetime</code> module provides the <code>tzinfo</code> abstract base class.<sup>1</sup> You can think of <code>tzinfo</code> as the interface that time zone implementations must follow in order to work with <code>datetime</code> objects. You probably will not have to work directly with <code>tzinfo</code>, but it explains how libraries such as <code>zoneinfo</code>, <code>dateutil</code>, and <code>pytz</code> plug into Python’s <code>datetime</code> model.</p>
+</section>
+<section id="the-standard-library-class-datetime.timezone" class="level3">
+<h3 class="anchored" data-anchor-id="the-standard-library-class-datetime.timezone">The standard library class <code>datetime.timezone</code></h3>
+<p>The <code>datetime</code> module also provides <code>datetime.timezone</code>, a concrete subclass of <code>tzinfo</code>. It is useful for UTC and fixed offsets from UTC, but it is not powerful enough to represent most real-world civil time zones.</p>
+<p>For example, daylight saving rules and UTC offsets can change over time for the same location. Representing that correctly requires a time zone implementation that can look up the right offset for a given date, not just a fixed offset.</p>
+</section>
+<section id="the-iana-time-zone-database" class="level3">
+<h3 class="anchored" data-anchor-id="the-iana-time-zone-database">The IANA Time Zone Database</h3>
+<p>The IANA Time Zone Database stores historical and current time zone rules for representative locations around the world. It is the database behind names like <code>Africa/Johannesburg</code>, <code>Europe/London</code>, and <code>America/New_York</code>.</p>
+<p>The database goes by several names: IANA, Olson, <code>tz</code>, <code>tzdata</code>, and <code>zoneinfo</code>. The exact naming varies by ecosystem, but in day-to-day code you usually interact with it via strings in the <code>Area/Location</code> format.</p>
+</section>
+<section id="zoneinfo" class="level3">
+<h3 class="anchored" data-anchor-id="zoneinfo"><code>zoneinfo</code></h3>
+<p>Python 3.9 introduced <code>zoneinfo</code>, a standard library module that provides support for IANA time zones.</p>
+<p>For new Python code, this is usually the best default:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> datetime <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> datetime</span>
+<span id="cb11-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> zoneinfo <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> ZoneInfo</span>
+<span id="cb11-3"></span>
+<span id="cb11-4">dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> datetime(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">18</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">12</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">9</span>, tzinfo<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>ZoneInfo(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Africa/Johannesburg"</span>))</span></code></pre></div></div>
+<p>On many systems, <code>zoneinfo</code> uses the system time zone database. If the system database is unavailable, it can use the first-party <a href="https://pypi.org/project/tzdata/"><code>tzdata</code></a> package from PyPI.</p>
+</section>
+<section id="legacy-pytz" class="level3">
+<h3 class="anchored" data-anchor-id="legacy-pytz">Legacy: <code>pytz</code></h3>
+<p>Before <code>zoneinfo</code>, many Python projects used <code>pytz</code> as the main interface to the IANA time zone database. You will still encounter it in older projects.</p>
+<p>The biggest <code>pytz</code> gotcha is that you should not do this:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> datetime <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> datetime</span>
+<span id="cb12-2"></span>
+<span id="cb12-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pytz</span>
+<span id="cb12-4"></span>
+<span id="cb12-5">tz <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pytz.timezone(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Africa/Johannesburg"</span>)</span>
+<span id="cb12-6">dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> datetime(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, tzinfo<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>tz)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Don't do this with pytz.</span></span></code></pre></div></div>
+<p>With <code>pytz</code>, use <code>localize</code> instead:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> datetime <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> datetime</span>
+<span id="cb13-2"></span>
+<span id="cb13-3"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> pytz</span>
+<span id="cb13-4"></span>
+<span id="cb13-5">tz <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> pytz.timezone(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Africa/Johannesburg"</span>)</span>
+<span id="cb13-6">dt <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> tz.localize(datetime(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2020</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>))</span></code></pre></div></div>
+<p>This is necessary because a <code>pytz</code> time zone contains a collection of historical offsets for a location. Calling <code>localize</code> lets <code>pytz</code> choose the correct offset for the particular <code>datetime</code>.</p>
+<p>If you are maintaining old code, this is worth remembering. If you are writing new code on modern Python, prefer <code>zoneinfo</code> unless you have a specific compatibility reason not to.</p>
+
+
+</section>
+</section>
+</section>
+
+
+<div id="quarto-appendix" class="default"><section id="footnotes" class="footnotes footnotes-end-of-document"><h2 class="anchored quarto-appendix-heading">Footnotes</h2>
+
+<ol>
+<li id="fn1"><p>An abstract base class is a class that should not usually be instantiated directly, but instead should be subclassed by a user or library.↩︎</p></li>
+</ol>
+</section></div> ]]></description>
+  <guid>https://wasimlorgat.com/posts/timezones.html</guid>
+  <pubDate>Fri, 18 Sep 2020 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>Tools wishlist</title>
   <link>https://wasimlorgat.com/posts/tools-wishlist.html</link>
   <description><![CDATA[ 
