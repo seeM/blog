@@ -1,5 +1,25 @@
 [
   {
+    "listing": "/index.html",
+    "items": [
+      "/posts/image-vector-search.html",
+      "/posts/jupytercon-2023.html",
+      "/posts/how-to-create-an-ai-profile-picture-from-scratch.html",
+      "/posts/how-to-use-nstableview-in-swiftui.html",
+      "/posts/how-to-build-your-own-minimal-jupyter-frontend.html",
+      "/posts/math-of-diffusion.html",
+      "/posts/notebook-best-practices.html",
+      "/posts/fastai-array-programming-day-1.html",
+      "/posts/editor.html",
+      "/posts/tools-wishlist.html",
+      "/posts/doing-important-work.html",
+      "/posts/hats.html",
+      "/posts/derivations.html",
+      "/posts/pdlog.html",
+      "/posts/code-neq-idea.html"
+    ]
+  },
+  {
     "listing": "/tils/index.html",
     "items": [
       "/tils/using-shot-scraper.html",
@@ -9,30 +29,11 @@
       "/tils/diagnosing-an-issue-with-plugin-modules-process-pools-and-the-import-system.html",
       "/tils/update-fastai-union-annotations-using-ast.html",
       "/tils/compiling-python-to-c-using-setuptools-and-cython.html",
-      "/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html",
       "/tils/creating-a-minimal-custom-jupyter-widget.html",
+      "/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html",
       "/tils/create-and-execute-cells-inside-a-jupyter-notebook.html",
       "/tils/setting-up-tils-in-pelican.html",
       "/tils/using-pelican-as-a-library.html"
-    ]
-  },
-  {
-    "listing": "/index.html",
-    "items": [
-      "/posts/image-vector-search.html",
-      "/posts/jupytercon-2023.html",
-      "/posts/how-to-create-an-ai-profile-picture-from-scratch.html",
-      "/posts/how-to-use-nstableview-in-swiftui.html",
-      "/posts/how-to-build-your-own-minimal-jupyter-frontend.html",
-      "/posts/math-of-diffusion.html",
-      "/posts/fastai-array-programming-day-1.html",
-      "/posts/editor.html",
-      "/posts/tools-wishlist.html",
-      "/posts/doing-important-work.html",
-      "/posts/hats.html",
-      "/posts/derivations.html",
-      "/posts/pdlog.html",
-      "/posts/code-neq-idea.html"
     ]
   }
 ]

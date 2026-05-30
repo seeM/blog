@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/</link>
 <atom:link href="https://wasimlorgat.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>A collection of technical blogs and talks on software engineering and machine learning.</description>
-<generator>quarto-1.7.5</generator>
+<generator>quarto-1.10.6</generator>
 <lastBuildDate>Tue, 23 May 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Building a cost-effective image vector search engine with CLIP</title>
@@ -104,13 +104,13 @@
 <li><a href="https://huggingface.co/docs/transformers/index">HuggingFace Transformers</a>: easily download, train, and use state-of-the-art pretrained neural networks.</li>
 </ul>
 <div id="9b63e71e" class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">!</span>pip install datasets transformers</span></code></pre></div>
+font-style: inherit;">!</span>pip install datasets transformers</span></code></pre></div></div>
 </div>
 <p>Then load the <a href="https://huggingface.co/datasets/pcuenq/oxford-pets">Oxford Pets</a> dataset – thanks to <a href="https://twitter.com/pcuenq">Pedro Cuenqa</a> for uploading it:</p>
 <div id="5836b0e4" class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> datasets <span class="im" style="color: #00769E;
 background-color: null;
@@ -120,12 +120,12 @@ font-style: inherit;">import</span> load_dataset</span>
 background-color: null;
 font-style: inherit;">=</span> load_dataset(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"pcuenq/oxford-pets"</span>)</span></code></pre></div>
+font-style: inherit;">"pcuenq/oxford-pets"</span>)</span></code></pre></div></div>
 </div>
 <p>One of the most important rules of machine learning is to always look at the data. This is quite easy with images, since we can just show the image.</p>
 <p>Let’s define a helper function to show thumbnails of an image:</p>
 <div id="ddfa65b5" class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> numpy <span class="im" style="color: #00769E;
 background-color: null;
@@ -144,11 +144,11 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> image.resize(np.array(image.size)<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">//</span>scale)</span></code></pre></div>
+font-style: inherit;">//</span>scale)</span></code></pre></div></div>
 </div>
 <p>Here’s an example of a cat:</p>
 <div id="c7a5e0e6" class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">cat_row <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">cat_row <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> dataset[<span class="st" style="color: #20794D;
 background-color: null;
@@ -160,7 +160,7 @@ background-color: null;
 font-style: inherit;">=</span> cat_row[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'image'</span>]</span>
-<span id="cb4-3">thumbnail(cat_image)</span></code></pre></div>
+<span id="cb4-3">thumbnail(cat_image)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -171,7 +171,7 @@ font-style: inherit;">'image'</span>]</span>
 </div>
 <p>… and here’s an example of a dog:</p>
 <div id="aba2e5af" class="cell">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">dog_row <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">dog_row <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> dataset[<span class="st" style="color: #20794D;
 background-color: null;
@@ -183,7 +183,7 @@ background-color: null;
 font-style: inherit;">=</span> dog_row[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'image'</span>]</span>
-<span id="cb5-3">thumbnail(dog_image)</span></code></pre></div>
+<span id="cb5-3">thumbnail(dog_image)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -198,7 +198,7 @@ font-style: inherit;">'image'</span>]</span>
 <p>Now that we have a dataset, we can load the CLIP processor and model. The concept of having a separate <em>processor</em> and <em>model</em> is central to the HuggingFace Transformers library, since it allows us to use 174 state-of-the-art models (as of writing this article) with a very similar API.</p>
 <p>Note that it might take a minute to download the pretrained weights:</p>
 <div id="e16641de" class="cell">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> transformers <span class="im" style="color: #00769E;
 background-color: null;
@@ -213,11 +213,11 @@ font-style: inherit;">"openai/clip-vit-base-patch32"</span>)</span>
 background-color: null;
 font-style: inherit;">=</span> CLIPModel.from_pretrained(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"openai/clip-vit-base-patch32"</span>)</span></code></pre></div>
+font-style: inherit;">"openai/clip-vit-base-patch32"</span>)</span></code></pre></div></div>
 </div>
 <p>The <code>CLIPProcessor</code> prepares the inputs for the <code>CLIPModel</code> which can then be used to obtain embedding vectors. Let’s create a function to embed an image by first passing it through the processor and then into the model:</p>
 <div id="4279de40" class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> torch</span>
 <span id="cb7-2"></span>
@@ -259,24 +259,24 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> model.get_image_features(<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">**</span>inputs)</span></code></pre></div>
+font-style: inherit;">**</span>inputs)</span></code></pre></div></div>
 </div>
 <p>Test that it works:</p>
 <div id="3aa69621" class="cell">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">images <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">images <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [cat_image, dog_image]</span>
 <span id="cb8-2">image_embs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> embed_image(images)</span>
-<span id="cb8-3">image_embs.shape</span></code></pre></div>
+<span id="cb8-3">image_embs.shape</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>torch.Size([2, 512])</code></pre>
 </div>
 </div>
 <p>You can also pass text to the <code>CLIPProcessor</code>. Let’s create a similar function to embed text inputs:</p>
 <div id="ba2b888e" class="cell">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> embed_text(text):</span>
@@ -301,10 +301,10 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> model.get_text_features(<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">**</span>inputs)</span></code></pre></div>
+font-style: inherit;">**</span>inputs)</span></code></pre></div></div>
 </div>
 <div id="ef989e56" class="cell">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">text_embs <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">text_embs <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> embed_text([<span class="ss" style="color: #20794D;
 background-color: null;
@@ -325,7 +325,7 @@ background-color: null;
 font-style: inherit;">"cat"</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"dog"</span>]])</span>
-<span id="cb11-2">text_embs.shape</span></code></pre></div>
+<span id="cb11-2">text_embs.shape</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>torch.Size([2, 512])</code></pre>
 </div>
@@ -333,7 +333,7 @@ font-style: inherit;">"dog"</span>]])</span>
 <p>We can now use embeddings for zero-shot classification by using text inputs that represent the different classes, and then calculating the <em>cosine similarity</em> between image embeddings and text embeddings.</p>
 <p>Cosine similarity is calculated by taking the dot product of normalized vectors:</p>
 <div id="b54a14a7" class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> normalize(a): <span class="cf" style="color: #003B4F;
@@ -358,10 +358,10 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> normalize(a) <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">@</span> normalize(b).T</span></code></pre></div>
+font-style: inherit;">@</span> normalize(b).T</span></code></pre></div></div>
 </div>
 <div id="ff186e5d" class="cell">
-<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">cosine_sim(image_embs, text_embs)</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">cosine_sim(image_embs, text_embs)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor([[0.2639, 0.2127],
         [0.1962, 0.2553]])</code></pre>
@@ -370,7 +370,7 @@ font-style: inherit;">@</span> normalize(b).T</span></code></pre></div>
 <p>Note how the similarity between the cat image and the text “a photo of a cat” (0.2639) is higher than the similarity between the cat image and the text “a photo of a dog” (0.2127), and similarly for the dog image in the next row of the tensor.</p>
 <p>We can convert these similarities to probabilities by using the model’s <code>logit_scale</code> parameter followed by the <code>softmax</code> method:</p>
 <div id="a18a6958" class="cell">
-<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> logits(a, b): <span class="cf" style="color: #003B4F;
@@ -389,10 +389,10 @@ font-style: inherit;">return</span> logits(a, b).softmax(dim<span class="op" sty
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">0</span>)</span></code></pre></div>
+font-style: inherit;">0</span>)</span></code></pre></div></div>
 </div>
 <div id="0e0396db" class="cell">
-<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">probs(text_embs, image_embs)</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">probs(text_embs, image_embs)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor([[0.9940, 0.0027],
         [0.0060, 0.9973]], grad_fn=&lt;SoftmaxBackward0&gt;)</code></pre>
@@ -401,7 +401,7 @@ font-style: inherit;">0</span>)</span></code></pre></div>
 <p>We see a probability of 0.994 that the image of a cat is in fact a cat, and a probability of 0.997 that the image of a dog is in fact a dog. Pretty good!</p>
 <p>Since this is a zero-shot classifier, we can very easily generalize it to arbitrary classes! Let’s make a convenient wrapper to do exactly that:</p>
 <div id="363d3ef8" class="cell">
-<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> classify(image, classes, template<span class="op" style="color: #5E5E5E;
@@ -430,12 +430,12 @@ font-style: inherit;">in</span> classes])</span>
 <span id="cb19-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">return</span> probs(text_embs, image_embs)</span></code></pre></div>
+font-style: inherit;">return</span> probs(text_embs, image_embs)</span></code></pre></div></div>
 </div>
 <p>To use this, simply pass in a list of classes. You can also customize the <code>template</code>, which can improve the classification accuracy.</p>
 <p>Here’s how we can classify the breed of a cat:</p>
 <div id="4aea6aff" class="cell">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">cat_breeds <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1">cat_breeds <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="bu" style="color: null;
 background-color: null;
@@ -467,7 +467,7 @@ background-color: null;
 font-style: inherit;">{}</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;"> cat"</span>)</span>
-<span id="cb20-3">scores</span></code></pre></div>
+<span id="cb20-3">scores</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>tensor([[1.2116e-05],
         [5.4131e-06],
@@ -484,17 +484,17 @@ font-style: inherit;"> cat"</span>)</span>
 </div>
 </div>
 <div id="41ED0033-6570-4F42-A0D8-97BB21DD74DD" class="cell">
-<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">idx <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1">idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> torch.argmax(scores)</span>
-<span id="cb22-2">cat_breeds[idx], scores[idx].item()</span></code></pre></div>
+<span id="cb22-2">cat_breeds[idx], scores[idx].item()</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>('Persian', 0.9122824668884277)</code></pre>
 </div>
 </div>
 <p>… and here’s how we can classify the color of any animal:</p>
 <div id="e457d936" class="cell">
-<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1">classes <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1">classes <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
 background-color: null;
@@ -531,7 +531,7 @@ font-style: inherit;"> animal"</span>)</span>
 <span id="cb24-3">idx <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> torch.argmax(scores)</span>
-<span id="cb24-4">classes[idx], scores[idx].item()</span></code></pre></div>
+<span id="cb24-4">classes[idx], scores[idx].item()</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>('white', 0.8672362565994263)</code></pre>
 </div>
@@ -542,7 +542,7 @@ font-style: inherit;">=</span> torch.argmax(scores)</span>
 <h3 class="anchored" data-anchor-id="using-clip-for-text-to-image-search">Using CLIP for text-to-image search</h3>
 <p>Using CLIP for search is not too different from using it for zero-shot classification. In fact, search is even simpler! We don’t need to calculate probabilities since we ultimately only care about the order of items:</p>
 <div id="65888292" class="cell">
-<div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> search(image_embs, query_embs):</span>
@@ -559,27 +559,27 @@ font-style: inherit;">True</span>)</span>
 <span id="cb26-4">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">return</span> indices, sims[indices]</span></code></pre></div>
+font-style: inherit;">return</span> indices, sims[indices]</span></code></pre></div></div>
 </div>
 <div id="30E00922-FA29-481A-B0A6-3A363B0BA41D" class="cell">
-<div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1">indices, sims <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1">indices, sims <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> search(image_embs, embed_text(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"a photo of a cat"</span>))</span>
-<span id="cb27-2">indices, sims</span></code></pre></div>
+<span id="cb27-2">indices, sims</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>(tensor([0, 1]), tensor([0.2639, 0.1962]))</code></pre>
 </div>
 </div>
 <div id="2bf0ad46" class="cell">
-<div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><span class="cf" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">for</span> i <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">in</span> indices: display(thumbnail(images[i]))</span></code></pre></div>
+font-style: inherit;">in</span> indices: display(thumbnail(images[i]))</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -598,7 +598,7 @@ font-style: inherit;">in</span> indices: display(thumbnail(images[i]))</span></c
 <p>Let’s try that with a bigger dataset and some more interesting queries:</p>
 <p>Let’s embed all of the images. Since this took quite a while on my laptop (19 minutes), it’s convenient to cache the result to disk so that we don’t slow down iteration in our notebook:</p>
 <div id="894b2f24" class="cell">
-<div class="sourceCode cell-code" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> pathlib <span class="im" style="color: #00769E;
 background-color: null;
@@ -607,10 +607,10 @@ font-style: inherit;">import</span> Path</span>
 background-color: null;
 font-style: inherit;">from</span> tqdm.notebook <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> tqdm</span></code></pre></div>
+font-style: inherit;">import</span> tqdm</span></code></pre></div></div>
 </div>
 <div id="192d7de5" class="cell">
-<div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">all_image_embs_path <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">all_image_embs_path <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> Path(<span class="st" style="color: #20794D;
 background-color: null;
@@ -639,16 +639,16 @@ font-weight: bold;
 font-style: inherit;">in</span> tqdm(dataset[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'train'</span>])])</span>
-<span id="cb31-6">    np.save(all_image_embs_path, np.array(all_image_embs))</span></code></pre></div>
+<span id="cb31-6">    np.save(all_image_embs_path, np.array(all_image_embs))</span></code></pre></div></div>
 </div>
 <div id="e29922ff" class="cell">
-<div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1">all_image_embs.shape</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1">all_image_embs.shape</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>torch.Size([7390, 512])</code></pre>
 </div>
 </div>
 <div id="cf611ac2" class="cell">
-<div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> search_and_display(image_embs, query_embs, k<span class="op" style="color: #5E5E5E;
@@ -673,12 +673,12 @@ background-color: null;
 font-style: inherit;">"train"</span>][i.item()][<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"image"</span>]</span>
-<span id="cb34-5">        display(thumbnail(image))</span></code></pre></div>
+<span id="cb34-5">        display(thumbnail(image))</span></code></pre></div></div>
 </div>
 <div id="bf2ca868" class="cell">
-<div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1">search_and_display(all_image_embs, embed_text(<span class="st" style="color: #20794D;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1">search_and_display(all_image_embs, embed_text(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"a photo of a white puppey on the grass"</span>))</span></code></pre></div>
+font-style: inherit;">"a photo of a white puppey on the grass"</span>))</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -703,9 +703,9 @@ font-style: inherit;">"a photo of a white puppey on the grass"</span>))</span></
 </div>
 <p>Amazing! I wonder how obscure we can get?</p>
 <div id="7D0912E0-9255-44FA-9120-4AADEA703426" class="cell">
-<div class="sourceCode cell-code" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1">search_and_display(all_image_embs, embed_text(<span class="st" style="color: #20794D;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1">search_and_display(all_image_embs, embed_text(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"a photo of a fluffy pink cat on a tv"</span>))</span></code></pre></div>
+font-style: inherit;">"a photo of a fluffy pink cat on a tv"</span>))</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -732,7 +732,7 @@ font-style: inherit;">"a photo of a fluffy pink cat on a tv"</span>))</span></co
 <p>And once again, it’s super flexible. For example, all we need to change in order to use an image query is to pass the image’s embeddings instead of text embeddings!</p>
 <p>Let’s find the most similar images to our fluffy white persian cat from earlier:</p>
 <div id="772F80F2-E221-4FEF-B115-FF45BFBA9EC4" class="cell">
-<div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1">search_and_display(all_image_embs, embed_image(cat_image))</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1">search_and_display(all_image_embs, embed_image(cat_image))</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -801,7 +801,7 @@ font-style: inherit;">"a photo of a fluffy pink cat on a tv"</span>))</span></co
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Why use a Virtual Private Server(VPS) instead of a modern platform as a service option?
+<span class="screen-reader-only">Note</span>Why use a Virtual Private Server(VPS) instead of a modern platform as a service option?
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -996,7 +996,7 @@ Why use a Virtual Private Server(VPS) instead of a modern platform as a service 
 <p>SwiftUI has the newer <code>Table</code> too, but it’s also quite limited at this stage. For example, I don’t think it’s possible to make an entire row clickable.</p>
 <p>This left me wanting to try out the much more battle-tested <code>NSTableView</code> – but as an Apple dev noob, I couldn’t get a minimal example up and running after a few hours of tinkering!</p>
 <p>… So here’s a snippet you can copy paste.<sup>1</sup> Keep reading below if you’d like to see how it works step-by-step.</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb1-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb1-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">import</span> <span class="im" style="color: #00769E;
@@ -1253,11 +1253,11 @@ background-color: null;
 font-style: inherit;">}</span></span>
 <span id="cb1-31"><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">}</span></span></code></pre></div>
+font-style: inherit;">}</span></span></code></pre></div></div>
 <p><strong>Step-by-step:</strong></p>
 <p>Create your table view struct, conforming to <code>NSViewRepresentable</code>. This is a standard way of using AppKit/UIKit views in your SwiftUI applications.</p>
 <p>In <code>makeNSView</code>, create the <code>NSTableView</code> with a single column, and leave <code>updateNSView</code> blank for now:</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb2-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">struct</span> TableView<span class="op" style="color: #5E5E5E;
@@ -1348,14 +1348,14 @@ background-color: null;
 font-style: inherit;">}</span></span>
 <span id="cb2-11"><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">}</span></span></code></pre></div>
+font-style: inherit;">}</span></span></code></pre></div></div>
 <p>Create a <code>Coordinator</code>, subclassing:</p>
 <ul>
 <li><code>NSTableViewDelegate</code> which we’ll use to customize how cells are rendered as views, and</li>
 <li><code>NSTableViewDataSource</code> to define the number of rows.</li>
 </ul>
 <p>Implement <code>makeCoordinator</code>, returning an instance of <code>Coordinator</code>, then link it to the table view in <code>makeNSView</code>:</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">struct</span> TableView<span class="op" style="color: #5E5E5E;
@@ -1501,11 +1501,11 @@ background-color: null;
 font-style: inherit;">}</span></span>
 <span id="cb3-20"><span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">}</span></span></code></pre></div>
+font-style: inherit;">}</span></span></code></pre></div></div>
 <p>You still won’t see anything being rendered yet, since we still need to implement <code>NSTableViewDelegate</code> and <code>NSTableViewDataSource</code> methods.</p>
 <p>For this minimal example, we’ll use a simple static array of strings defined right in the coordinator, although in practice you would probably get data from the view.</p>
 <p>Implement <code>NSTableViewDataSource</code>’s <code>numberOfRows</code> and <code>NSTableViewDelegate</code>’s <code>tableView(tableView:viewFor:row)</code>. The former returns the length of our array. The latter returns an <code>NSTextField</code> created from the corresponding row of data.</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb4-1">    <span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode swift code-with-copy"><code class="sourceCode swift"><span id="cb4-1">    <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">class</span> Coordinator<span class="op" style="color: #5E5E5E;
@@ -1629,7 +1629,7 @@ background-color: null;
 font-style: inherit;">}</span></span>
 <span id="cb4-11">    <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">}</span></span></code></pre></div>
+font-style: inherit;">}</span></span></code></pre></div></div>
 <p>That’s it! This is the minimal implementation of an <code>NSTableView</code> in SwiftUI that I could find. Let me know via the GitHub discussion below if you have any comments or suggestions.</p>
 <p>Here are some next steps I have in mind:</p>
 <ul>
@@ -1742,9 +1742,9 @@ struct TableView: NSViewRepresentable { # <1>
 <section id="starting-the-server" class="level2">
 <h2 class="anchored" data-anchor-id="starting-the-server">Starting the server</h2>
 <p>To start, ensure that you’re running a Jupyter Server in another process (e.g.&nbsp;in a terminal) by entering the following command:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
 background-color: null;
-font-style: inherit;">jupyter</span> server</span></code></pre></div>
+font-style: inherit;">jupyter</span> server</span></code></pre></div></div>
 <p>Once the server is running, update the <code>url_with_token</code> variable below to match what’s displayed in the terminal output. For example, it should output something like this:</p>
 <pre><code>[C 2023-01-07 12:03:57.482 ServerApp]
 
@@ -1754,47 +1754,47 @@ font-style: inherit;">jupyter</span> server</span></code></pre></div>
         http://localhost:8889/?token=72b22f0cee26baaa6aed492b6fed5a010d57bd6c0e1adcce
      or http://127.0.0.1:8889/?token=72b22f0cee26baaa6aed492b6fed5a010d57bd6c0e1adcce</code></pre>
 <div id="0d703673" class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># NB: Update this based on your terminal output</span></span>
 <span id="cb3-2">url_with_token <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'http://localhost:8889/?token=e78ceb3114cb10d50f64485b18e3052c66861616166e0bab'</span></span></code></pre></div>
+font-style: inherit;">'http://localhost:8889/?token=e78ceb3114cb10d50f64485b18e3052c66861616166e0bab'</span></span></code></pre></div></div>
 </div>
 </section>
 <section id="authenticating" class="level2">
 <h2 class="anchored" data-anchor-id="authenticating">Authenticating</h2>
 <p>First, we’ll do a quick check that there is a server at the defined <code>url</code>. We need to get the URL without the <code>token</code> query parameter:</p>
 <div id="ffc380eb" class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> urllib.parse <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> urlparse</span></code></pre></div>
+font-style: inherit;">import</span> urlparse</span></code></pre></div></div>
 </div>
 <div id="206b48a1" class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> urlparse(url_with_token)._replace(query<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">None</span>).geturl()</span>
-<span id="cb5-2">url</span></code></pre></div>
+<span id="cb5-2">url</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>'http://localhost:8889/'</code></pre>
 </div>
 </div>
 <p>Now we can make the request:</p>
 <div id="60a5019c" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> requests</span></code></pre></div>
+font-style: inherit;">import</span> requests</span></code></pre></div></div>
 </div>
 <div id="49d240b4" class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">requests.get(url)</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">requests.get(url)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>&lt;Response [200]&gt;</code></pre>
 </div>
@@ -1802,11 +1802,11 @@ font-style: inherit;">import</span> requests</span></code></pre></div>
 <p>A 200 response means that the server processed the request successfully.</p>
 <p>Next we need to authenticate. What happens if we try to make a request to an endpoint that requires authentication, for example <code>GET /api/contents</code>?</p>
 <div id="d363c9dd" class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">requests.get(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">requests.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'api/contents'</span>)</span></code></pre></div>
+font-style: inherit;">'api/contents'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>&lt;Response [403]&gt;</code></pre>
 </div>
@@ -1814,7 +1814,7 @@ font-style: inherit;">'api/contents'</span>)</span></code></pre></div>
 <p>It fails with <code>403 Forbidden</code>.</p>
 <p>If we include our token in the <code>Authorization</code> header:</p>
 <div id="47341bcd" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">token <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">token <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> urlparse(url_with_token).query.split(<span class="st" style="color: #20794D;
 background-color: null;
@@ -1842,7 +1842,7 @@ font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'api/contents'</span>, headers<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span>headers)</span></code></pre></div>
+font-style: inherit;">=</span>headers)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>&lt;Response [200]&gt;</code></pre>
 </div>
@@ -1850,10 +1850,10 @@ font-style: inherit;">=</span>headers)</span></code></pre></div>
 <p>… it works!</p>
 <p>Let’s create a <code>requests.Session</code> so we don’t have to keep specifying the header:</p>
 <div id="c800292c" class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">session <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">session <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> requests.Session()</span>
-<span id="cb14-2">session.headers.update(headers)</span></code></pre></div>
+<span id="cb14-2">session.headers.update(headers)</span></code></pre></div></div>
 </div>
 </section>
 <section id="managing-files" class="level2">
@@ -1864,11 +1864,11 @@ font-style: inherit;">=</span> requests.Session()</span>
 <h3 class="anchored" data-anchor-id="list-the-contents-of-a-directory">List the contents of a directory</h3>
 <p><code>GET /api/contents/&lt;path&gt;</code> returns the contents of the file or directory at <code>path</code>. You can think of it as <code>ls</code> for Jupyter Server:</p>
 <div id="372abec1" class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">session.get(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'api/contents'</span>).json()</span></code></pre></div>
+font-style: inherit;">'api/contents'</span>).json()</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="10">
 <pre><code>{'name': '',
  'path': '',
@@ -1888,7 +1888,7 @@ font-style: inherit;">'api/contents'</span>).json()</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="create-an-empty-notebook">Create an empty notebook</h3>
 <p><code>POST /api/contents/&lt;path&gt;</code> creates an empty file in the directory at <code>path</code>. You can specify the <code>type</code> of the file in the request body:</p>
 <div id="48a05bd9" class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">session.post(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">session.post(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -1898,7 +1898,7 @@ font-style: inherit;">=</span>{<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'type'</span>: <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'notebook'</span>})</span></code></pre></div>
+font-style: inherit;">'notebook'</span>})</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="11">
 <pre><code>&lt;Response [201]&gt;</code></pre>
 </div>
@@ -1906,11 +1906,11 @@ font-style: inherit;">'notebook'</span>})</span></code></pre></div>
 <p>The 201 status code means that the request succeeded and a resource was created.</p>
 <p>Let’s confirm that the file exists with <code>GET /api/contents</code>:</p>
 <div id="64d4f91c" class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">session.get(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'api/contents'</span>).json()</span></code></pre></div>
+font-style: inherit;">'api/contents'</span>).json()</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>{'name': '',
  'path': '',
@@ -1936,14 +1936,14 @@ font-style: inherit;">'api/contents'</span>).json()</span></code></pre></div>
 <p>The response is a nested dict. The root dict refers to the root directory as before, however, <code>content</code> now contains the newly created notebook named <code>Untitled.ipynb</code>.</p>
 <p>We can get the contents of this file using the same method but referring to the file’s path i.e.&nbsp;<code>GET /api/contents/&lt;path&gt;</code>:</p>
 <div id="ade22939" class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">data <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">data <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'api/contents/Untitled.ipynb'</span>).json()</span>
-<span id="cb21-2">data</span></code></pre></div>
+<span id="cb21-2">data</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="13">
 <pre><code>{'name': 'Untitled.ipynb',
  'path': 'Untitled.ipynb',
@@ -1959,9 +1959,9 @@ font-style: inherit;">'api/contents/Untitled.ipynb'</span>).json()</span>
 </div>
 <p>We’re probably most interested in <code>content</code>, which contains the JSON content of the notebook:</p>
 <div id="04591521" class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1">data[<span class="st" style="color: #20794D;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1">data[<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'content'</span>]</span></code></pre></div>
+font-style: inherit;">'content'</span>]</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="14">
 <pre><code>{'cells': [], 'metadata': {}, 'nbformat': 4, 'nbformat_minor': 5}</code></pre>
 </div>
@@ -1972,7 +1972,7 @@ font-style: inherit;">'content'</span>]</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="rename-a-notebook">Rename a notebook</h3>
 <p>Our newly created file is still named <code>Untitled.ipynb</code>. Let’s rename it to <code>sum.ipynb</code> with <code>PATCH /api/contents/&lt;path&gt;</code>:</p>
 <div id="4d7a78d2" class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1">session.patch(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1">session.patch(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -1982,7 +1982,7 @@ font-style: inherit;">=</span>{<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'path'</span>: <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'sum.ipynb'</span>}).json()</span></code></pre></div>
+font-style: inherit;">'sum.ipynb'</span>}).json()</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
 <pre><code>{'name': 'sum.ipynb',
  'path': 'sum.ipynb',
@@ -1998,22 +1998,22 @@ font-style: inherit;">'sum.ipynb'</span>}).json()</span></code></pre></div>
 </div>
 <p>Confirm that it’s been renamed. <code>Untitled.ipynb</code> no longer exists:</p>
 <div id="a7bd2873" class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1">session.get(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'api/contents/Untitled.ipynb'</span>).json()</span></code></pre></div>
+font-style: inherit;">'api/contents/Untitled.ipynb'</span>).json()</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="16">
 <pre><code>{'message': 'No such file or directory: Untitled.ipynb', 'reason': None}</code></pre>
 </div>
 </div>
 <p>… but <code>sum.ipynb</code> does:</p>
 <div id="8dd1d341" class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1">session.get(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'api/contents/sum.ipynb'</span>).json()</span></code></pre></div>
+font-style: inherit;">'api/contents/sum.ipynb'</span>).json()</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="17">
 <pre><code>{'name': 'sum.ipynb',
  'path': 'sum.ipynb',
@@ -2045,7 +2045,7 @@ Note
 <h3 class="anchored" data-anchor-id="update-a-notebooks-contents">Update a notebook’s contents</h3>
 <p>Create a cell and append it to existing contents:</p>
 <div id="b038cde2" class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">cell <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">cell <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> {</span>
 <span id="cb31-2">    <span class="st" style="color: #20794D;
@@ -2092,11 +2092,11 @@ font-style: inherit;">'api/contents/sum.ipynb'</span>).json()</span>
 background-color: null;
 font-style: inherit;">'content'</span>][<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'cells'</span>].append(cell)</span></code></pre></div>
+font-style: inherit;">'cells'</span>].append(cell)</span></code></pre></div></div>
 </div>
 <p>Update the notebook’s contents using <code>PUT /api/contents/&lt;path&gt;</code>:</p>
 <div id="49a22866" class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1">session.put(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1">session.put(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -2110,18 +2110,18 @@ font-style: inherit;">'content'</span>], <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'type'</span>: <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'notebook'</span>})</span></code></pre></div>
+font-style: inherit;">'notebook'</span>})</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="19">
 <pre><code>&lt;Response [200]&gt;</code></pre>
 </div>
 </div>
 <p>Confirm that the notebook’s been updated. Note that <code>last_modified</code> and <code>content</code> have both updated:</p>
 <div id="0d9911bc" class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1">session.get(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'api/contents/sum.ipynb'</span>).json()</span></code></pre></div>
+font-style: inherit;">'api/contents/sum.ipynb'</span>).json()</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="20">
 <pre><code>{'name': 'sum.ipynb',
  'path': 'sum.ipynb',
@@ -2153,22 +2153,22 @@ font-style: inherit;">'api/contents/sum.ipynb'</span>).json()</span></code></pre
 <h3 class="anchored" data-anchor-id="start-a-session">Start a session</h3>
 <p>List open sessions with <code>GET /api/sessions</code>:</p>
 <div id="738af04b" class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1">session.get(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'api/sessions'</span>).json()</span></code></pre></div>
+font-style: inherit;">'api/sessions'</span>).json()</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>[]</code></pre>
 </div>
 </div>
 <p>First we need to choose a kernel specification. Here are the available options on my computer – yours will likely differ:</p>
 <div id="857b450d" class="cell" data-execution_count="22">
-<div class="sourceCode cell-code" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1">session.get(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1">session.get(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'api/kernelspecs'</span>).json()</span></code></pre></div>
+font-style: inherit;">'api/kernelspecs'</span>).json()</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>{'default': 'python3',
  'kernelspecs': {'dyalog-kernel': {'name': 'dyalog-kernel',
@@ -2201,7 +2201,7 @@ font-style: inherit;">'api/kernelspecs'</span>).json()</span></code></pre></div>
 </div>
 <p>Create a new session with <code>POST /api/sessions</code> with the <code>python3</code> kernelspec:</p>
 <div id="87ddef62" class="cell" data-execution_count="23">
-<div class="sourceCode cell-code" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1">data <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1">data <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> session.post(url <span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -2228,7 +2228,7 @@ background-color: null;
 font-style: inherit;">'type'</span>: <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'notebook'</span>}).json()</span>
-<span id="cb40-2">data</span></code></pre></div>
+<span id="cb40-2">data</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="23">
 <pre><code>{'id': '5730d780-fa1f-446e-b8ad-f3e66be9d063',
  'path': 'sum.ipynb',
@@ -2244,7 +2244,7 @@ font-style: inherit;">'notebook'</span>}).json()</span>
 </div>
 <p>Now that a session exists, we can connect to a websocket. We’ll need the <code>kernel_id</code> and <code>session_id</code> to do that, so let’s store them for the next step:</p>
 <div id="7cf01323" class="cell" data-execution_count="24">
-<div class="sourceCode cell-code" id="cb42" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1">kernel_id <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1">kernel_id <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> data[<span class="st" style="color: #20794D;
 background-color: null;
@@ -2255,14 +2255,14 @@ font-style: inherit;">'id'</span>]</span>
 background-color: null;
 font-style: inherit;">=</span> data[<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'id'</span>]</span></code></pre></div>
+font-style: inherit;">'id'</span>]</span></code></pre></div></div>
 </div>
 </section>
 <section id="communicate-over-websockets" class="level3">
 <h3 class="anchored" data-anchor-id="communicate-over-websockets">Communicate over WebSockets</h3>
 <p>First, let’s craft a message to request an execution – you can try changing the value of the <code>code</code> variable below to execute something else:</p>
 <div id="52ef9b84" class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb43" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> uuid</span>
 <span id="cb43-2"></span>
@@ -2306,12 +2306,12 @@ background-color: null;
 font-style: inherit;">'metadata'</span>: {},</span>
 <span id="cb43-9">            <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'parent_header'</span>:{}}</span></code></pre></div>
+font-style: inherit;">'parent_header'</span>:{}}</span></code></pre></div></div>
 </div>
 <p>Now we can send the message to the server and receive all responses.</p>
 <p>We’ll use the <a href="https://websocket-client.readthedocs.io/">websocket-client</a> library. You might also want to consider the <a href="https://websockets.readthedocs.io/en/stable/">websockets</a> library which is asynchronous.</p>
 <div id="6e9954fc" class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb44-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> json</span>
 <span id="cb44-2"><span class="im" style="color: #00769E;
@@ -2442,7 +2442,7 @@ background-color: null;
 font-style: inherit;">\n</span><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'</span>)</span>
-<span id="cb44-20">    recv_all(conn)</span></code></pre></div>
+<span id="cb44-20">    recv_all(conn)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Receiving initial messages
 
@@ -2473,7 +2473,7 @@ Receiving execute_reply
 <h3 class="anchored" data-anchor-id="close-the-session">Close the session</h3>
 <p>Since we’re done with the session, we can close it via <code>DELETE /api/sessions/&lt;session_id&gt;</code>:</p>
 <div id="8993bbcf" class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1">session.delete(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb46-1">session.delete(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="ss" style="color: #20794D;
 background-color: null;
@@ -2483,7 +2483,7 @@ font-style: inherit;">{</span>session_id<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'</span>)</span></code></pre></div>
+font-style: inherit;">'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>&lt;Response [204]&gt;</code></pre>
 </div>
@@ -2493,18 +2493,18 @@ font-style: inherit;">'</span>)</span></code></pre></div>
 <h3 class="anchored" data-anchor-id="shutdown-the-server">Shutdown the server</h3>
 <p>Finally, shutdown the server via <code>POST /api/shutdown</code>.</p>
 <div id="ec857b53" class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1">session.post(url <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb48-1">session.post(url <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'api/shutdown'</span>)</span></code></pre></div>
+font-style: inherit;">'api/shutdown'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display" data-execution_count="28">
 <pre><code>&lt;Response [200]&gt;</code></pre>
 </div>
 </div>
 <p>… and confirm that it’s been shutdown correctly:</p>
 <div id="15534d8d" class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><span class="cf" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb50-1"><span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">try</span>: session.get(url)</span>
@@ -2517,7 +2517,7 @@ font-style: inherit;">ConnectionError</span>: <span class="bu" style="color: nul
 background-color: null;
 font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Server has been successfully shutdown!'</span>)</span></code></pre></div>
+font-style: inherit;">'Server has been successfully shutdown!'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Server has been successfully shutdown!</code></pre>
 </div>
@@ -2560,7 +2560,7 @@ font-style: inherit;">'Server has been successfully shutdown!'</span>)</span></c
 <h2 class="anchored" data-anchor-id="what-youll-learn">What you’ll learn</h2>
 <p>We walk through the math of diffusion models from the ground up, explaining the insights underlying the key equations in the work of <span class="citation" data-cites="sohl-dickstein_deep_2015">Sohl-Dickstein et al. (2015)</span> that originally discovered diffusion models.</p>
 <p>By the end of the lesson you’ll have some understanding of the following key concepts and you’ll know how to recognize and interpret their symbols in research papers: probability density function (pdf), data distribution, forward process, reverse process, Markov process, Gaussian distribution, log likelihood, and evidence lower bound (ELBO).</p>
-<p>We also touch on the more recent breakthroughs of <span class="citation" data-cites="ho_denoising_2020">Ho, Jain, and Abbeel (2020)</span> which enabled even simpler and more powerful diffusion models.</p>
+<p>We also touch on the more recent breakthroughs of <span class="citation" data-cites="ho_denoising_2020">Ho et al. (2020)</span> which enabled even simpler and more powerful diffusion models.</p>
 <p>You can discuss this lesson, and access links to all notebooks and resources from it, at <a href="https://forums.fast.ai/t/lesson-9b-math-of-diffusion/101077">this forum topic</a>.</p>
 </section>
 <section id="you-dont-need-a-phd" class="level2">
@@ -2597,12 +2597,12 @@ I got a special surprise for you all…<br><br>We just released the first 5.5 ho
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent">
 <div id="ref-ho_denoising_2020" class="csl-entry">
-Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. <span>“Denoising Diffusion Probabilistic Models.”</span> <span>arXiv</span>. <a href="http://arxiv.org/abs/2006.11239">http://arxiv.org/abs/2006.11239</a>.
+Ho, Jonathan, Ajay Jain, and Pieter Abbeel. 2020. <em>Denoising Diffusion Probabilistic Models</em>. <span>arXiv</span>:2006.11239. <span>arXiv</span>. <a href="http://arxiv.org/abs/2006.11239">http://arxiv.org/abs/2006.11239</a>.
 </div>
 <div id="ref-sohl-dickstein_deep_2015" class="csl-entry">
-Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 2015. <span>“Deep Unsupervised Learning Using Nonequilibrium Thermodynamics.”</span> <span>arXiv</span>. <a href="https://doi.org/10.48550/arXiv.1503.03585">https://doi.org/10.48550/arXiv.1503.03585</a>.
+Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 2015. <em>Deep Unsupervised Learning Using Nonequilibrium Thermodynamics</em>. <span>arXiv</span>:1503.03585. <span>arXiv</span>. <a href="https://doi.org/10.48550/arXiv.1503.03585">https://doi.org/10.48550/arXiv.1503.03585</a>.
 </div>
 </div></section></div> ]]></description>
   <category>talk</category>
@@ -2611,13 +2611,1273 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
   <media:content url="https://wasimlorgat.com/posts/images/math-of-diffusion.png" medium="image" type="image/png" height="81" width="144"/>
 </item>
 <item>
-  <title>How to write great Jupyter notebooks</title>
-  <link>https://wasimlorgat.com/</link>
-  <description>How to write great notebooks -- everything we know about writing great notebooks after years of working with nbdev.</description>
+  <title>How to write great Jupyter notebooks with nbdev</title>
+  <link>https://wasimlorgat.com/posts/notebook-best-practices.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Author’s note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>I originally wrote this in my free time as a volunteer contribution to the nbdev documentation. This is my original author version, republished here for my own archive. The maintained version may differ and lives in the <a href="https://nbdev.fast.ai/tutorials/best_practices.html">official nbdev docs</a>.</p>
+</div>
+</div>
+<p>The flexibility offered by notebooks can be overwhelming. While there are industry standards for writing Python packages—like <a href="https://numpydoc.readthedocs.io/en/latest/format.html#docstring-standard">numpy</a> and <a href="https://sphinx-rtd-tutorial.readthedocs.io/en/latest/docstrings.html">sphinx</a> docstrings, and <a href="https://docs.pytest.org/">pytest</a> and <a href="https://docs.python.org/3/library/unittest.html">unittest</a> testing frameworks—they weren’t designed for notebooks.</p>
+<p>This article walks you through the practices we’ve learned to leverage the full power of notebooks with nbdev<sup>1</sup>. Our approach weaves code, tests, and docs into a single interactive context that invites experimentation. If you prefer to learn by example, you might want to start with the annotated example and branch out from there.</p>
+<div class="no-row-height column-margin column-container"><div id="fn1"><p><sup>1</sup>&nbsp;We’re always open to improving our workflows and don’t like to be too prescriptive about style. If you have any ideas, please feel free to post them in the <a href="https://forums.fast.ai/c/nbdev/48">forum</a>.</p></div></div><div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://wasimlorgat.com/posts/images/marie-curie-notebook.jpg" class="rounded preview-image img-fluid figure-img"></p>
+<figcaption>Marie Curie’s research notebook dated 19-21 January 1900 (<a href="https://commons.wikimedia.org/wiki/File:Marie_Curie;_Holograph_Notebook._Wellcome_L0021265.jpg">source</a>).</figcaption>
+</figure>
+</div>
+<section id="know-which-form-of-notebook-youre-writing" class="level2">
+<h2 class="anchored" data-anchor-id="know-which-form-of-notebook-youre-writing">Know which form of notebook you’re writing</h2>
+<p>First of all, decide which form of notebook you’re writing. We’re fans of the <a href="https://documentation.divio.com/">divio system</a> which classifies documentation into four forms: tutorials, how-to guides, explanations, and references. They’ve laid this out beautifully in the following diagram:</p>
+<p><img src="https://docs.divio.com/assets/images/overview-8b21327c9a55ca08c6712f26bda2113c.png" class="rounded img-fluid" alt="A 2x2 matrix, from top-left to bottom-right, 'Tutorials (learning-oriented)', 'How-to guides (problem-oriented)', 'Explanation (understanding-oriented), and 'Reference (information-oriented)'. Horizontal axis reads 'Most useful when we're studying' on the left, and 'Most useful when we're working' on the right. Vertical axis reads 'Practical steps' on top, and 'Theoretical knowledge' below."></p>
+</section>
+<section id="start-with-a-great-title-and-subtitle" class="level2">
+<h2 class="anchored" data-anchor-id="start-with-a-great-title-and-subtitle">Start with a great title and subtitle</h2>
+<p>Start with a markdown cell at the top of your notebook with its title in an H1 header, and subtitle in a blockquote. For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;"># Great title</span></span>
+<span id="cb1-2"></span>
+<span id="cb1-3"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">&gt; And an even better subtitle</span></span></code></pre></div></div>
+<p>The title will also be used to reference your page in the sidebar. You can also optionally add <a href="https://nbdev.fast.ai/api/frontmatter.html">frontmatter</a> to this cell to customize nbdev and Quarto.</p>
+</section>
+<section id="introduce-your-notebook" class="level2">
+<h2 class="anchored" data-anchor-id="introduce-your-notebook">Introduce your notebook</h2>
+<p>Introduce your notebook with markdown cells below the title. We recommend a slightly different approach depending on the form of documentation:</p>
+<ul>
+<li><strong>Reference:</strong> Start with a brief description of the technical component, and an overview that links to the main symbols in the page (you might want to use doclinks)</li>
+<li><strong>Tutorials and how-to guides:</strong> Describe what the reader will learn and how. Keep it short and get to the subject matter quickly</li>
+<li><strong>Explanations:</strong> Since these are typically very focused, a short description of the topic is often sufficient.</li>
+</ul>
+</section>
+<section id="use-lots-of-code-examples-pictures-plots-and-videos" class="level2">
+<h2 class="anchored" data-anchor-id="use-lots-of-code-examples-pictures-plots-and-videos">Use lots of code examples, pictures, plots, and videos</h2>
+<p>Take advantage of the richness of notebooks by including code examples, pictures, plots, and videos.</p>
+<p>Here are a few examples to get you started:</p>
+<ul>
+<li>fastai’s documentation makes extensive use of code examples, plots, images, and tables, for example, the <a href="https://docs.fast.ai/23_tutorial.vision.html">computer vision intro</a></li>
+<li><a href="https://nbdev.fast.ai/api/release.html"><code>nbdev.release</code></a> opens with a terminal screencast demo in SVG format created with <a href="https://asciinema.org/">asciinema</a> and <a href="https://github.com/marionebl/svg-term-cli">svg-term-cli</a></li>
+<li>The <a href="https://nbdev.fast.ai/explanations/docs.html#overview">documentation explanation</a> describes a complex data pipeline using a <a href="https://quarto.org/docs/authoring/diagrams.html">Mermaid diagram</a></li>
+<li>The <a href="https://nbdev.fast.ai/explanations/directives.html">directives explanation</a> showcases all of nbdev’s directives with executable examples in call-out cards (and makes great use of emojis too!)</li>
+<li><a href="https://www.rdkit.org/docs/Cookbook.html#drawing-molecules-jupyter">RDKit</a> renders beautiful molecule diagrams</li>
+</ul>
+</section>
+<section id="keep-docstrings-short-elaborate-in-separate-cells" class="level2">
+<h2 class="anchored" data-anchor-id="keep-docstrings-short-elaborate-in-separate-cells">Keep docstrings short; elaborate in separate cells</h2>
+<p>While nbdev renders docstrings as markdown, they aren’t rendered correctly when using <code>symbol?</code> or <code>help(symbol)</code> and they can’t include executed code. By splitting longer docstrings across separate code and markdown cells you can use code examples, pictures, plots, and videos.</p>
+<p>We find a single-line summary sufficient for most docstrings.</p>
+</section>
+<section id="document-parameters-with-docments" class="level2">
+<h2 class="anchored" data-anchor-id="document-parameters-with-docments">Document parameters with docments</h2>
+<p><a href="https://fastcore.fast.ai/docments.html"><code>fastcore.docments</code></a> is a concise way to document parameters that is beautifully rendered by nbdev. For example, this function:</p>
+<div id="08b3fc52" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> draw_n(n:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Number of cards to draw</span></span>
+<span id="cb2-2">           replace:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bool</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span> <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Draw with replacement?</span></span>
+<span id="cb2-3">          )<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">list</span>: <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># List of cards</span></span>
+<span id="cb2-4">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"Draw `n` cards."</span></span></code></pre></div></div>
+</div>
+<p>…would include the following table as part of its documentation:</p>
+<div class="py-2 px-3 mb-4 border rounded shadow-sm">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>n</td>
+<td>int</td>
+<td></td>
+<td>Number of cards to draw</td>
+</tr>
+<tr class="even">
+<td>replace</td>
+<td>bool</td>
+<td>True</td>
+<td>Draw with replacement?</td>
+</tr>
+<tr class="odd">
+<td><strong>Returns</strong></td>
+<td><strong>list</strong></td>
+<td></td>
+<td><strong>List of cards</strong></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>nbdev also supports some numpy docstring sections. For example, this code snippet would produce the same table (there’s no need to include types like in the docstring if you already have annotations):</p>
+<div id="3d89283a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> draw_n(n:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span>, replace:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bool</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> Cards:</span>
+<span id="cb3-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""</span></span>
+<span id="cb3-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Draw `n` cards.</span></span>
+<span id="cb3-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    </span></span>
+<span id="cb3-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Parameters</span></span>
+<span id="cb3-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    ----------</span></span>
+<span id="cb3-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    n</span></span>
+<span id="cb3-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        Number of cards to draw</span></span>
+<span id="cb3-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    replace</span></span>
+<span id="cb3-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        Draw with replacement?</span></span>
+<span id="cb3-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        </span></span>
+<span id="cb3-12"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Returns</span></span>
+<span id="cb3-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    -------</span></span>
+<span id="cb3-14"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    cards</span></span>
+<span id="cb3-15"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        List of cards</span></span>
+<span id="cb3-16"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    """</span></span></code></pre></div></div>
+</div>
+<div class="callout callout-style-simple callout-tip">
+<div class="callout-body d-flex">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-body-container">
+<p>You can render a symbol’s parameters table directly with <code>DocmentTbl</code>. In fact, that’s how we rendered the table above.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="consider-turning-code-examples-into-tests-by-adding-assertions" class="level2">
+<h2 class="anchored" data-anchor-id="consider-turning-code-examples-into-tests-by-adding-assertions">Consider turning code examples into tests by adding assertions</h2>
+<p>nbdev blurs the lines between code, docs, and tests. <em>Every</em> code cell is run as a test (unless it’s explicitly marked otherwise), and any error in the cell fails the test.</p>
+<p>Consider turning your code examples into tests by adding assertions – if they would make valuable tests and if it doesn’t hurt readability. <a href="https://fastcore.fast.ai/test.html"><code>fastcore.test</code></a> provides a set of light wrappers around <code>assert</code> for better notebook tests (for example, they print both objects on error if they differ).</p>
+<p>Here’s an example using <code>fastcore.test.test_eq</code>:</p>
+<div id="f42cf559" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> inc(x): <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span></span>
+<span id="cb4-2">test_eq(inc(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>), <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>)</span></code></pre></div></div>
+</div>
+</section>
+<section id="document-error-cases-as-tests" class="level2">
+<h2 class="anchored" data-anchor-id="document-error-cases-as-tests">Document error-cases as tests</h2>
+<p>Docstring-driven approaches typically document the errors raised by an object using plaintext descriptions, for example, in a “raises” section.</p>
+<p>In nbdev, we recommend documenting errors with actual failing code using <code>fastcore.test.test_fail</code>. For example:</p>
+<div id="a2cd0a74" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> divide(x, y): <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">/</span> y</span>
+<span id="cb5-2">test_fail(<span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">lambda</span>: divide(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), contains<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"division by zero"</span>)</span></code></pre></div></div>
+</div>
+<p>The first argument is a <code>lambda</code> since we need to allow <code>test_fail</code> to control its execution and catch any errors.</p>
+</section>
+<section id="reference-related-symbols-with-doclinks" class="level2">
+<h2 class="anchored" data-anchor-id="reference-related-symbols-with-doclinks">Reference related symbols with doclinks</h2>
+<p>If you surround a symbol with backticks, nbdev will automatically link to that symbol’s reference page. We call these <a href="https://nbdev.fast.ai/api/doclinks.html">doclinks</a>.</p>
+<p>Prefer fully qualified symbol paths, like <code>package.module.symbol</code> instead of <code>symbol</code>. It may be more verbose but it helps users know which module a symbol originates from, which is especially important for third-party packages.</p>
+<p>Any package created with nbdev will automatically support doclinks. Non-nbdev packages can be supported by creating a minimal nbdev-index package. <a href="https://github.com/fastai/nbdev-index"><code>nbdev-index</code></a> is a collection of such packages, which already supports django, numpy, pandas, pytorch, scipy, sphinx, the Python standard library, and even other programming languages like APL!</p>
+</section>
+<section id="add-rich-representations-to-your-classes" class="level2">
+<h2 class="anchored" data-anchor-id="add-rich-representations-to-your-classes">Add rich representations to your classes</h2>
+<p>This is another way to take advantage of the <a href="https://ipython.readthedocs.io/en/stable/config/integrating.html#rich-display">rich display feature of notebooks</a>. You can provide rich representations to your object by defining a <code>_repr_markdown_</code> method that returns markdown text (which may also include HTML/CSS).</p>
+<p>Here’s a simple example to get you started:</p>
+<div id="2428f2a5" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> Color:</span>
+<span id="cb6-2">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, color): <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.color <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> color</span>
+<span id="cb6-3">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> _repr_markdown_(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>):</span>
+<span id="cb6-4">        style <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'background-color: </span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>color<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">; width: 50px; height: 50px; margin: 10px'</span></span>
+<span id="cb6-5">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'&lt;div style="</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span>style<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"&gt;&lt;/div&gt;'</span></span></code></pre></div></div>
+</div>
+<div id="a1bd9c61" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">Color(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'green'</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div style="background-color: green; width: 50px; height: 50px; margin: 10px">
+
+</div>
+</div>
+</div>
+<div id="1e7332e1" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">Color(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'blue'</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<div style="background-color: blue; width: 50px; height: 50px; margin: 10px">
+
+</div>
+</div>
+</div>
+<p>Also see the earlier list of example projects that make use of beautiful visual representations.</p>
+</section>
+<section id="document-class-methods-with-show_doc-or-fastcore.basics.patch" class="level2">
+<h2 class="anchored" data-anchor-id="document-class-methods-with-show_doc-or-fastcore.basics.patch">Document class methods with <code>show_doc</code> or <code>fastcore.basics.patch</code></h2>
+<p>nbdev automatically documents exported function and class definitions with <code>show_doc</code>. However, it’s up to you to document class methods. There are two ways to do that: calling <code>show_doc</code> on the method, or defining the method with the <code>fastcore.basics.patch</code> decorator.</p>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs"><li class="nav-item"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" aria-controls="tabset-1-1" aria-selected="true" href="">Notebook (show_doc)</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" aria-controls="tabset-1-2" aria-selected="false" href="">Notebook (<span class="citation" data-cites="patch">@patch</span>)</a></li><li class="nav-item"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" aria-controls="tabset-1-3" aria-selected="false" href="">Docs</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" aria-labelledby="tabset-1-1-tab">
+<p>If your class is defined in a single cell, use <code>show_doc</code>. Here’s what your notebook might look like:</p>
+<div class="pt-4 pb-1 px-3 mb-2 border rounded shadow-sm">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| export</span></span>
+<span id="cb9-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> Number:</span>
+<span id="cb9-3">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"A number."</span></span>
+<span id="cb9-4">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, num): <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.num <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> num</span>
+<span id="cb9-5">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__add__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, other):</span>
+<span id="cb9-6">        <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"Sum of this and `other`."</span></span>
+<span id="cb9-7">        <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> Number(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.num <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> other.num)</span>
+<span id="cb9-8">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__repr__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>): <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'Number(</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>num<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">)'</span></span></code></pre></div></div>
+<p>For example, here is the number 5:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">Number(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">show_doc(Number.<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__add__</span>)</span></code></pre></div></div>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1">Number(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> Number(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>)</span></code></pre></div></div>
+</div>
+</div>
+<div id="tabset-1-2" class="tab-pane" aria-labelledby="tabset-1-2-tab">
+<p>If you split your class definition across cells with <code>fastcore.basics.patch</code>, here’s what your notebook might look like:</p>
+<div class="pt-4 pb-1 px-3 mb-2 border rounded shadow-sm">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| export</span></span>
+<span id="cb13-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> Number:</span>
+<span id="cb13-3">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"A number."</span></span>
+<span id="cb13-4">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__init__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, num): <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.num <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> num</span>
+<span id="cb13-5">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__repr__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>): <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> <span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">f'Number(</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">{</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">.</span>num<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">}</span><span class="ss" style="color: #20794D;
+background-color: null;
+font-style: inherit;">)'</span></span></code></pre></div></div>
+<p>For example, here is the number 5:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1">Number(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>)</span></code></pre></div></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| export</span></span>
+<span id="cb15-2"><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">@patch</span></span>
+<span id="cb15-3"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__add__</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>:Number, other):</span>
+<span id="cb15-4">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"Sum of this and `other`."</span></span>
+<span id="cb15-5">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> Number(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>.num <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> other.num)</span></code></pre></div></div>
+<p>For example:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1">Number(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> Number(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>)</span></code></pre></div></div>
+</div>
+</div>
+<div id="tabset-1-3" class="tab-pane" aria-labelledby="tabset-1-3-tab">
+<p>In either case, this is how the documentation would be rendered:</p>
+<div>
+<div id="9f49d293" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">show_doc(Number)</span></code></pre></div></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<hr>
+<section id="number" class="level3">
+<h3 class="anchored" data-anchor-id="number">Number</h3>
+<blockquote class="blockquote">
+<pre><code> Number (num)</code></pre>
+</blockquote>
+<p>A number.</p>
+</section>
+</div>
+</div>
+<p>For example, here is the number 5:</p>
+<div id="e11b7da9" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1">Number(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-display">
+<pre><code>Number(5)</code></pre>
+</div>
+</div>
+<div id="e65aa0b9" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1">show_doc(Number.<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">__add__</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<hr>
+<section id="number.__add__" class="level3">
+<h3 class="anchored" data-anchor-id="number.__add__">Number.__add__</h3>
+<blockquote class="blockquote">
+<pre><code> Number.__add__ (other)</code></pre>
+</blockquote>
+<p>Sum of this and <code>other</code>.</p>
+</section>
+</div>
+</div>
+<p>For example:</p>
+<div id="f27b5cc0" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1">Number(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">3</span>) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span> Number(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-display">
+<pre><code>Number(7)</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="group-symbols-with-h2-sections" class="level2">
+<h2 class="anchored" data-anchor-id="group-symbols-with-h2-sections">Group symbols with H2 sections</h2>
+<p>As your notebooks grow, consider grouping related symbols using markdown cells with level 2 headers. Since nbdev displays documented symbols as level 3 headers, this would group all symbols below your level 2 header.</p>
+<p>Here is the markdown syntax:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb25-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">## Section title</span></span></code></pre></div></div>
+</section>
+<section id="split-long-explanations-with-h4-sections" class="level2">
+<h2 class="anchored" data-anchor-id="split-long-explanations-with-h4-sections">Split long explanations with H4 sections</h2>
+<p>Similar to the previous section, as a symbol’s explanation grows, consider grouping its cells using level 4 headers. This is the recommended way to structure your reference docs, for example, to achieve numpy-style structures with sections like notes, examples, methods, and so on.</p>
+<p>Here’s the markdown syntax:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb26" style="background: #f1f3f5;"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb26-1"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">#### Section title</span></span></code></pre></div></div>
+</section>
+<section id="putting-it-all-together-an-annotated-example" class="level2 page-columns page-full">
+<h2 class="anchored" data-anchor-id="putting-it-all-together-an-annotated-example">Putting it all together: an annotated example</h2>
+<p>In this section, we’ll guide you through a full example of writing a documented and tested function in a notebook using all of the principles described above. We’ll use the <code>numpy.all</code> function since it follows the widely-known numpy-docstring standard for .py files.</p>
+<p>Below is the definition of the <code>numpy.all</code> function. Take note of how all of the information is included in the docstring. While this works well for .py files, it doesn’t let us weave executable code with rich markdown as we can in notebooks:</p>
+<div id="a6a40d5e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(a, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, out<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, keepdims<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np._NoValue, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">*</span>, where<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np._NoValue):</span>
+<span id="cb27-2">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"""</span></span>
+<span id="cb27-3"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Test whether all array elements along a given axis evaluate to True.</span></span>
+<span id="cb27-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Parameters</span></span>
+<span id="cb27-5"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    ----------</span></span>
+<span id="cb27-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    a : array_like</span></span>
+<span id="cb27-7"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        Input array or object that can be converted to an array.</span></span>
+<span id="cb27-8"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    axis : None or int or tuple of ints, optional</span></span>
+<span id="cb27-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        Axis or axes along which a logical AND reduction is performed.</span></span>
+<span id="cb27-10"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        The default (``axis=None``) is to perform a logical AND over all</span></span>
+<span id="cb27-11"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        the dimensions of the input array. `axis` may be negative, in</span></span>
+<span id="cb27-12"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        which case it counts from the last to the first axis.</span></span>
+<span id="cb27-13"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        .. versionadded:: 1.7.0</span></span>
+<span id="cb27-14"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        If this is a tuple of ints, a reduction is performed on multiple</span></span>
+<span id="cb27-15"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        axes, instead of a single axis or all the axes as before.</span></span>
+<span id="cb27-16"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    out : ndarray, optional</span></span>
+<span id="cb27-17"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        Alternate output array in which to place the result.</span></span>
+<span id="cb27-18"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        It must have the same shape as the expected output and its</span></span>
+<span id="cb27-19"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        type is preserved (e.g., if ``dtype(out)`` is float, the result</span></span>
+<span id="cb27-20"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        will consist of 0.0's and 1.0's). See :ref:`ufuncs-output-type` for more</span></span>
+<span id="cb27-21"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        details.</span></span>
+<span id="cb27-22"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    keepdims : bool, optional</span></span>
+<span id="cb27-23"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        If this is set to True, the axes which are reduced are left</span></span>
+<span id="cb27-24"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        in the result as dimensions with size one. With this option,</span></span>
+<span id="cb27-25"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        the result will broadcast correctly against the input array.</span></span>
+<span id="cb27-26"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        If the default value is passed, then `keepdims` will not be</span></span>
+<span id="cb27-27"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        passed through to the `all` method of sub-classes of</span></span>
+<span id="cb27-28"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        `ndarray`, however any non-default value will be.  If the</span></span>
+<span id="cb27-29"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        sub-class' method does not implement `keepdims` any</span></span>
+<span id="cb27-30"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        exceptions will be raised.</span></span>
+<span id="cb27-31"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    where : array_like of bool, optional</span></span>
+<span id="cb27-32"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        Elements to include in checking for all `True` values.</span></span>
+<span id="cb27-33"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        See `~numpy.ufunc.reduce` for details.</span></span>
+<span id="cb27-34"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        .. versionadded:: 1.20.0</span></span>
+<span id="cb27-35"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Returns</span></span>
+<span id="cb27-36"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    -------</span></span>
+<span id="cb27-37"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    all : ndarray, bool</span></span>
+<span id="cb27-38"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        A new boolean or array is returned unless `out` is specified,</span></span>
+<span id="cb27-39"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">        in which case a reference to `out` is returned.</span></span>
+<span id="cb27-40"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    See Also</span></span>
+<span id="cb27-41"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    --------</span></span>
+<span id="cb27-42"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    ndarray.all : equivalent method</span></span>
+<span id="cb27-43"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    any : Test whether any element along a given axis evaluates to True.</span></span>
+<span id="cb27-44"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Notes</span></span>
+<span id="cb27-45"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    -----</span></span>
+<span id="cb27-46"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Not a Number (NaN), positive infinity and negative infinity</span></span>
+<span id="cb27-47"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    evaluate to `True` because these are not equal to zero.</span></span>
+<span id="cb27-48"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    Examples</span></span>
+<span id="cb27-49"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    --------</span></span>
+<span id="cb27-50"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    &gt;&gt;&gt; np.all([[True,False],[True,True]])</span></span>
+<span id="cb27-51"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    False</span></span>
+<span id="cb27-52"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    &gt;&gt;&gt; np.all([[True,False],[True,True]], axis=0)</span></span>
+<span id="cb27-53"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    array([ True, False])</span></span>
+<span id="cb27-54"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    &gt;&gt;&gt; np.all([-1, 4, 5])</span></span>
+<span id="cb27-55"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    True</span></span>
+<span id="cb27-56"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    &gt;&gt;&gt; np.all([1.0, np.nan])</span></span>
+<span id="cb27-57"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    True</span></span>
+<span id="cb27-58"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    &gt;&gt;&gt; np.all([[True, True], [False, True]], where=[[True], [False]])</span></span>
+<span id="cb27-59"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    True</span></span>
+<span id="cb27-60"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    &gt;&gt;&gt; o=np.array(False)</span></span>
+<span id="cb27-61"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    &gt;&gt;&gt; z=np.all([-1, 4, 5], out=o)</span></span>
+<span id="cb27-62"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    &gt;&gt;&gt; id(z), id(o), z</span></span>
+<span id="cb27-63"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    (28293632, 28293632, array(True)) # may vary</span></span>
+<span id="cb27-64"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">    """</span></span>
+<span id="cb27-65">    ...</span></code></pre></div></div>
+</div>
+<p>Alternatively, Here is how we’d write <code>numpy.all</code> in a notebook using nbdev. The first step is to define the function:</p>
+<div class="column-screen-inset-right">
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb28" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#| export</span></span>
+<span id="cb28-2"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(a, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Input array or object that can be converted to an array.</span></span>
+<span id="cb28-3">        axis:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">tuple</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Axis or axes along which a logical AND reduction is performed (default: all).</span></span>
+<span id="cb28-4">        out:np.ndarray<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Alternate output array in which to place the result.</span></span>
+<span id="cb28-5">        keepdims:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bool</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np._NoValue, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Leave reduced one-dimensional axes in the result?</span></span>
+<span id="cb28-6">        where<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np._NoValue, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Elements to include in reduction. See `numpy.ufunc.reduce` for details. New in version 1.20.0.</span></span>
+<span id="cb28-7">        ) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> np.ndarray<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bool</span>: <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># A new boolean or array, or a reference to `out` if its specified.</span></span>
+<span id="cb28-8">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"Test whether all array elements along a given axis evaluate to `True`."</span></span>
+<span id="cb28-9">    ...</span></code></pre></div></div>
+</div>
+<p>We can observe the following differences between this code and numpy-docstrings:</p>
+<ul>
+<li>The definition uses simple type annotations, which will be rendered in the function’s parameters table below</li>
+<li>Parameters are described with a short comment, called docments – a concise alternative to numpy and sphinx docstring formats (although nbdev does support numpy docstrings see this example)</li>
+<li>The docstring and parameter descriptions are all short, single-line summaries. We prefer to keep docstrings short and instead elaborate in separate cells, where we can use markdown and real code examples.</li>
+</ul>
+<p>Our function definition is automatically rendered in the docs like this. Note that parameter names, types, defaults, and details are all parsed from the definition which means you don’t have to repeat yourself.</p>
+<div class="pt-2 pb-1 px-3 mt-2 mb-4 border rounded shadow-sm overflow-auto">
+<div id="0c20416d" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(a, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Input array or object that can be converted to an array.</span></span>
+<span id="cb29-2">        axis:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">int</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">tuple</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Axis or axes along which a logical AND reduction is performed (default: all).</span></span>
+<span id="cb29-3">        out:np.ndarray<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Alternate output array in which to place the result.</span></span>
+<span id="cb29-4">        keepdims:<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bool</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np._NoValue, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Leave reduced one-dimensional axes in the result?</span></span>
+<span id="cb29-5">        where<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>np._NoValue, <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Elements to include in reduction. See `numpy.ufunc.reduce` for details. New in version 1.20.0.</span></span>
+<span id="cb29-6">        ) <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-&gt;</span> np.ndarray<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|</span><span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">bool</span>: <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># A new boolean or array, or a reference to `out` if its specified.</span></span>
+<span id="cb29-7">    <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">"Test whether all array elements along a given axis evaluate to `True`."</span></span>
+<span id="cb29-8">    ...</span>
+<span id="cb29-9"></span>
+<span id="cb29-10">show_doc(<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>)</span></code></pre></div></div>
+<div class="cell-output cell-output-display cell-output-markdown">
+<hr>
+<section id="all" class="level3">
+<h3 class="anchored" data-anchor-id="all">all</h3>
+<blockquote class="blockquote">
+<pre><code> all (a, axis:Union[int,tuple,NoneType]=None,
+      out:Optional[numpy.ndarray]=None, keepdims:bool=&lt;no value&gt;,
+      where=&lt;no value&gt;)</code></pre>
+</blockquote>
+<p>Test whether all array elements along a given axis evaluate to <code>True</code>.</p>
+<table class="caption-top table table-sm table-striped small">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>a</td>
+<td></td>
+<td></td>
+<td>Input array or object that can be converted to an array.</td>
+</tr>
+<tr class="even">
+<td>axis</td>
+<td>int | tuple | None</td>
+<td>None</td>
+<td>Axis or axes along which a logical AND reduction is performed (default: all).</td>
+</tr>
+<tr class="odd">
+<td>out</td>
+<td>np.ndarray | None</td>
+<td>None</td>
+<td>Alternate output array in which to place the result.</td>
+</tr>
+<tr class="even">
+<td>keepdims</td>
+<td>bool</td>
+<td><no value=""></no></td>
+<td>Leave reduced one-dimensional axes in the result?</td>
+</tr>
+<tr class="odd">
+<td>where</td>
+<td>_NoValueType</td>
+<td><no value=""></no></td>
+<td>Elements to include in reduction. See <code>numpy.ufunc.reduce</code> for details. New in version 1.20.0.</td>
+</tr>
+<tr class="even">
+<td><strong>Returns</strong></td>
+<td><strong>np.ndarray | bool</strong></td>
+<td></td>
+<td><strong>A new boolean or array, or a reference to <code>out</code> if its specified.</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+</div>
+</div>
+</div>
+<p>Next, describe how to use your function using markdown cells and lots of code examples. This is the biggest benefit to developing in notebooks: instead of copying and pasting code examples into plaintext, you can include real executeable code examples.</p>
+<p>We start with basic usage first:</p>
+<div class="pt-3 pb-1 px-3 mt-2 mb-4 border rounded shadow-sm">
+<p>For example:</p>
+<div id="5cbee86a" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">x <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> [[<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>,<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>],[<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>,<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>]]</span>
+<span id="cb31-2">test_eq(np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(x), <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>)</span></code></pre></div></div>
+</div>
+</div>
+<p>Our code examples use assertion functions from <code>fastcore.test</code>, so that they serve as both docs and tests. <code>nbdev_test</code> runs every code cell as a test (unless it’s explicitly marked otherwise), and any error in the cell fails the test.</p>
+<p>Having described basic usage, we now elaborate on more advanced functionality for each parameter. This differs from numpy’s approach which includes all parameter docs in the table and where not all parameters have code examples.</p>
+<div class="pt-3 pb-1 px-3 mt-2 mb-4 border rounded shadow-sm">
+<p>With <code>axis</code>:</p>
+<div id="c3e82a98" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1">test_eq(np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(x, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>), [<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>,<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>])</span></code></pre></div></div>
+</div>
+<p><code>axis</code> may be negative, in which case it counts from the last to the first axis:</p>
+<div id="b5eeac7d" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1">test_eq(np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(x, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>), [<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>,<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>])</span></code></pre></div></div>
+</div>
+<p>If <code>axis</code> is a tuple of ints, a reduction is performed on multiple axes, instead of a single axis or all the axes as before.</p>
+<div id="d88ff8f7" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1">test_eq(np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(x, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>)), <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>)</span></code></pre></div></div>
+</div>
+<p>Integers, floats, not a number (nan), and infinity all evaluate to <code>True</code> because they’re not equal to zero:</p>
+<div id="140f54ff" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1">test_eq(np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>([<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>, <span class="fl" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1.0</span>, np.nan, np.inf, <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span>np.inf]), <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span></code></pre></div></div>
+</div>
+<p>You can use <code>where</code> to test specific elements. For example, this tests only the second column:</p>
+<div id="77791ed8" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb36" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1">test_eq(np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(x, where<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>[[<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>],[<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>]]), <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span></code></pre></div></div>
+</div>
+<p>The output can be stored in an optional <code>out</code> array. If provided, a reference to <code>out</code> will be returned:</p>
+<div id="a54a5c79" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1">o <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.array(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>)</span>
+<span id="cb37-2">z <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>([<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">4</span>, <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>], out<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span>o)</span>
+<span id="cb37-3">test_is(z, o)</span>
+<span id="cb37-4">test_eq(z, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span></code></pre></div></div>
+</div>
+<p><code>out</code> must have the same shape as the expected output and its type is preserved (e.g., if <code>dtype(out)</code> is float, the result will consist of 0.0’s and 1.0’s). See <a href="https://numpy.org/doc/stable/user/basics.ufuncs.html#ufuncs-output-type">Output type determination</a> for more details.</p>
+<p>With <code>keepdims</code>, the result will broadcast correctly against the input array.</p>
+<div id="6f585fea" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1">test_eq(np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(x, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, keepdims<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>), [[<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>, <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">False</span>]]) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># Note the nested list</span></span></code></pre></div></div>
+</div>
+<p>If the default value is passed, then <code>keepdims</code> will not be passed through to the <code>all</code> method of sub-classes of <code>ndarray</code>, however any non-default value will be. If the sub-class’ method does not implement <code>keepdims</code> any exceptions will be raised.</p>
+<div id="4f05c8e8" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> MyArray(np.ndarray):</span>
+<span id="cb39-2">    <span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">def</span> <span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(<span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">self</span>, axis<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>, out<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">None</span>): ...</span>
+<span id="cb39-3"></span>
+<span id="cb39-4">y <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> MyArray((<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>))</span>
+<span id="cb39-5">y[:] <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> x</span>
+<span id="cb39-6">np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(y) <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># No TypeError since `keepdims` isn't passed</span></span>
+<span id="cb39-7">test_fail(<span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">lambda</span>: np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(y, keepdims<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>), contains<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"all() got an unexpected keyword argument 'keepdims'"</span>)</span></code></pre></div></div>
+</div>
+</div>
+<p>Since we prefer to document via code examples, we also document error-cases with assertions using <code>fastcore.test.test_fail</code>. This differs from docstring-based approaches which usually document error-cases in prose, usually in a “raises” section of the docstring.</p>
+<p>Finally, we link to related symbols with doclinks (symbols surrounded in backticks are automatically linked) and describe their relation using code examples.</p>
+<div class="pt-3 pb-1 px-3 mt-2 mb-4 border rounded shadow-sm">
+<p>The <code>numpy.ndarray.all</code> method is equivalent to calling <code>numpy.all</code> with the array:</p>
+<div id="3370e60e" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1">test_eq(np.array(x).<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(), np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">all</span>(x))</span></code></pre></div></div>
+</div>
+<p>In contrast, <code>numpy.any</code> tests whether <em>any</em> element evaluates to <code>True</code> (rather than <em>all</em> elements):</p>
+<div id="e6b24e25" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb41-1">test_eq(np.<span class="bu" style="color: null;
+background-color: null;
+font-style: inherit;">any</span>(x), <span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span></code></pre></div></div>
+</div>
+</div>
+<section id="recap" class="level3">
+<h3 class="anchored" data-anchor-id="recap">Recap</h3>
+<p>In summary, here is how the nbdev version of <code>numpy.all</code> differs from the numpy docstring. nbdev uses:</p>
+<ul>
+<li>Type annotations and docments instead of the numpy docstring format (although nbdev supports numpy docstrings too)</li>
+<li>Short parameter descriptions, with details in separate cells with markdown and code example</li>
+<li>Doclinks to related symbols instead of a “See also” section</li>
+<li>Lots of code examples (which are also tests) mixed with prose to describe how to use the function</li>
+<li>Code examples with assertions to document error-cases instead of a “Raises” section.</li>
+</ul>
+
+
+</section>
+</section>
+
+
+ ]]></description>
   <category>tutorial</category>
-  <guid>https://wasimlorgat.com/</guid>
-  <pubDate>Mon, 19 Sep 2022 00:00:00 GMT</pubDate>
-  <media:content url="https://wasimlorgat.com/posts/images/marie-curie-notebook.jpg" medium="image" type="image/jpeg"/>
+  <guid>https://wasimlorgat.com/posts/notebook-best-practices.html</guid>
+  <pubDate>Thu, 22 Sep 2022 00:00:00 GMT</pubDate>
 </item>
 <item>
   <title>Notes from the fast.ai APL study group</title>
@@ -2672,7 +3932,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 </figure>
 </div>
 <p>You should now be able to write Dyalog directly in your notebook! Try it out:</p>
-<div id="756784ba" class="cell" data-vscode="{&quot;languageId&quot;:&quot;apl&quot;}">
+<div id="756784ba" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;apl&quot;}}">
 <pre class="apl cell-code"><code>1 2 3 - 4 5 6</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">¯3 ¯3 ¯3
@@ -2710,7 +3970,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 </div>
 <p>A good way to learn new concepts in APL (and in general) is to look at an example, try to predict what it’ll do before you run it, then run it and compare with your prediction. APL documentation is filled with examples which makes this approach even more powerful. The documentation will often include multiple examples as separate elements of an array.</p>
 <p>For example, you should read the example for <a href="https://help.dyalog.com/latest/index.htm#Language/Symbols/Minus%20Sign.htm">negate</a>:</p>
-<div id="d3eed468" class="cell" data-vscode="{&quot;languageId&quot;:&quot;apl&quot;}">
+<div id="d3eed468" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;apl&quot;}}">
 <pre class="apl cell-code"><code>- 3.2 ¯7 0</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">¯3.2 7 0
@@ -2718,21 +3978,21 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 </div>
 </div>
 <p>as three examples:</p>
-<div id="80432a06" class="cell" data-vscode="{&quot;languageId&quot;:&quot;apl&quot;}">
+<div id="80432a06" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;apl&quot;}}">
 <pre class="apl cell-code"><code>- 3.2</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">¯3.2
 </span>
 </div>
 </div>
-<div id="b7104b05" class="cell" data-vscode="{&quot;languageId&quot;:&quot;apl&quot;}">
+<div id="b7104b05" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;apl&quot;}}">
 <pre class="apl cell-code"><code>- ¯7</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">7
 </span>
 </div>
 </div>
-<div id="4acfbbea" class="cell" data-vscode="{&quot;languageId&quot;:&quot;apl&quot;}">
+<div id="4acfbbea" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;apl&quot;}}">
 <pre class="apl cell-code"><code>- 0</code></pre>
 <div class="cell-output cell-output-display">
 <span style="white-space:pre; font-family: monospace">0
@@ -2799,7 +4059,7 @@ Sohl-Dickstein, Jascha, Eric A. Weiss, Niru Maheswaranathan, and Surya Ganguli. 
 <h2 class="anchored" data-anchor-id="create-a-curses-application">Create a curses application</h2>
 <p>We’ll use the <a href="https://docs.python.org/3/library/curses.html"><code>curses</code></a> library to avoid having to deal with low level issues like efficiently painting to the terminal screen and receiving user input. I’m going to skim over specifics about <code>curses</code> so we can focus on the editor itself. Please refer to <a href="https://docs.python.org/3/howto/curses.html">the docs</a> if you’d like to dig a little deeper.</p>
 <p>Start with a barebones <code>curses</code> application. Create a file, <code>editor.py</code>, and begin with the following:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> curses</span>
 <span id="cb1-2"></span>
@@ -2829,7 +4089,7 @@ background-color: null;
 font-style: inherit;">==</span> <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"__main__"</span>:</span>
-<span id="cb1-10">    curses.wrapper(main)</span></code></pre></div>
+<span id="cb1-10">    curses.wrapper(main)</span></code></pre></div></div>
 <p><code>curses.wrapper</code> prepares your terminal and later restores its original state. It then passes an object that represents the terminal screen, called <code>stdscr</code> (short for <em>standard screen</em> like standard in, out, and error).</p>
 </section>
 <section id="a-way-out" class="level2">
@@ -2837,7 +4097,7 @@ font-style: inherit;">"__main__"</span>:</span>
 <p><em>Problem 1.</em> If you run this, the only way out will be a keyboard interrupt with <code>Ctrl-c</code>. That’s not great, add a cleaner way out.</p>
 <p><em>Solution.</em> <code>stdscr.getkey</code> blocks until a key is pressed, then stores it into the <code>k</code> variable, which is mapped to a <code>sys.exit</code> call to cleanly exit the application.</p>
 <p><em>(Comments like <code># ...</code> signal that lines from the previous snippet are unchanged. In this case, <code>import curses</code> remains the first line of <code>editor.py</code>, and the <code>if __name__ == "__main__":</code> block remains at the end of the file.)</em></p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb2-2"><span class="im" style="color: #00769E;
@@ -2872,17 +4132,17 @@ font-style: inherit;">0</span>)</span>
 <span id="cb2-10"></span>
 <span id="cb2-11"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>Running the script should land you in a blank page. Then pressing <code>q</code> should get you back out.</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb3-1"><span class="ex" style="color: null;
 background-color: null;
-font-style: inherit;">$</span> python editor.py</span></code></pre></div>
+font-style: inherit;">$</span> python editor.py</span></code></pre></div></div>
 </section>
 <section id="load-and-view-a-file" class="level2">
 <h2 class="anchored" data-anchor-id="load-and-view-a-file">Load and view a file</h2>
 <p><em>Problem 2.</em> Before we can edit text, we’ll need to be able to display it. Add a way for a user to specify a file. Load that file into memory and display it in the curses window.</p>
 <p><em>Solution.</em> Add an <code>ArgumentParser</code> that expects a single <code>filename</code>, reads the file’s contents to a variable. In the main loop, display each row of the file with <code>stdscr.addstr</code>.</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> argparse</span>
 <span id="cb4-2"></span>
@@ -2957,12 +4217,12 @@ font-style: inherit;">0</span>)</span>
 <span id="cb4-21"></span>
 <span id="cb4-22"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>The contents of the file are stored in-memory until they’re ready to be rewritten into a file, hence the name <em>buffer</em>. Text editor buffers have some <a href="https://www.cs.unm.edu/~crowley/papers/sds.pdf">interesting implementations</a>, but we won’t get into that just yet.</p>
 <p>Rerun the application, this time pointing it to a file:</p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb5-1"><span class="ex" style="color: null;
 background-color: null;
-font-style: inherit;">$</span> python editor.py editor.py</span></code></pre></div>
+font-style: inherit;">$</span> python editor.py editor.py</span></code></pre></div></div>
 <p>The double <code>editor.py</code> isn’t a typo. We’re editing the source of the editor! Which you should now be able to view in your terminal.</p>
 </section>
 <section id="view-the-buffer-through-a-window" class="level2">
@@ -2972,7 +4232,7 @@ font-style: inherit;">$</span> python editor.py editor.py</span></code></pre></d
 <p>The application is trying to draw the buffer beyond the length of the screen! In order to fix that, introduce a <em>window</em> with some <em>width</em> and <em>height</em>, and trim the rendered buffer to the width and height of the window.</p>
 <p><em>Solution.</em> Add a <code>Window</code> class with <code>n_rows</code> and <code>n_cols</code> attributes. In the main function, instantiate a <code>Window</code> with size <code>(curses.LINES - 1, curses.COLS - 1)</code>; these are constants that hold the number of lines and columns in the current curses window. Then trim the buffer before rendering it in the main loop.</p>
 <p><em>(The comment <code># ... def main(stdscr):</code> hints that the text immediately following it belongs to the <code>main</code> function.)</em></p>
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb7-2"></span>
@@ -3039,13 +4299,13 @@ font-style: inherit;">0</span>, line[:window.n_cols])</span>
 <span id="cb7-16"></span>
 <span id="cb7-17"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 </section>
 <section id="move-the-cursor-through-the-buffer" class="level2">
 <h2 class="anchored" data-anchor-id="move-the-cursor-through-the-buffer">Move the cursor through the buffer</h2>
 <p><em>Problem 4.</em> The next step towards editing is cursor movement. Introduce a <em>cursor</em>, positioned at a given <em>row</em> and <em>column</em>. For now, initiate the cursor at <code>(0, 0)</code>, then render the <code>stdscr</code> cursor at the current position. Don’t add any movement functionality just yet.</p>
 <p><em>Solution.</em> Create a <code>Cursor</code> class with attributes <code>row</code> and <code>col</code>, both default to 0. Instantiate a <code>Cursor</code> in <code>main</code>, and call <code>stdscr.move</code> to the current cursor position in the main loop:</p>
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb8-2"></span>
@@ -3124,11 +4384,11 @@ font-style: inherit;">0</span>, line[:window.n_cols])</span>
 <span id="cb8-18"></span>
 <span id="cb8-19"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>The cursor should now be displayed at <code>(0, 0)</code>.</p>
 <p><em>Problem 5.</em> Next, add cursor movement. Define a method for each direction: <code>up</code>, <code>down</code>, <code>left</code>, and <code>right</code>, each of which update the <code>row</code> or <code>col</code> as required. Then map the arrow keys to these cursor movement methods in the main loop.</p>
 <p><em>Solution.</em></p>
-<div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Cursor:</span></span>
 <span id="cb9-2"></span>
@@ -3245,12 +4505,12 @@ font-style: inherit;">"KEY_RIGHT"</span>:</span>
 <span id="cb9-28"></span>
 <span id="cb9-29"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>Rerun the application and give it a spin. It works great! Until…</p>
 <p><em>Problem 6.</em> It crashes when you try to move outside of the screen. We should probably restrict the cursor within the buffer.</p>
 <p><em>(You may have already solved this in your solution to Problem 5. If so, well done, and feel free to skip ahead!)</em></p>
 <p><em>Solution.</em> Update the movement methods to only move if they’ll remain within the buffer. Since cursor movement now depends on buffer properties, we also need to pass the <code>buffer</code> through as an argument:</p>
-<div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Cursor:</span></span>
 <span id="cb10-2"></span>
@@ -3425,10 +4685,10 @@ font-style: inherit;">buffer</span>)</span>
 <span id="cb10-32"></span>
 <span id="cb10-33"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p><em>Problem 7.</em> Almost there. Cursor movement should now mostly work, except that when moving to a shorter line the cursor will float outside the buffer. Fix that.</p>
 <p><em>Solution.</em> Restrict the cursor’s <code>col</code> to be within the line we move to:</p>
-<div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Cursor:</span></span>
 <span id="cb11-2"></span>
@@ -3559,11 +4819,11 @@ font-style: inherit;"># ...</span></span>
 <span id="cb11-24"></span>
 <span id="cb11-25"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p><em>Problem 8.</em> This works alright, but it’s not the most convenient. Often when you move to a shorter line and back to the original line, you mean for the cursor to be as it was before you moved at all. Implement this functionality.</p>
 <p><em>Solution.</em> We can achieve this by introducing a new variable, <code>_col_hint</code>, that keeps track of the last <code>col</code> explicitly moved to, and instead use that to reset the column after line movements.</p>
 <p>Whenever <code>col</code> is set by a horizontal movement, it should also update <code>_col_hint</code> to the same value. That value should be used when clamping. We can use a property and property setter to implement that.</p>
-<div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb12-2"></span>
@@ -3684,11 +4944,11 @@ font-style: inherit;">self</span>.row]))</span>
 <span id="cb12-22"></span>
 <span id="cb12-23"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>Note that <code>_clamp_col</code> sets the internal variable <code>_col</code> directly, avoiding the setter thus not resetting <code>_col_hint</code>.</p>
 <p><em>Problem 9.</em> There’s one final addition that should also improve the user experience. If the cursor is moved horizontally outside the buffer, wrap to the start (or end) of the next (or previous) line.</p>
 <p><em>Solution.</em></p>
-<div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Cursor:</span></span>
 <span id="cb13-2"></span>
@@ -3824,7 +5084,7 @@ font-style: inherit;">buffer</span>)</span>
 <span id="cb13-21"></span>
 <span id="cb13-22"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>Give it a spin. All should work well except when the cursor moves outside of the window.</p>
 </section>
 <section id="scroll-the-window-to-the-cursor" class="level2">
@@ -3832,7 +5092,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 <p><em>Problem 10.</em> We currently have no way of seeing any part of the buffer that’s outside the window. Worse still, we can also move the cursor outside of the window! Scroll the window vertically as the cursor moves. Don’t worry about horizontal scrolling for now.</p>
 <p><em>Solution.</em> Add <code>row</code> and <code>col</code> attributes to the <code>Window</code> that track the current position of the window as it scrolls through the buffer (specifically, the position of the top-left of the window). Then add methods to scroll the window vertically.</p>
 <p>Having learned from cursor movement, we’ll be sure to do the necessary checks the first time round: only scroll up if we’re not already at the top of the buffer and if the cursor exceeds the top of the window, and similarly for downward scrolling. In the main loop, scroll the window after moving the cursor. And finally, update where we start slicing the buffer when rendering.</p>
-<div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb14-2"></span>
@@ -4062,10 +5322,10 @@ background-color: null;
 font-style: inherit;">buffer</span>, cursor)</span>
 <span id="cb14-44"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>Note that left and right movement may require vertical scrolling since the cursor may be wrapped to the previous or next line.</p>
 <p>The last crucial piece is to translate the cursor’s actual position, which is in terms of the buffer, to be in terms of what’s displayed: the window. Add a <code>translate</code> method to the window, and use it to render the cursor:</p>
-<div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Window:</span></span>
 <span id="cb15-2"></span>
@@ -4121,11 +5381,11 @@ font-style: inherit;">*</span>window.translate(cursor))</span>
 <span id="cb15-13"></span>
 <span id="cb15-14"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p><em>Problem 11.</em> We’ve addressed vertical scrolling, but long lines still present an issue. There are two ways we might address long lines. We could either scroll the entire window with the cursor, as we did for vertical scrolling. This is how most editors work. Or we could scroll only the selected line to follow the cursor, which as far as I know is only implemented by <a href="https://www.nano-editor.org/">nano</a>. Let’s implement the second approach.</p>
 <p>The desired behaviour is that when the cursor exceeds some margin away from the right edge of the window, the window should be moved one page to the right, and similarly for the left side.</p>
 <p><em>Solution.</em> Add a <code>horizontal_scroll</code> method to <code>Window</code> that implements this, and call it after any cursor movements in the main loop.</p>
-<div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Window:</span></span>
 <span id="cb16-2"></span>
@@ -4229,9 +5489,9 @@ font-style: inherit;">buffer</span>, cursor)</span>
 <span id="cb16-25"></span>
 <span id="cb16-26"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>Next, update how the buffer renders long lines by including characters that indicate that a given line has more content on the left (<code>«</code>) or right (<code>»</code>).</p>
-<div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... def main(stdscr):</span></span>
 <span id="cb17-2"></span>
@@ -4309,13 +5569,13 @@ font-style: inherit;">*</span>window.translate(cursor))</span>
 <span id="cb17-12"></span>
 <span id="cb17-13">    <span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 </section>
 <section id="edit-the-buffer" class="level2">
 <h2 class="anchored" data-anchor-id="edit-the-buffer">Edit the buffer</h2>
 <p>And now to the key ingredient, actually editing text!</p>
 <p>Start by adding a <code>Buffer</code> class that wraps the list of lines. Implement <code>__len__</code> and <code>__getitem__</code> so that any dependents of <code>buffer</code> needn’t change. Set <code>buffer</code> to a <code>Buffer</code> instance instead of the current list of lines.</p>
-<div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb18-2"></span>
@@ -4399,10 +5659,10 @@ font-style: inherit;">=</span> Buffer(f.read().splitlines())</span>
 <span id="cb18-21"></span>
 <span id="cb18-22"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>Now’s a good time for a tiny refactor: extract <code>len(buffer) - 1</code> to the <code>Buffer.bottom</code> property. You might argue that this isn’t worth being extracted. My reasoning is that the last column in a line is <code>len(buffer[row])</code> whereas the last row in a buffer is <code>len(buffer) - 1</code>, and I can never get it right the first time!</p>
 <p>I think it’s good to be aware of the kinds of bugs you tend to introduce, rather than to always follow a dogmatic approach. It also has a nice symmetry with <code>Window.bottom</code>, though that’s less important. It might be worth considering doing similar for <code>len(buffer[row])</code>, but I find that easy to remember and already concise.</p>
-<div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Buffer:</span></span>
 <span id="cb19-2"></span>
@@ -4564,7 +5824,7 @@ font-style: inherit;">1</span></span>
 <span id="cb19-28"></span>
 <span id="cb19-29"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>We’ll be adding three methods to the buffer: <code>insert</code>, <code>split</code>, and <code>delete</code>.</p>
 <section id="insert-a-string-into-the-buffer" class="level3">
 <h3 class="anchored" data-anchor-id="insert-a-string-into-the-buffer">Insert a string into the buffer</h3>
@@ -4572,7 +5832,7 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 <p><em>Solution.</em></p>
 <p>Since the buffer stores text as a list of lines, and the cursor moves through a two-dimensional space, there’s a tiny bit of work we need to do to insert text at a given cursor.</p>
 <p>Pop the line under the cursor, split it at the cursor, and concatenate the before part, the string to be inserted, and the after part. Insert the concatenated string into the buffer at the cursor. And as usual, call the method in the main loop. This case differs slightly from previous, in that we’ll map all unmapped keys to <code>Buffer.insert</code>. That’s probably not ideal, for example, a user might enter <code>Ctrl-i</code> which will write <code>^I</code> to the buffer, but it’ll do for now.</p>
-<div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Buffer:</span></span>
 <span id="cb20-2"></span>
@@ -4629,9 +5889,9 @@ font-style: inherit;">buffer</span>.insert(cursor, k)</span>
 <span id="cb20-16"></span>
 <span id="cb20-17"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>Test it out. It’ll insert text, but won’t move the cursor after the inserted text. All we need to do is move right for each inserted character. Since we already have a command to move the cursor right (and scroll the window as needed), now’s the time to extract a <code>right</code> function and re-use it:</p>
-<div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb21-2"></span>
@@ -4687,13 +5947,13 @@ font-style: inherit;">buffer</span>, cursor)</span>
 <span id="cb21-17"></span>
 <span id="cb21-18"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 </section>
 <section id="split-a-line-in-the-buffer" class="level3">
 <h3 class="anchored" data-anchor-id="split-a-line-in-the-buffer">Split a line in the buffer</h3>
 <p><em>Probem 12.</em> If you hit enter, you won’t get the expected result, which is to split the line at the cursor.</p>
 <p><em>Solution.</em> Implement <code>split</code> as below, similar to <code>insert</code>.</p>
-<div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Buffer:</span></span>
 <span id="cb22-2"></span>
@@ -4747,13 +6007,13 @@ font-style: inherit;">buffer</span>, cursor)</span>
 <span id="cb22-14"></span>
 <span id="cb22-15"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 </section>
 <section id="delete-a-character-from-the-buffer" class="level3">
 <h3 class="anchored" data-anchor-id="delete-a-character-from-the-buffer">Delete a character from the buffer</h3>
 <p><em>Problem 13.</em> As in the previous section, hitting delete or backspace won’t give the expected result. Start by implementing a delete command, bound to the delete key, that deletes the character under the cursor.</p>
 <p><em>Solution.</em> Add a <code>delete</code> method. If the cursor is at the last position in the buffer, don’t do anything. Otherwise, there are two options. Either the cursor is inside a line, then follow similar logic to <code>insert</code> but instead of adding a string remove a character. Or the cursor is at the end of the line, then join the current line to the next.</p>
-<div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ... class Buffer:</span></span>
 <span id="cb23-2"></span>
@@ -4852,11 +6112,11 @@ font-style: inherit;">buffer</span>.delete(cursor)</span>
 <span id="cb23-19"></span>
 <span id="cb23-20"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>On MacOS, curses doesn’t correctly decode the backspace and delete keys, they’re instead returned as <code>\x7f</code> and <code>\x04</code> respectively. I haven’t found a satisfactory answer for why this is the case. If you know, I’d love to hear!</p>
 <p><em>Problem 14.</em> Implement backspace.</p>
 <p><em>Solution.</em> Backspace can be implemented by moving left and then deleting. Just as we extracted a <code>right</code> function for insertion, we’ll extract a <code>left</code> function here:</p>
-<div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><span class="co" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><span class="co" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;"># ...</span></span>
 <span id="cb24-2"></span>
@@ -4910,7 +6170,7 @@ font-style: inherit;">buffer</span>.delete(cursor)</span>
 <span id="cb24-14"></span>
 <span id="cb24-15"><span class="co" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;"># ...</span></span></code></pre></div>
+font-style: inherit;"># ...</span></span></code></pre></div></div>
 <p>And look at that! You’ve built a minimal yet functional text editor.</p>
 <p><em>Problem 15.</em> There’s one key piece of functionality still missing: saving the edited file. I’ll leave that as the final unsolved problem.</p>
 </section>
@@ -5098,17 +6358,17 @@ font-style: inherit;"># ...</span></span></code></pre></div>
 <p>To get started:</p>
 <ol type="1">
 <li><p>Install <code>pdlog</code>:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode sh code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
 background-color: null;
-font-style: inherit;">pip</span> install pdlog</span></code></pre></div></li>
+font-style: inherit;">pip</span> install pdlog</span></code></pre></div></div></li>
 <li><p>Import <code>pdlog</code> in your application:</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> pdlog</span></code></pre></div></li>
+font-style: inherit;">import</span> pdlog</span></code></pre></div></div></li>
 <li><p>Add <code>.log</code> before your method calls:</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">df <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">df <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> df.log.dropna()</span></code></pre></div>
+font-style: inherit;">=</span> df.log.dropna()</span></code></pre></div></div>
 <p>They’ll now log useful information about the operation, for example:</p>
 <pre class="output"><code>2020-05-26 20:55:30,049 INFO &lt;pdlog&gt; dropna: dropped 1 row (17%), 5 rows remaining</code></pre></li>
 </ol>

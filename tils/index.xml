@@ -9,7 +9,7 @@
 <link>https://wasimlorgat.com/tils/</link>
 <atom:link href="https://wasimlorgat.com/tils/index.xml" rel="self" type="application/rss+xml"/>
 <description>Recent notes on wasimlorgat.com</description>
-<generator>quarto-1.7.5</generator>
+<generator>quarto-1.10.6</generator>
 <lastBuildDate>Mon, 22 May 2023 00:00:00 GMT</lastBuildDate>
 <item>
   <title>Using shot-scraper to automate screenshots for my writing</title>
@@ -22,53 +22,83 @@
 <p>I’m trying out <a href="https://simonwillison.net/">Simon Willison’s</a> <a href="https://github.com/simonw/shot-scraper">shot-scraper</a> to include a screenshot of the <a href="https://fastai.github.io/jupytercon-2023/">website</a> for our JupyterCon 2023 tutorial in my <a href="../posts/jupytercon-2023.html">blog post</a>.</p>
 <p>First install the <code>shot-scraper</code> command line tool:</p>
 <div id="cell-3" class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!</span>pip3 install shot<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">-</span>scraper</span></code></pre></div>
+font-style: inherit;">-</span>scraper</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Collecting shot-scraper
+<div class="ansi-escaped-output">
+<pre>Collecting shot-scraper
+
   Downloading shot_scraper-1.2-py3-none-any.whl (15 kB)
+
 Collecting click
+
   Downloading click-8.1.3-py3-none-any.whl (96 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 96.6/96.6 kB 3.7 MB/s eta 0:00:00
+
+     <span class="ansi-bright-black-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">96.6/96.6 kB</span> <span class="ansi-red-fg">3.7 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>
+
 Requirement already satisfied: PyYAML in /opt/homebrew/lib/python3.11/site-packages (from shot-scraper) (6.0)
+
 Collecting playwright
+
   Downloading playwright-1.33.0-py3-none-macosx_11_0_arm64.whl (31.2 MB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 31.2/31.2 MB 5.5 MB/s eta 0:00:0000:0100:01
+
+     <span class="ansi-bright-black-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">31.2/31.2 MB</span> <span class="ansi-red-fg">5.5 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>00:0100:01
+
 Collecting click-default-group
+
   Downloading click-default-group-1.2.2.tar.gz (3.3 kB)
+
   Preparing metadata (setup.py) ... done
+
 Collecting greenlet==2.0.1
+
   Downloading greenlet-2.0.1-cp311-cp311-macosx_10_9_universal2.whl (259 kB)
-     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 259.4/259.4 kB 5.3 MB/s eta 0:00:00a 0:00:01
+
+     <span class="ansi-bright-black-fg">━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</span> <span class="ansi-green-fg">259.4/259.4 kB</span> <span class="ansi-red-fg">5.3 MB/s</span> eta <span class="ansi-cyan-fg">0:00:00</span>a <span class="ansi-cyan-fg">0:00:01</span>
+
 Collecting pyee==9.0.4
+
   Downloading pyee-9.0.4-py2.py3-none-any.whl (14 kB)
+
 Requirement already satisfied: typing-extensions in /opt/homebrew/lib/python3.11/site-packages (from pyee==9.0.4-&gt;playwright-&gt;shot-scraper) (4.5.0)
+
 Building wheels for collected packages: click-default-group
+
   Building wheel for click-default-group (setup.py) ... done
+
   Created wheel for click-default-group: filename=click_default_group-1.2.2-py3-none-any.whl size=3383 sha256=816707e9974b43b6f04f2e646cf851f2e041f0c7cc25fcb67612fb4d72973d4f
+
   Stored in directory: /Users/seem/Library/Caches/pip/wheels/69/9a/ed/1979767796ee1379d161a35fea9745a788476be12fb2ac664a
+
 Successfully built click-default-group
+
 Installing collected packages: pyee, greenlet, click, playwright, click-default-group, shot-scraper
+
 Successfully installed click-8.1.3 click-default-group-1.2.2 greenlet-2.0.1 playwright-1.33.0 pyee-9.0.4 shot-scraper-1.2
 
-[notice] A new release of pip is available: 23.0.1 -&gt; 23.1.2
-[notice] To update, run: python3.11 -m pip install --upgrade pip</code></pre>
+
+
+<span class="ansi-bold">[</span><span class="ansi-blue-fg">notice</span><span class="ansi-bold">]</span> A new release of pip is available: <span class="ansi-red-fg">23.0.1</span> -&gt; <span class="ansi-green-fg">23.1.2</span>
+
+<span class="ansi-bold">[</span><span class="ansi-blue-fg">notice</span><span class="ansi-bold">]</span> To update, run: <span class="ansi-green-fg">python3.11 -m pip install --upgrade pip</span>
+</pre>
+</div>
 </div>
 </div>
 <p>Then install the underlying browser used by <code>shot-scraper</code>:</p>
 <div id="cell-5" class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">-</span>scraper install</span></code></pre></div>
+font-style: inherit;">-</span>scraper install</span></code></pre></div></div>
 </div>
 <p>We can now take a screenshot of any website!</p>
 <div id="cell-7" class="cell" data-execution_count="35">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -104,7 +134,7 @@ font-style: inherit;">1600</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">--</span>height <span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">900</span></span></code></pre></div>
+font-style: inherit;">900</span></span></code></pre></div></div>
 </div>
 <p>Here’s the image:</p>
 <div id="cell-9" class="cell" data-execution_count="36">
@@ -118,7 +148,7 @@ font-style: inherit;">900</span></span></code></pre></div>
 </div>
 <p>I want a resolution of 1600x900 but the font size is too small here. Halving the width and height and doubling the device scale factor with the <code>--retina</code> flag should fix this:</p>
 <div id="cell-11" class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -156,7 +186,7 @@ font-style: inherit;">--</span>height <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">450</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">--</span>retina</span></code></pre></div>
+font-style: inherit;">--</span>retina</span></code></pre></div></div>
 </div>
 <div id="cell-12" class="cell" data-execution_count="38">
 <div class="cell-output cell-output-display" data-execution_count="38">
@@ -169,7 +199,7 @@ font-style: inherit;">--</span>retina</span></code></pre></div>
 </div>
 <p>Finally, I want to exclude the nav bar. We can use a CSS selector for that:</p>
 <div id="cell-14" class="cell" data-execution_count="39">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -211,7 +241,7 @@ font-style: inherit;">--</span>height <span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">450</span> <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">--</span>retina</span></code></pre></div>
+font-style: inherit;">--</span>retina</span></code></pre></div></div>
 </div>
 <div id="cell-15" class="cell" data-execution_count="40">
 <div class="cell-output cell-output-display" data-execution_count="40">
@@ -224,7 +254,7 @@ font-style: inherit;">--</span>retina</span></code></pre></div>
 </div>
 <p>Ah, it doesn’t seem like <code>--selector</code> works together with <code>--width</code> and <code>--height</code>. Another way to do this might be by hiding the navbar by executing <code>--javascript</code> code:</p>
 <div id="cell-17" class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">!</span>shot<span class="op" style="color: #5E5E5E;
 background-color: null;
@@ -266,7 +296,7 @@ font-style: inherit;">--</span>retina <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">--</span>javascript <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"document.querySelector('#quarto-header').style.display = 'none'"</span></span></code></pre></div>
+font-style: inherit;">"document.querySelector('#quarto-header').style.display = 'none'"</span></span></code></pre></div></div>
 </div>
 <div id="cell-18" class="cell" data-execution_count="45">
 <div class="cell-output cell-output-display" data-execution_count="45">
@@ -294,7 +324,7 @@ font-style: inherit;">"document.querySelector('#quarto-header').style.display = 
 
 
 <div id="148e6fe2" class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> ipywidgets</span>
 <span id="cb1-2"><span class="im" style="color: #00769E;
@@ -304,11 +334,11 @@ font-style: inherit;">import</span> time</span>
 background-color: null;
 font-style: inherit;">from</span> threading <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> Thread</span></code></pre></div>
+font-style: inherit;">import</span> Thread</span></code></pre></div></div>
 </div>
 <p>Let’s start with a very simple interface. An input text, a submit button, and an output text (<code>disabled=True</code> so that it’s not editable):</p>
 <div id="3f558b9a" class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">input_ <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">input_ <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ipywidgets.Text(<span class="st" style="color: #20794D;
 background-color: null;
@@ -327,7 +357,7 @@ background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span>
-<span id="cb2-4">display(input_, button, output)</span></code></pre></div>
+<span id="cb2-4">display(input_, button, output)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"4bf5b79bfb63429abe02bb65dbbe9777","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -346,7 +376,7 @@ font-style: inherit;">True</span>)</span>
 </div>
 <p>This won’t do anything yet. We need to setup an <code>on_click</code> callback first. We’ll fake a request to OpenAI that simply sleeps for half a second then returns a fixed string. Then we’ll update the output text’s value with the result:</p>
 <div id="329b0fd4" class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> request_open_ai(prompt):</span>
@@ -358,44 +388,44 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Here's a summary of your text."</span></span></code></pre></div>
+font-style: inherit;">"Here's a summary of your text."</span></span></code></pre></div></div>
 </div>
 <div id="9ed19ad9" class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> update_output(text):</span>
 <span id="cb4-2">    output.value <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> text</span></code></pre></div>
+font-style: inherit;">=</span> text</span></code></pre></div></div>
 </div>
 <div id="3852d547" class="cell">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> on_click(button):</span>
 <span id="cb5-2">    text <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> request_open_ai(input_.value)</span>
-<span id="cb5-3">    update_output(text)</span></code></pre></div>
+<span id="cb5-3">    update_output(text)</span></code></pre></div></div>
 </div>
 <div id="15ea8d9e" class="cell">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">button.on_click(on_click)</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">button.on_click(on_click)</span></code></pre></div></div>
 </div>
 <p>If you click “Submit” now, it should populate the output after half a second.</p>
 <p>If we do this synchronously and in the main thread, the entire UI will hang during the <code>requestOpenAi</code> call. So instead, we can separate that call into another thread. I think ipywidgets already does a version of this for us. But if it didn’t, here’s a very rough version of how we’d do it:</p>
 <div id="dbbc77ee" class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">Thread(target<span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">Thread(target<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>request_open_ai, args<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span>(<span class="bu" style="color: null;
 background-color: null;
-font-style: inherit;">input</span>,)).run()</span></code></pre></div>
+font-style: inherit;">input</span>,)).run()</span></code></pre></div></div>
 </div>
 <p>But then how do we get the result and update the output with it? It’s often trickier to pass data across threads. Instead, we define our request function so that it accepts a callback that gets called with the result:</p>
 <div id="70ee4c97" class="cell">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> request_open_ai(prompt, on_completion):</span>
@@ -404,10 +434,10 @@ background-color: null;
 font-style: inherit;">0.5</span>)</span>
 <span id="cb8-3">    on_completion(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Here's a summary of your text."</span>)</span></code></pre></div>
+font-style: inherit;">"Here's a summary of your text."</span>)</span></code></pre></div></div>
 </div>
 <div id="367d7e89" class="cell">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> on_click(button):</span>
@@ -417,10 +447,10 @@ font-style: inherit;">=</span>request_open_ai, args<span class="op" style="color
 background-color: null;
 font-style: inherit;">=</span>(<span class="bu" style="color: null;
 background-color: null;
-font-style: inherit;">input</span>, update_output)).run()</span></code></pre></div>
+font-style: inherit;">input</span>, update_output)).run()</span></code></pre></div></div>
 </div>
 <div id="b65410e9" class="cell">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">input_ <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">input_ <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ipywidgets.Text(<span class="st" style="color: #20794D;
 background-color: null;
@@ -440,7 +470,7 @@ font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span>
 <span id="cb10-4">button.on_click(on_click)</span>
-<span id="cb10-5">display(input_, button, output)</span></code></pre></div>
+<span id="cb10-5">display(input_, button, output)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"0dddaf1ad66c40d5942a999cff5760c9","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -459,12 +489,12 @@ font-style: inherit;">True</span>)</span>
 </div>
 <p>This works okay, but starts to get very confusing as you add more and more nested callbacks. In fact, it can get so bad that it’s been nicknamed callback hell. Someone was so frustrated with it that they even created a <a href="http://callbackhell.com/">website</a>! This is where async/await becomes useful, since it looks a lot more like ordinary programming:</p>
 <div id="5106c857" class="cell">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> asyncio</span></code></pre></div>
+font-style: inherit;">import</span> asyncio</span></code></pre></div></div>
 </div>
 <div id="0aa9c776" class="cell">
-<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="cf" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">async</span> <span class="kw" style="color: #003B4F;
@@ -479,10 +509,10 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"Here's a summary of your text."</span></span></code></pre></div>
+font-style: inherit;">"Here's a summary of your text."</span></span></code></pre></div></div>
 </div>
 <div id="9f52a088" class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="cf" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">async</span> <span class="kw" style="color: #003B4F;
@@ -495,22 +525,22 @@ font-style: inherit;">=</span> <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">await</span> request_open_ai(input_.value)</span>
-<span id="cb13-3">    update_output(text)</span></code></pre></div>
+<span id="cb13-3">    update_output(text)</span></code></pre></div></div>
 </div>
 <p>Note how these functions look a lot similar to the original synchronous ones instead of having the weird callbacks.</p>
 <p>In most UI frameworks, we’d be able to pass in an async function like the new <code>on_click</code>. I’m not sure how to do that with ipywidgets, so we need to define a little wrapper that synchronously calls the async function, so we can set it as the button’s <code>on_click</code> handler (confusing, I know):</p>
 <div id="0821929b" class="cell">
-<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> on_click_sync(button):</span>
 <span id="cb14-2">    coroutine <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> on_click(button)</span>
-<span id="cb14-3">    asyncio.ensure_future(coroutine)</span></code></pre></div>
+<span id="cb14-3">    asyncio.ensure_future(coroutine)</span></code></pre></div></div>
 </div>
 <div id="fa6d1c51" class="cell">
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">input_ <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">input_ <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ipywidgets.Text(<span class="st" style="color: #20794D;
 background-color: null;
@@ -530,7 +560,7 @@ font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
 font-style: inherit;">True</span>)</span>
 <span id="cb15-4">button.on_click(on_click_sync)</span>
-<span id="cb15-5">display(input_, button, output)</span></code></pre></div>
+<span id="cb15-5">display(input_, button, output)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"19463a60508b44c0be86a16992db82d9","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -595,7 +625,7 @@ font-style: inherit;">True</span>)</span>
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Shutdown your server when you’re done working
+<span class="screen-reader-only">Important</span>Shutdown your server when you’re done working
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -622,12 +652,12 @@ Shutdown your server when you’re done working
 <ol type="1">
 <li><p>Install <a href="https://github.com/asciinema/asciinema">asciinema</a> and <a href="https://github.com/marionebl/svg-term-cli">svg-term-cli</a>.</p></li>
 <li><p>Record with asciinema:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb1-1"><span class="ex" style="color: null;
 background-color: null;
-font-style: inherit;">asciinema</span> rec demo.cast</span></code></pre></div>
+font-style: inherit;">asciinema</span> rec demo.cast</span></code></pre></div></div>
 <p>This records the session in the <a href="https://github.com/asciinema/asciinema/blob/develop/doc/asciicast-v2.md">asciicast v2 plaintext file format</a> (newline-delimited JSON with an initial header object followed by a timestamped event stream of stdin and stdout).</p></li>
 <li><p>Convert the <code>.cast</code> file to <code>.svg</code> with svg-term-cli:</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb2-1"><span class="ex" style="color: null;
 background-color: null;
 font-style: inherit;">svg-term</span> <span class="at" style="color: #657422;
 background-color: null;
@@ -641,7 +671,7 @@ font-style: inherit;">--width</span> 80 <span class="at" style="color: #657422;
 background-color: null;
 font-style: inherit;">--height</span> 22 <span class="at" style="color: #657422;
 background-color: null;
-font-style: inherit;">--no-optimize</span></span></code></pre></div>
+font-style: inherit;">--no-optimize</span></span></code></pre></div></div>
 <ul>
 <li>You probably want to play around with <code>width</code> and <code>height</code></li>
 <li><code>window</code> adds a fake OS window around the terminal session</li>
@@ -671,11 +701,59 @@ font-style: inherit;">--no-optimize</span></span></code></pre></div>
 <section id="what-went-wrong" class="level2">
 <h2 class="anchored" data-anchor-id="what-went-wrong">What went wrong</h2>
 <p>It starts with a failed test:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1">pat <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1">pat <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="vs" style="color: #20794D;
 background-color: null;
-font-style: inherit;">r"\[\d, \d+.\d+, \d+.\d+, \d+.\d+, '\d\d:\d\d'\]"</span></span>
+font-style: inherit;">r"</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\[</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\d</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">, </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\d</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.\d</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">, </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\d</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.\d</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">, </span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\d</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">.\d</span><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">, '</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\d\d</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">\d\d</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'</span><span class="ch" style="color: #20794D;
+background-color: null;
+font-style: inherit;">\]</span><span class="vs" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span></span>
 <span id="cb1-2">test_stdout(<span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
@@ -685,7 +763,7 @@ font-style: inherit;">1</span>), pat, regex<span class="op" style="color: #5E5E5
 background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">True</span>)</span></code></pre></div>
+font-style: inherit;">True</span>)</span></code></pre></div></div>
 <p>The idea is to test that calling <code>learn.fit(1)</code> writes text to <code>stdout</code> (<a href="https://en.wikipedia.org/wiki/Standard_streams#Standard_output_(stdout)">standard output</a>) that matches the regex pattern <code>pat</code>. For those less familiar, this form of testing is common in projects that use <code>nbdev</code>.</p>
 <p>Here’s what actually happens:</p>
 <ol type="1">
@@ -705,7 +783,7 @@ font-style: inherit;">True</span>)</span></code></pre></div>
 <h2 class="anchored" data-anchor-id="processpoolexecutors-reuse-processes"><code>ProcessPoolExecutor</code>s reuse processes</h2>
 <p>Perhaps we should know this simply from the name, but I didn’t, so we’ll figure it out with a tiny experiment. Start by creating a pool with 2 <code>max_workers</code>:</p>
 <div id="de16d633" class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> concurrent.futures <span class="im" style="color: #00769E;
 background-color: null;
@@ -717,42 +795,42 @@ font-style: inherit;">=</span> ProcessPoolExecutor(max_workers<span class="op" s
 background-color: null;
 font-style: inherit;">=</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span>)</span></code></pre></div>
+font-style: inherit;">2</span>)</span></code></pre></div></div>
 </div>
 <p>There aren’t any processes in the pool yet:</p>
 <div id="5aefa6f4" class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">pool._processes</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">pool._processes</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>{}</code></pre>
 </div>
 </div>
 <p>Submit a task: the function <code>os.getpid</code>, which will return the process ID of the worker that runs it. Since there are no processes in the pool, <code>submit</code> will start a new worker process, and have it execute the task. <code>ProcessPoolExecutor.submit</code> returns a <code>Future</code> object, and <code>Future.result</code> returns the task’s return value:</p>
 <div id="83042bc6" class="cell">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> os</span>
 <span id="cb5-2"></span>
 <span id="cb5-3">future <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pool.submit(os.getpid)</span>
-<span id="cb5-4">future.result()</span></code></pre></div>
+<span id="cb5-4">future.result()</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>45907</code></pre>
 </div>
 </div>
 <p>No matter how many times you manually rerun the above cell, it will aways be executed on the same process. Notice that the process is now also available in the pool:</p>
 <div id="2289c195" class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">pool._processes</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1">pool._processes</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>{45907: &lt;SpawnProcess name='SpawnProcess-1' pid=45907 parent=45899 started&gt;}</code></pre>
 </div>
 </div>
 <p>If we submit another task:</p>
 <div id="baeed3e4" class="cell">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">future <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">future <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> pool.submit(os.getpid)</span>
-<span id="cb9-2">future.result()</span></code></pre></div>
+<span id="cb9-2">future.result()</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>45907</code></pre>
 </div>
@@ -760,7 +838,7 @@ font-style: inherit;">=</span> pool.submit(os.getpid)</span>
 <p>…it’s still executed on the same process.</p>
 <p>Let’s try executing two processes at the same time:</p>
 <div id="c75ca42a" class="cell">
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">futures <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1">futures <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [pool.submit(os.getpid) <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -779,14 +857,14 @@ font-weight: bold;
 font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">in</span> futures]</span></code></pre></div>
+font-style: inherit;">in</span> futures]</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>[45907, 45907]</code></pre>
 </div>
 </div>
 <p>Weird. They’re both executed on the same process…</p>
 <div id="3cdb6137" class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">pool._processes</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">pool._processes</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>{45907: &lt;SpawnProcess name='SpawnProcess-1' pid=45907 parent=45899 started&gt;,
  45908: &lt;SpawnProcess name='SpawnProcess-2' pid=45908 parent=45899 started&gt;}</code></pre>
@@ -795,7 +873,7 @@ font-style: inherit;">in</span> futures]</span></code></pre></div>
 <p>It looks like another process was started! I haven’t confirmed this, but I suspect that when we submitted two futures, the pool determined that it needed more workers, so it started another. However, the first worker’s task ended before the second worker started up, so the first worker processed both.</p>
 <p>Since we instantiated the pool with 2 <code>max_workers</code>, these two processes will execute all tasks, no matter how many we submit:</p>
 <div id="d9729925" class="cell">
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">futures <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1">futures <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [pool.submit(os.getpid) <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -814,40 +892,40 @@ font-weight: bold;
 font-style: inherit;">for</span> o <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">in</span> futures]</span></code></pre></div>
+font-style: inherit;">in</span> futures]</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>[45907, 45907, 45907, 45907, 45907, 45907, 45907, 45907, 45907, 45907]</code></pre>
 </div>
 </div>
 <p>Shutdown the pool to free up any resources:</p>
 <div id="a58381d9" class="cell">
-<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">pool.shutdown()</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1">pool.shutdown()</span></code></pre></div></div>
 </div>
 </section>
 <section id="fastai-callbacks-register-themselves-on-import" class="level2">
 <h2 class="anchored" data-anchor-id="fastai-callbacks-register-themselves-on-import">fastai callbacks register themselves on import</h2>
 <p>This one is easy to demonstrate. <code>defaults</code> has no <code>callbacks</code> attribute to start with:</p>
 <div id="41907eba" class="cell">
-<div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> fastcore.basics <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> defaults</span>
 <span id="cb18-2"></span>
-<span id="cb18-3">defaults</span></code></pre></div>
+<span id="cb18-3">defaults</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>namespace(cpus=4)</code></pre>
 </div>
 </div>
 <p><code>defaults.callbacks</code> is populated after importing <code>ProgressCallback</code>:</p>
 <div id="cd08aee9" class="cell">
-<div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> fastai.callback.progress <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> ProgressCallback</span>
 <span id="cb20-2"></span>
-<span id="cb20-3">defaults</span></code></pre></div>
+<span id="cb20-3">defaults</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>namespace(cpus=4,
           benchmark=True,
@@ -865,15 +943,15 @@ font-style: inherit;">import</span> ProgressCallback</span>
 <h2 class="anchored" data-anchor-id="changes-to-imported-modules-persist-across-ipython-interactiveshells">Changes to imported modules persist across IPython <code>InteractiveShell</code>s</h2>
 <p>Why is any of the above a problem? Didn’t we say that <code>nbprocess_test</code> creates a separate shell for each notebook? Yes it does, but it turns out that changes to imported modules persist across shells.</p>
 <div id="d698070b" class="cell">
-<div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> execnb.shell <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> CaptureShell</span></code></pre></div>
+font-style: inherit;">import</span> CaptureShell</span></code></pre></div></div>
 </div>
 <p>First make sure that <code>CaptureShell</code> doesn’t have a <code>foo</code> attribute - this will make sense in a second:</p>
 <div id="8fb74dfa" class="cell">
-<div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><span class="cf" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">assert</span> <span class="kw" style="color: #003B4F;
@@ -883,91 +961,91 @@ font-style: inherit;">not</span> <span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">hasattr</span>(CaptureShell, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'foo'</span>)</span></code></pre></div>
+font-style: inherit;">'foo'</span>)</span></code></pre></div></div>
 </div>
 <p>Now add the <code>foo</code> attribute:</p>
 <div id="3067eb49" class="cell">
-<div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1">CaptureShell.foo <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1">CaptureShell.foo <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'bar'</span></span></code></pre></div>
+font-style: inherit;">'bar'</span></span></code></pre></div></div>
 </div>
 <p>We can see <code>foo</code> inside a <code>CaptureShell</code>:</p>
 <div id="c9bd3709" class="cell">
-<div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1">shell <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1">shell <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> CaptureShell()</span>
 <span id="cb25-2">shell.run(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'from execnb.shell import CaptureShell; CaptureShell.foo'</span>)</span>
-<span id="cb25-3">shell.result</span></code></pre></div>
+<span id="cb25-3">shell.result</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>'bar'</code></pre>
 </div>
 </div>
 <p>This happens because when we first imported from the <code>execnb.shell</code> module it was cached in <code>sys.modules</code>:</p>
 <div id="9f2ec767" class="cell">
-<div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> sys</span>
 <span id="cb27-2"></span>
 <span id="cb27-3">sys.modules[<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'execnb.shell'</span>]</span></code></pre></div>
+font-style: inherit;">'execnb.shell'</span>]</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>&lt;module 'execnb.shell' from '/Users/seem/code/execnb/execnb/shell.py'&gt;</code></pre>
 </div>
 </div>
 <p>In fact, <code>sys.modules['execnb.shell'].CaptureShell</code> is another name for <code>CaptureShell</code>:</p>
 <div id="f4299eeb" class="cell">
-<div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1">sys.modules[<span class="st" style="color: #20794D;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1">sys.modules[<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'execnb.shell'</span>].CaptureShell <span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">is</span> CaptureShell</span></code></pre></div>
+font-style: inherit;">is</span> CaptureShell</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>True</code></pre>
 </div>
 </div>
 <p>Python caches imports to speed up consecutive imports from the same modules. <code>InteractiveShell</code> (and its sub-classes) have the same <code>sys.modules</code> which causes this behaviour:</p>
 <div id="5c203ac0" class="cell">
-<div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">shell <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1">shell <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> CaptureShell()</span>
 <span id="cb31-2">shell.run(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">"import sys; sys.modules['execnb.shell'].CaptureShell.foo"</span>)</span>
-<span id="cb31-3">shell.result</span></code></pre></div>
+<span id="cb31-3">shell.result</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>'bar'</code></pre>
 </div>
 </div>
 <p><code>exec</code> with empty <code>globals</code> and <code>locals</code> uses the same <code>sys.modules</code> too so it doesn’t avoid the issue:</p>
 <div id="0297cddf" class="cell">
-<div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><span class="bu" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">exec</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"import sys; print('execnb.shell' in sys.modules)"</span>, {}, {})</span></code></pre></div>
+font-style: inherit;">"import sys; print('execnb.shell' in sys.modules)"</span>, {}, {})</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>True</code></pre>
 </div>
 </div>
 <div id="3c8af7e9" class="cell">
-<div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><span class="bu" style="color: null;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">exec</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">"from execnb.shell import CaptureShell; print(CaptureShell.foo)"</span>, {}, {})</span></code></pre></div>
+font-style: inherit;">"from execnb.shell import CaptureShell; print(CaptureShell.foo)"</span>, {}, {})</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>bar</code></pre>
 </div>
 </div>
 <hr>
 <p>In the end, we agreed that the test itself was broken, because it made assumptions about its environment without ensuring that they were true. Tests like this may fail - regardless of the above behaviour - if we import any module that registers a callback. For example, this fails too:</p>
-<div class="sourceCode" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb37" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> fastai.callback.progress <span class="im" style="color: #00769E;
 background-color: null;
@@ -982,7 +1060,7 @@ font-style: inherit;">import</span> test_nb</span>
 <span id="cb37-3"></span>
 <span id="cb37-4">test_nb(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'nbs/nb_with_failing_test.ipynb'</span>)</span></code></pre></div>
+font-style: inherit;">'nbs/nb_with_failing_test.ipynb'</span>)</span></code></pre></div></div>
 <p>The fix is to explicitly run <code>learner.fit</code> with the precise list of callbacks required.</p>
 
 
@@ -1013,7 +1091,7 @@ font-style: inherit;">'nbs/nb_with_failing_test.ipynb'</span>)</span></code></pr
 </div>
 <p>This notebook defines and exports a lightweight command line tool that updates union annotations in notebooks from the fastai tuple style (<code>x:(int,str)</code>) to the Python 3.10 union operator (<code>x:int|str</code>), using the <a href="https://docs.python.org/3/library/ast.html"><code>ast</code></a> standard library, and developed with <a href="https://github.com/fastai/nbdev"><code>nbdev</code></a>.</p>
 <p>::: {#85b7db48 .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> ast</span>
 <span id="cb1-2"><span class="im" style="color: #00769E;
@@ -1023,17 +1101,17 @@ font-style: inherit;">import</span> sys</span>
 background-color: null;
 font-style: inherit;">from</span> execnb.nbio <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> read_nb, write_nb</span></code></pre></div>
+font-style: inherit;">import</span> read_nb, write_nb</span></code></pre></div></div>
 <p>:::</p>
 <div id="283023cf" class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> fastcore.test <span class="im" style="color: #00769E;
 background-color: null;
-font-style: inherit;">import</span> test_eq</span></code></pre></div>
+font-style: inherit;">import</span> test_eq</span></code></pre></div></div>
 </div>
 <p>::: {#2e20197a .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> tuple2bitor(annot):</span>
@@ -1077,10 +1155,10 @@ font-style: inherit;">return</span> ast.unparse(tuple2bitor(annot)).replace(<spa
 background-color: null;
 font-style: inherit;">' '</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">''</span>)</span></code></pre></div>
+font-style: inherit;">''</span>)</span></code></pre></div></div>
 <p>:::</p>
 <div id="850c90a2" class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">a <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">a <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> ast.Tuple([ast.Name(<span class="bu" style="color: null;
 background-color: null;
@@ -1104,10 +1182,10 @@ background-color: null;
 font-style: inherit;">'(int, str, float)'</span>)</span>
 <span id="cb4-3">test_eq(tuple2bitorstr(a),<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'int|str|float'</span>)</span></code></pre></div>
+font-style: inherit;">'int|str|float'</span>)</span></code></pre></div></div>
 </div>
 <p>::: {#938e7d41 .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> split_parts(source, node):</span>
@@ -1167,10 +1245,10 @@ font-style: inherit;">+</span>lines[l<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span><span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">1</span>:])</span></code></pre></div>
+font-style: inherit;">1</span>:])</span></code></pre></div></div>
 <p>:::</p>
 <div id="f75a3180" class="cell">
-<div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">s <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1">s <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -1222,10 +1300,10 @@ font-style: inherit;">    y=5</span><span class="ch" style="color: #20794D;
 background-color: null;
 font-style: inherit;">\n</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">): pass'</span>))</span></code></pre></div>
+font-style: inherit;">): pass'</span>))</span></code></pre></div></div>
 </div>
 <p>::: {#97788e4e .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> replace_node(source, node, repl):</span>
@@ -1246,10 +1324,10 @@ font-style: inherit;">+</span> repl <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">+</span> parts[<span class="dv" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">2</span>]</span></code></pre></div>
+font-style: inherit;">2</span>]</span></code></pre></div></div>
 <p>:::</p>
 <div id="e8eef721" class="cell">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">test_eq(replace_node(s, a, tuple2bitorstr(a)), <span class="st" style="color: #20794D;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">test_eq(replace_node(s, a, tuple2bitorstr(a)), <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'</span><span class="ch" style="color: #20794D;
 background-color: null;
@@ -1267,10 +1345,10 @@ font-style: inherit;">    y=5</span><span class="ch" style="color: #20794D;
 background-color: null;
 font-style: inherit;">\n</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">): pass'</span>)</span></code></pre></div>
+font-style: inherit;">): pass'</span>)</span></code></pre></div></div>
 </div>
 <p>::: {#373ffcf2 .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> fix_tuple_annots(source):</span>
@@ -1322,10 +1400,10 @@ font-weight: bold;
 font-style: inherit;">return</span> source</span>
 <span id="cb9-7">        source <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> replace_node(source, a, tuple2bitorstr(a))</span></code></pre></div>
+font-style: inherit;">=</span> replace_node(source, a, tuple2bitorstr(a))</span></code></pre></div></div>
 <p>:::</p>
 <div id="a708c5a6" class="cell">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">s <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">s <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
@@ -1417,10 +1495,10 @@ background-color: null;
 font-style: inherit;">    return x._do_crop_pad(sz, tl, orig_sz=orig_sz, pad_mode=pad_mode, resize_mode=resize_mode, resize_to=resize_to)</span></span>
 <span id="cb10-31"><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'''</span>)</span></code></pre></div>
+font-style: inherit;">'''</span>)</span></code></pre></div></div>
 </div>
 <p>::: {#4d7c66ca .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> fix_nb_tuple_annots(nb):</span>
@@ -1448,10 +1526,10 @@ background-color: null;
 font-style: inherit;">SyntaxError</span>: <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">pass</span></span></code></pre></div>
+font-style: inherit;">pass</span></span></code></pre></div></div>
 <p>:::</p>
 <p>::: {#a230fa3b .cell 0=‘e’ 1=‘x’ 2=‘p’ 3=‘o’ 4=‘r’ 5=‘t’}</p>
-<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> fastcore.script <span class="im" style="color: #00769E;
 background-color: null;
@@ -1499,7 +1577,7 @@ font-style: inherit;">'^[_.]'</span>):</span>
 background-color: null;
 font-style: inherit;">=</span> read_nb(f)</span>
 <span id="cb12-9">        fix_nb_tuple_annots(nb)</span>
-<span id="cb12-10">        write_nb(nb, f)</span></code></pre></div>
+<span id="cb12-10">        write_nb(nb, f)</span></code></pre></div></div>
 <p>:::</p>
 
 
@@ -1554,6 +1632,161 @@ requires = [
   <pubDate>Mon, 04 Jul 2022 00:00:00 GMT</pubDate>
 </item>
 <item>
+  <title>Creating a minimal custom Jupyter widget</title>
+  <link>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</link>
+  <description><![CDATA[ 
+
+
+
+
+<p>I couldn’t find a super minimal example of implementing a custom Jupyter widget, so here it is. This is based on Pierre Marion’s <a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder"><em>Binder Repo for Hello World Jupyter Widget</em></a>.</p>
+<div id="7e052724" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> ipywidgets <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">as</span> widgets</span>
+<span id="cb1-2"><span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">from</span> traitlets <span class="im" style="color: #00769E;
+background-color: null;
+font-style: inherit;">import</span> Unicode, validate</span>
+<span id="cb1-3"></span>
+<span id="cb1-4"></span>
+<span id="cb1-5"><span class="kw" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">class</span> HelloWidget(widgets.DOMWidget):</span>
+<span id="cb1-6">    _view_name <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Unicode(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'HelloView'</span>).tag(sync<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb1-7">    _view_module <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Unicode(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'hello'</span>).tag(sync<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb1-8">    _view_module_version <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Unicode(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'0.1.0'</span>).tag(sync<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span>
+<span id="cb1-9">    value <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> Unicode(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'Hello World!'</span>).tag(sync<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span><span class="va" style="color: #111111;
+background-color: null;
+font-style: inherit;">True</span>)</span></code></pre></div></div>
+</div>
+<div id="ab039400" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">%%</span>javascript</span>
+<span id="cb2-2">require.undef(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'hello'</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb2-3"></span>
+<span id="cb2-4">define(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'hello'</span>, [<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"@jupyter-widgets/base"</span>], function(widgets) {</span>
+<span id="cb2-5"></span>
+<span id="cb2-6">    var HelloView <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> widgets.DOMWidgetView.extend({</span>
+<span id="cb2-7"></span>
+<span id="cb2-8">        render: function() { </span>
+<span id="cb2-9">            this.el.textContent <span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">=</span> this.model.get(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">'value'</span>)<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span> </span>
+<span id="cb2-10">        },</span>
+<span id="cb2-11">    })<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb2-12"></span>
+<span id="cb2-13">    <span class="cf" style="color: #003B4F;
+background-color: null;
+font-weight: bold;
+font-style: inherit;">return</span> {</span>
+<span id="cb2-14">        HelloView : HelloView</span>
+<span id="cb2-15">    }<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span>
+<span id="cb2-16">})<span class="op" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">;</span></span></code></pre></div></div>
+<div class="cell-output cell-output-display">
+<script type="application/javascript">
+require.undef('hello');
+
+define('hello', ["@jupyter-widgets/base"], function(widgets) {
+
+    var HelloView = widgets.DOMWidgetView.extend({
+
+        render: function() { 
+            this.el.textContent = this.model.get('value'); 
+        },
+    });
+
+    return {
+        HelloView : HelloView
+    };
+});
+
+</script>
+</div>
+</div>
+<div id="1b55d278" class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">HelloWidget()</span></code></pre></div></div>
+<div class="cell-output cell-output-display">
+<script type="application/vnd.jupyter.widget-view+json">
+{"model_id":"d90cd88266104b9d82e44ddfaf404407","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
+</script>
+</div>
+</div>
+<section id="further-reading" class="level2">
+<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
+<p>Here are some great articles that I referenced while exploring this topic:</p>
+<ul>
+<li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
+<li><a href="https://blog.jupyter.org/authoring-custom-jupyter-widgets-2884a462e724">Authoring Custom Jupyter Widgets: A Hands-On Guide</a></li>
+<li><a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Custom.html">ipywidgets Official Documentation: Building a Custom Widget - Email widget</a></li>
+<li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
+<li><a href="https://jakevdp.github.io/blog/2013/06/01/ipython-notebook-javascript-python-communication/">IPython Notebook: Javascript/Python Bi-directional Communication</a>. I think this may have been the birth of ipywidgets!</li>
+</ul>
+
+
+</section>
+
+ ]]></description>
+  <category>notebooks</category>
+  <guid>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</guid>
+  <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
+</item>
+<item>
   <title>Point and click directory navigation inside a Jupyter notebook</title>
   <link>https://wasimlorgat.com/tils/point-and-click-directory-navigation-inside-a-jupyter-notebook.html</link>
   <description><![CDATA[ 
@@ -1565,8 +1798,8 @@ requires = [
 <section id="tldr" class="level2">
 <h2 class="anchored" data-anchor-id="tldr">TL;DR</h2>
 <p>If all you need is a copy-pastable code snippet, here you go. Read on for a more in-depth description.</p>
-<div id="d1642696" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div id="d1642696" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> base64 <span class="im" style="color: #00769E;
 background-color: null;
@@ -1740,14 +1973,14 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> Box(buttons, layout<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span>box_layout)</span></code></pre></div>
+font-style: inherit;">=</span>box_layout)</span></code></pre></div></div>
 </div>
 </section>
 <section id="minimal-implementation" class="level2">
 <h2 class="anchored" data-anchor-id="minimal-implementation">Minimal implementation</h2>
 <p>We start by defining a function to create and execute a code cell below the focused cell (see <a href="../tils/create-and-execute-cells-inside-a-jupyter-notebook.html">my previous TIL</a> if you’d like more detail on this part):</p>
-<div id="585a1a8a" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
+<div id="585a1a8a" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> create_code_cell(code):</span>
@@ -1777,11 +2010,11 @@ background-color: null;
 font-style: inherit;">        code.focus_cell()</span></span>
 <span id="cb2-8"><span class="ss" style="color: #20794D;
 background-color: null;
-font-style: inherit;">    """</span>))</span></code></pre></div>
+font-style: inherit;">    """</span>))</span></code></pre></div></div>
 </div>
 <p>We’re going to be using button widgets, which expect an on-click callback, so let’s define those next. The callback is expected to be a function accepting a single argument, <code>button</code>, to which the button object itself is passed - although we won’t be using it. We need to know the path that was clicked on as well, so we’ll have to <code>partial</code> that in later:</p>
-<div id="e57714b3" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
+<div id="e57714b3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> on_click_dir(path, button): create_code_cell(<span class="ss" style="color: #20794D;
@@ -1804,15 +2037,15 @@ font-style: inherit;">{</span>path<span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">}</span><span class="ss" style="color: #20794D;
 background-color: null;
-font-style: inherit;">')"</span>)</span></code></pre></div>
+font-style: inherit;">')"</span>)</span></code></pre></div></div>
 </div>
 <p>Test if it works:</p>
-<div id="5e70bd3b" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">on_click_file(Path(<span class="st" style="color: #20794D;
+<div id="5e70bd3b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">on_click_file(Path(<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb'</span>), <span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">None</span>)</span></code></pre></div>
+font-style: inherit;">None</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <script type="application/javascript">
 
@@ -1824,18 +2057,18 @@ font-style: inherit;">None</span>)</span></code></pre></div>
 </script>
 </div>
 </div>
-<div id="eb304102" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">Path(<span class="st" style="color: #20794D;
+<div id="eb304102" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">Path(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb'</span>)</span></code></pre></div>
+font-style: inherit;">'point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>PosixPath('point-and-click-directory-navigation-inside-a-jupyter-notebook.ipynb')</code></pre>
 </div>
 </div>
 <p>Neat! The cell above this was created by calling <code>on_click_file</code>.</p>
 <p>Finally, we implement a straightforward minimal <code>ls</code> function using <code>Button</code> widgets for <code>Path</code>s, and wrapping those in a <code>VBox</code> widget:</p>
-<div id="428247d4" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
+<div id="428247d4" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> ipywidgets <span class="im" style="color: #00769E;
 background-color: null;
@@ -1900,14 +2133,14 @@ font-style: inherit;">else</span> on_click_file, path))</span>
 <span id="cb7-12">    <span class="cf" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
-font-style: inherit;">return</span> VBox(buttons)</span></code></pre></div>
+font-style: inherit;">return</span> VBox(buttons)</span></code></pre></div></div>
 </div>
 </section>
 <section id="improved-styling" class="level2">
 <h2 class="anchored" data-anchor-id="improved-styling">Improved styling</h2>
 <p>I don’t like how the implementation above is styled, so here is another with a few purely stylistic improvements:</p>
-<div id="29a177c1" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
+<div id="29a177c1" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">def</span> ls(root<span class="op" style="color: #5E5E5E;
@@ -2001,12 +2234,12 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">return</span> Box(buttons, layout<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span>box_layout)</span></code></pre></div>
+font-style: inherit;">=</span>box_layout)</span></code></pre></div></div>
 </div>
-<div id="2c1adb10" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">ls(<span class="st" style="color: #20794D;
+<div id="2c1adb10" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1">ls(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'~/code/fastai'</span>)</span></code></pre></div>
+font-style: inherit;">'~/code/fastai'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <script type="application/vnd.jupyter.widget-view+json">
 {"model_id":"169fb41e3a56421dba0169a52f8d35f4","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
@@ -2026,161 +2259,6 @@ font-style: inherit;">'~/code/fastai'</span>)</span></code></pre></div>
   <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
 </item>
 <item>
-  <title>Creating a minimal custom Jupyter widget</title>
-  <link>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</link>
-  <description><![CDATA[ 
-
-
-
-
-<p>I couldn’t find a super minimal example of implementing a custom Jupyter widget, so here it is. This is based on Pierre Marion’s <a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder"><em>Binder Repo for Hello World Jupyter Widget</em></a>.</p>
-<div id="7e052724" class="cell">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> ipywidgets <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">as</span> widgets</span>
-<span id="cb1-2"><span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">from</span> traitlets <span class="im" style="color: #00769E;
-background-color: null;
-font-style: inherit;">import</span> Unicode, validate</span>
-<span id="cb1-3"></span>
-<span id="cb1-4"></span>
-<span id="cb1-5"><span class="kw" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">class</span> HelloWidget(widgets.DOMWidget):</span>
-<span id="cb1-6">    _view_name <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Unicode(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'HelloView'</span>).tag(sync<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>)</span>
-<span id="cb1-7">    _view_module <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Unicode(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'hello'</span>).tag(sync<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>)</span>
-<span id="cb1-8">    _view_module_version <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Unicode(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'0.1.0'</span>).tag(sync<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>)</span>
-<span id="cb1-9">    value <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> Unicode(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'Hello World!'</span>).tag(sync<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span><span class="va" style="color: #111111;
-background-color: null;
-font-style: inherit;">True</span>)</span></code></pre></div>
-</div>
-<div id="ab039400" class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">%%</span>javascript</span>
-<span id="cb2-2">require.undef(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'hello'</span>)<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span></span>
-<span id="cb2-3"></span>
-<span id="cb2-4">define(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'hello'</span>, [<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">"@jupyter-widgets/base"</span>], function(widgets) {</span>
-<span id="cb2-5"></span>
-<span id="cb2-6">    var HelloView <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> widgets.DOMWidgetView.extend({</span>
-<span id="cb2-7"></span>
-<span id="cb2-8">        render: function() { </span>
-<span id="cb2-9">            this.el.textContent <span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">=</span> this.model.get(<span class="st" style="color: #20794D;
-background-color: null;
-font-style: inherit;">'value'</span>)<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span> </span>
-<span id="cb2-10">        },</span>
-<span id="cb2-11">    })<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span></span>
-<span id="cb2-12"></span>
-<span id="cb2-13">    <span class="cf" style="color: #003B4F;
-background-color: null;
-font-weight: bold;
-font-style: inherit;">return</span> {</span>
-<span id="cb2-14">        HelloView : HelloView</span>
-<span id="cb2-15">    }<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span></span>
-<span id="cb2-16">})<span class="op" style="color: #5E5E5E;
-background-color: null;
-font-style: inherit;">;</span></span></code></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/javascript">
-require.undef('hello');
-
-define('hello', ["@jupyter-widgets/base"], function(widgets) {
-
-    var HelloView = widgets.DOMWidgetView.extend({
-
-        render: function() { 
-            this.el.textContent = this.model.get('value'); 
-        },
-    });
-
-    return {
-        HelloView : HelloView
-    };
-});
-
-</script>
-</div>
-</div>
-<div id="1b55d278" class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">HelloWidget()</span></code></pre></div>
-<div class="cell-output cell-output-display">
-<script type="application/vnd.jupyter.widget-view+json">
-{"model_id":"d90cd88266104b9d82e44ddfaf404407","version_major":2,"version_minor":0,"quarto_mimetype":"application/vnd.jupyter.widget-view+json"}
-</script>
-</div>
-</div>
-<section id="further-reading" class="level2">
-<h2 class="anchored" data-anchor-id="further-reading">Further reading</h2>
-<p>Here are some great articles that I referenced while exploring this topic:</p>
-<ul>
-<li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
-<li><a href="https://blog.jupyter.org/authoring-custom-jupyter-widgets-2884a462e724">Authoring Custom Jupyter Widgets: A Hands-On Guide</a></li>
-<li><a href="https://ipywidgets.readthedocs.io/en/latest/examples/Widget%20Custom.html">ipywidgets Official Documentation: Building a Custom Widget - Email widget</a></li>
-<li><a href="https://github.com/PierreMarion23/jupyter-widget-hello-world-binder">Binder Repo for Hello World Jupyter Widget</a></li>
-<li><a href="https://jakevdp.github.io/blog/2013/06/01/ipython-notebook-javascript-python-communication/">IPython Notebook: Javascript/Python Bi-directional Communication</a>. I think this may have been the birth of ipywidgets!</li>
-</ul>
-
-
-</section>
-
- ]]></description>
-  <category>notebooks</category>
-  <guid>https://wasimlorgat.com/tils/creating-a-minimal-custom-jupyter-widget.html</guid>
-  <pubDate>Thu, 23 Jun 2022 00:00:00 GMT</pubDate>
-</item>
-<item>
   <title>Create and execute cells inside a Jupyter notebook</title>
   <link>https://wasimlorgat.com/tils/create-and-execute-cells-inside-a-jupyter-notebook.html</link>
   <description><![CDATA[ 
@@ -2195,7 +2273,7 @@ define('hello', ["@jupyter-widgets/base"], function(widgets) {
 <i class="callout-icon"></i>
 </div>
 <div class="callout-title-container flex-fill">
-Update (2022-06-23)
+<span class="screen-reader-only">Note</span>Update (2022-06-23)
 </div>
 </div>
 <div class="callout-body-container callout-body">
@@ -2203,8 +2281,8 @@ Update (2022-06-23)
 </div>
 </div>
 <p>I found <a href="https://nbviewer.org/gist/fperez/0fb77c5faea8996208a7/NewCodeCellWidget.ipynb">this amazing gist</a> by <a href="http://fperez.org/">Fernando Perez</a> (originally by Jonathan Frederic, see the gist for more links) which enables this pattern! It turns out that IPython makes this pretty straightforward. You directly execute JavaScript code against the <code>IPython</code> API that creates a code cell, sets the text of the cell (which must be base64 encoded), then executes it:</p>
-<div id="121f7c34" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
+<div id="121f7c34" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> base64</span>
 <span id="cb1-2"><span class="im" style="color: #00769E;
@@ -2252,7 +2330,7 @@ font-style: inherit;">        code.execute();</span></span>
 background-color: null;
 font-style: inherit;">    '''</span>))</span>
 <span id="cb1-13"></span>
-<span id="cb1-14">create_code_cell()</span></code></pre></div>
+<span id="cb1-14">create_code_cell()</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <script type="application/javascript">
 
@@ -2263,12 +2341,12 @@ font-style: inherit;">    '''</span>))</span>
 </script>
 </div>
 </div>
-<div id="be26462b" class="cell" data-vscode="{&quot;languageId&quot;:&quot;python&quot;}">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="bu" style="color: null;
+<div id="be26462b" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;vscode&quot;,&quot;value&quot;:{&quot;languageId&quot;:&quot;python&quot;}}">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="bu" style="color: null;
 background-color: null;
 font-style: inherit;">print</span>(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'Hello world!'</span>)</span></code></pre></div>
+font-style: inherit;">'Hello world!'</span>)</span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Hello world!</code></pre>
 </div>
@@ -2302,7 +2380,7 @@ font-style: inherit;">'Hello world!'</span>)</span></code></pre></div>
 <h2 class="anchored" data-anchor-id="reconfigure-your-archives">Reconfigure your archives</h2>
 <p>Start by renaming <code>archives.html</code> to <code>posts/index.html</code> (relative to your theme’s <code>templates</code> directory).</p>
 <p>Edit the loop over <code>dates</code> in <code>posts/index.html</code> to exclude articles tagged <code>til</code>:</p>
-<div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1">{<span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1">{<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">%</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -2325,27 +2403,27 @@ font-style: inherit;">in</span> article.tags<span class="op" style="color: #5E5E
 background-color: null;
 font-style: inherit;">|</span>default([]) <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">%</span>}</span></code></pre></div>
+font-style: inherit;">%</span>}</span></code></pre></div></div>
 <p>Add the new path to <code>DIRECT_TEMPLATES</code>, the corresponding line of my <code>pelicanconf.py</code> now looks like:</p>
-<div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">DIRECT_TEMPLATES <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1">DIRECT_TEMPLATES <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'index'</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'posts/index'</span>]</span></code></pre></div>
+font-style: inherit;">'posts/index'</span>]</span></code></pre></div></div>
 <p>… because I don’t have tag or category pages yet. Disable the original archives page:</p>
-<div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">ARCHIVES_SAVE_AS <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1">ARCHIVES_SAVE_AS <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">''</span></span></code></pre></div>
+font-style: inherit;">''</span></span></code></pre></div></div>
 <p>It should be working as it was before, but we’re now able to add a few more listings in the same way!</p>
 </section>
 <section id="create-the-tils-listing" class="level2">
 <h2 class="anchored" data-anchor-id="create-the-tils-listing">Create the TILs listing</h2>
 <p>Copy <code>posts/index.html</code> to <code>tils/index.html</code>, and edit the for loop to <em>only include</em> articles tagged <code>til</code> (note that the <code>not</code> from before is missing):</p>
-<div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">{<span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">{<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">%</span> <span class="cf" style="color: #003B4F;
 background-color: null;
@@ -2365,9 +2443,9 @@ font-style: inherit;">in</span> article.tags<span class="op" style="color: #5E5E
 background-color: null;
 font-style: inherit;">|</span>default([]) <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">%</span>}</span></code></pre></div>
+font-style: inherit;">%</span>}</span></code></pre></div></div>
 <p>Add the new path to <code>DIRECT_TEMPLATES</code> in your <code>pelicanconf.py</code>:</p>
-<div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">DIRECT_TEMPLATES <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1">DIRECT_TEMPLATES <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> [<span class="st" style="color: #20794D;
 background-color: null;
@@ -2375,9 +2453,9 @@ font-style: inherit;">'index'</span>, <span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">'posts/index'</span>, <span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'tils/index'</span>]</span></code></pre></div>
+font-style: inherit;">'tils/index'</span>]</span></code></pre></div></div>
 <p>You probably also want to link to the listing from your nav bar. For my theme, that’s done by adding a line to the <code>&lt;nav&gt;</code> tag in my <code>base.html</code> template:</p>
-<div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb6-1"><span class="dt" style="color: #AD0000;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6" style="background: #f1f3f5;"><pre class="sourceCode html code-with-copy"><code class="sourceCode html"><span id="cb6-1"><span class="dt" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">&lt;</span><span class="kw" style="color: #003B4F;
 background-color: null;
@@ -2397,13 +2475,13 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">a</span><span class="dt" style="color: #AD0000;
 background-color: null;
-font-style: inherit;">&gt;</span></span></code></pre></div>
+font-style: inherit;">&gt;</span></span></code></pre></div></div>
 </section>
 <section id="hack-article-urls" class="level2">
 <h2 class="anchored" data-anchor-id="hack-article-urls">Hack article URLs</h2>
 <p>This is my favourite part! At this point, you should have two working listings, but TIL article URLs will be the same as any other article. Pelican determines the URL and output location of an article by calling <code>format</code> with the article’s metadata on strings <code>ARTICLE_URL</code> and <code>ARTICLE_SAVE_AS</code>. That means we can implement a tiny string class with a custom <code>format</code> to dynamically set the URL of TILs to <code>tils/{slug}</code> and of posts to <code>posts/{slug}</code>!</p>
 <p>Simply include the following in your <code>pelicanconf.py</code>:</p>
-<div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="kw" style="color: #003B4F;
 background-color: null;
 font-weight: bold;
 font-style: inherit;">class</span> ArticleUrl(<span class="bu" style="color: null;
@@ -2465,17 +2543,17 @@ font-style: inherit;">'</span><span class="sc" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">{slug}</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">/index.html'</span>)</span></code></pre></div>
+font-style: inherit;">/index.html'</span>)</span></code></pre></div></div>
 </section>
 <section id="update-invoke-task" class="level2">
 <h2 class="anchored" data-anchor-id="update-invoke-task">Update invoke task</h2>
 <p>If you’re using live reload via the <code>invoke livereload</code> task, you’ll need to update your task definition to include nested HTML files in your theme:</p>
-<div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode diff code-with-copy"><code class="sourceCode diff"><span id="cb8-1"><span class="st" style="color: #20794D;
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode diff code-with-copy"><code class="sourceCode diff"><span id="cb8-1"><span class="st" style="color: #20794D;
 background-color: null;
 font-style: inherit;">-    server.watch('{}/templates/*.html'.format(theme_path), lambda: build(c))</span></span>
 <span id="cb8-2"><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">+    server.watch('{}/templates/**/*.html'.format(theme_path), lambda: build(c))</span></span></code></pre></div>
+font-style: inherit;">+    server.watch('{}/templates/**/*.html'.format(theme_path), lambda: build(c))</span></span></code></pre></div></div>
 
 
 </section>
@@ -2514,7 +2592,7 @@ font-style: inherit;">+    server.watch('{}/templates/**/*.html'.format(theme_pa
 <h2 class="anchored" data-anchor-id="setup">Setup</h2>
 <p>Start by setting <code>root</code> to the directory of your Pelican website. If you don’t yet have a website, follow <a href="https://docs.getpelican.com/en/latest/quickstart.html">Pelican’s informative documentation</a> to get started:</p>
 <div id="c87a3a7b" class="cell">
-<div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> pathlib <span class="im" style="color: #00769E;
 background-color: null;
@@ -2524,11 +2602,11 @@ font-style: inherit;">import</span> Path</span>
 background-color: null;
 font-style: inherit;">=</span> Path(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'..'</span>)</span></code></pre></div>
+font-style: inherit;">'..'</span>)</span></code></pre></div></div>
 </div>
 <p>Now we can load our <code>pelicanconf.py</code> settings file. Pelican provides a function for this which handles details like applying defaults:</p>
 <div id="614ef1d8" class="cell">
-<div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> pelican.settings <span class="im" style="color: #00769E;
 background-color: null;
@@ -2540,20 +2618,20 @@ font-style: inherit;">=</span> read_settings(root<span class="op" style="color: 
 background-color: null;
 font-style: inherit;">/</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'pelicanconf.py'</span>)</span></code></pre></div>
+font-style: inherit;">'pelicanconf.py'</span>)</span></code></pre></div></div>
 </div>
 <p>Let’s create a quick blog post for testing. I prefer to write more technical blog posts in Jupyter notebooks but we’ll use markdown here since Pelican supports it natively.</p>
 <div id="5925cbed" class="cell">
-<div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">post_filepath <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1">post_filepath <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> root<span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">/</span><span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'content/2022-06-20-hello-pelican.md'</span></span></code></pre></div>
+font-style: inherit;">'content/2022-06-20-hello-pelican.md'</span></span></code></pre></div></div>
 </div>
 <div id="205d5022" class="cell">
-<div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">%%</span>writefile {post_filepath}</span>
 <span id="cb5-2">Title: Hello Pelican</span>
@@ -2586,7 +2664,7 @@ background-color: null;
 font-weight: bold;
 font-style: inherit;">and</span> welcome to our markdown blog post<span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">!</span></span></code></pre></div>
+font-style: inherit;">!</span></span></code></pre></div></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Writing ../content/2022-06-20-hello-pelican.md</code></pre>
 </div>
@@ -2596,7 +2674,7 @@ font-style: inherit;">!</span></span></code></pre></div>
 <h2 class="anchored" data-anchor-id="reader"><code>Reader</code></h2>
 <p>We’ll start by instantiating a <code>MarkdownReader</code> to read our blog post. We’re using a <code>MarkdownReader</code> because we wrote the post in markdown, but Pelican also provides <code>HTMLReader</code> and <code>RstReader</code> if you prefer those formats.</p>
 <div id="def5e55a" class="cell">
-<div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> pelican.readers <span class="im" style="color: #00769E;
 background-color: null;
@@ -2604,22 +2682,22 @@ font-style: inherit;">import</span> MarkdownReader</span>
 <span id="cb7-2"></span>
 <span id="cb7-3">reader <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> MarkdownReader(settings)</span></code></pre></div>
+font-style: inherit;">=</span> MarkdownReader(settings)</span></code></pre></div></div>
 </div>
 <p>The most important part of a <code>Reader</code> is its <code>read</code> method which accepts a file path and returns the contents of the file in HTML format along with metadata about the file:</p>
 <div id="750dd968" class="cell">
-<div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">content, metadata <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1">content, metadata <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> reader.read(post_filepath)</span></code></pre></div>
+font-style: inherit;">=</span> reader.read(post_filepath)</span></code></pre></div></div>
 </div>
 <p>… <code>content</code> is a string containing the blog post content converted to HTML. Since this was written in a notebook, we can use an <code>IPython</code> function to render it directly!</p>
 <div id="772f7dbf" class="cell">
-<div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> IPython.core.display <span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> HTML</span>
-<span id="cb9-2">HTML(content)</span></code></pre></div>
+<span id="cb9-2">HTML(content)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <h2 id="welcome" class="anchored">Welcome</h2>
 <p>Hello and welcome to our markdown blog post!</p>
@@ -2627,7 +2705,7 @@ font-style: inherit;">import</span> HTML</span>
 </div>
 <p>… and <code>metadata</code> is a dictionary that describes the file:</p>
 <div id="ea6bbbf5" class="cell">
-<div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">metadata</span></code></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1">metadata</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 <pre><code>{'title': 'Hello Pelican',
  'slug': 'hello-pelican',
@@ -2649,7 +2727,7 @@ font-style: inherit;">import</span> HTML</span>
 </ol>
 <p>We can implement this search order using a <code>FileSystemLoader</code>, housed in an <code>Environment</code> for convenience:</p>
 <div id="90dcc6f9" class="cell">
-<div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> pelican</span>
 <span id="cb12-2"><span class="im" style="color: #00769E;
@@ -2699,19 +2777,19 @@ font-style: inherit;">=</span>FileSystemLoader(template_paths),</span>
 background-color: null;
 font-style: inherit;">**</span>settings[<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'JINJA_ENVIRONMENT'</span>])</span></code></pre></div>
+font-style: inherit;">'JINJA_ENVIRONMENT'</span>])</span></code></pre></div></div>
 </div>
 <p>Now we can get the <em>article</em> template:</p>
 <div id="26c5a7f8" class="cell">
-<div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">template <span class="op" style="color: #5E5E5E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1">template <span class="op" style="color: #5E5E5E;
 background-color: null;
 font-style: inherit;">=</span> env.get_template(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'article.html'</span>)</span></code></pre></div>
+font-style: inherit;">'article.html'</span>)</span></code></pre></div></div>
 </div>
 <p>The last step of preparation is to create the <code>context</code> dictionary that’s passed through to the <code>Template</code> to render the article:</p>
 <div id="c51c40b9" class="cell">
-<div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> pelican.contents <span class="im" style="color: #00769E;
 background-color: null;
@@ -2740,11 +2818,11 @@ font-style: inherit;">: this is a workaround to support the readtime plugin that
 background-color: null;
 font-style: inherit;">'article'</span>] <span class="op" style="color: #5E5E5E;
 background-color: null;
-font-style: inherit;">=</span> article</span></code></pre></div>
+font-style: inherit;">=</span> article</span></code></pre></div></div>
 </div>
 <p>And now we can write the final result!</p>
 <div id="665869e9" class="cell">
-<div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">from</span> pelican.writers <span class="im" style="color: #00769E;
 background-color: null;
@@ -2762,11 +2840,11 @@ background-color: null;
 font-style: inherit;">=</span> Writer(output_dir, settings)</span>
 <span id="cb15-5">writer.write_file(Path(post_filepath.name).with_suffix(<span class="st" style="color: #20794D;
 background-color: null;
-font-style: inherit;">'.html'</span>), template, context)</span></code></pre></div>
+font-style: inherit;">'.html'</span>), template, context)</span></code></pre></div></div>
 </div>
 <p>Let’s read it back in and see what it looks like. We’ll extract only the body using a simple regex - I’d usually recommend considering <a href="https://beautiful-soup-4.readthedocs.io/en/latest/">Beautiful Soup</a> for parsing HTML but regex works fine for our case:</p>
 <div id="e0cadc5b" class="cell">
-<div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> re</span>
 <span id="cb16-2"></span>
@@ -2791,7 +2869,7 @@ background-color: null;
 font-style: inherit;">'&lt;body&gt;(.*?)&lt;/body&gt;'</span>, html, re.DOTALL)[<span class="dv" style="color: #AD0000;
 background-color: null;
 font-style: inherit;">0</span>].strip()</span>
-<span id="cb16-5">HTML(body)</span></code></pre></div>
+<span id="cb16-5">HTML(body)</span></code></pre></div></div>
 <div class="cell-output cell-output-display">
 
 
@@ -2813,7 +2891,7 @@ font-style: inherit;">0</span>].strip()</span>
 <p>The provided templates have added a navigation bar at the top, a title below that, as well as the publication date and estimated reading time. And that’s it, we’ve successfully rendered a blog post web page using Pelican’s low-level components!</p>
 <p>Before we end off, clean up the files we made along the way:</p>
 <div id="718011e4" class="cell">
-<div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><span class="im" style="color: #00769E;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17" style="background: #f1f3f5;"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><span class="im" style="color: #00769E;
 background-color: null;
 font-style: inherit;">import</span> shutil</span>
 <span id="cb17-2">shutil.rmtree(output_dir, ignore_errors<span class="op" style="color: #5E5E5E;
@@ -2825,7 +2903,7 @@ font-style: inherit;">True</span>)</span>
 background-color: null;
 font-style: inherit;">=</span><span class="va" style="color: #111111;
 background-color: null;
-font-style: inherit;">True</span>)</span></code></pre></div>
+font-style: inherit;">True</span>)</span></code></pre></div></div>
 </div>
 
 
