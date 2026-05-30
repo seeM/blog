@@ -2,11 +2,6 @@ project:
   type: website
   preview:
     port: 4200
-  resources:
-    - posts/notebook_best_practices.html
-    - posts/notebook-best-practices.html
-    # Can't remember what next line was for
-    # - "*.png"
 
 website:
   open-graph: true

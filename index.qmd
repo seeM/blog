@@ -1,7 +1,7 @@
 ---
 description: "A collection of technical blogs and talks on software engineering and machine learning."
 listing:
-  contents: [posts, posts.yml]
+  contents: [posts]
   sort: "date desc"
   categories: false
   type: table
